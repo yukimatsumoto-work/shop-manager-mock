@@ -185,10 +185,7 @@ body.dev-mobile .switcher select { width: 200px; }
 .drawer.show { display: flex; }
 
 /* ---------- frames ---------- */
-#pcFrame { display: none; width: 1288px; margin: var(--space-16) auto; }
-#phoneFrame { display: none; padding: var(--space-16) 0; }
-body.dev-pc #pcFrame { display: block; }
-body.dev-mobile #phoneFrame { display: block; }
+#phoneFrame { display: block; padding: var(--space-16) 0; }
 .phone {
   position: relative; width: 384px; margin: 0 auto; padding: 12px;
   background: var(--color-primary); border-radius: 36px;
@@ -264,7 +261,7 @@ body.dev-mobile #phoneFrame { display: block; }
 .vacancy { text-align: center; padding: var(--space-16); border-radius: var(--radius-12); background: var(--color-success-bg); color: var(--color-accent-dark); }
 .vacancy .big { color: var(--color-accent-dark); }
 
-/* ---------- PC ---------- */
+/* ---------- shared blocks ---------- */
 .pc-layout { display: grid; grid-template-columns: 216px 1fr; min-height: 820px; background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); overflow: hidden; position: relative; }
 .side { background: var(--color-primary); color: var(--color-white); padding: var(--space-16) 0; display: flex; flex-direction: column; gap: var(--space-4); }
 .side .brand { padding: 0 var(--space-16) var(--space-16); font-size: var(--fs-16); font-weight: 700; border-bottom: 1px solid var(--color-slate-700); margin-bottom: var(--space-8); }
@@ -352,17 +349,55 @@ table.dg.compact th, table.dg.compact td { padding-left: var(--space-8); padding
 dl.kv { display: grid; grid-template-columns: 120px 1fr; gap: var(--space-8) var(--space-12); margin: 0; }
 dl.kv dt { font-size: var(--fs-12); color: var(--color-slate-700); font-weight: 700; }
 dl.kv dd { margin: 0; }
+
+/* ---------- smartphone-only additions ---------- */
+.mkpis { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+.mkpis .kpi { padding: var(--space-12); }
+.mkpis .kpi .v { font-size: var(--fs-20); }
+.kvrow { display: flex; justify-content: space-between; gap: var(--space-8); font-size: var(--fs-14); }
+.kvrow span:first-child { color: var(--color-slate-700); font-size: var(--fs-12); }
+.hourlist li { display: flex; justify-content: space-between; align-items: center; min-height: 44px; border-bottom: 1px solid var(--color-slate-100); }
+.hourlist li:last-child { border-bottom: 0; }
+.checkrow { display: flex; align-items: center; gap: var(--space-12); min-height: 48px; border-bottom: 1px solid var(--color-slate-100); cursor: pointer; }
+.checkrow:last-child { border-bottom: 0; }
+.checkrow input { width: 24px; height: 24px; accent-color: var(--color-accent-dark); }
+.checkrow span + span:last-child { margin-left: auto; }
+.m-screen .overlay { position: absolute; }
+.m-screen .dialog { padding: var(--space-16); max-height: 100%; overflow-y: auto; }
+.m-screen dl.kv { grid-template-columns: 112px 1fr; }
+.drawer .pair .field { min-width: 0; }
+.drawer .input { width: 100%; }
+/* timeline on the phone: horizontal scroll, seat names stay */
+.mtl-wrap { flex: none; overflow-x: auto; border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); background: var(--color-white); }
+.mtl { display: grid; grid-template-columns: 104px 640px; width: 744px; }
+.mtl .hd { background: var(--color-slate-100); font-size: var(--fs-12); font-weight: 700; color: var(--color-slate-700); height: 32px; display: flex; align-items: center; padding: 0 var(--space-8); border-bottom: 1px solid var(--color-slate-200); }
+.mtl .hd.seathd { position: sticky; left: 0; z-index: 3; }
+.mtl .hours { display: grid; grid-template-columns: repeat(8, 80px); padding: 0; }
+.mtl .hours span { padding-left: var(--space-4); border-left: 1px solid var(--color-slate-200); height: 32px; display: flex; align-items: center; }
+.mtl .seatname { position: sticky; left: 0; z-index: 2; height: 56px; padding: 0 var(--space-8); display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid var(--color-slate-100); border-right: 1px solid var(--color-slate-200); background: var(--color-white); }
+.mtl .seatname strong { font-size: var(--fs-12); white-space: nowrap; }
+.mtl .seatname span { font-size: var(--fs-12); color: var(--color-slate-700); white-space: nowrap; }
+.mtl .seatname.group, .mtl .track.group { border-top: 2px solid var(--color-slate-200); }
+.mtl .track { position: relative; height: 56px; display: grid; grid-template-columns: repeat(16, 40px); border-bottom: 1px solid var(--color-slate-100); background: var(--color-white); }
+.mtl .track i { border-left: 1px solid var(--color-slate-100); }
+.mtl .track i:nth-child(odd) { border-left-color: var(--color-slate-200); }
+.mtl .nowline { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color-danger); z-index: 0; }
+.talk { display: flex; flex-direction: column; gap: var(--space-12); }
+.talk .time { text-align: center; font-size: var(--fs-12); color: var(--color-slate-700); }
+.bubble { background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-12); padding: var(--space-12); display: flex; flex-direction: column; gap: var(--space-8); }
+.bubble .from { font-size: var(--fs-12); font-weight: 700; color: var(--color-accent-dark); }
+.line-bg { background: var(--color-slate-100); }
+.who-list li { display: flex; justify-content: space-between; align-items: center; min-height: 44px; border-bottom: 1px solid var(--color-slate-100); }
+.who-list li:last-child { border-bottom: 0; }
+.purpose li { font-size: var(--fs-14); padding-left: var(--space-12); text-indent: calc(-1 * var(--space-12)); }
+[hidden] { display: none !important; }
 </style>
 </head>
-<body class="dev-pc">
+<body class="dev-mobile">
 
 <!-- preview switcher -->
 <div class="switcher" role="toolbar" aria-label="表示切替">
   <span class="title">会員制バー店舗管理 画面モック</span>
-  <div class="seg">
-    <button type="button" id="swPc" aria-pressed="true">🖥️ PC表示</button>
-    <button type="button" id="swMobile" aria-pressed="false">📱 スマホ表示</button>
-  </div>
   <select id="screenSelect" aria-label="画面を選ぶ"></select>
 </div>
 
@@ -390,7 +425,7 @@ dl.kv dd { margin: 0; }
           <button type="button" aria-current="page" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button>
           <button type="button" data-go="SCR-02"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>店内状況</button>
           <button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>確認</button>
-          <button type="button" data-go=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button>
+          <button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button>
         </nav>
       </section>
 
@@ -402,6 +437,8 @@ dl.kv dd { margin: 0; }
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
+          <div class="notice info" id="rcBanner">21:00 の予約（No.0145 M.S.・2名）の時刻です。来店したら受け付けて、席を使用中にしてください。</div>
+          <button type="button" class="btn block" id="rcOpen">来店を受け付ける</button>
           <h2>席（カウンター8席・BOX 2）</h2>
           <div class="card">
             <div class="row"><h3>カウンター</h3><span class="muted" id="ctrCount">空き 6 / 8 席</span></div>
@@ -436,6 +473,20 @@ dl.kv dd { margin: 0; }
               <li><span>さくら</span><span class="badge ok">出勤中</span></li>
               <li><span>ゆい</span><span class="badge">不在</span></li>
             </ul>
+          </div>
+        </div>
+        <div class="drawer" id="rcDrawer" role="dialog" aria-label="来店の受付">
+          <h2>来店を受け付ける</h2>
+          <div class="field"><label for="rcGuest">お客さん</label>
+            <select id="rcGuest" class="select"><option value="rsv">予約 21:00 No.0145 M.S.（2名）</option><option value="walk">当日来店（会員番号を入れる）</option></select></div>
+          <div class="pair">
+            <div class="field"><label for="rcNum">人数</label><select id="rcNum" class="select"><option>1名</option><option selected>2名</option><option>3名</option><option>4名</option></select></div>
+            <div class="field"><label for="rcSeat">席</label><select id="rcSeat" class="select"><option value="DE">カウンター D・E</option><option value="FG">カウンター F・G</option><option value="BOXB">BOX-B</option></select></div>
+          </div>
+          <p class="hint">受け付けた時刻が来店時刻になり、席が使用中になります。当日来店は、受け付けると案内・割り当ての候補が作られます。</p>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="rcDrawer">やめる</button>
+            <button type="button" class="btn" id="rcSave">受け付ける</button>
           </div>
         </div>
       </section>
@@ -563,7 +614,7 @@ dl.kv dd { margin: 0; }
           <span class="badge info role">キャスト</span>
         </div>
         <div class="m-body">
-          <p class="notice info">店内の QR コードを読み取りました。</p>
+          <p class="notice info" id="geoState">位置情報を確かめました: 店の近くにいます。</p>
           <div class="card">
             <p class="muted">現在時刻</p>
             <p class="clock" id="clock">19:58</p>
@@ -577,7 +628,8 @@ dl.kv dd { margin: 0; }
             <h3>今日の記録</h3>
             <p class="muted" id="todayLog">まだ登録がありません</p>
           </div>
-          <p class="hint">登録を間違えたときは管理者に連絡してください（修正は管理者が行います）。</p>
+          <p class="hint">位置情報は打刻のときだけ使い、「店の近くで確認済み」かどうかだけを記録します。</p>
+          <button type="button" class="btn secondary block" data-go="SCR-16">店の近くにいない・位置が取れないときは申請する</button>
         </div>
       </section>
 
@@ -640,6 +692,336 @@ dl.kv dd { margin: 0; }
         </div>
       </section>
 
+      <!-- SCR-10 混雑予想・追加出勤依頼 -->
+      <section data-screen="SCR-10" data-device="mobile" data-name="混雑予想・追加出勤依頼" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>混雑予想・補充</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="mkpis">
+            <div class="kpi"><p class="muted">出勤中のキャスト</p><p class="v">3名</p><p class="muted">不在 1名</p></div>
+            <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
+          </div>
+          <h2>混雑予想（1時間ごと）</h2>
+          <div class="card">
+            <ul class="hourlist">
+              <li><span>21時</span><span class="badge">ふつう</span></li>
+              <li><span><strong>22時</strong></span><span class="badge ng">混雑・補充が必要</span></li>
+              <li><span>23時</span><span class="badge warn">やや混雑</span></li>
+              <li><span>0時</span><span class="badge warn">やや混雑</span></li>
+              <li><span>1時</span><span class="badge">ふつう</span></li>
+              <li><span>2時</span><span class="badge">落ち着き</span></li>
+            </ul>
+          </div>
+          <p class="hint">予想の出し方と補充が必要と判断する基準は確認中です（表示は例）。</p>
+          <h2>追加出勤を依頼する</h2>
+          <div class="card">
+            <label class="checkrow"><input type="checkbox" data-ask value="ゆい" checked><span>ゆい</span><span class="badge">不在</span></label>
+            <label class="checkrow"><input type="checkbox" data-ask value="れな"><span>れな</span><span class="badge">休み</span></label>
+            <label class="checkrow"><input type="checkbox" data-ask value="まい"><span>まい</span><span class="badge">休み</span></label>
+          </div>
+          <button type="button" class="btn block" id="askBtn">選んだキャストに LINE で依頼する</button>
+          <p class="hint" id="askState">応答はこの画面に表示されます。</p>
+        </div>
+      </section>
+
+      <!-- SCR-14 業務予定 -->
+      <section data-screen="SCR-14" data-device="mobile" data-name="業務予定（当日の席ごとの予定）" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>業務予定 11/13（金）</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="mkpis">
+            <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
+            <div class="kpi"><p class="muted">案内予定（未承認）</p><p class="v">2件</p><p class="muted">今の空き席 7 / 10</p></div>
+          </div>
+          <div class="field"><label for="tlKind">席の種類</label>
+            <select id="tlKind" class="select"><option value="">すべて</option><option value="ctr">カウンター</option><option value="box">BOX</option></select></div>
+          <div class="legend">
+            <span><i class="sw now"></i>対応中</span>
+            <span><i class="sw"></i>予約</span>
+            <span><i class="sw cand"></i>案内予定</span>
+            <span><i class="sw line"></i>21:05 現在</span>
+          </div>
+          <div class="mtl-wrap" id="tlWrap"><div class="mtl" id="tl"></div></div>
+          <p class="hint">横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。</p>
+          <p class="hint">営業時間（19:00〜翌3:00）は仮です。帯の終わりは目安（2時間）で、滞在時間の決まりは確認中です。</p>
+          <p class="hint">席が決まっていない予約・候補は「席未定」の行に出ます。予約の席は、帯を押して管理者が決めます（仮）。</p>
+          <p class="hint">BOX の予約は代表者だけを登録します。同行者の情報は後日入力できるようにします（入力する項目は確認中）。</p>
+        </div>
+        <div class="overlay" id="tlModal" role="dialog" aria-label="予定の詳細">
+          <div class="dialog">
+            <div class="row" style="display:flex;justify-content:space-between;align-items:center"><h2>予定の詳細</h2><span class="badge" id="tlState">—</span></div>
+            <dl class="kv" id="tlKv"></dl>
+            <div class="field" id="tlSeatWrap" hidden><label for="tlSeat">席を決める・変える</label>
+              <select id="tlSeat" class="select"></select>
+              <button type="button" class="btn secondary" id="tlSeatBtn">この席にする</button></div>
+            <div class="card" id="tlBox" hidden>
+              <div class="row"><h3>同行者の情報</h3><span class="badge">後日入力</span></div>
+              <p class="muted">代表者だけで予約を受けています。同行者の情報は後日入力できます（入力する項目は確認中）。</p>
+            </div>
+            <div class="actions">
+              <button type="button" class="btn secondary" id="tlToDash" data-go="SCR-03" hidden>確認の画面で承認する</button>
+              <button type="button" class="btn" data-close-overlay="tlModal">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-11 勤怠一覧・修正 -->
+      <section data-screen="SCR-11" data-device="mobile" data-name="勤怠一覧・修正" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>勤怠</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="card" id="reqCard">
+            <div class="row"><h3>申請 11/13　ゆい</h3><span class="badge warn">承認待ち</span></div>
+            <div class="kvrow"><span>内容</span><span>出勤 20:00</span></div>
+            <div class="kvrow"><span>理由</span><span>位置情報が取れなかった</span></div>
+            <div class="pair">
+              <button type="button" class="btn" id="reqOk">承認する</button>
+              <button type="button" class="btn danger" id="reqNg">却下する</button>
+            </div>
+          </div>
+          <div class="field"><label for="atRange">期間</label>
+            <select id="atRange" class="select"><option>11/1〜11/13</option><option>10/16〜10/31</option></select></div>
+          <div class="pair">
+            <div class="field"><label for="atCast">キャスト</label>
+              <select id="atCast" class="select"><option value="">すべて</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select></div>
+            <div class="field"><label for="atState">状態</label>
+              <select id="atState" class="select"><option value="">すべて</option><option>退勤未登録</option><option>修正済み</option><option>登録済み</option></select></div>
+          </div>
+          <div id="atList" style="display:flex;flex-direction:column;gap:var(--space-12)"></div>
+          <p class="hint">労働時間は分単位で集計し、丸めません。修正した人・日時・理由・修正前の値は履歴に残ります。キャストは自分の勤怠を修正できません。</p>
+        </div>
+        <div class="drawer" id="atModal" role="dialog" aria-label="勤怠の修正">
+          <h2>勤怠を修正する</h2>
+          <p class="muted" id="atTarget">—</p>
+          <div class="pair">
+            <div class="field"><label for="atIn">出勤</label><input id="atIn" class="input" type="time"></div>
+            <div class="field"><label for="atOut">退勤</label><input id="atOut" class="input" type="time"></div>
+          </div>
+          <div class="field"><label for="atReason">修正の理由（必須）</label><input id="atReason" class="input" placeholder="例: QR の読み取り忘れ"></div>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="atModal">やめる</button>
+            <button type="button" class="btn" id="atSave" disabled>修正を登録</button>
+          </div>
+        </div>
+        <div class="overlay" id="atDone" role="dialog" aria-label="登録完了">
+          <div class="dialog">
+            <div class="done-icon">✓</div>
+            <h2>勤怠の修正を登録しました</h2>
+            <p class="muted" id="atDoneMsg">—</p>
+            <div class="actions">
+              <button type="button" class="btn" data-close-overlay="atDone">一覧に戻る</button>
+              <button type="button" class="btn secondary" data-close-overlay="atDone">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-12 給与試算 -->
+      <section data-screen="SCR-12" data-device="mobile" data-name="給与試算・出力" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>給与試算</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="field"><label for="pyMonth">対象期間</label>
+            <select id="pyMonth" class="select"><option>2026年11月 1日〜15日</option><option>2026年10月 16日〜31日</option></select></div>
+          <button type="button" class="btn block" id="csvBtn">出力して保存・共有する</button>
+          <p class="notice">計算ルール（時給・歩合など）と割増率は確認中のため、試算額は表示していません。労働時間と深夜の時間だけを表示しています。</p>
+          <div class="card"><div class="row"><h3>あおい</h3><span class="muted">8日</span></div>
+            <div class="kvrow"><span>労働時間</span><span>40時間42分</span></div><div class="kvrow"><span>うち深夜</span><span>26時間05分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
+          <div class="card"><div class="row"><h3>みなみ</h3><span class="muted">7日</span></div>
+            <div class="kvrow"><span>労働時間</span><span>35時間17分</span></div><div class="kvrow"><span>うち深夜</span><span>21時間30分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
+          <div class="card"><div class="row"><h3>さくら</h3><span class="muted">6日</span></div>
+            <div class="kvrow"><span>労働時間</span><span>27時間41分</span></div><div class="kvrow"><span>うち深夜</span><span>18時間12分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
+          <div class="card"><div class="row"><h3>ゆい</h3><span class="muted">3日</span></div>
+            <div class="kvrow"><span>労働時間</span><span>12時間20分</span></div><div class="kvrow"><span>うち深夜</span><span>6時間10分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
+          <p class="hint">出力したファイルは、スマートフォンに保存するか、LINE などで共有できます（仮）。形式（CSV など）と項目は確認中です。</p>
+        </div>
+      </section>
+
+      <!-- SCR-13 顧客一覧・登録 -->
+      <section data-screen="SCR-13" data-device="mobile" data-name="顧客一覧・登録" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>顧客</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <button type="button" class="btn block" id="newGuest">新規登録</button>
+          <div class="field"><label for="gq">店内識別番号・イニシャル</label><input id="gq" class="input" placeholder="例: 0145 / M.S."></div>
+          <div class="field"><label for="gs">ステータス</label>
+            <select id="gs" class="select"><option value="">すべて</option><option>新規</option><option>常連</option><option>上得意</option></select></div>
+          <p class="muted" id="gCount">—</p>
+          <div id="gList" style="display:flex;flex-direction:column;gap:var(--space-12)"></div>
+          <p class="hint">実名・勤務先・連絡先は登録しません。LINE からは利用者 ID だけを保存します。</p>
+        </div>
+        <div class="drawer" id="gModal" role="dialog" aria-label="顧客の新規登録">
+          <h2>顧客を登録する</h2>
+          <div class="pair">
+            <div class="field"><label for="gNo">店内識別番号</label><input id="gNo" class="input" value="No.0207" readonly></div>
+            <div class="field"><label for="gIni">イニシャル（必須）</label><input id="gIni" class="input" placeholder="例: A.B."></div>
+          </div>
+          <div class="field"><label for="gCast">担当キャスト</label>
+            <select id="gCast" class="select"><option>なし</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select></div>
+          <p class="notice">実名・勤務先・連絡先は入力しないでください。</p>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="gModal">やめる</button>
+            <button type="button" class="btn" id="gSave" disabled>登録する</button>
+          </div>
+        </div>
+        <div class="overlay" id="gDone" role="dialog" aria-label="登録完了">
+          <div class="dialog">
+            <div class="done-icon">✓</div>
+            <h2>顧客を登録し、招待コードを発行しました</h2>
+            <p class="muted" id="gDoneMsg">—</p>
+            <div class="card"><p class="muted">招待コード</p><p class="big">7K4-QX9-2MB</p><p class="muted">お客さんが LINE で読み取ると、会員として紐付きます。</p></div>
+            <div class="actions">
+              <button type="button" class="btn" data-close-overlay="gDone">一覧に戻る</button>
+              <button type="button" class="btn secondary" data-close-overlay="gDone">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-16 勤怠の申請 -->
+      <section data-screen="SCR-16" data-device="mobile" data-name="勤怠の申請" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-06" aria-label="戻る">‹</button>
+          <h1>勤怠の申請</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <p class="notice">位置情報で店の近くにいることを確かめられませんでした。申請すると、管理者が確認して勤怠に反映します。</p>
+          <div class="pair">
+            <div class="field"><label for="rqKind">種類</label><select id="rqKind" class="select"><option>出勤</option><option>退勤</option></select></div>
+            <div class="field"><label for="rqTime">時刻</label><input id="rqTime" class="input" type="time" value="20:00"></div>
+          </div>
+          <div class="field"><label for="rqDate">日付</label><input id="rqDate" class="input" type="date" value="2026-11-13"></div>
+          <div class="field"><label for="rqReason">理由（必須）</label><input id="rqReason" class="input" placeholder="例: 位置情報が取れなかった"></div>
+          <button type="button" class="btn block" id="rqSave" disabled>申請する</button>
+          <p class="hint">承認されるまで勤怠には反映されません。結果は LINE で届きます。</p>
+        </div>
+        <div class="overlay" id="rqDone" role="dialog" aria-label="登録完了">
+          <div class="dialog">
+            <div class="done-icon">✓</div>
+            <h2>勤怠を申請しました</h2>
+            <p class="muted" id="rqDoneMsg">—</p>
+            <div class="actions">
+              <button type="button" class="btn" data-close-overlay="rqDone">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-17 一斉送信 -->
+      <section data-screen="SCR-17" data-device="mobile" data-name="一斉送信" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>キャストへ一斉送信</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="field"><label>宛先</label>
+            <div class="roletabs" role="group" aria-label="宛先">
+              <button type="button" data-to="all" aria-pressed="false">全員 4名</button>
+              <button type="button" data-to="on" aria-pressed="true">出勤中 3名</button>
+              <button type="button" data-to="pick" aria-pressed="false">選ぶ</button>
+            </div></div>
+          <div class="field"><label for="bcText">本文</label><textarea id="bcText" class="textarea" placeholder="例: 23時から BOX-B に12名の予約があります。"></textarea></div>
+          <label class="checkrow"><input type="checkbox" id="bcAsk" checked><span>「確認しました」を求める</span></label>
+          <button type="button" class="btn block" id="bcSend" disabled>送信する</button>
+          <div class="card" id="bcResult" hidden>
+            <div class="row"><h3>確認の状況</h3><span class="muted" id="bcCount">確認 1 / 3</span></div>
+            <ul class="who-list">
+              <li><span>あおい</span><span class="badge ok">確認しました 21:07</span></li>
+              <li><span>みなみ</span><span class="badge">まだ</span></li>
+              <li><span>さくら</span><span class="badge">まだ</span></li>
+            </ul>
+          </div>
+          <p class="hint">LINE 公式アカウントは月に送れる通数に上限があります（プランは確認中）。</p>
+        </div>
+      </section>
+
+      <!-- SCR-18 店からの連絡（キャスト） -->
+      <section data-screen="SCR-18" data-device="mobile" data-name="店からの連絡の確認" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>店からの連絡</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <div class="card">
+            <div class="row"><h3>管理者から</h3><span class="muted">11/13 21:06</span></div>
+            <p>23時から BOX-B に12名の予約があります。22時半までに BOX-B の準備をお願いします。</p>
+          </div>
+          <button type="button" class="btn block" id="bcAck">確認しました</button>
+          <p class="hint">「確認しました」を押したことが管理者に伝わります。</p>
+          <h2>これまでの連絡</h2>
+          <div class="card"><div class="row"><h3>管理者から</h3><span class="muted">11/12 18:30</span></div><p class="muted">今週末はイベントのため、20時までに出勤をお願いします。</p><span class="badge ok" style="align-self:flex-start">確認済み</span></div>
+        </div>
+      </section>
+
+      <!-- SCR-19 管理者に届く通知（LINE のトーク） -->
+      <section data-screen="SCR-19" data-device="mobile" data-name="管理者に届く通知（LINE のトーク）" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>LINE のトーク（通知の例）</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body line-bg">
+          <div class="talk">
+            <p class="time">11/13（金）</p>
+            <div class="bubble"><span class="from">予約の開始 21:00</span>
+              <p>No.0145 M.S.（2名）の予約時刻です。来店したら受け付けて、席を使用中にしてください。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button></div>
+            <div class="bubble"><span class="from">来店の確認 21:30</span>
+              <p>No.0112 A.K.（1名・21:00 の予約）の来店がまだありません。取り消しますか。</p>
+              <div class="pair"><button type="button" class="btn secondary small" id="nsKeep">まだ待つ</button><button type="button" class="btn danger small" id="nsCancel">取り消す</button></div></div>
+            <div class="bubble"><span class="from">勤怠の申請 20:12</span>
+              <p>ゆい さんから出勤（20:00）の申請があります。理由: 位置情報が取れなかった。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-11">申請を見る</button></div>
+            <div class="bubble"><span class="from">予約の終了 23:00</span>
+              <p>BOX-A（No.0123 K.T.・3名）の予定終了時刻です。退店したら席を空きにしてください。</p>
+              <div class="pair"><button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button><button type="button" class="btn secondary small" id="nsExtend">30分延長</button></div></div>
+          </div>
+          <p class="hint">開始・終了の時刻より前に席を更新していれば、通知は届きません。通知は管理者全員に届きます（仮）。来店を待つ時間（30分）は確認中です。</p>
+        </div>
+      </section>
+
+      <!-- SCR-20 初回の登録（招待コードの読み取り後） -->
+      <section data-screen="SCR-20" data-device="mobile" data-name="初回の登録（招待コードの読み取り後）" class="m-screen">
+        <div class="liff-bar">
+          <h1>はじめての登録</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <p class="notice info">招待コードを読み取りました。この LINE アカウントを「みなみ」さんとして登録します。</p>
+          <div class="card">
+            <h3>扱う情報と利用目的</h3>
+            <ul class="purpose">
+              <li>・LINE の利用者 ID（表示名・画像は保存しません）</li>
+              <li>・出勤・退勤の記録と、打刻のときの位置情報（店の近くにいるかの確認だけに使い、位置は保存しません）</li>
+              <li>・担当・代理のお客さんの情報と会話内容</li>
+            </ul>
+            <p class="muted">文面は確認中です（表示は例）。</p>
+          </div>
+          <label class="checkrow"><input type="checkbox" id="cfAgree"><span>内容を確認し、同意します</span></label>
+          <button type="button" class="btn block" id="cfSave" disabled>同意して登録する</button>
+          <p class="hint">QR コードを使うのは、この最初の登録だけです。同じコードはもう使えません。</p>
+        </div>
+      </section>
+
       <!-- SCR-15 店内状況（キャスト・見るだけ） -->
       <section data-screen="SCR-15" data-device="mobile" data-name="店内状況（キャスト・見るだけ）" class="m-screen">
         <div class="liff-bar">
@@ -688,262 +1070,8 @@ dl.kv dd { margin: 0; }
           </div>
         </div>
       </section>
-
     </div>
   </div>
-</div>
-
-<!-- =================== PC (Web 管理画面) =================== -->
-<div id="pcFrame">
-
-  <!-- SCR-09 ログイン -->
-  <section data-screen="SCR-09" data-device="pc" data-name="ログイン">
-    <div class="login-wrap">
-      <form class="login" id="loginForm" onsubmit="return false">
-        <h1>店舗管理 管理画面</h1>
-        <p class="muted">管理者用アカウントでログインしてください。</p>
-        <div class="field"><label for="lgId">ID</label><input id="lgId" class="input" autocomplete="username"></div>
-        <div class="field"><label for="lgPw">パスワード</label><input id="lgPw" class="input" type="password" autocomplete="current-password"></div>
-        <p class="err" id="lgErr" hidden>ID かパスワードが違います。</p>
-        <button type="submit" class="btn" id="lgBtn" disabled>ログイン</button>
-        <p class="hint">パスワードの条件・ロック・再設定の方法は確認中です。</p>
-      </form>
-    </div>
-  </section>
-
-  <!-- SCR-10 ダッシュボード -->
-  <section data-screen="SCR-10" data-device="pc" data-name="ダッシュボード（店内状況・案内・割り当ての確認）">
-    <div class="pc-layout" data-nav="SCR-10">
-      <div class="main">
-        <div class="pagehead"><h1>ダッシュボード</h1><span class="muted">2026/11/13（金）21:05 現在</span></div>
-        <div class="kpis">
-          <div class="kpi"><p class="muted">席</p><p class="v">3 / 10</p><p class="muted">使用中 / 全体</p></div>
-          <div class="kpi"><p class="muted">出勤中のキャスト</p><p class="v">3名</p><p class="muted">不在 1名</p></div>
-          <div class="kpi"><p class="muted">未承認の候補</p><p class="v" id="pendingCount">2件</p><p class="muted">承認待ち</p></div>
-          <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
-        </div>
-        <div class="grid2">
-          <div class="panel">
-            <h2>案内・割り当ての確認</h2>
-            <table class="dg compact">
-              <thead><tr><th>お客さん</th><th>来店</th><th>席</th><th>キャスト</th><th>理由</th><th>操作</th></tr></thead>
-              <tbody>
-                <tr id="pcCand1"><td>No.0145 M.S. <span class="badge vip">常連</span></td><td>予約 21:00</td><td>カウンターD・E</td><td>みなみ</td><td>担当が出勤中</td>
-                  <td><button type="button" class="btn small" data-pc-approve="pcCand1">承認</button> <button type="button" class="btn danger small" data-pc-reject="pcCand1">却下</button></td></tr>
-                <tr id="pcCand2"><td>No.0201 Y.H. <span class="badge">新規</span></td><td>当日 21:00</td><td>席未定</td><td>さくら（代理）</td><td>担当なし</td>
-                  <td><button type="button" class="btn small" disabled>承認</button> <button type="button" class="btn danger small" data-pc-reject="pcCand2">却下</button></td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="panel">
-            <div class="pagehead"><h2>席とキャスト</h2><button type="button" class="btn secondary small" data-go="SCR-14">業務予定を見る</button></div>
-            <table class="dg">
-              <thead><tr><th>席</th><th>状態</th><th>お客さん・予約</th></tr></thead>
-              <tbody>
-                <tr><td>カウンターA</td><td><span class="badge warn">使用中</span></td><td>S.I.</td></tr>
-                <tr><td>カウンターB</td><td><span class="badge ok">空き</span></td><td>—</td></tr>
-                <tr><td>カウンターC</td><td><span class="badge warn">使用中</span></td><td>H.M.</td></tr>
-                <tr><td>カウンターD〜H</td><td><span class="badge ok">空き</span></td><td>5席</td></tr>
-                <tr><td>BOX-A</td><td><span class="badge warn">使用中</span></td><td>K.T. 3名</td></tr>
-                <tr><td>BOX-B</td><td><span class="badge ok">空き</span></td><td>22:00〜</td></tr>
-              </tbody>
-            </table>
-            <table class="dg">
-              <thead><tr><th>キャスト</th><th>状態</th><th>出勤</th></tr></thead>
-              <tbody>
-                <tr><td>あおい</td><td><span class="badge ok">接客中</span></td><td>19:55</td></tr>
-                <tr><td>みなみ</td><td><span class="badge ok">出勤中</span></td><td>19:58</td></tr>
-                <tr><td>さくら</td><td><span class="badge ok">出勤中</span></td><td>20:30</td></tr>
-                <tr><td>ゆい</td><td><span class="badge">不在</span></td><td>—</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="pagehead"><h2>混雑予想（1時間ごと）</h2><button type="button" class="btn small" id="askBtn">追加出勤を依頼する</button></div>
-          <div class="heat">
-            <div>20時<br>落ち着き</div><div>21時<br>ふつう</div><div class="mid">22時<br>やや混雑</div><div class="hi">23時<br>混雑</div><div class="mid">0時<br>やや混雑</div><div>1時<br>ふつう</div><div>2時<br>落ち着き</div>
-          </div>
-          <p class="hint">予想の出し方と補充が必要と判断する基準は確認中です（表示は例）。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCR-14 業務予定 -->
-  <section data-screen="SCR-14" data-device="pc" data-name="業務予定（当日の席ごとの予定）">
-    <div class="pc-layout" data-nav="SCR-14">
-      <div class="main">
-        <div class="pagehead"><h1>業務予定</h1><span class="muted">2026/11/13（金）営業 19:00〜翌3:00（仮）／21:05 現在</span></div>
-        <div class="kpis">
-          <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
-          <div class="kpi"><p class="muted">対応中</p><p class="v">3組</p><p class="muted">5名</p></div>
-          <div class="kpi"><p class="muted">案内予定（未承認）</p><p class="v">2件</p><p class="muted">ダッシュボードで承認</p></div>
-          <div class="kpi"><p class="muted">今の空き席</p><p class="v">7 / 10</p><p class="muted">カウンター 6・BOX 1</p></div>
-        </div>
-        <div class="panel">
-          <div class="filters">
-            <div class="field"><label for="tlKind">席の種類</label>
-              <select id="tlKind" class="select"><option value="">すべて</option><option value="ctr">カウンター</option><option value="box">BOX</option></select></div>
-            <div class="legend">
-              <span><i class="sw now"></i>対応中（来店済み）</span>
-              <span><i class="sw"></i>予約</span>
-              <span><i class="sw cand"></i>案内予定（未承認の候補）</span>
-              <span><i class="sw line"></i>現在時刻</span>
-            </div>
-          </div>
-          <div class="tl" id="tl"></div>
-          <p class="hint">営業時間（19:00〜翌3:00）は仮です。帯の終わりは目安（2時間）で、滞在時間の決まりは確認中です。</p>
-          <p class="hint">席が決まっていない予約・候補は「席未定」の行に出ます。予約の席は、帯を押して管理者が決めます（仮）。</p>
-          <p class="hint">BOX の予約は代表者だけを登録します。同行者の情報は後日入力できるようにします（入力する項目は確認中）。</p>
-        </div>
-      </div>
-      <div class="overlay" id="tlModal" role="dialog" aria-label="予定の詳細">
-        <div class="dialog">
-          <div class="pagehead"><h2>予定の詳細</h2><span class="badge" id="tlState">—</span></div>
-          <dl class="kv" id="tlKv"></dl>
-          <div class="field" id="tlSeatWrap" hidden><label for="tlSeat">席を決める・変える</label>
-            <div class="pair"><select id="tlSeat" class="select"></select><button type="button" class="btn secondary" id="tlSeatBtn">この席にする</button></div></div>
-          <div class="card" id="tlBox" hidden>
-            <div class="row"><h3>同行者の情報</h3><span class="badge">後日入力</span></div>
-            <p class="muted">代表者だけで予約を受けています。同行者の情報は後日入力できます（入力する項目は確認中）。</p>
-            <button type="button" class="btn secondary small" disabled>同行者を入力する</button>
-          </div>
-          <div class="actions">
-            <button type="button" class="btn secondary" id="tlToDash" data-go="SCR-10" hidden>ダッシュボードで承認する</button>
-            <button type="button" class="btn" data-close-overlay="tlModal">閉じる</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCR-11 勤怠一覧・修正 -->
-  <section data-screen="SCR-11" data-device="pc" data-name="勤怠一覧・修正">
-    <div class="pc-layout" data-nav="SCR-11">
-      <div class="main">
-        <div class="pagehead"><h1>勤怠</h1></div>
-        <div class="panel">
-          <div class="filters">
-            <div class="field"><label for="atFrom">期間</label><input id="atFrom" class="input" type="date" value="2026-11-01"></div>
-            <div class="field"><label for="atTo">〜</label><input id="atTo" class="input" type="date" value="2026-11-13"></div>
-            <div class="field"><label for="atCast">キャスト</label>
-              <select id="atCast" class="select"><option value="">すべて</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select></div>
-            <div class="field"><label for="atState">状態</label>
-              <select id="atState" class="select"><option value="">すべて</option><option>退勤未登録</option><option>修正済み</option><option>登録済み</option></select></div>
-          </div>
-          <table class="dg" id="atTable">
-            <thead><tr><th>日付</th><th>キャスト</th><th>出勤</th><th>退勤</th><th class="num">労働時間</th><th class="num">うち深夜（22時〜5時）</th><th>状態</th><th>操作</th></tr></thead>
-            <tbody></tbody>
-          </table>
-          <p class="hint">労働時間は分単位で集計し、丸めません。修正した人・日時・理由・修正前の値は履歴に残ります。キャストは自分の勤怠を修正できません。</p>
-        </div>
-      </div>
-      <div class="overlay" id="atModal" role="dialog" aria-label="勤怠の修正">
-        <div class="dialog">
-          <h2>勤怠を修正する</h2>
-          <p class="muted" id="atTarget">—</p>
-          <div class="pair">
-            <div class="field"><label for="atIn">出勤</label><input id="atIn" class="input" type="time"></div>
-            <div class="field"><label for="atOut">退勤</label><input id="atOut" class="input" type="time"></div>
-          </div>
-          <div class="field"><label for="atReason">修正の理由（必須）</label><input id="atReason" class="input" placeholder="例: QR の読み取り忘れ"></div>
-          <div class="actions">
-            <button type="button" class="btn secondary" data-close-overlay="atModal">やめる</button>
-            <button type="button" class="btn" id="atSave" disabled>修正を登録</button>
-          </div>
-        </div>
-      </div>
-      <div class="overlay" id="atDone" role="dialog" aria-label="登録完了">
-        <div class="dialog">
-          <div class="done-icon">✓</div>
-          <h2>勤怠の修正を登録しました</h2>
-          <p class="muted" id="atDoneMsg">—</p>
-          <div class="actions">
-            <button type="button" class="btn" data-close-overlay="atDone">一覧に戻る</button>
-            <button type="button" class="btn secondary" data-close-overlay="atDone">閉じる</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCR-12 給与試算 -->
-  <section data-screen="SCR-12" data-device="pc" data-name="給与試算一覧・出力">
-    <div class="pc-layout" data-nav="SCR-12">
-      <div class="main">
-        <div class="pagehead"><h1>給与試算</h1><button type="button" class="btn" id="csvBtn">ファイルに出力</button></div>
-        <p class="notice">計算ルール（時給・歩合など）と割増率は確認中のため、試算額は表示していません。労働時間と深夜時間の集計だけを表示しています。</p>
-        <div class="panel">
-          <div class="filters">
-            <div class="field"><label for="pyMonth">対象期間</label>
-              <select id="pyMonth" class="select"><option>2026年11月 1日〜15日</option><option>2026年10月 16日〜31日</option></select></div>
-          </div>
-          <table class="dg">
-            <thead><tr><th>キャスト</th><th class="num">出勤日数</th><th class="num">労働時間</th><th class="num">うち深夜</th><th class="num">時給</th><th class="num">試算額</th></tr></thead>
-            <tbody>
-              <tr><td>あおい</td><td class="num">8日</td><td class="num">40時間42分</td><td class="num">26時間05分</td><td class="num">未設定</td><td class="num">—</td></tr>
-              <tr><td>みなみ</td><td class="num">7日</td><td class="num">35時間17分</td><td class="num">21時間30分</td><td class="num">未設定</td><td class="num">—</td></tr>
-              <tr><td>さくら</td><td class="num">6日</td><td class="num">27時間41分</td><td class="num">18時間12分</td><td class="num">未設定</td><td class="num">—</td></tr>
-              <tr><td>ゆい</td><td class="num">3日</td><td class="num">12時間20分</td><td class="num">6時間10分</td><td class="num">未設定</td><td class="num">—</td></tr>
-            </tbody>
-          </table>
-          <p class="hint">出力の形式（CSV など）と項目は確認中です。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SCR-13 顧客一覧 -->
-  <section data-screen="SCR-13" data-device="pc" data-name="顧客一覧・登録">
-    <div class="pc-layout" data-nav="SCR-13">
-      <div class="main">
-        <div class="pagehead"><h1>顧客</h1><button type="button" class="btn" id="newGuest">新規登録</button></div>
-        <div class="panel">
-          <div class="filters">
-            <div class="field"><label for="gq">店内識別番号・イニシャル</label><input id="gq" class="input" placeholder="例: 0145 / M.S."></div>
-            <div class="field"><label for="gs">ステータス</label>
-              <select id="gs" class="select"><option value="">すべて</option><option>新規</option><option>常連</option><option>上得意</option></select></div>
-            <span class="muted" id="gCount">—</span>
-          </div>
-          <table class="dg" id="gTable">
-            <thead><tr><th>店内識別番号</th><th>イニシャル</th><th>ステータス</th><th class="num">来店回数</th><th>最終来店</th><th>担当キャスト</th><th>LINE 紐付け</th></tr></thead>
-            <tbody></tbody>
-          </table>
-          <p class="hint">実名・勤務先・連絡先は登録しません。LINE からは利用者 ID だけを保存します。</p>
-        </div>
-      </div>
-      <div class="overlay" id="gModal" role="dialog" aria-label="顧客の新規登録">
-        <div class="dialog">
-          <h2>顧客を登録する</h2>
-          <div class="pair">
-            <div class="field"><label>店内識別番号</label><input class="input" value="No.0207" readonly></div>
-            <div class="field"><label for="gIni">イニシャル（必須）</label><input id="gIni" class="input" placeholder="例: A.B."></div>
-          </div>
-          <div class="field"><label for="gCast">担当キャスト</label>
-            <select id="gCast" class="select"><option>なし</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select></div>
-          <p class="notice">実名・勤務先・連絡先は入力しないでください。</p>
-          <div class="actions">
-            <button type="button" class="btn secondary" data-close-overlay="gModal">やめる</button>
-            <button type="button" class="btn" id="gSave" disabled>登録して招待コードを発行</button>
-          </div>
-        </div>
-      </div>
-      <div class="overlay" id="gDone" role="dialog" aria-label="登録完了">
-        <div class="dialog">
-          <div class="done-icon">✓</div>
-          <h2>顧客を登録し、招待コードを発行しました</h2>
-          <p class="muted" id="gDoneMsg">—</p>
-          <div class="card"><p class="muted">招待コード</p><p class="big">7K4-QX9-2MB</p><p class="muted">お客さんが LINE で読み取ると、会員として紐付きます。</p></div>
-          <div class="actions">
-            <button type="button" class="btn" data-close-overlay="gDone">一覧に戻る</button>
-            <button type="button" class="btn secondary" data-close-overlay="gDone">閉じる</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
 </div>
 
 <div class="toast" id="toast" role="status"></div>
@@ -951,8 +1079,6 @@ dl.kv dd { margin: 0; }
 <script>
 (function () {
   var screens = Array.prototype.slice.call(document.querySelectorAll('[data-screen]'));
-  var params = new URLSearchParams(location.search);
-  var device = params.get('device') || 'pc';
   var dirty = false;
 
   function toast(msg) {
@@ -961,48 +1087,21 @@ dl.kv dd { margin: 0; }
     clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove('show'); }, 2400);
   }
 
-  /* ---- PC sidebar (same markup in every PC screen) ---- */
-  var NAV = [['SCR-10', 'ダッシュボード'], ['SCR-14', '業務予定'], ['SCR-11', '勤怠'], ['SCR-12', '給与試算'], ['SCR-13', '顧客'],
-             ['', 'キャスト'], ['', '予約'], ['', '操作記録'], ['', '席の設定'], ['', 'ステータス区分']];
-  document.querySelectorAll('.pc-layout').forEach(function (layout) {
-    var side = document.createElement('nav');
-    side.className = 'side'; side.setAttribute('aria-label', '管理メニュー');
-    var html = '<div class="brand">店舗管理</div>';
-    NAV.forEach(function (n) {
-      html += '<button type="button" data-go="' + n[0] + '"' + (n[0] === layout.dataset.nav ? ' aria-current="page"' : '') + '>' + n[1] + '</button>';
-    });
-    html += '<div class="who">管理者 admin01<br>2026/11/13</div>';
-    side.innerHTML = html;
-    layout.insertBefore(side, layout.firstChild);
-  });
-
   /* ---- screen selector ---- */
   var sel = document.getElementById('screenSelect');
   screens.forEach(function (s) {
     var o = document.createElement('option');
     o.value = s.dataset.screen;
-    o.textContent = s.dataset.screen + ' ' + s.dataset.name + (s.dataset.device === 'pc' ? '（PC）' : '（スマホ）');
+    o.textContent = s.dataset.screen + ' ' + s.dataset.name;
     sel.appendChild(o);
   });
   sel.addEventListener('change', function () { location.hash = sel.value; });
-
-  function setDevice(d) {
-    device = d;
-    document.body.className = d === 'mobile' ? 'dev-mobile' : 'dev-pc';
-    document.getElementById('swPc').setAttribute('aria-pressed', d === 'pc');
-    document.getElementById('swMobile').setAttribute('aria-pressed', d === 'mobile');
-  }
   function show() {
     var id = location.hash.replace('#', '');
-    var target = screens.filter(function (s) { return s.dataset.screen === id; })[0];
-    if (!target) target = screens.filter(function (s) { return s.dataset.device === device; })[0] || screens[0];
-    if (target.dataset.device !== device) setDevice(target.dataset.device);
-    screens.forEach(function (s) { s.style.display = s === target ? (s.classList.contains('m-screen') ? 'flex' : 'block') : 'none'; });
+    var target = screens.filter(function (s) { return s.dataset.screen === id; })[0] || screens[0];
+    screens.forEach(function (s) { s.style.display = s === target ? 'flex' : 'none'; });
     sel.value = target.dataset.screen;
   }
-  document.getElementById('swPc').addEventListener('click', function () { setDevice('pc'); location.hash = 'SCR-10'; show(); });
-  document.getElementById('swMobile').addEventListener('click', function () { setDevice('mobile'); location.hash = 'SCR-01'; show(); });
-  setDevice(device);
   window.addEventListener('hashchange', show);
 
   /* ---- navigation ---- */
@@ -1016,9 +1115,9 @@ dl.kv dd { margin: 0; }
   /* ---- SCR-01 role menu ---- */
   var ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>';
   var MENUS = {
-    admin: [['店内状況', 'SCR-02'], ['案内・割り当て<br>の確認', 'SCR-03', '2件'], ['混雑予想・補充', ''], ['顧客', ''], ['勤怠・給与', ''], ['予約', ''], ['席の設定', ''], ['キャスト', '']],
-    cast: [['割り当て', 'SCR-04'], ['出退勤', 'SCR-06'], ['追加出勤の依頼', 'SCR-07'], ['担当のお客さん', 'SCR-05'], ['店内状況', 'SCR-15'], ['自分の給与試算', '']],
-    guest: [['空き状況・来店予約', 'SCR-08'], ['担当キャストの出勤', 'SCR-08']]
+    admin: [['店内状況', 'SCR-02'], ['案内・割り当て<br>の確認', 'SCR-03', '2件'], ['業務予定', 'SCR-14'], ['混雑予想・補充', 'SCR-10'], ['顧客', 'SCR-13'], ['一斉送信', 'SCR-17'], ['勤怠', 'SCR-11', '申請 1'], ['給与試算', 'SCR-12'], ['通知（例）', 'SCR-19'], ['シフト', ''], ['予約', ''], ['キャスト', ''], ['席の設定', ''], ['お知らせ', ''], ['締め', ''], ['ステータス区分', ''], ['操作記録', '']],
+    cast: [['割り当て', 'SCR-04'], ['出退勤', 'SCR-06'], ['店からの連絡', 'SCR-18', '1件'], ['勤怠の申請', 'SCR-16'], ['追加出勤の依頼', 'SCR-07'], ['担当のお客さん', 'SCR-05'], ['店内状況', 'SCR-15'], ['シフト', ''], ['自分の給与試算', ''], ['初回の登録（例）', 'SCR-20']],
+    guest: [['空き状況・来店予約', 'SCR-08'], ['担当キャストの出勤', 'SCR-08'], ['予約の確認・変更', ''], ['お知らせの設定', '']]
   };
   var ROLE_LABEL = { admin: '管理者', cast: 'キャスト', guest: 'お客さん' };
   function renderTiles(role) {
@@ -1027,9 +1126,9 @@ dl.kv dd { margin: 0; }
       return '<button type="button" class="tile" data-go="' + m[1] + '">' + head + '<span>' + m[0] + '</span></button>';
     }).join('');
     document.getElementById('roleBadge').textContent = ROLE_LABEL[role];
-    document.querySelectorAll('.roletabs button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.role === role); });
+    document.querySelectorAll('.roletabs button[data-role]').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.role === role); });
   }
-  document.querySelectorAll('.roletabs button').forEach(function (b) { b.addEventListener('click', function () { renderTiles(b.dataset.role); }); });
+  document.querySelectorAll('.roletabs button[data-role]').forEach(function (b) { b.addEventListener('click', function () { renderTiles(b.dataset.role); }); });
   renderTiles('admin');
 
   /* ---- SCR-02 seats ---- */
@@ -1101,21 +1200,16 @@ dl.kv dd { margin: 0; }
     b.addEventListener('click', function () { document.getElementById(b.dataset.closeOverlay).classList.remove('show'); dirty = false; });
   });
 
-  /* ---- SCR-09 login ---- */
-  var lgId = document.getElementById('lgId'), lgPw = document.getElementById('lgPw'), lgBtn = document.getElementById('lgBtn');
-  function lgCheck() { lgBtn.disabled = !(lgId.value && lgPw.value); }
-  lgId.addEventListener('input', lgCheck); lgPw.addEventListener('input', lgCheck);
-  lgBtn.addEventListener('click', function () {
-    if (lgPw.value.length < 4) { document.getElementById('lgErr').hidden = false; return; }
-    location.hash = 'SCR-10';
+  /* ---- SCR-10 additional shift request ---- */
+  var askBoxes = Array.prototype.slice.call(document.querySelectorAll('[data-ask]'));
+  var askBtn = document.getElementById('askBtn');
+  askBoxes.forEach(function (c) { c.addEventListener('change', function () { askBtn.disabled = !askBoxes.some(function (x) { return x.checked; }); }); });
+  askBtn.addEventListener('click', function () {
+    var names = askBoxes.filter(function (x) { return x.checked; }).map(function (x) { return x.value; });
+    askBtn.disabled = true; askBtn.textContent = '依頼しました';
+    document.getElementById('askState').textContent = names.join('・') + ' さん: 応答待ち';
+    toast(names.join('・') + ' さんに LINE で追加出勤を依頼しました');
   });
-
-  /* ---- SCR-10 approve ---- */
-  var pending = 2;
-  function pcDone(id, msg) { document.getElementById(id).style.display = 'none'; pending--; document.getElementById('pendingCount').textContent = pending + '件'; toast(msg); }
-  document.querySelectorAll('[data-pc-approve]').forEach(function (b) { b.addEventListener('click', function () { pcDone(b.dataset.pcApprove, 'みなみさんに LINE で通知しました'); }); });
-  document.querySelectorAll('[data-pc-reject]').forEach(function (b) { b.addEventListener('click', function () { pcDone(b.dataset.pcReject, '候補を却下しました（記録に残ります）'); }); });
-  document.getElementById('askBtn').addEventListener('click', function () { toast('依頼するキャストを選ぶ画面は今回のモックの対象外です'); });
 
   /* ---- SCR-11 attendance grid ---- */
   var AT = [
@@ -1138,22 +1232,24 @@ dl.kv dd { margin: 0; }
   }
   function dur(m) { return Math.floor(m / 60) + '時間' + (m % 60 ? ('0' + m % 60).slice(-2) + '分' : ''); }
   var BADGE = { '退勤未登録': 'warn', '修正済み': 'info', '登録済み': 'ok' };
-  var atBody = document.querySelector('#atTable tbody'), atCast = document.getElementById('atCast'), atState = document.getElementById('atState');
+  var atList = document.getElementById('atList'), atCast = document.getElementById('atCast'), atState = document.getElementById('atState');
   var editing = null;
   function renderAt() {
-    atBody.innerHTML = AT.filter(function (r) {
+    atList.innerHTML = AT.filter(function (r) {
       return (!atCast.value || r[1] === atCast.value) && (!atState.value || r[4] === atState.value);
     }).map(function (r) {
       var i = AT.indexOf(r), w = work(r);
-      return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + (r[3] || '—') + '</td><td class="num">' + (w ? dur(w[0]) : '—') +
-        '</td><td class="num">' + (w ? dur(w[1]) : '—') + '</td><td><span class="badge ' + BADGE[r[4]] + '">' + r[4] + '</span></td>' +
-        '<td><button type="button" class="btn secondary small" data-edit="' + i + '">修正</button></td></tr>';
-    }).join('') || '<tr><td colspan="8" class="muted">該当する勤怠はありません</td></tr>';
+      return '<div class="card"><div class="row"><h3>' + r[0] + '　' + r[1] + '</h3><span class="badge ' + BADGE[r[4]] + '">' + r[4] + '</span></div>' +
+        '<div class="kvrow"><span>出勤／退勤</span><span>' + r[2] + ' ／ ' + (r[3] || '—') + '</span></div>' +
+        '<div class="kvrow"><span>労働時間</span><span>' + (w ? dur(w[0]) : '—') + '</span></div>' +
+        '<div class="kvrow"><span>うち深夜（22時〜5時）</span><span>' + (w ? dur(w[1]) : '—') + '</span></div>' +
+        '<button type="button" class="btn secondary small" data-edit="' + i + '">修正する</button></div>';
+    }).join('') || '<p class="muted">該当する勤怠はありません</p>';
   }
   atCast.addEventListener('change', renderAt); atState.addEventListener('change', renderAt);
   renderAt();
   var atIn = document.getElementById('atIn'), atOut = document.getElementById('atOut'), atReason = document.getElementById('atReason'), atSave = document.getElementById('atSave');
-  atBody.addEventListener('click', function (e) {
+  atList.addEventListener('click', function (e) {
     var b = e.target.closest('[data-edit]'); if (!b) return;
     editing = Number(b.dataset.edit); var r = AT[editing];
     document.getElementById('atTarget').textContent = r[0] + '　' + r[1];
@@ -1173,7 +1269,7 @@ dl.kv dd { margin: 0; }
   });
 
   /* ---- SCR-12 ---- */
-  document.getElementById('csvBtn').addEventListener('click', function () { toast('出力の形式は確認中です（モックでは出力しません）'); });
+  document.getElementById('csvBtn').addEventListener('click', function () { toast('ファイルを作って保存・共有の画面を開きます（形式は確認中のため、モックでは出力しません）'); });
 
   /* ---- SCR-13 customers ---- */
   var G = [
@@ -1185,14 +1281,16 @@ dl.kv dd { margin: 0; }
     ['No.0099', 'S.A.', '上得意', 58, '11/10', 'ゆい', true]
   ];
   var STB = { '新規': '', '常連': 'vip', '上得意': 'ok' };
-  var gq = document.getElementById('gq'), gs = document.getElementById('gs'), gBody = document.querySelector('#gTable tbody');
+  var gq = document.getElementById('gq'), gs = document.getElementById('gs'), gList = document.getElementById('gList');
   function renderG() {
     var q = gq.value.trim().toLowerCase();
     var rows = G.filter(function (r) { return (!q || (r[0] + r[1]).toLowerCase().indexOf(q) >= 0) && (!gs.value || r[2] === gs.value); });
-    gBody.innerHTML = rows.map(function (r) {
-      return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td><span class="badge ' + STB[r[2]] + '">' + r[2] + '</span></td><td class="num">' + r[3] + '回</td><td>' + r[4] + '</td><td>' + r[5] +
-        '</td><td>' + (r[6] ? '<span class="badge ok">紐付け済み</span>' : '<span class="badge warn">未</span>') + '</td></tr>';
-    }).join('') || '<tr><td colspan="7" class="muted">該当する顧客はいません</td></tr>';
+    gList.innerHTML = rows.map(function (r) {
+      return '<div class="card"><div class="row"><h3>' + r[0] + ' ' + r[1] + '</h3><span class="badge ' + STB[r[2]] + '">' + r[2] + '</span></div>' +
+        '<div class="kvrow"><span>来店</span><span>' + r[3] + '回／最終 ' + r[4] + '</span></div>' +
+        '<div class="kvrow"><span>担当キャスト</span><span>' + r[5] + '</span></div>' +
+        '<div class="kvrow"><span>LINE 紐付け</span><span>' + (r[6] ? '<span class="badge ok">紐付け済み</span>' : '<span class="badge warn">未</span>') + '</span></div></div>';
+    }).join('') || '<p class="muted">該当する顧客はいません</p>';
     document.getElementById('gCount').textContent = rows.length + '件';
   }
   gq.addEventListener('input', renderG); gs.addEventListener('change', renderG); renderG();
@@ -1208,7 +1306,6 @@ dl.kv dd { margin: 0; }
     dirty = false;
   });
 
-  /* ---- unsaved changes: confirm before closing the tab (PC) ---- */
   /* ---- SCR-02 counter chips ---- */
   function ctrCount() {
     var free = document.querySelectorAll('[data-chip]:not(.busy)').length;
@@ -1252,7 +1349,7 @@ dl.kv dd { margin: 0; }
     var f = document.getElementById('tlKind').value;
     var hours = '';
     for (var h = 0; h < 8; h++) hours += '<span>' + hm(h) + '</span>';
-    var html = '<div class="hd">席</div><div class="hd hours">' + hours + '</div>';
+    var html = '<div class="hd seathd">席</div><div class="hd hours">' + hours + '</div>';
     var prevKind = '';
     SEATS.forEach(function (st) {
       if (f && st[0] !== f) return;
@@ -1263,13 +1360,14 @@ dl.kv dd { margin: 0; }
       var bars = BK.map(function (b, idx) {
         if (b[0] !== st[1]) return '';
         var lead = st[0] === 'box' ? '代表 ' : '';
-        return '<button type="button" class="bk ' + b[3] + '" data-bk="' + idx + '" style="left:calc(' + (b[1] / 8 * 100) + '% + 2px);width:calc(' + ((b[2] - b[1]) / 8 * 100) + '% - 4px)">' +
+        return '<button type="button" class="bk ' + b[3] + '" data-bk="' + idx + '" style="left:' + (b[1] * 80 + 2) + 'px;width:' + ((b[2] - b[1]) * 80 - 4) + 'px">' +
           '<b>' + hm(b[1]) + ' ' + lead + b[4] + '・' + b[5] + '名</b><span>' + KIND[b[3]][0] + (b[7] ? '／代理 ' + b[7] : '／担当 ' + b[6]) + '</span></button>';
       }).join('');
-      html += '<div class="track' + g + '">' + cells + bars + '<div class="nowline" style="left:' + (NOW / 8 * 100) + '%"></div></div>';
+      html += '<div class="track' + g + '">' + cells + bars + '<div class="nowline" style="left:' + (NOW * 80) + 'px"></div></div>';
     });
     document.getElementById('tl').innerHTML = html;
   }
+  function scrollToNow() { document.getElementById('tlWrap').scrollLeft = Math.max(0, NOW * 80 - 120); }
   document.getElementById('tlKind').addEventListener('change', renderTl);
   document.getElementById('tl').addEventListener('click', function (e) {
     var b = e.target.closest('[data-bk]'); if (!b) return;
@@ -1306,13 +1404,76 @@ dl.kv dd { margin: 0; }
     rows.forEach(function (r) { BK.push([r, d[1], d[2], d[3], d[4], d[5], d[6], d[7]]); });
     renderTl();
     document.getElementById('tlModal').classList.remove('show');
-    toast(d[4] + ' の席を ' + rows.join('・') + ' に決めました' + (d[3] === 'cand' ? '（承認はダッシュボードで行います）' : ''));
+    toast(d[4] + ' の席を ' + rows.join('・') + ' に決めました' + (d[3] === 'cand' ? '（承認は確認の画面で行います）' : ''));
   });
   renderTl();
+  window.addEventListener('hashchange', function () { if (location.hash === '#SCR-14') scrollToNow(); });
+
+
+  /* ---- SCR-02 reception (A-2) ---- */
+  document.getElementById('rcOpen').addEventListener('click', function () { document.getElementById('rcDrawer').classList.add('show'); });
+  document.getElementById('rcSave').addEventListener('click', function () {
+    var seat = document.getElementById('rcSeat'), g = document.getElementById('rcGuest');
+    var map = { DE: ['D', 'E'], FG: ['F', 'G'] };
+    (map[seat.value] || []).forEach(function (n) {
+      document.querySelectorAll('[data-chip]').forEach(function (c) { if (c.textContent.charAt(0) === n && !c.classList.contains('busy')) { c.classList.add('busy'); c.innerHTML = n + '<br>使用中'; } });
+    });
+    ctrCount();
+    document.getElementById('rcDrawer').classList.remove('show');
+    document.getElementById('rcBanner').hidden = true;
+    toast((g.value === 'rsv' ? 'No.0145 M.S.' : '当日来店のお客さん') + ' の来店を受け付けました（21:05）。' + seat.options[seat.selectedIndex].text + ' を使用中にしました');
+  });
+
+  /* ---- SCR-11 request approval (A-3) ---- */
+  function reqDone(ok) {
+    document.getElementById('reqCard').hidden = true;
+    if (ok) { AT.unshift(['11/13', 'ゆい', '20:00', '', '登録済み']); renderAt(); }
+    toast(ok ? 'ゆいさんの申請を承認し、勤怠に反映しました（記録に残ります）' : 'ゆいさんの申請を却下しました（記録に残ります）');
+  }
+  document.getElementById('reqOk').addEventListener('click', function () { reqDone(true); });
+  document.getElementById('reqNg').addEventListener('click', function () { reqDone(false); });
+
+  /* ---- SCR-16 request (C-2) ---- */
+  var rqReason = document.getElementById('rqReason'), rqSave = document.getElementById('rqSave');
+  rqReason.addEventListener('input', function () { dirty = true; rqSave.disabled = !rqReason.value.trim(); });
+  rqSave.addEventListener('click', function () {
+    document.getElementById('rqDoneMsg').textContent = '11/13 ' + document.getElementById('rqKind').value + ' ' + document.getElementById('rqTime').value + '（理由: ' + rqReason.value.trim() + '）。管理者に通知しました。';
+    document.getElementById('rqDone').classList.add('show'); rqSave.disabled = true; dirty = false;
+  });
+
+  /* ---- SCR-17 broadcast (A-1) ---- */
+  var bcText = document.getElementById('bcText'), bcSend = document.getElementById('bcSend');
+  document.querySelectorAll('[data-to]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('[data-to]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      if (b.dataset.to === 'pick') toast('キャストを選ぶ画面は今回のモックの対象外です');
+    });
+  });
+  bcText.addEventListener('input', function () { dirty = true; bcSend.disabled = !bcText.value.trim(); });
+  bcSend.addEventListener('click', function () {
+    var to = document.querySelector('[data-to][aria-pressed="true"]').textContent;
+    bcSend.disabled = true; bcSend.textContent = '送信しました'; dirty = false;
+    document.getElementById('bcResult').hidden = !document.getElementById('bcAsk').checked;
+    toast(to + ' に LINE で送信しました');
+  });
+
+  /* ---- SCR-18 ack (C-3) ---- */
+  document.getElementById('bcAck').addEventListener('click', function () { this.disabled = true; this.textContent = '確認済み'; toast('管理者に「確認しました」を伝えました'); });
+
+  /* ---- SCR-19 notifications (A-10) ---- */
+  document.getElementById('nsKeep').addEventListener('click', function () { toast('予約はそのままにしました'); });
+  document.getElementById('nsCancel').addEventListener('click', function () { this.disabled = true; document.getElementById('nsKeep').disabled = true; toast('No.0112 A.K. の予約を取り消しました（業務予定から消えます）'); });
+  document.getElementById('nsExtend').addEventListener('click', function () { this.disabled = true; toast('終了時刻を 23:30 に延ばしました。23:30 にもう一度通知します'); });
+
+  /* ---- SCR-20 first registration (C-1) ---- */
+  var cfAgree = document.getElementById('cfAgree'), cfSave = document.getElementById('cfSave');
+  cfAgree.addEventListener('change', function () { cfSave.disabled = !cfAgree.checked; });
+  cfSave.addEventListener('click', function () { cfSave.disabled = true; cfSave.textContent = '登録しました'; toast('キャストとして登録しました。メニューが使えます'); });
 
   window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
   show();
+  if (location.hash === '#SCR-14') scrollToNow();
 })();
 </script>
 </body>
