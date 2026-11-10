@@ -193,7 +193,10 @@ body.dev-mobile .switcher select { width: 200px; }
 .phone-screen {
   position: relative; width: 360px; height: 740px; overflow: hidden;
   background: var(--color-slate-50); border-radius: 24px;
+  container-type: inline-size;
 }
+body.dev-tablet .phone { width: 792px; border-radius: 28px; }
+body.dev-tablet .phone-screen { width: 768px; height: 1024px; border-radius: 16px; }
 
 /* ---------- mobile (LINE LIFF) ---------- */
 .m-screen { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--color-slate-50); }
@@ -391,6 +394,7 @@ dl.kv dd { margin: 0; }
 .who-list li:last-child { border-bottom: 0; }
 .purpose li { font-size: var(--fs-14); padding-left: var(--space-12); text-indent: calc(-1 * var(--space-12)); }
 [hidden] { display: none !important; }
+.clist { display: flex; flex-direction: column; gap: var(--space-12); }
 /* ---------- role home (SCR-01): at-a-glance ---------- */
 .home { display: flex; flex-direction: column; gap: var(--space-12); }
 .alerts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
@@ -457,6 +461,22 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 .richmenu svg { width: 24px; height: 24px; }
 .steps li { display: flex; gap: var(--space-12); align-items: flex-start; font-size: var(--fs-14); padding: var(--space-8) 0; }
 .steps li b { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--color-accent-dark); color: var(--color-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-12); }
+/* ---------- wide screens (tablets): the same screens, laid out in columns ---------- */
+@container (min-width: 600px) {
+  .m-body { padding: var(--space-24); gap: var(--space-16); }
+  .home { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: start; }
+  .home > .alerts, .home > .kpi3, .home > .alert-btn, .home > .avail, .home > .slots, .home > p, .home > .btn, .home > .demo-switch { grid-column: 1 / -1; }
+  .home > .demo-switch { justify-self: end; }
+  .home > .wide { grid-column: 1 / -1; }
+  .tiles.mtiles { grid-template-columns: repeat(6, 1fr); }
+  .chips { grid-template-columns: repeat(8, 1fr); }
+  .castgrid { grid-template-columns: repeat(3, 1fr); }
+  .clist { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); }
+  .mkpis { grid-template-columns: repeat(4, 1fr); }
+  .talk { max-width: 560px; width: 100%; margin: 0 auto; }
+  .drawer { left: 50%; right: auto; width: 560px; transform: translateX(-50%); }
+  .bigbtns .btn { min-height: 72px; }
+}
 </style>
 </head>
 <body class="dev-mobile">
@@ -464,6 +484,10 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 <!-- preview switcher -->
 <div class="switcher" role="toolbar" aria-label="表示切替">
   <span class="title">会員制バー店舗管理 画面モック</span>
+  <div class="seg">
+    <button type="button" id="swMobile" aria-pressed="true">📱 スマホ</button>
+    <button type="button" id="swTablet" aria-pressed="false">タブレット</button>
+  </div>
   <select id="screenSelect" aria-label="画面を選ぶ"></select>
 </div>
 
@@ -582,7 +606,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </div>
             <p class="muted">○ 予約できます　× 満席です</p>
             <button type="button" class="btn block" data-go="SCR-08">予約する</button>
-            <div class="card">
+            <div class="card wide">
               <div class="row"><h3>今日出勤しているキャスト</h3><span class="muted">3名</span></div>
               <div class="castgrid">
                 <span>あおい <span class="badge vip">担当</span></span><span>みなみ</span><span>さくら</span>
@@ -984,7 +1008,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <div class="field"><label for="atState">状態</label>
               <select id="atState" class="select"><option value="">すべて</option><option>退勤未登録</option><option>修正済み</option><option>登録済み</option></select></div>
           </div>
-          <div id="atList" style="display:flex;flex-direction:column;gap:var(--space-12)"></div>
+          <div id="atList" class="clist"></div>
           <p class="hint">労働時間は分単位で集計し、丸めません。修正した人・日時・理由・修正前の値は履歴に残ります。キャストは自分の勤怠を修正できません。</p>
         </div>
         <div class="drawer" id="atModal" role="dialog" aria-label="勤怠の修正">
@@ -1050,7 +1074,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <div class="field"><label for="gs">ステータス</label>
             <select id="gs" class="select"><option value="">すべて</option><option>新規</option><option>常連</option><option>上得意</option></select></div>
           <p class="muted" id="gCount">—</p>
-          <div id="gList" style="display:flex;flex-direction:column;gap:var(--space-12)"></div>
+          <div id="gList" class="clist"></div>
           <p class="hint">実名・勤務先・連絡先は登録しません。LINE からは利用者 ID だけを保存します。</p>
         </div>
         <div class="drawer" id="gModal" role="dialog" aria-label="顧客の新規登録">
@@ -1369,6 +1393,15 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     sel.value = target.dataset.screen;
   }
   window.addEventListener('hashchange', show);
+  /* preview width: ?device=tablet shows the tablet width (real devices switch by their own width) */
+  function setWidth(tablet) {
+    document.body.classList.toggle('dev-tablet', tablet);
+    document.getElementById('swMobile').setAttribute('aria-pressed', !tablet);
+    document.getElementById('swTablet').setAttribute('aria-pressed', tablet);
+  }
+  setWidth(new URLSearchParams(location.search).get('device') === 'tablet');
+  document.getElementById('swMobile').addEventListener('click', function () { setWidth(false); });
+  document.getElementById('swTablet').addEventListener('click', function () { setWidth(true); });
 
   /* ---- navigation ---- */
   document.addEventListener('click', function (e) {
