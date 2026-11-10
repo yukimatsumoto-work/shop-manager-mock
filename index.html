@@ -604,7 +604,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
-          <div class="notice info" id="rcBanner">21:00 の予約（No.0145 M.S.・2名）の時刻です。来店したら受け付けて、席を使用中にしてください。</div>
+          <div class="notice info" id="rcBanner">21:00 の予約（No.0112 A.K.・1名、カウンター F は承認済み）の時刻です。来店したら受け付けてください。</div>
           <button type="button" class="btn block" id="rcOpen">来店を受け付ける</button>
           <h2>席（カウンター8席・BOX 2）</h2>
           <div class="card">
@@ -645,12 +645,10 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
         <div class="drawer" id="rcDrawer" role="dialog" aria-label="来店の受付">
           <h2>来店を受け付ける</h2>
           <div class="field"><label for="rcGuest">お客さん</label>
-            <select id="rcGuest" class="select"><option value="rsv">予約 21:00 No.0145 M.S.（2名）</option><option value="walk">当日来店（会員番号を入れる）</option></select></div>
-          <div class="pair">
-            <div class="field"><label for="rcNum">人数</label><select id="rcNum" class="select"><option>1名</option><option selected>2名</option><option>3名</option><option>4名</option></select></div>
-            <div class="field"><label for="rcSeat">席</label><select id="rcSeat" class="select"><option value="DE">カウンター D・E</option><option value="FG">カウンター F・G</option><option value="BOXB">BOX-B</option></select></div>
-          </div>
-          <p class="hint">受け付けた時刻が来店時刻になり、席が使用中になります。当日来店は、受け付けると案内・割り当ての候補が作られます。</p>
+            <select id="rcGuest" class="select"><option value="ok">予約 21:00 No.0112 A.K.（1名）</option><option value="pend">予約 21:00 No.0145 M.S.（2名）</option><option value="walk">当日来店（会員番号を入れる）</option></select></div>
+          <div class="field"><label for="rcNum">人数</label><select id="rcNum" class="select"><option selected>1名</option><option>2名</option><option>3名</option><option>4名</option></select></div>
+          <p class="notice info" id="rcSeatInfo">席: カウンター F（承認済み）。受け付けると使用中になります。</p>
+          <p class="hint">席は、案内・割り当ての候補を承認して決めます。受付では人数と来店時刻を記録します。</p>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="rcDrawer">やめる</button>
             <button type="button" class="btn" id="rcSave">受け付ける</button>
@@ -666,7 +664,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
-          <p class="hint">承認するまで、キャストには通知されません。</p>
+          <p class="hint">席は承認で決まります。承認するまで、キャストには通知されません。</p>
           <div class="card" id="cand1">
             <div class="row"><h3>No.0145 M.S.</h3><span class="badge vip">常連</span></div>
             <p class="muted">予約 21:00／2名</p>
@@ -695,6 +693,16 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </div>
             <p class="hint">人数に合う空き席の候補がありません。「修正する」で席を選ぶと承認できます。</p>
           </div>
+          <h2>承認済みの割り当て</h2>
+          <div class="card" id="asg1">
+            <div class="row"><h3>No.0112 A.K.</h3><span class="badge ok">承認済み</span></div>
+            <p class="muted">予約 21:00／1名</p>
+            <div class="pair">
+              <div><p class="muted">席</p><p><strong id="asgSeat">カウンター F</strong></p></div>
+              <div><p class="muted">キャスト</p><p><strong id="asgCast">あおい（担当）</strong></p></div>
+            </div>
+            <button type="button" class="btn secondary" data-open-drawer="drawer2">再割り当てする</button>
+          </div>
         </div>
         <div class="drawer" id="drawer1" role="dialog" aria-label="候補の修正">
           <h2>候補を修正する</h2>
@@ -706,6 +714,18 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="drawer1">やめる</button>
             <button type="button" class="btn" data-save-drawer="drawer1">修正して承認</button>
+          </div>
+        </div>
+        <div class="drawer" id="drawer2" role="dialog" aria-label="再割り当て">
+          <h2>再割り当てする（No.0112 A.K.）</h2>
+          <div class="field"><label for="d2seat">席</label>
+            <select id="d2seat" class="select"><option>カウンター F</option><option selected>カウンター G</option><option>カウンター H</option><option>BOX-A</option></select></div>
+          <div class="field"><label for="d2cast">キャスト</label>
+            <select id="d2cast" class="select"><option value="あおい">あおい（担当）</option><option value="さくら" selected>さくら（代理）</option><option value="みなみ">みなみ（代理）</option></select></div>
+          <p class="hint">キャストを変えると、新しく付くキャストに割り当てを、外れるキャストに外れたことを LINE で知らせます。変更の前後は記録に残ります。</p>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="drawer2">やめる</button>
+            <button type="button" class="btn" id="reSave">再割り当てする</button>
           </div>
         </div>
       </section>
@@ -1152,10 +1172,10 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <p>No.0145 M.S.（2名・21:00 の予約）の案内・割り当ての候補ができました。</p>
               <button type="button" class="btn secondary small" data-go="SCR-03">候補を確認する</button></div>
             <div class="bubble"><span class="from">予約の開始 21:00</span>
-              <p>No.0145 M.S.（2名）の予約時刻です。来店したら受け付けて、席を使用中にしてください。</p>
+              <p>No.0145 M.S.（2名）の予約時刻です。来店したら受け付けてください（席は承認で決まります）。</p>
               <button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button></div>
             <div class="bubble"><span class="from">来店の確認 21:30</span>
-              <p>No.0112 A.K.（1名・21:00 の予約）の来店がまだありません。取り消しますか。</p>
+              <p>No.0145 M.S.（2名・21:00 の予約）の来店がまだありません。取り消しますか。</p>
               <div class="pair"><button type="button" class="btn secondary small" id="nsKeep">まだ待つ</button><button type="button" class="btn danger small" id="nsCancel">取り消す</button></div></div>
             <div class="bubble"><span class="from">勤怠の申請 20:12</span>
               <p>ゆい さんから出勤（20:00）の申請があります。理由: 位置情報が取れなかった。</p>
@@ -1649,16 +1669,34 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
   /* ---- SCR-02 reception (A-2) ---- */
   document.getElementById('rcOpen').addEventListener('click', function () { document.getElementById('rcDrawer').classList.add('show'); });
+  var RC = {
+    ok: ['席: カウンター F（承認済み）。受け付けると使用中になります。', '1名'],
+    pend: ['席はまだ承認されていません。受け付けた後、案内・割り当ての確認で承認すると席が決まります。', '2名'],
+    walk: ['受け付けると、案内・割り当ての候補が作られます。承認すると席が決まります。', '1名']
+  };
+  var rcGuest = document.getElementById('rcGuest');
+  rcGuest.addEventListener('change', function () { document.getElementById('rcSeatInfo').textContent = RC[rcGuest.value][0]; document.getElementById('rcNum').value = RC[rcGuest.value][1]; });
   document.getElementById('rcSave').addEventListener('click', function () {
-    var seat = document.getElementById('rcSeat'), g = document.getElementById('rcGuest');
-    var map = { DE: ['D', 'E'], FG: ['F', 'G'] };
-    (map[seat.value] || []).forEach(function (n) {
-      document.querySelectorAll('[data-chip]').forEach(function (c) { if (c.textContent.charAt(0) === n && !c.classList.contains('busy')) { c.classList.add('busy'); c.innerHTML = n + '<br>使用中'; } });
-    });
-    ctrCount();
+    var v = rcGuest.value;
     document.getElementById('rcDrawer').classList.remove('show');
-    document.getElementById('rcBanner').hidden = true;
-    toast((g.value === 'rsv' ? 'No.0145 M.S.' : '当日来店のお客さん') + ' の来店を受け付けました（21:05）。' + seat.options[seat.selectedIndex].text + ' を使用中にしました');
+    if (v === 'ok') {
+      document.querySelectorAll('[data-chip]').forEach(function (c) { if (c.textContent.charAt(0) === 'F' && !c.classList.contains('busy')) { c.classList.add('busy'); c.innerHTML = 'F<br>使用中'; } });
+      ctrCount();
+      document.getElementById('rcBanner').hidden = true;
+      toast('No.0112 A.K. の来店を受け付けました（21:05）。承認済みのカウンター F を使用中にしました');
+    } else {
+      toast((v === 'pend' ? 'No.0145 M.S.' : '当日来店のお客さん') + ' の来店を受け付けました（21:05）。案内・割り当ての確認で承認すると席が決まります');
+    }
+  });
+
+  /* ---- SCR-03 reassignment of an approved assignment ---- */
+  document.getElementById('reSave').addEventListener('click', function () {
+    var seat = document.getElementById('d2seat').value, cast = document.getElementById('d2cast').value;
+    var before = document.getElementById('asgCast').textContent.replace(/（.*）/, '');
+    document.getElementById('asgSeat').textContent = seat;
+    document.getElementById('asgCast').textContent = cast + (cast === 'あおい' ? '（担当）' : '（代理）');
+    document.getElementById('drawer2').classList.remove('show');
+    toast('再割り当てしました（' + seat + '・' + cast + '）。' + (cast !== before ? cast + 'さんに割り当てを、' + before + 'さんに外れたことを LINE で知らせました' : cast + 'さんに変更を LINE で知らせました'));
   });
 
   /* ---- SCR-11 request approval (A-3) ---- */
@@ -1699,7 +1737,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
   /* ---- SCR-19 notifications (A-10) ---- */
   document.getElementById('nsKeep').addEventListener('click', function () { toast('予約はそのままにしました'); });
-  document.getElementById('nsCancel').addEventListener('click', function () { this.disabled = true; document.getElementById('nsKeep').disabled = true; toast('No.0112 A.K. の予約を取り消しました（業務予定から消えます）'); });
+  document.getElementById('nsCancel').addEventListener('click', function () { this.disabled = true; document.getElementById('nsKeep').disabled = true; toast('No.0145 M.S. の予約を取り消しました（業務予定から消えます）'); });
   document.getElementById('nsExtend').addEventListener('click', function () { this.disabled = true; toast('終了時刻を 23:30 に延ばしました。23:30 にもう一度通知します'); });
 
   /* ---- SCR-20 first registration (C-1) ---- */
