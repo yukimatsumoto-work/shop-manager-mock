@@ -69,28 +69,33 @@ button, input, select, textarea {
 }
 a { color: var(--color-link); }
 
-/* ---------- preview switcher (outside screens) ---------- */
-.switcher {
-  display: flex; align-items: center; gap: var(--space-12);
-  height: 48px; padding: 0 var(--space-16);
-  background: var(--color-primary); color: var(--color-white);
+/* ---------- start page (outside the app screens) ---------- */
+.start { max-width: 720px; margin: 0 auto; padding: var(--space-24) var(--space-16); display: flex; flex-direction: column; gap: var(--space-16); }
+.start .lead-text { color: var(--color-slate-700); }
+.start-roles { display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
+.start-card {
+  display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-16); min-height: 48px;
+  background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-12);
+  color: var(--color-primary); text-decoration: none;
 }
-.switcher .title { font-size: var(--fs-14); font-weight: 700; margin-right: auto; }
-.switcher .seg { display: flex; border: 1px solid var(--color-slate-500); border-radius: var(--radius-8); overflow: hidden; }
-.switcher .seg button {
-  height: 32px; padding: 0 var(--space-12); border: 0; background: var(--color-primary);
-  color: var(--color-slate-200); font-size: var(--fs-12); cursor: pointer;
+.start-card b { font-size: var(--fs-16); color: var(--color-accent-dark); }
+.start-card span { font-size: var(--fs-12); color: var(--color-slate-700); }
+.start-card:hover { border-color: var(--color-accent-dark); }
+.start-card:active { background: var(--color-slate-100); }
+.start-list { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+.start-list a { display: flex; align-items: center; min-height: 44px; padding: 0 var(--space-12); background: var(--color-white); border-radius: var(--radius-8); text-decoration: none; }
+.start-list a:hover { background: var(--color-slate-100); }
+@media (min-width: 600px) {
+  .start-roles { grid-template-columns: repeat(3, 1fr); }
+  .start-list { grid-template-columns: 1fr 1fr; }
 }
-.switcher .seg button:hover { background: var(--color-slate-800); }
-.switcher .seg button[aria-pressed="true"] { background: var(--color-accent-dark); color: var(--color-white); }
-body.dev-mobile .switcher .title { display: none; }
-body.dev-mobile .switcher { gap: var(--space-8); padding: 0 var(--space-8); }
-body.dev-mobile .switcher select { width: 200px; }
-.switcher .seg button { white-space: nowrap; }
-.switcher select {
-  height: 32px; font-size: var(--fs-12); border: 1px solid var(--color-slate-500);
-  border-radius: var(--radius-4); background: var(--color-white); color: var(--color-primary);
+.to-start {
+  position: fixed; right: 8px; top: 50%; z-index: 40; min-width: 44px; min-height: 44px; padding: 0 var(--space-12);
+  display: flex; align-items: center; justify-content: center; border-radius: 22px;
+  background: var(--color-primary); color: var(--color-white); font-size: var(--fs-12); text-decoration: none; opacity: 0.6;
 }
+.to-start:hover { opacity: 1; }
+body.ref-mobile .to-start, body.ref-tablet .to-start { display: none; }
 
 /* ---------- buttons (4 states) ---------- */
 .btn {
@@ -185,18 +190,18 @@ body.dev-mobile .switcher select { width: 200px; }
 .drawer.show { display: flex; }
 
 /* ---------- frames ---------- */
-#phoneFrame { display: block; padding: var(--space-16) 0; }
-.phone {
-  position: relative; width: 384px; margin: 0 auto; padding: 12px;
-  background: var(--color-primary); border-radius: 36px;
-}
+#phoneFrame { display: block; }
+.phone { position: relative; width: 100%; max-width: 1024px; margin: 0 auto; }
 .phone-screen {
-  position: relative; width: 360px; height: 740px; overflow: hidden;
-  background: var(--color-slate-50); border-radius: 24px;
+  position: relative; width: 100%; height: 100vh; height: 100dvh; overflow: hidden;
+  background: var(--color-slate-50);
   container-type: inline-size;
 }
-body.dev-tablet .phone { width: 792px; border-radius: 28px; }
-body.dev-tablet .phone-screen { width: 768px; height: 1024px; border-radius: 16px; }
+/* reference sizes for screen images: smartphone 360px x 740px, tablet 768px x 1024px */
+body.ref-mobile .phone { max-width: 360px; }
+body.ref-mobile .phone-screen { height: 740px; }
+body.ref-tablet .phone { max-width: 768px; }
+body.ref-tablet .phone-screen { height: 1024px; }
 
 /* ---------- mobile (LINE LIFF) ---------- */
 .m-screen { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--color-slate-50); }
@@ -449,7 +454,6 @@ details.more summary::-webkit-details-marker { display: none; }
 details.more summary:hover { border-color: var(--color-accent); }
 details.more summary:active { background: var(--color-accent-light); }
 details.more[aria-disabled="true"] summary { color: var(--color-slate-500); background: var(--color-slate-100); cursor: not-allowed; }
-.demo-switch { align-self: flex-end; }
 /* ---------- LINE talk & rich menu (SCR-19, 23, 24) ---------- */
 .rm-bar { flex: none; text-align: center; font-size: var(--fs-12); color: var(--color-slate-700); background: var(--color-white); border-top: 1px solid var(--color-slate-200); padding: var(--space-4) 0; }
 .richmenu { flex: none; display: grid; gap: 0; background: var(--color-primary); }
@@ -465,8 +469,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 @container (min-width: 600px) {
   .m-body { padding: var(--space-24); gap: var(--space-16); }
   .home { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: start; }
-  .home > .alerts, .home > .kpi3, .home > .alert-btn, .home > .avail, .home > .slots, .home > p, .home > .btn, .home > .demo-switch { grid-column: 1 / -1; }
-  .home > .demo-switch { justify-self: end; }
+  .home > .alerts, .home > .kpi3, .home > .alert-btn, .home > .avail, .home > .slots, .home > p, .home > .btn { grid-column: 1 / -1; }
   .home > .wide { grid-column: 1 / -1; }
   .tiles.mtiles { grid-template-columns: repeat(6, 1fr); }
   .chips { grid-template-columns: repeat(8, 1fr); }
@@ -479,17 +482,24 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 }
 </style>
 </head>
-<body class="dev-mobile">
+<body>
 
-<!-- preview switcher -->
-<div class="switcher" role="toolbar" aria-label="表示切替">
-  <span class="title">会員制バー店舗管理 画面モック</span>
-  <div class="seg">
-    <button type="button" id="swMobile" aria-pressed="true">📱 スマホ</button>
-    <button type="button" id="swTablet" aria-pressed="false">タブレット</button>
+<!-- start page: choose whose LINE to begin with (outside the app screens) -->
+<main id="start" class="start" hidden>
+  <h1>会員制バー 店舗管理 画面モック</h1>
+  <p class="lead-text">LINE の中で使う画面です。見たい立場を選ぶと、その人の LINE のトークから始まります。スマホで開くとスマホの配置、タブレットで開くとタブレットの配置になります。</p>
+  <div class="start-roles">
+    <a class="start-card" href="#SCR-19"><b>管理者として見る</b><span>席の案内とキャストの割り当て、予約、勤怠、給与試算、一斉送信</span></a>
+    <a class="start-card" href="#SCR-23"><b>キャストとして見る</b><span>出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請</span></a>
+    <a class="start-card" href="#SCR-24"><b>お客さんとして見る</b><span>空き状況と来店予約、今日出勤しているキャスト</span></a>
   </div>
-  <select id="screenSelect" aria-label="画面を選ぶ"></select>
-</div>
+  <h2>画面の一覧</h2>
+  <ul class="start-list" id="startList"></ul>
+  <h2>表示の例</h2>
+  <ul class="start-list"><li><a href="#SCR-21" data-cast-off>キャストのホーム（お休みの日）</a></li></ul>
+</main>
+<a class="to-start" id="toStart" href="#" hidden>入口へ</a>
+
 
 <!-- =================== smartphone (LINE / LIFF) =================== -->
 <div id="phoneFrame">
@@ -503,8 +513,6 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
-          <div class="roletabs" role="group" aria-label="表示するロール（デモ用）"><button type="button" data-go="SCR-01" aria-pressed="true">管理者</button><button type="button" data-go="SCR-21" aria-pressed="false">キャスト</button><button type="button" data-go="SCR-22" aria-pressed="false">お客さん</button></div>
-          <p class="hint">ロールの切替はモック確認用です（実際は LINE アカウントで決まります）。</p>
           <div class="home">
             <div class="alerts">
               <button type="button" class="alert-btn" data-go="SCR-03">承認待ち <b>2件</b></button>
@@ -549,8 +557,6 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <span class="badge info role">キャスト</span>
         </div>
         <div class="m-body">
-          <div class="roletabs" role="group" aria-label="表示するロール（デモ用）"><button type="button" data-go="SCR-01" aria-pressed="false">管理者</button><button type="button" data-go="SCR-21" aria-pressed="true">キャスト</button><button type="button" data-go="SCR-22" aria-pressed="false">お客さん</button></div>
-          <p class="hint">ロールの切替はモック確認用です（実際は LINE アカウントで決まります）。</p>
           <div class="home">
             <button type="button" class="alert-btn" data-go="SCR-18">店からの連絡 <b>1件</b></button>
             <div class="card today" id="castToday">
@@ -578,7 +584,6 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <div class="sec-head"><h3>今日の割り当て</h3><button type="button" class="link" data-go="SCR-04">見る ›</button></div>
               <p>21:00〜 カウンター D・E ／ No.0145 M.S.（担当）</p>
             </div>
-            <button type="button" class="btn secondary small demo-switch" id="castDemo">例: お休みの日の表示</button>
           </div>
           <h2>メニュー</h2>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-04"><span>割り当て</span></button><button type="button" class="tile" data-go="SCR-05"><span>担当のお客さん</span></button><button type="button" class="tile" data-go="SCR-15"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-16"><span>勤怠の申請</span></button><button type="button" class="tile" data-go="SCR-07"><span>追加出勤の依頼</span></button><button type="button" class="tile" data-go="SCR-18"><span>店からの連絡</span></button></div>
@@ -594,8 +599,6 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <span class="badge info role">お客さん</span>
         </div>
         <div class="m-body">
-          <div class="roletabs" role="group" aria-label="表示するロール（デモ用）"><button type="button" data-go="SCR-01" aria-pressed="false">管理者</button><button type="button" data-go="SCR-21" aria-pressed="false">キャスト</button><button type="button" data-go="SCR-22" aria-pressed="true">お客さん</button></div>
-          <p class="hint">ロールの切替はモック確認用です（実際は LINE アカウントで決まります）。</p>
           <div class="home">
             <div class="avail">
               <p class="muted">今日 11/13（金）</p>
@@ -1377,31 +1380,33 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove('show'); }, 2400);
   }
 
-  /* ---- screen selector ---- */
-  var sel = document.getElementById('screenSelect');
+  /* ---- start page and routing ---- */
+  var list = document.getElementById('startList');
   screens.forEach(function (s) {
-    var o = document.createElement('option');
-    o.value = s.dataset.screen;
-    o.textContent = s.dataset.screen + ' ' + s.dataset.name;
-    sel.appendChild(o);
+    var li = document.createElement('li'), a = document.createElement('a');
+    a.href = '#' + s.dataset.screen; a.textContent = s.dataset.name;
+    li.appendChild(a); list.appendChild(li);
   });
-  sel.addEventListener('change', function () { location.hash = sel.value; });
+  var castOffNext = false;
+  document.querySelector('[data-cast-off]').addEventListener('click', function () { castOffNext = true; });
   function show() {
     var id = location.hash.replace('#', '');
-    var target = screens.filter(function (s) { return s.dataset.screen === id; })[0] || screens[0];
+    var target = screens.filter(function (s) { return s.dataset.screen === id; })[0];
+    document.getElementById('start').hidden = !!target;
+    document.getElementById('phoneFrame').hidden = !target;
+    document.getElementById('toStart').hidden = !target;
     screens.forEach(function (s) { s.style.display = s === target ? 'flex' : 'none'; });
-    sel.value = target.dataset.screen;
+    if (target && target.dataset.screen === 'SCR-21') {
+      document.getElementById('castOff').hidden = !castOffNext;
+      document.getElementById('castToday').hidden = castOffNext;
+    }
+    castOffNext = false;
+    window.scrollTo(0, 0);
   }
   window.addEventListener('hashchange', show);
-  /* preview width: ?device=tablet shows the tablet width (real devices switch by their own width) */
-  function setWidth(tablet) {
-    document.body.classList.toggle('dev-tablet', tablet);
-    document.getElementById('swMobile').setAttribute('aria-pressed', !tablet);
-    document.getElementById('swTablet').setAttribute('aria-pressed', tablet);
-  }
-  setWidth(new URLSearchParams(location.search).get('device') === 'tablet');
-  document.getElementById('swMobile').addEventListener('click', function () { setWidth(false); });
-  document.getElementById('swTablet').addEventListener('click', function () { setWidth(true); });
+  /* ?device=mobile|tablet shows the reference size (used for screen images); real devices use their own width */
+  var dev = new URLSearchParams(location.search).get('device');
+  if (dev === 'mobile' || dev === 'tablet') document.body.classList.add('ref-' + dev);
 
   /* ---- navigation ---- */
   document.addEventListener('click', function (e) {
@@ -1415,11 +1420,6 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   var homeIn = document.getElementById('homeIn'), homeOut = document.getElementById('homeOut');
   homeIn.addEventListener('click', function () { homeIn.disabled = true; homeOut.disabled = false; document.getElementById('castState').textContent = '出勤 19:58（店の近くで確認済み）'; toast('出勤を登録しました（19:58）'); });
   homeOut.addEventListener('click', function () { homeOut.disabled = true; document.getElementById('castState').textContent = '出勤 19:58 ／ 退勤 1:30'; toast('退勤を登録しました'); });
-  document.getElementById('castDemo').addEventListener('click', function () {
-    var off = document.getElementById('castOff').hidden;
-    document.getElementById('castOff').hidden = !off; document.getElementById('castToday').hidden = off;
-    this.textContent = off ? '例: 出勤日の表示' : '例: お休みの日の表示';
-  });
 
   /* ---- SCR-02 seats ---- */
   document.querySelectorAll('[data-toggle-seat]').forEach(function (b) {
