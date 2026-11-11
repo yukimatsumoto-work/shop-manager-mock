@@ -968,9 +968,9 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <div class="dialog">
             <div class="row" style="display:flex;justify-content:space-between;align-items:center"><h2>予定の詳細</h2><span class="badge" id="tlState">—</span></div>
             <dl class="kv" id="tlKv"></dl>
-            <div class="field" id="tlSeatWrap" hidden><label for="tlSeat">席を決める・変える</label>
-              <select id="tlSeat" class="select"></select>
-              <button type="button" class="btn secondary" id="tlSeatBtn">この席にする</button></div>
+            <div class="field" id="tlSeatWrap" hidden>
+              <button type="button" class="btn secondary block" id="tlSeatBtn" data-go="SCR-03">席を決める・変える（案内・割り当ての確認へ）</button>
+              <p class="hint">席は、案内・割り当ての確認で、承認前は承認・修正、承認後は再割り当てをして決めます。</p></div>
             <div class="card" id="tlBox" hidden>
               <div class="row"><h3>同行者の情報</h3><span class="badge">後日入力</span></div>
               <p class="muted">代表者だけで予約を受けています。同行者の情報は後日入力できます（入力する項目は確認中）。</p>
@@ -1672,7 +1672,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
       '<dt>人数</dt><dd>' + d[5] + '名</dd>' +
       '<dt>担当キャスト</dt><dd>' + d[6] + '</dd>' +
       (d[7] ? '<dt>代理</dt><dd>' + d[7] + '（候補）</dd>' : '');
-    document.getElementById('tlSeatWrap').hidden = d[3] === 'now';
+    document.getElementById('tlSeatWrap').hidden = d[3] !== 'rsv';
     var st = document.getElementById('tlState');
     st.textContent = KIND[d[3]][0]; st.className = 'badge ' + KIND[d[3]][1];
     document.getElementById('tlBox').hidden = !isBox;
@@ -1681,21 +1681,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   });
   document.getElementById('tlToDash').addEventListener('click', function () { document.getElementById('tlModal').classList.remove('show'); });
   var tlCur = null;
-  document.getElementById('tlSeat').innerHTML = SEATS.filter(function (s) { return s[0] !== 'none'; }).map(function (s) { return '<option>' + s[1] + '</option>'; }).join('');
-  document.getElementById('tlSeatBtn').addEventListener('click', function () {
-    var d = tlCur, target = document.getElementById('tlSeat').value;
-    var names = SEATS.map(function (s) { return s[1]; });
-    var rows = [target];
-    if (target.indexOf('カウンター') === 0 && d[5] > 1) {
-      rows = [];
-      for (var i = names.indexOf(target); i < names.length && rows.length < d[5] && names[i].indexOf('カウンター') === 0; i++) rows.push(names[i]);
-    }
-    BK = BK.filter(function (x) { return x[4] !== d[4]; });
-    rows.forEach(function (r) { BK.push([r, d[1], d[2], d[3], d[4], d[5], d[6], d[7]]); });
-    renderTl();
-    document.getElementById('tlModal').classList.remove('show');
-    toast(d[4] + ' の席を ' + rows.join('・') + ' に決めました' + (d[3] === 'cand' ? '（承認は確認の画面で行います）' : ''));
-  });
+  document.getElementById('tlSeatBtn').addEventListener('click', function () { document.getElementById('tlModal').classList.remove('show'); });
   renderTl();
   window.addEventListener('hashchange', function () { if (location.hash === '#SCR-14') scrollToNow(); });
 
