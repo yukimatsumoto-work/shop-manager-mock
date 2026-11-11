@@ -1831,6 +1831,8 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
   window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
+  /* role pages start on the first LINE screen of that role; 入口へ still opens the role's entry */
+  if (role && !location.hash) history.replaceState(null, '', '#' + role.cards[0][0]);
   show();
   if (location.hash === '#SCR-14') scrollToNow();
 })();
