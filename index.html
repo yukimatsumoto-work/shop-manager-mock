@@ -392,10 +392,32 @@ dl.kv dd { margin: 0; }
 .mtl .track i:nth-child(odd) { border-left-color: var(--color-slate-200); }
 .mtl .nowline { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color-danger); z-index: 0; }
 .talk { display: flex; flex-direction: column; gap: var(--space-12); }
-.talk .time { text-align: center; font-size: var(--fs-12); color: var(--color-slate-700); }
-.bubble { background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-12); padding: var(--space-12); display: flex; flex-direction: column; gap: var(--space-8); }
-.bubble .from { font-size: var(--fs-12); font-weight: 700; color: var(--color-accent-dark); }
-.line-bg { background: var(--color-slate-100); }
+.talk .time { text-align: center; }
+.talk .time span { display: inline-block; padding: 0 var(--space-12); border-radius: 12px; background: var(--color-slate-500); color: var(--color-white); font-size: var(--fs-12); line-height: 24px; }
+.msg { display: flex; align-items: flex-start; gap: var(--space-8); }
+.msg .avatar { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--color-accent-dark); color: var(--color-white); font-size: var(--fs-14); font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.msg .stamp { flex: none; align-self: flex-end; font-size: var(--fs-12); color: var(--color-primary); }
+.bubble { flex: 1; min-width: 0; max-width: 300px; background: var(--color-white); border-radius: 16px; padding: var(--space-12); display: flex; flex-direction: column; gap: var(--space-8); }
+.bubble .from { font-size: var(--fs-14); font-weight: 700; color: var(--color-primary); }
+.line-bg { background: var(--color-slate-400); }
+.line-bg .hint { background: var(--color-slate-50); border-radius: var(--radius-8); padding: var(--space-8) var(--space-12); }
+/* LINE's own header above the screens opened inside LINE (LIFF) */
+.liff-head { height: 44px; flex: none; display: flex; align-items: center; padding: 0; background: var(--color-white); border-bottom: 1px solid var(--color-slate-200); }
+.liff-head .lh-title { flex: 1; text-align: center; padding-left: 44px; font-size: var(--fs-14); font-weight: 700; }
+.lh-close { width: 44px; height: 44px; border: 0; background: var(--color-white); color: var(--color-primary); font-size: var(--fs-20); cursor: pointer; }
+.lh-close:hover { background: var(--color-slate-100); }
+.lh-close:active { background: var(--color-slate-200); }
+.lh-close:disabled { color: var(--color-slate-400); }
+/* LINE talk header */
+.line-head { height: 48px; flex: none; display: flex; align-items: center; gap: var(--space-4); padding: 0 var(--space-8) 0 0; background: var(--color-white); border-bottom: 1px solid var(--color-slate-200); }
+.line-head h1 { font-size: var(--fs-16); }
+.line-head .role { font-size: var(--fs-12); }
+.line-head .lh-icons { margin-left: auto; display: flex; gap: var(--space-16); color: var(--color-primary); padding-right: var(--space-8); }
+.line-head .lh-icons svg { width: 24px; height: 24px; }
+.lh-back { width: 44px; height: 44px; border: 0; background: var(--color-white); color: var(--color-primary); font-size: var(--fs-24); cursor: pointer; }
+.lh-back:hover { background: var(--color-slate-100); }
+.lh-back:active { background: var(--color-slate-200); }
+.lh-back:disabled { color: var(--color-slate-400); }
 .who-list li { display: flex; justify-content: space-between; align-items: center; min-height: 44px; border-bottom: 1px solid var(--color-slate-100); }
 .who-list li:last-child { border-bottom: 0; }
 .purpose li { font-size: var(--fs-14); padding-left: var(--space-12); text-indent: calc(-1 * var(--space-12)); }
@@ -456,14 +478,23 @@ details.more summary:hover { border-color: var(--color-accent); }
 details.more summary:active { background: var(--color-accent-light); }
 details.more[aria-disabled="true"] summary { color: var(--color-slate-500); background: var(--color-slate-100); cursor: not-allowed; }
 /* ---------- LINE talk & rich menu (SCR-19, 23, 24) ---------- */
-.rm-bar { flex: none; text-align: center; font-size: var(--fs-12); color: var(--color-slate-700); background: var(--color-white); border-top: 1px solid var(--color-slate-200); padding: var(--space-4) 0; }
-.richmenu { flex: none; display: grid; gap: 0; background: var(--color-primary); }
-.richmenu button + button { border-left: 1px solid var(--color-slate-700); }
-.richmenu button { min-height: 72px; border: 0; background: var(--color-primary); color: var(--color-white); font-size: var(--fs-14); font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); cursor: pointer; }
-.richmenu button:hover { background: var(--color-slate-800); }
-.richmenu button:active { background: var(--color-slate-700); }
+.rm-bar { flex: none; display: flex; align-items: center; background: var(--color-white); border-top: 1px solid var(--color-slate-200); }
+.rm-bar button, .line-input button { width: 48px; height: 44px; flex: none; border: 0; background: var(--color-white); color: var(--color-primary); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.rm-bar .rm-toggle { flex: 1; width: auto; border-left: 1px solid var(--color-slate-200); font-size: var(--fs-14); font-weight: 700; gap: var(--space-4); }
+.rm-bar button:hover, .line-input button:hover { background: var(--color-slate-100); }
+.rm-bar button:active, .line-input button:active { background: var(--color-slate-200); }
+.rm-bar button:disabled, .line-input button:disabled { color: var(--color-slate-400); }
+.rm-bar svg, .line-input svg { width: 24px; height: 24px; }
+.richmenu { flex: none; display: grid; gap: 0; background: var(--color-white); border-top: 1px solid var(--color-slate-200); }
+.richmenu button + button { border-left: 1px solid var(--color-slate-200); }
+.richmenu button { min-height: 96px; border: 0; background: var(--color-white); color: var(--color-primary); font-size: var(--fs-14); font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-8); cursor: pointer; }
+.richmenu button svg { color: var(--color-accent-dark); }
+.richmenu button:hover { background: var(--color-slate-50); }
+.richmenu button:active { background: var(--color-slate-100); }
 .richmenu button:disabled { background: var(--color-slate-100); color: var(--color-slate-500); cursor: not-allowed; }
-.richmenu svg { width: 24px; height: 24px; }
+.richmenu svg { width: 32px; height: 32px; }
+.line-input { flex: none; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4) var(--space-8) var(--space-4) 0; background: var(--color-white); border-top: 1px solid var(--color-slate-200); }
+.line-input .li-field { flex: 1; min-height: 36px; display: flex; align-items: center; padding: 0 var(--space-12); border-radius: 18px; background: var(--color-slate-100); color: var(--color-slate-700); font-size: var(--fs-14); }
 .steps li { display: flex; gap: var(--space-12); align-items: flex-start; font-size: var(--fs-14); padding: var(--space-8) 0; }
 .steps li b { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--color-accent-dark); color: var(--color-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-12); }
 /* ---------- wide screens (tablets): the same screens, laid out in columns ---------- */
@@ -523,6 +554,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-01 ホーム（管理者） -->
       <section data-screen="SCR-01" data-device="mobile" data-name="ホーム（管理者）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>会員制バー 店舗管理</h1>
           <span class="badge info role">管理者</span>
@@ -567,6 +599,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-21 ホーム（キャスト） -->
       <section data-screen="SCR-21" data-device="mobile" data-name="ホーム（キャスト）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>会員制バー 店舗管理</h1>
           <span class="badge info role">キャスト</span>
@@ -609,6 +642,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-22 ホーム（お客さん） -->
       <section data-screen="SCR-22" data-device="mobile" data-name="ホーム（お客さん）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>会員制バー 店舗管理</h1>
           <span class="badge info role">お客さん</span>
@@ -640,6 +674,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-02 店内状況 -->
       <section data-screen="SCR-02" data-device="mobile" data-name="店内状況（席・出勤）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>店内状況</h1>
@@ -700,6 +735,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-03 案内・割り当ての確認 -->
       <section data-screen="SCR-03" data-device="mobile" data-name="案内・割り当ての確認" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>案内・割り当ての確認</h1>
@@ -774,6 +810,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-04 割り当ての受け取り -->
       <section data-screen="SCR-04" data-device="mobile" data-name="割り当ての受け取り" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
           <h1>割り当て</h1>
@@ -799,6 +836,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-05 顧客詳細・会話内容 -->
       <section data-screen="SCR-05" data-device="mobile" data-name="顧客詳細・会話内容" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-04" aria-label="戻る">‹</button>
           <h1>顧客詳細</h1>
@@ -837,6 +875,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-06 出退勤の登録 -->
       <section data-screen="SCR-06" data-device="mobile" data-name="出退勤の登録" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-04" aria-label="戻る">‹</button>
           <h1>出退勤の登録</h1>
@@ -864,6 +903,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-07 追加出勤依頼への応答 -->
       <section data-screen="SCR-07" data-device="mobile" data-name="追加出勤依頼への応答" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-04" aria-label="戻る">‹</button>
           <h1>追加出勤のお願い</h1>
@@ -884,6 +924,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-08 空き状況・来店予約 -->
       <section data-screen="SCR-08" data-device="mobile" data-name="空き状況の確認・来店予約" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>ご来店のご案内</h1>
           <span class="badge info role">お客さん</span>
@@ -923,6 +964,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-10 混雑予想・追加出勤依頼 -->
       <section data-screen="SCR-10" data-device="mobile" data-name="混雑予想・追加出勤依頼" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>混雑予想・補充</h1>
@@ -958,6 +1000,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-14 業務予定 -->
       <section data-screen="SCR-14" data-device="mobile" data-name="業務予定（当日の席ごとの予定）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>業務予定 11/13（金）</h1>
@@ -1003,6 +1046,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-11 勤怠一覧・修正 -->
       <section data-screen="SCR-11" data-device="mobile" data-name="勤怠一覧・修正" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>勤怠</h1>
@@ -1057,6 +1101,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-12 給与試算 -->
       <section data-screen="SCR-12" data-device="mobile" data-name="給与試算・出力" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>給与試算</h1>
@@ -1081,6 +1126,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-13 顧客一覧・登録 -->
       <section data-screen="SCR-13" data-device="mobile" data-name="顧客一覧・登録" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>顧客</h1>
@@ -1125,6 +1171,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-16 勤怠の申請 -->
       <section data-screen="SCR-16" data-device="mobile" data-name="勤怠の申請" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-06" aria-label="戻る">‹</button>
           <h1>勤怠の申請</h1>
@@ -1155,6 +1202,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-17 一斉送信 -->
       <section data-screen="SCR-17" data-device="mobile" data-name="一斉送信" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>キャストへ一斉送信</h1>
@@ -1184,6 +1232,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-18 店からの連絡（キャスト） -->
       <section data-screen="SCR-18" data-device="mobile" data-name="店からの連絡の確認" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
           <h1>店からの連絡</h1>
@@ -1203,37 +1252,41 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-19 管理者に届く通知（LINE のトーク） -->
       <section data-screen="SCR-19" data-device="mobile" data-name="LINE のトーク（管理者）" class="m-screen">
-        <div class="liff-bar line-head">
-          <h1>会員制バー（LINE 公式アカウント）</h1>
+        <div class="line-head">
+          <button type="button" class="lh-back" data-line-back aria-label="トーク一覧に戻る">‹</button>
+          <h1>会員制バー</h1>
           <span class="badge info role">管理者</span>
+          <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
           <div class="talk">
-            <p class="time">11/13（金）</p>
-            <div class="bubble"><span class="from">案内・割り当ての候補 20:58</span>
+            <p class="time"><span>11/13（金）</span></p>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">案内・割り当ての候補</span>
               <p>No.0145 M.S.（2名・21:00 の予約）の案内・割り当ての候補ができました。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-03">候補を確認する</button></div>
-            <div class="bubble"><span class="from">予約の開始 21:00</span>
+              <button type="button" class="btn secondary small" data-go="SCR-03">候補を確認する</button></div><span class="stamp">20:58</span></div>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">予約の開始</span>
               <p>No.0145 M.S.（2名）の予約時刻です。来店したら受け付けてください（席は承認で決まります）。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button></div>
-            <div class="bubble"><span class="from">来店の確認 21:30</span>
+              <button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button></div><span class="stamp">21:00</span></div>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">来店の確認</span>
               <p>No.0145 M.S.（2名・21:00 の予約）の来店がまだありません。取り消しますか。</p>
-              <div class="pair"><button type="button" class="btn secondary small" id="nsKeep">まだ待つ</button><button type="button" class="btn danger small" id="nsCancel">取り消す</button></div></div>
-            <div class="bubble"><span class="from">勤怠の申請 20:12</span>
+              <div class="pair"><button type="button" class="btn secondary small" id="nsKeep">まだ待つ</button><button type="button" class="btn danger small" id="nsCancel">取り消す</button></div></div><span class="stamp">21:30</span></div>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">勤怠の申請</span>
               <p>ゆい さんから出勤（20:00）の申請があります。理由: 位置情報が取れなかった。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-11">申請を見る</button></div>
-            <div class="bubble"><span class="from">予約の終了 23:00</span>
+              <button type="button" class="btn secondary small" data-go="SCR-11">申請を見る</button></div><span class="stamp">20:12</span></div>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">予約の終了</span>
               <p>BOX-A（No.0123 K.T.・3名）の予定終了時刻です。退店したら席を空きにしてください。</p>
-              <div class="pair"><button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button><button type="button" class="btn secondary small" id="nsExtend">30分延長</button></div></div>
+              <div class="pair"><button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button><button type="button" class="btn secondary small" id="nsExtend">30分延長</button></div></div><span class="stamp">23:00</span></div>
           </div>
           <p class="hint">開始・終了の時刻より前に席を更新していれば、通知は届きません。通知は管理者全員に届きます（仮）。来店を待つ時間（30分）は確認中です。ボタンを押すと、LINE 内でその画面が開きます。</p>
         </div>
-        <div class="rm-bar">メニュー</div>
+        <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
         <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
+        <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><span class="li-field">メッセージを入力（このモックでは送れません）</span></div>
       </section>
 
       <!-- SCR-20 初回の登録（招待コードの読み取り後） -->
       <section data-screen="SCR-20" data-device="mobile" data-name="初回の登録（招待コードの読み取り後）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>はじめての登録</h1>
           <span class="badge info role">キャスト</span>
@@ -1258,59 +1311,66 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-23 LINE のトーク（キャスト） -->
       <section data-screen="SCR-23" data-device="mobile" data-name="LINE のトーク（キャスト）" class="m-screen">
-        <div class="liff-bar line-head">
-          <h1>会員制バー（LINE 公式アカウント）</h1>
+        <div class="line-head">
+          <button type="button" class="lh-back" data-line-back aria-label="トーク一覧に戻る">‹</button>
+          <h1>会員制バー</h1>
           <span class="badge info role">キャスト</span>
+          <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
           <div class="talk">
-            <p class="time">11/13（金）</p>
-            <div class="bubble"><span class="from">追加出勤のお願い 19:30</span>
+            <p class="time"><span>11/13（金）</span></p>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">追加出勤のお願い</span>
               <p>みなみ さん、今日 22:00〜 出勤できるか教えてください。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-07">応答する</button></div>
-            <div class="bubble"><span class="from">勤怠の申請の結果 20:15</span>
+              <button type="button" class="btn secondary small" data-go="SCR-07">応答する</button></div><span class="stamp">19:30</span></div>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">勤怠の申請の結果</span>
               <p>11/12 の退勤（1:00）の申請が承認されました。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-21">ホームを開く</button></div>
-            <div class="bubble"><span class="from">割り当て 21:02</span>
+              <button type="button" class="btn secondary small" data-go="SCR-21">ホームを開く</button></div><span class="stamp">20:15</span></div>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">割り当て</span>
               <p>21:00〜 カウンター D・E ／ No.0145 M.S.（担当）</p>
-              <button type="button" class="btn secondary small" data-go="SCR-04">割り当てを見る</button></div>
-            <div class="bubble"><span class="from">店からの連絡 21:06</span>
+              <button type="button" class="btn secondary small" data-go="SCR-04">割り当てを見る</button></div><span class="stamp">21:02</span></div>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">店からの連絡</span>
               <p>23時から BOX-B に12名の予約があります。22時半までに準備をお願いします。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-18">読んで確認する</button></div>
+              <button type="button" class="btn secondary small" data-go="SCR-18">読んで確認する</button></div><span class="stamp">21:06</span></div>
           </div>
           <p class="hint">ボタンを押すと、LINE 内でその画面が開きます。画面を閉じると、このトークに戻ります。</p>
         </div>
-        <div class="rm-bar">メニュー</div>
+        <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
         <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><span class="li-field">メッセージを入力（このモックでは送れません）</span></div>
       </section>
 
       <!-- SCR-24 LINE のトーク（お客さん） -->
       <section data-screen="SCR-24" data-device="mobile" data-name="LINE のトーク（お客さん）" class="m-screen">
-        <div class="liff-bar line-head">
-          <h1>会員制バー（LINE 公式アカウント）</h1>
+        <div class="line-head">
+          <button type="button" class="lh-back" data-line-back aria-label="トーク一覧に戻る">‹</button>
+          <h1>会員制バー</h1>
           <span class="badge info role">お客さん</span>
+          <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
           <div class="talk">
-            <p class="time">11/12（木）</p>
-            <div class="bubble"><span class="from">ご予約を受け付けました 18:00</span>
+            <p class="time"><span>11/12（木）</span></p>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">ご予約を受け付けました</span>
               <p>11/13（金）21:00・2名でお待ちしています。</p>
-              <button type="button" class="btn secondary small" data-go="">予約を確認する</button></div>
-            <p class="time">11/13（金）</p>
-            <div class="bubble"><span class="from">本日のご予約 12:00</span>
+              <button type="button" class="btn secondary small" data-go="">予約を確認する</button></div><span class="stamp">18:00</span></div>
+            <p class="time"><span>11/13（金）</span></p>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">本日のご予約</span>
               <p>今日 21:00・2名のご予約があります。変更・取消は「予約を確認する」からできます。</p>
-              <button type="button" class="btn secondary small" data-go="">予約を確認する</button></div>
+              <button type="button" class="btn secondary small" data-go="">予約を確認する</button></div><span class="stamp">12:00</span></div>
           </div>
           <p class="hint">「予約を確認する」で開く画面（予約の確認・変更・取消）は、今回のモックの対象外です。</p>
         </div>
-        <div class="rm-bar">メニュー</div>
+        <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
         <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(2, 1fr)"><button type="button" data-go="SCR-22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-08"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予約</button></nav>
+        <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><span class="li-field">メッセージを入力（このモックでは送れません）</span></div>
       </section>
 
       <!-- SCR-25 未登録のときの案内 -->
       <section data-screen="SCR-25" data-device="mobile" data-name="未登録のときの案内" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
-          <h1>会員制バー</h1>
+          <h1>ご利用について</h1>
         </div>
         <div class="m-body">
           <div class="card">
@@ -1332,6 +1392,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-15 店内状況（キャスト・見るだけ） -->
       <section data-screen="SCR-15" data-device="mobile" data-name="店内状況（キャスト・見るだけ）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
           <h1>店内状況</h1>
@@ -1828,6 +1889,34 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   cfSave.addEventListener('click', function () { cfSave.disabled = true; cfSave.textContent = '登録しました'; toast('キャストとして登録しました。メニューが使えます'); });
 
   document.getElementById('unregClose').addEventListener('click', function () { toast('画面を閉じて、LINE のトークに戻ります'); });
+
+  /* ---- LINE parts: close of screens opened in LINE, talk header, rich menu bar ---- */
+  function talkOf(id) {
+    var k = ['admin', 'cast', 'guest'].filter(function (r) { return ROLES[r].screens.indexOf(id) >= 0; })[0];
+    return k ? ROLES[k].screens[0] : '';
+  }
+  document.querySelectorAll('[data-liff-close]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var t = talkOf(b.closest('[data-screen]').dataset.screen);
+      if (t) location.hash = t; else toast('画面を閉じて、LINE のトークに戻ります');
+    });
+  });
+  document.querySelectorAll('[data-line-back]').forEach(function (b) { b.addEventListener('click', function () { toast('LINE のトーク一覧に戻ります（このモックの対象外）'); }); });
+  document.querySelectorAll('[data-line-plus]').forEach(function (b) { b.addEventListener('click', function () { toast('写真などの送信は、このモックの対象外です'); }); });
+  document.querySelectorAll('[data-rm-toggle]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var nav = b.closest('[data-screen]').querySelector('.richmenu'), open = nav.hidden;
+      nav.hidden = !open; b.setAttribute('aria-expanded', open ? 'true' : 'false');
+      b.querySelector('[data-rm-arrow]').textContent = open ? '▼' : '▲';
+    });
+  });
+  function inputMode(scr, on) {
+    scr.querySelector('.rm-bar').hidden = on; scr.querySelector('.line-input').hidden = !on;
+    scr.querySelector('.richmenu').hidden = on;
+    if (!on) { var t = scr.querySelector('[data-rm-toggle]'); t.setAttribute('aria-expanded', 'true'); t.querySelector('[data-rm-arrow]').textContent = '▼'; }
+  }
+  document.querySelectorAll('[data-rm-kbd]').forEach(function (b) { b.addEventListener('click', function () { inputMode(b.closest('[data-screen]'), true); }); });
+  document.querySelectorAll('[data-rm-back]').forEach(function (b) { b.addEventListener('click', function () { inputMode(b.closest('[data-screen]'), false); }); });
 
   window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
