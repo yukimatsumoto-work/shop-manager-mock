@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>会員制バー店舗管理 画面モック</title>
+<style>
+/* generated from tokens: FDE default (Navy/Teal) — do not edit by hand */
+:root {
+  --color-primary: #0F172A;
+  --color-slate-800: #1E293B;
+  --color-slate-700: #334155;
+  --color-slate-500: #64748B;
+  --color-slate-400: #94A3B8;
+  --color-slate-200: #E2E8F0;
+  --color-slate-100: #F1F5F9;
+  --color-slate-50: #F8FAFC;
+  --color-white: #FFFFFF;
+  --color-accent: #0D9488;
+  --color-accent-dark: #115E59;
+  --color-accent-light: #CCFBF1;
+  --color-info-light-blue: #38BDF8;
+  --color-info: #0284C7;
+  --color-link: #2563EB;
+  --color-info-bg: #DBEAFE;
+  --color-success: #059669;
+  --color-success-bg: #D1FAE5;
+  --color-warning: #D97706;
+  --color-warning-bg: #FEF3C7;
+  --color-warning-light: #F59E0B;
+  --color-danger: #DC2626;
+  --color-danger-bg: #FEE2E2;
+  --fs-12: 12px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-20: 20px;
+  --fs-24: 24px;
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --font-family: "Meiryo UI", "Yu Gothic UI", "Hiragino Sans", sans-serif;
+}
+
+/* ---------- base ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-family);
+  font-size: var(--fs-14);
+  color: var(--color-primary);
+  background: var(--color-slate-100);
+  line-height: 1.5;
+}
+h1, h2, h3, p, ul, ol { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+h1 { font-size: var(--fs-20); font-weight: 700; }
+h2 { font-size: var(--fs-16); font-weight: 700; }
+h3 { font-size: var(--fs-14); font-weight: 700; }
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: var(--fs-14);
+  color: var(--color-primary);
+}
+a { color: var(--color-link); }
+
+/* ---------- start page (outside the app screens) ---------- */
+.start { max-width: 720px; margin: 0 auto; padding: var(--space-24) var(--space-16); display: flex; flex-direction: column; gap: var(--space-16); }
+.start .lead-text { color: var(--color-slate-700); }
+.start-roles { display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
+.start-card {
+  display: flex; flex-direction: column; gap: var(--space-4); padding: var(--space-16); min-height: 48px;
+  background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-12);
+  color: var(--color-primary); text-decoration: none;
+}
+.start-card b { font-size: var(--fs-16); color: var(--color-accent-dark); }
+.start-card span { font-size: var(--fs-12); color: var(--color-slate-700); }
+.start-card:hover { border-color: var(--color-accent-dark); }
+.start-card:active { background: var(--color-slate-100); }
+#rolePages { display: flex; flex-direction: column; gap: var(--space-16); }
+.start-list { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
+.start-list a { display: flex; align-items: center; min-height: 44px; padding: 0 var(--space-12); background: var(--color-white); border-radius: var(--radius-8); text-decoration: none; }
+.start-list a:hover { background: var(--color-slate-100); }
+@media (min-width: 600px) {
+  .start-roles { grid-template-columns: repeat(3, 1fr); }
+  .start-list { grid-template-columns: 1fr 1fr; }
+}
+.to-start {
+  position: fixed; right: 8px; top: 50%; z-index: 40; min-width: 44px; min-height: 44px; padding: 0 var(--space-12);
+  display: flex; align-items: center; justify-content: center; border-radius: 22px;
+  background: var(--color-primary); color: var(--color-white); font-size: var(--fs-12); text-decoration: none; opacity: 0.6;
+}
+.to-start:hover { opacity: 1; }
+body.ref-mobile .to-start, body.ref-tablet .to-start { display: none; }
+
+/* ---------- buttons (4 states) ---------- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-8);
+  min-height: 40px; padding: 0 var(--space-16);
+  border: 1px solid var(--color-accent-dark); border-radius: var(--radius-8);
+  background: var(--color-accent-dark); color: var(--color-white);
+  font-size: var(--fs-14); font-weight: 700; cursor: pointer;
+  transition: background .12s;
+}
+.btn:hover { background: var(--color-primary); border-color: var(--color-primary); }
+.btn:active { background: var(--color-slate-700); border-color: var(--color-slate-700); }
+.btn:focus-visible { outline: 2px solid var(--color-info); outline-offset: 2px; }
+.btn:disabled, .btn[aria-disabled="true"] {
+  background: var(--color-slate-200); border-color: var(--color-slate-200); color: var(--color-slate-500); cursor: not-allowed;
+}
+.btn.secondary { background: var(--color-white); color: var(--color-accent-dark); border-color: var(--color-accent); }
+.btn.secondary:hover { background: var(--color-accent-light); }
+.btn.secondary:active { background: var(--color-accent-light); border-color: var(--color-accent-dark); }
+.btn.secondary:disabled { background: var(--color-slate-100); color: var(--color-slate-500); border-color: var(--color-slate-200); }
+.btn.danger { background: var(--color-white); color: var(--color-danger); border-color: var(--color-danger); }
+.btn.danger:hover { background: var(--color-danger-bg); }
+.btn.danger:active { background: var(--color-danger-bg); border-color: var(--color-primary); }
+.btn.danger:disabled { background: var(--color-slate-100); color: var(--color-slate-500); border-color: var(--color-slate-200); }
+.btn.small { min-height: 32px; padding: 0 var(--space-12); font-size: var(--fs-12); }
+.phone .btn { min-height: 48px; }
+.phone .btn.small { min-height: 44px; }
+.btn.block { width: 100%; }
+
+/* ---------- badges ---------- */
+.badge {
+  display: inline-block; padding: 0 var(--space-8); border-radius: var(--radius-4);
+  font-size: var(--fs-12); font-weight: 700; line-height: 20px;
+  background: var(--color-slate-100); color: var(--color-slate-700);
+}
+.badge.ok { background: var(--color-success-bg); color: var(--color-accent-dark); }
+.badge.warn { background: var(--color-warning-bg); color: var(--color-primary); }
+.badge.ng { background: var(--color-danger-bg); color: var(--color-primary); }
+.badge.info { background: var(--color-info-bg); color: var(--color-primary); }
+.badge.vip { background: var(--color-accent-light); color: var(--color-accent-dark); }
+
+/* ---------- form ---------- */
+.field { display: flex; flex-direction: column; gap: var(--space-4); }
+.field label { font-size: var(--fs-12); font-weight: 700; color: var(--color-slate-700); }
+.input, .select, .textarea {
+  min-height: 40px; padding: 0 var(--space-12);
+  border: 1px solid var(--color-slate-400); border-radius: var(--radius-8);
+  background: var(--color-white); color: var(--color-primary);
+}
+.textarea { padding: var(--space-8) var(--space-12); min-height: 96px; resize: vertical; width: 100%; }
+.input:hover, .select:hover, .textarea:hover { border-color: var(--color-slate-700); }
+.input:focus, .select:focus, .textarea:focus { outline: 2px solid var(--color-accent); outline-offset: 0; border-color: var(--color-accent); }
+.phone .input, .phone .select { min-height: 48px; }
+.hint { font-size: var(--fs-12); color: var(--color-slate-700); }
+.notice {
+  padding: var(--space-8) var(--space-12); border-radius: var(--radius-8);
+  font-size: var(--fs-12); border: 1px solid var(--color-warning-light);
+  background: var(--color-warning-bg); color: var(--color-primary);
+}
+.notice.info { border-color: var(--color-info-light-blue); background: var(--color-info-bg); }
+
+/* ---------- toast / overlay ---------- */
+.toast {
+  position: fixed; left: 50%; bottom: 32px; transform: translateX(-50%);
+  padding: var(--space-12) var(--space-16); border-radius: var(--radius-8);
+  background: var(--color-slate-800); color: var(--color-white); font-size: var(--fs-14);
+  display: none; z-index: 50;
+}
+.toast.show { display: block; }
+.overlay {
+  position: absolute; inset: 0; background: var(--color-slate-700);
+  display: none; align-items: center; justify-content: center; z-index: 20; padding: var(--space-16);
+}
+.overlay.show { display: flex; }
+.dialog {
+  width: 100%; max-width: 480px; background: var(--color-white); border-radius: var(--radius-12);
+  padding: var(--space-24); display: flex; flex-direction: column; gap: var(--space-16);
+}
+.dialog .actions { display: flex; gap: var(--space-8); justify-content: flex-end; flex-wrap: wrap; }
+.phone .dialog .actions { flex-direction: column; }
+.phone .dialog .actions .btn { width: 100%; }
+.done-icon {
+  width: 48px; height: 48px; border-radius: 50%; background: var(--color-success-bg); color: var(--color-accent-dark);
+  display: flex; align-items: center; justify-content: center; font-size: var(--fs-24); font-weight: 700;
+}
+.drawer {
+  position: absolute; left: 0; right: 0; bottom: 0; background: var(--color-white);
+  border-radius: var(--radius-12) var(--radius-12) 0 0; padding: var(--space-16);
+  display: none; flex-direction: column; gap: var(--space-12); z-index: 21;
+  border-top: 1px solid var(--color-slate-200);
+}
+.drawer.show { display: flex; }
+
+/* ---------- frames ---------- */
+#phoneFrame { display: block; }
+.phone { position: relative; width: 100%; max-width: 1024px; margin: 0 auto; }
+.phone-screen {
+  position: relative; width: 100%; height: 100vh; height: 100dvh; overflow: hidden;
+  background: var(--color-slate-50);
+  container-type: inline-size;
+}
+/* reference sizes for screen images: smartphone 360px x 740px, tablet 768px x 1024px */
+body.ref-mobile .phone { max-width: 360px; }
+body.ref-mobile .phone-screen { height: 740px; }
+body.ref-tablet .phone { max-width: 768px; }
+body.ref-tablet .phone-screen { height: 1024px; }
+
+/* ---------- mobile (LINE LIFF) ---------- */
+.m-screen { position: absolute; inset: 0; display: flex; flex-direction: column; background: var(--color-slate-50); }
+.liff-bar {
+  height: 48px; flex: none; display: flex; align-items: center; gap: var(--space-8); padding: 0 var(--space-12);
+  background: var(--color-white); border-bottom: 1px solid var(--color-slate-200);
+}
+.liff-bar .back {
+  width: 44px; height: 44px; border: 0; background: var(--color-white); color: var(--color-primary);
+  font-size: var(--fs-20); border-radius: var(--radius-8); cursor: pointer;
+}
+.liff-bar .back:hover { background: var(--color-slate-100); }
+.liff-bar .back:active { background: var(--color-slate-200); }
+.liff-bar .back:disabled { color: var(--color-slate-400); }
+.liff-bar h1 { font-size: var(--fs-16); flex: 1; }
+.liff-bar .role { font-size: var(--fs-12); }
+.m-body { flex: 1; overflow-y: auto; padding: var(--space-16); display: flex; flex-direction: column; gap: var(--space-12); }
+.card {
+  background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-12);
+  padding: var(--space-16); display: flex; flex-direction: column; gap: var(--space-8);
+}
+.card .row { display: flex; justify-content: space-between; align-items: center; gap: var(--space-8); }
+.muted { color: var(--color-slate-700); font-size: var(--fs-12); }
+.big { font-size: var(--fs-24); font-weight: 700; }
+.bottom-nav {
+  flex: none; height: 64px; display: grid; grid-template-columns: repeat(4, 1fr);
+  background: var(--color-white); border-top: 1px solid var(--color-slate-200);
+}
+.bottom-nav button {
+  border: 0; background: var(--color-white); color: var(--color-slate-700); font-size: var(--fs-12);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; cursor: pointer;
+}
+.bottom-nav button:hover { background: var(--color-slate-100); }
+.bottom-nav button:active { background: var(--color-slate-200); }
+.bottom-nav button[aria-current="page"] { color: var(--color-accent-dark); font-weight: 700; }
+.bottom-nav svg { width: 22px; height: 22px; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-12); }
+.tile {
+  min-height: 88px; border: 1px solid var(--color-slate-200); border-radius: var(--radius-12);
+  background: var(--color-white); color: var(--color-primary); font-size: var(--fs-14); font-weight: 700;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between;
+  padding: var(--space-12); cursor: pointer; text-align: left;
+}
+.tile:hover { border-color: var(--color-accent); background: var(--color-slate-50); }
+.tile:active { background: var(--color-accent-light); }
+.tile:disabled { color: var(--color-slate-500); background: var(--color-slate-100); cursor: not-allowed; }
+.tile svg { width: 24px; height: 24px; color: var(--color-accent); }
+.tile-head { display: flex; width: 100%; justify-content: space-between; align-items: center; }
+.roletabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); background: var(--color-slate-200); padding: var(--space-4); border-radius: var(--radius-8); }
+.roletabs button {
+  min-height: 44px; border: 0; border-radius: var(--radius-4); background: var(--color-slate-200);
+  color: var(--color-slate-700); font-size: var(--fs-12); font-weight: 700; cursor: pointer;
+}
+.roletabs button:hover { background: var(--color-slate-100); }
+.roletabs button[aria-pressed="true"] { background: var(--color-white); color: var(--color-primary); }
+.seat { border-left: 4px solid var(--color-slate-400); }
+.seat.busy { border-left-color: var(--color-warning); }
+.seat.free { border-left-color: var(--color-success); }
+.castlist li { display: flex; justify-content: space-between; align-items: center; min-height: 44px; border-bottom: 1px solid var(--color-slate-100); }
+.castlist li:last-child { border-bottom: 0; }
+.talk li { padding: var(--space-8) 0; border-bottom: 1px solid var(--color-slate-100); display: flex; flex-direction: column; gap: var(--space-4); }
+.talk li:last-child { border-bottom: 0; }
+.clock { font-size: var(--fs-24); font-weight: 700; text-align: center; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+.vacancy { text-align: center; padding: var(--space-16); border-radius: var(--radius-12); background: var(--color-success-bg); color: var(--color-accent-dark); }
+.vacancy .big { color: var(--color-accent-dark); }
+
+/* ---------- shared blocks ---------- */
+.pc-layout { display: grid; grid-template-columns: 216px 1fr; min-height: 820px; background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); overflow: hidden; position: relative; }
+.side { background: var(--color-primary); color: var(--color-white); padding: var(--space-16) 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.side .brand { padding: 0 var(--space-16) var(--space-16); font-size: var(--fs-16); font-weight: 700; border-bottom: 1px solid var(--color-slate-700); margin-bottom: var(--space-8); }
+.side button {
+  height: 40px; border: 0; background: var(--color-primary); color: var(--color-slate-200);
+  text-align: left; padding: 0 var(--space-16); font-size: var(--fs-14); cursor: pointer;
+}
+.side button:hover { background: var(--color-slate-800); color: var(--color-white); }
+.side button:active { background: var(--color-slate-700); }
+.side button[aria-current="page"] { background: var(--color-accent-dark); color: var(--color-white); font-weight: 700; }
+.side .who { margin-top: auto; padding: var(--space-16); font-size: var(--fs-12); color: var(--color-slate-200); border-top: 1px solid var(--color-slate-700); }
+.main { padding: var(--space-24); display: flex; flex-direction: column; gap: var(--space-16); background: var(--color-slate-50); }
+.pagehead { display: flex; align-items: center; justify-content: space-between; gap: var(--space-16); }
+.kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-16); }
+.kpi { background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); padding: var(--space-16); }
+.kpi .v { font-size: var(--fs-24); font-weight: 700; }
+.panel { background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); padding: var(--space-16); display: flex; flex-direction: column; gap: var(--space-12); }
+.grid2 { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: var(--space-16); }
+.filters { display: flex; gap: var(--space-12); align-items: flex-end; flex-wrap: wrap; }
+table.dg { width: 100%; border-collapse: collapse; font-size: var(--fs-14); }
+table.dg th { text-align: left; font-size: var(--fs-12); color: var(--color-slate-700); background: var(--color-slate-100); padding: var(--space-8) var(--space-12); border-bottom: 1px solid var(--color-slate-200); }
+table.dg th, table.dg td { white-space: nowrap; }
+table.dg td .btn + .btn { margin-left: var(--space-4); }
+table.dg td { padding: var(--space-8) var(--space-12); border-bottom: 1px solid var(--color-slate-100); }
+table.dg tbody tr:hover td { background: var(--color-slate-50); }
+table.dg td.num, table.dg th.num { text-align: right; }
+table.dg.compact th, table.dg.compact td { padding-left: var(--space-8); padding-right: var(--space-8); }
+.heat { display: grid; grid-template-columns: repeat(7, 1fr); gap: var(--space-4); }
+.heat div { border-radius: var(--radius-4); padding: var(--space-8) var(--space-4); text-align: center; font-size: var(--fs-12); background: var(--color-slate-100); color: var(--color-primary); }
+.heat div.mid { background: var(--color-warning-bg); }
+.heat div.hi { background: var(--color-danger-bg); color: var(--color-primary); font-weight: 700; }
+.login-wrap { min-height: 820px; display: flex; align-items: center; justify-content: center; background: var(--color-slate-100); border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); }
+.login { width: 400px; background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-12); padding: var(--space-32); display: flex; flex-direction: column; gap: var(--space-16); }
+.pc-layout .overlay { position: absolute; }
+.err { color: var(--color-danger); font-size: var(--fs-12); }
+/* counter seat chips (SCR-02) */
+.chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-8); }
+.chip {
+  min-height: 44px; border-radius: var(--radius-8); border: 1px solid var(--color-success);
+  background: var(--color-success-bg); color: var(--color-accent-dark); font-size: var(--fs-12); font-weight: 700;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; line-height: 1.3;
+}
+.chip.busy { border-color: var(--color-warning); background: var(--color-warning-bg); color: var(--color-primary); }
+.chip:hover { border-color: var(--color-primary); }
+.chip:active { background: var(--color-slate-200); }
+.chip:disabled { background: var(--color-slate-100); color: var(--color-slate-500); border-color: var(--color-slate-200); cursor: not-allowed; }
+.chip.ro { cursor: default; text-align: center; }
+.chip.ro:hover { border-color: var(--color-success); }
+.chip.ro.busy:hover { border-color: var(--color-warning); }
+.chip.ro:active { background: var(--color-success-bg); }
+.chip.ro.busy:active { background: var(--color-warning-bg); }
+/* business schedule timeline (SCR-14) */
+.tl { display: grid; grid-template-columns: 136px 1fr; border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); overflow: hidden; }
+.tl .hd { background: var(--color-slate-100); font-size: var(--fs-12); font-weight: 700; color: var(--color-slate-700); height: 32px; display: flex; align-items: center; padding: 0 var(--space-8); border-bottom: 1px solid var(--color-slate-200); }
+.tl .hours { display: grid; grid-template-columns: repeat(8, 1fr); padding: 0; }
+.tl .hours span { padding-left: var(--space-4); border-left: 1px solid var(--color-slate-200); height: 32px; display: flex; align-items: center; }
+.tl .seatname { height: 56px; padding: 0 var(--space-8); display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid var(--color-slate-100); background: var(--color-white); }
+.tl .seatname strong { font-size: var(--fs-14); }
+.tl .seatname span { font-size: var(--fs-12); color: var(--color-slate-700); }
+.tl .seatname.group { border-top: 2px solid var(--color-slate-200); }
+.tl .track { position: relative; height: 56px; display: grid; grid-template-columns: repeat(16, 1fr); border-bottom: 1px solid var(--color-slate-100); background: var(--color-white); }
+.tl .track.group { border-top: 2px solid var(--color-slate-200); }
+.tl .track i { border-left: 1px solid var(--color-slate-100); }
+.tl .track i:nth-child(odd) { border-left-color: var(--color-slate-200); }
+.tl .nowline { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color-danger); z-index: 0; }
+.bk {
+  position: absolute; top: 6px; height: 44px; z-index: 1; overflow: hidden;
+  border-radius: var(--radius-4); border: 1px solid var(--color-info); background: var(--color-info-bg); color: var(--color-primary);
+  padding: 2px var(--space-8); text-align: left; font-size: var(--fs-12); line-height: 1.4; cursor: pointer;
+  display: flex; flex-direction: column; justify-content: center; white-space: nowrap;
+}
+.bk b { font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+.bk span { overflow: hidden; text-overflow: ellipsis; }
+.bk.now { background: var(--color-accent-dark); border-color: var(--color-accent-dark); color: var(--color-white); }
+.bk.cand { background: var(--color-white); border: 2px dashed var(--color-warning); color: var(--color-primary); }
+.bk:hover { border-color: var(--color-primary); box-shadow: 0 0 0 1px var(--color-primary); }
+.bk:active { background: var(--color-slate-200); color: var(--color-primary); }
+.bk:focus-visible { outline: 2px solid var(--color-info); outline-offset: 1px; }
+.bk:disabled { background: var(--color-slate-100); color: var(--color-slate-500); border-color: var(--color-slate-200); cursor: not-allowed; }
+.legend { display: flex; gap: var(--space-16); align-items: center; font-size: var(--fs-12); color: var(--color-slate-700); flex-wrap: wrap; }
+.legend .sw { display: inline-block; width: 20px; height: 12px; border-radius: 2px; vertical-align: middle; margin-right: var(--space-4); border: 1px solid var(--color-info); background: var(--color-info-bg); }
+.legend .sw.now { background: var(--color-accent-dark); border-color: var(--color-accent-dark); }
+.legend .sw.cand { background: var(--color-white); border: 2px dashed var(--color-warning); }
+.legend .sw.line { width: 2px; height: 14px; border: 0; background: var(--color-danger); }
+dl.kv { display: grid; grid-template-columns: 120px 1fr; gap: var(--space-8) var(--space-12); margin: 0; }
+dl.kv dt { font-size: var(--fs-12); color: var(--color-slate-700); font-weight: 700; }
+dl.kv dd { margin: 0; }
+
+/* ---------- smartphone-only additions ---------- */
+.mkpis { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+.mkpis .kpi { padding: var(--space-12); }
+.mkpis .kpi .v { font-size: var(--fs-20); }
+.kvrow { display: flex; justify-content: space-between; gap: var(--space-8); font-size: var(--fs-14); }
+.kvrow span:first-child { color: var(--color-slate-700); font-size: var(--fs-12); }
+.hourlist li { display: flex; justify-content: space-between; align-items: center; min-height: 44px; border-bottom: 1px solid var(--color-slate-100); }
+.hourlist li:last-child { border-bottom: 0; }
+.checkrow { display: flex; align-items: center; gap: var(--space-12); min-height: 48px; border-bottom: 1px solid var(--color-slate-100); cursor: pointer; }
+.checkrow:last-child { border-bottom: 0; }
+.checkrow input { width: 24px; height: 24px; accent-color: var(--color-accent-dark); }
+.checkrow span + span:last-child { margin-left: auto; }
+.m-screen .overlay { position: absolute; }
+.m-screen .dialog { padding: var(--space-16); max-height: 100%; overflow-y: auto; }
+.m-screen dl.kv { grid-template-columns: 112px 1fr; }
+.drawer .pair .field { min-width: 0; }
+.drawer .input { width: 100%; }
+/* timeline on the phone: horizontal scroll, seat names stay */
+.mtl-wrap { flex: none; overflow-x: auto; border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); background: var(--color-white); }
+.mtl { display: grid; grid-template-columns: 104px 640px; width: 744px; }
+.mtl .hd { background: var(--color-slate-100); font-size: var(--fs-12); font-weight: 700; color: var(--color-slate-700); height: 32px; display: flex; align-items: center; padding: 0 var(--space-8); border-bottom: 1px solid var(--color-slate-200); }
+.mtl .hd.seathd { position: sticky; left: 0; z-index: 3; }
+.mtl .hours { display: grid; grid-template-columns: repeat(8, 80px); padding: 0; }
+.mtl .hours span { padding-left: var(--space-4); border-left: 1px solid var(--color-slate-200); height: 32px; display: flex; align-items: center; }
+.mtl .seatname { position: sticky; left: 0; z-index: 2; height: 56px; padding: 0 var(--space-8); display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid var(--color-slate-100); border-right: 1px solid var(--color-slate-200); background: var(--color-white); }
+.mtl .seatname strong { font-size: var(--fs-12); white-space: nowrap; }
+.mtl .seatname span { font-size: var(--fs-12); color: var(--color-slate-700); white-space: nowrap; }
+.mtl .seatname.group, .mtl .track.group { border-top: 2px solid var(--color-slate-200); }
+.mtl .track { position: relative; height: 56px; display: grid; grid-template-columns: repeat(16, 40px); border-bottom: 1px solid var(--color-slate-100); background: var(--color-white); }
+.mtl .track i { border-left: 1px solid var(--color-slate-100); }
+.mtl .track i:nth-child(odd) { border-left-color: var(--color-slate-200); }
+.mtl .nowline { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--color-danger); z-index: 0; }
+.talk { display: flex; flex-direction: column; gap: var(--space-12); }
+.talk .time { text-align: center; font-size: var(--fs-12); color: var(--color-slate-700); }
+.bubble { background: var(--color-white); border: 1px solid var(--color-slate-200); border-radius: var(--radius-12); padding: var(--space-12); display: flex; flex-direction: column; gap: var(--space-8); }
+.bubble .from { font-size: var(--fs-12); font-weight: 700; color: var(--color-accent-dark); }
+.line-bg { background: var(--color-slate-100); }
+.who-list li { display: flex; justify-content: space-between; align-items: center; min-height: 44px; border-bottom: 1px solid var(--color-slate-100); }
+.who-list li:last-child { border-bottom: 0; }
+.purpose li { font-size: var(--fs-14); padding-left: var(--space-12); text-indent: calc(-1 * var(--space-12)); }
+[hidden] { display: none !important; }
+.clist { display: flex; flex-direction: column; gap: var(--space-12); }
+/* ---------- role home (SCR-01): at-a-glance ---------- */
+.home { display: flex; flex-direction: column; gap: var(--space-12); }
+.alerts { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+.alert-btn { min-height: 48px; border: 1px solid var(--color-warning); background: var(--color-warning-bg); color: var(--color-primary); border-radius: var(--radius-8); font-size: var(--fs-14); font-weight: 700; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--space-12); cursor: pointer; }
+.alert-btn:hover { border-color: var(--color-primary); }
+.alert-btn:active { background: var(--color-warning-light); }
+.alert-btn:disabled { background: var(--color-slate-100); color: var(--color-slate-500); border-color: var(--color-slate-200); cursor: not-allowed; }
+.alert-btn b { font-size: var(--fs-16); }
+.kpi3 { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: var(--space-8); }
+.kpi3 .kpi { padding: var(--space-12) var(--space-8); text-align: center; }
+.kpi3 .v { font-size: var(--fs-24); font-weight: 700; line-height: 1.2; }
+.kpi3 .v small { font-size: var(--fs-14); font-weight: 400; color: var(--color-slate-700); }
+.kpi3 .kpi.lead { border-color: var(--color-accent); background: var(--color-accent-light); }
+.sec-head { display: flex; justify-content: space-between; align-items: center; }
+.sec-head .link { min-height: 44px; border: 0; background: var(--color-white); color: var(--color-link); font-size: var(--fs-14); font-weight: 700; cursor: pointer; padding: 0 var(--space-4); }
+.sec-head .link:hover { text-decoration: underline; }
+.sec-head .link:active { color: var(--color-primary); }
+.sec-head .link:disabled { color: var(--color-slate-500); cursor: not-allowed; }
+.bars { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-8); align-items: end; height: 64px; border-bottom: 1px solid var(--color-slate-400); padding: 0 var(--space-4); }
+.bars i { display: block; border-radius: 4px 4px 0 0; background: var(--color-accent); }
+.bars i.peak { background: var(--color-danger); }
+.bars-x { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-8); padding: 0 var(--space-4); text-align: center; font-size: var(--fs-12); color: var(--color-slate-700); }
+.bars-x b { color: var(--color-primary); }
+.peak-note { display: flex; align-items: center; gap: var(--space-8); font-size: var(--fs-14); font-weight: 700; }
+.peak-note .ic { width: 20px; height: 20px; border-radius: 50%; background: var(--color-danger); color: var(--color-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-12); }
+.rlist li { display: grid; grid-template-columns: 48px 1fr auto; gap: var(--space-8); align-items: center; min-height: 44px; border-bottom: 1px solid var(--color-slate-100); font-size: var(--fs-14); }
+.rlist li:last-child { border-bottom: 0; }
+.rlist li .t { font-weight: 700; }
+.rlist li .g small { color: var(--color-slate-700); font-size: var(--fs-12); }
+.today { border-color: var(--color-accent); border-width: 2px; }
+.today .when { font-size: var(--fs-24); font-weight: 700; }
+.bigbtns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+.bigbtns .btn { min-height: 64px; font-size: var(--fs-16); }
+.next .when { font-size: var(--fs-20); font-weight: 700; }
+.week { display: grid; grid-template-columns: repeat(7, 1fr); gap: var(--space-4); text-align: center; font-size: var(--fs-12); }
+.week span { border-radius: var(--radius-4); padding: var(--space-4) 0; background: var(--color-slate-100); color: var(--color-slate-700); }
+.week span.on { background: var(--color-accent-dark); color: var(--color-white); font-weight: 700; }
+.week span.today-mark { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+.avail { text-align: center; padding: var(--space-16); border-radius: var(--radius-12); background: var(--color-success-bg); color: var(--color-accent-dark); }
+.avail .v { font-size: var(--fs-24); font-weight: 700; }
+.slots { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--space-4); }
+.slots span { border-radius: var(--radius-8); padding: var(--space-8) 0; text-align: center; font-size: var(--fs-12); background: var(--color-white); border: 1px solid var(--color-success); color: var(--color-accent-dark); font-weight: 700; }
+.slots span.full { border-color: var(--color-slate-200); background: var(--color-slate-100); color: var(--color-slate-700); font-weight: 400; }
+.slots span b { display: block; font-size: var(--fs-16); }
+.castgrid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+.castgrid > span { min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: 0 var(--space-12); border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); background: var(--color-white); font-size: var(--fs-14); font-weight: 700; }
+.tiles.mtiles { grid-template-columns: repeat(3, 1fr); gap: var(--space-8); }
+.mtiles .tile { min-height: 56px; font-size: var(--fs-12); justify-content: center; align-items: center; text-align: center; padding: var(--space-8) var(--space-4); }
+.more-grid { margin-top: var(--space-8); }
+details.more summary { min-height: 44px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); background: var(--color-white); color: var(--color-slate-700); font-size: var(--fs-14); font-weight: 700; cursor: pointer; list-style: none; }
+details.more summary::-webkit-details-marker { display: none; }
+details.more summary:hover { border-color: var(--color-accent); }
+details.more summary:active { background: var(--color-accent-light); }
+details.more[aria-disabled="true"] summary { color: var(--color-slate-500); background: var(--color-slate-100); cursor: not-allowed; }
+/* ---------- LINE talk & rich menu (SCR-19, 23, 24) ---------- */
+.rm-bar { flex: none; text-align: center; font-size: var(--fs-12); color: var(--color-slate-700); background: var(--color-white); border-top: 1px solid var(--color-slate-200); padding: var(--space-4) 0; }
+.richmenu { flex: none; display: grid; gap: 0; background: var(--color-primary); }
+.richmenu button + button { border-left: 1px solid var(--color-slate-700); }
+.richmenu button { min-height: 72px; border: 0; background: var(--color-primary); color: var(--color-white); font-size: var(--fs-14); font-weight: 700; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); cursor: pointer; }
+.richmenu button:hover { background: var(--color-slate-800); }
+.richmenu button:active { background: var(--color-slate-700); }
+.richmenu button:disabled { background: var(--color-slate-100); color: var(--color-slate-500); cursor: not-allowed; }
+.richmenu svg { width: 24px; height: 24px; }
+.steps li { display: flex; gap: var(--space-12); align-items: flex-start; font-size: var(--fs-14); padding: var(--space-8) 0; }
+.steps li b { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--color-accent-dark); color: var(--color-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-12); }
+/* ---------- wide screens (tablets): the same screens, laid out in columns ---------- */
+@container (min-width: 600px) {
+  .m-body { padding: var(--space-24); gap: var(--space-16); }
+  .home { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: start; }
+  .home > .alerts, .home > .kpi3, .home > .alert-btn, .home > .avail, .home > .slots, .home > p, .home > .btn { grid-column: 1 / -1; }
+  .home > .wide { grid-column: 1 / -1; }
+  .tiles.mtiles { grid-template-columns: repeat(6, 1fr); }
+  .chips { grid-template-columns: repeat(8, 1fr); }
+  .castgrid { grid-template-columns: repeat(3, 1fr); }
+  .clist { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); }
+  .mkpis { grid-template-columns: repeat(4, 1fr); }
+  .talk { max-width: 560px; width: 100%; margin: 0 auto; }
+  .drawer { left: 50%; right: auto; width: 560px; transform: translateX(-50%); }
+  .bigbtns .btn { min-height: 72px; }
+}
+</style>
+</head>
+<body>
+
+<!-- start page: choose whose LINE to begin with (outside the app screens) -->
+<main id="start" class="start" hidden>
+  <h1 id="startTitle">会員制バー 店舗管理 画面モック</h1>
+  <p class="lead-text" id="startLead">LINE の中で使う画面です。見たい立場を選ぶと、その人の LINE のトークから始まります。スマホで開くとスマホの配置、タブレットで開くとタブレットの配置になります。</p>
+  <div class="start-roles" id="startRoles">
+    <a class="start-card" href="#SCR-19"><b>管理者として見る</b><span>席の案内とキャストの割り当て、予約、勤怠、給与試算、一斉送信</span></a>
+    <a class="start-card" href="#SCR-23"><b>キャストとして見る</b><span>出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請</span></a>
+    <a class="start-card" href="#SCR-24"><b>お客さんとして見る</b><span>空き状況と来店予約、今日出勤しているキャスト</span></a>
+  </div>
+  <h2>資料（PDF）</h2>
+  <ul class="start-list">
+    <li><a data-pdf="06_画面遷移フロー.pdf" href="06_画面遷移フロー.pdf" target="_blank" rel="noopener">画面遷移フロー（ロール別・A3 横1枚）</a></li>
+    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener" id="pdf07">画面遷移フロー（画面イメージつき・A3 横4ページ）</a></li>
+  </ul>
+  <div id="rolePages">
+    <h2>立場ごとのページ</h2>
+    <ul class="start-list">
+      <li><a data-role="admin" href="admin/">管理者のページ</a></li>
+      <li><a data-role="cast" href="cast/">キャストのページ</a></li>
+      <li><a data-role="guest" href="guest/">お客さんのページ</a></li>
+      <li><a data-role="register" href="register/">登録用のページ（初回の登録・未登録のとき）</a></li>
+    </ul>
+  </div>
+  <h2>画面の一覧</h2>
+  <ul class="start-list" id="startList"></ul>
+  <h2 id="exampleHead">表示の例</h2>
+  <ul class="start-list" id="exampleList"><li><a href="#SCR-21" data-cast-off>キャストのホーム（お休みの日）</a></li></ul>
+</main>
+<a class="to-start" id="toStart" href="#" hidden>入口へ</a>
+
+
+<!-- =================== smartphone (LINE / LIFF) =================== -->
+<div id="phoneFrame">
+  <div class="phone">
+    <div class="phone-screen">
+
+      <!-- SCR-01 ホーム（管理者） -->
+      <section data-screen="SCR-01" data-device="mobile" data-name="ホーム（管理者）" class="m-screen">
+        <div class="liff-bar">
+          <h1>会員制バー 店舗管理</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="home">
+            <div class="alerts">
+              <button type="button" class="alert-btn" data-go="SCR-03">承認待ち <b>2件</b></button>
+              <button type="button" class="alert-btn" data-go="SCR-11">勤怠の申請 <b>1件</b></button>
+            </div>
+            <div class="kpi3">
+              <div class="kpi lead"><p class="muted">出勤中</p><p class="v">3<small>/4名</small></p></div>
+              <div class="kpi"><p class="muted">残りの予約</p><p class="v">7<small>件</small></p></div>
+              <div class="kpi"><p class="muted">空き席</p><p class="v">7<small>/10</small></p></div>
+            </div>
+            <div class="card">
+              <div class="sec-head"><h2>今日の予約</h2><button type="button" class="link" data-go="SCR-14">予定表 ›</button></div>
+              <ul class="rlist">
+                <li><span class="t">21:00</span><span class="g">No.0145 M.S. <small>2名</small></span><span class="badge warn">承認待ち</span></li>
+                <li><span class="t">21:00</span><span class="g">No.0112 A.K. <small>1名</small></span><span class="badge info">カウンター F</span></li>
+                <li><span class="t">22:00</span><span class="g">No.0088 T.K. <small>12名</small></span><span class="badge info">BOX-B</span></li>
+                <li><span class="t">23:00</span><span class="g">No.0131 T.W. <small>1名</small></span><span class="badge info">カウンター G</span></li>
+              </ul>
+              <p class="muted">ほか 3件は予定表で見られます。</p>
+            </div>
+            <div class="card">
+              <div class="sec-head"><h2>混雑予想</h2><button type="button" class="link" data-go="SCR-10">詳しく ›</button></div>
+              <div class="bars" role="img" aria-label="混雑予想。21時ふつう、22時 混雑・補充が必要、23時やや混雑、0時やや混雑、1時ふつう、2時落ち着き">
+                <i style="height:40%" title="21時 ふつう"></i><i class="peak" style="height:100%" title="22時 混雑・補充が必要"></i><i style="height:70%" title="23時 やや混雑"></i><i style="height:65%" title="0時 やや混雑"></i><i style="height:40%" title="1時 ふつう"></i><i style="height:20%" title="2時 落ち着き"></i>
+              </div>
+              <div class="bars-x"><span>21時</span><span><b>22時</b></span><span>23時</span><span>0時</span><span>1時</span><span>2時</span></div>
+              <p class="peak-note"><span class="ic">!</span>22時に混雑。あと1名いると安心です</p>
+              <button type="button" class="btn block" data-go="SCR-10">追加出勤を依頼する</button>
+            </div>
+          </div>
+          <h2>メニュー</h2>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-02"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-14"><span>業務予定</span></button><button type="button" class="tile" data-go="SCR-17"><span>一斉送信</span></button><button type="button" class="tile" data-go="SCR-13"><span>顧客</span></button><button type="button" class="tile" data-go="SCR-11"><span>勤怠</span></button><button type="button" class="tile" data-go="SCR-12"><span>給与試算</span></button></div>
+          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-03"><span>案内・割り当て</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予想・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go=""><span>シフト</span></button><button type="button" class="tile" data-go=""><span>予約</span></button><button type="button" class="tile" data-go=""><span>キャスト</span></button><button type="button" class="tile" data-go=""><span>席の設定</span></button><button type="button" class="tile" data-go=""><span>お知らせ</span></button><button type="button" class="tile" data-go=""><span>締め</span></button><button type="button" class="tile" data-go=""><span>ステータス区分</span></button><button type="button" class="tile" data-go=""><span>操作記録</span></button></div></details>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
+      </section>
+
+      <!-- SCR-21 ホーム（キャスト） -->
+      <section data-screen="SCR-21" data-device="mobile" data-name="ホーム（キャスト）" class="m-screen">
+        <div class="liff-bar">
+          <h1>会員制バー 店舗管理</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <div class="home">
+            <button type="button" class="alert-btn" data-go="SCR-18">店からの連絡 <b>1件</b></button>
+            <div class="card today" id="castToday">
+              <div class="row"><h2>今日 11/13（金）</h2><span class="badge ok">出勤日</span></div>
+              <p class="when">20:00〜</p>
+              <p class="muted" id="castState">まだ出勤していません</p>
+              <div class="bigbtns">
+                <button type="button" class="btn" id="homeIn">出勤</button>
+                <button type="button" class="btn secondary" id="homeOut" disabled>退勤</button>
+              </div>
+              <p class="hint">押すと位置情報で、店の近くにいるかを確かめます。</p>
+            </div>
+            <div class="card today" id="castOff" hidden>
+              <div class="row"><h2>今日 11/13（金）</h2><span class="badge">お休み</span></div>
+              <p class="when">今日の出勤はありません</p>
+            </div>
+            <div class="card next">
+              <div class="row"><h3>次の出勤</h3><span class="muted">確定済み</span></div>
+              <p class="when">11/15（日）20:00〜</p>
+              <div class="week" aria-label="今週の出勤日（金・日）">
+                <span>月</span><span>火</span><span>水</span><span>木</span><span class="on today-mark">金</span><span>土</span><span class="on">日</span>
+              </div>
+            </div>
+            <div class="card">
+              <div class="sec-head"><h3>今日の割り当て</h3><button type="button" class="link" data-go="SCR-04">見る ›</button></div>
+              <p>21:00〜 カウンター D・E ／ No.0145 M.S.（担当）</p>
+            </div>
+          </div>
+          <h2>メニュー</h2>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-04"><span>割り当て</span></button><button type="button" class="tile" data-go="SCR-05"><span>担当のお客さん</span></button><button type="button" class="tile" data-go="SCR-15"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-16"><span>勤怠の申請</span></button><button type="button" class="tile" data-go="SCR-07"><span>追加出勤の依頼</span></button><button type="button" class="tile" data-go="SCR-18"><span>店からの連絡</span></button></div>
+          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go=""><span>シフト</span></button><button type="button" class="tile" data-go=""><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button></div></details>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+      </section>
+
+      <!-- SCR-22 ホーム（お客さん） -->
+      <section data-screen="SCR-22" data-device="mobile" data-name="ホーム（お客さん）" class="m-screen">
+        <div class="liff-bar">
+          <h1>会員制バー 店舗管理</h1>
+          <span class="badge info role">お客さん</span>
+        </div>
+        <div class="m-body">
+          <div class="home">
+            <div class="avail">
+              <p class="muted">今日 11/13（金）</p>
+              <p class="v">ご予約できます</p>
+            </div>
+            <div class="slots" aria-label="時間ごとの予約の可否">
+              <span>20時<b>○</b></span><span>21時<b>○</b></span><span class="full">22時<b>×</b></span><span>23時<b>○</b></span><span>0時<b>○</b></span><span>1時<b>○</b></span>
+            </div>
+            <p class="muted">○ 予約できます　× 満席です</p>
+            <button type="button" class="btn block" data-go="SCR-08">予約する</button>
+            <div class="card wide">
+              <div class="row"><h3>今日出勤しているキャスト</h3><span class="muted">3名</span></div>
+              <div class="castgrid">
+                <span>あおい <span class="badge vip">担当</span></span><span>みなみ</span><span>さくら</span>
+              </div>
+            </div>
+          </div>
+          <h2>メニュー</h2>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-08"><span>予約する</span></button><button type="button" class="tile" data-go=""><span>予約の確認・変更</span></button><button type="button" class="tile" data-go=""><span>お知らせの設定</span></button></div>
+          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-24"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-25"><span>未登録のとき（例）</span></button></div></details>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(2, 1fr)"><button type="button" aria-current="page" data-go="SCR-22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-08"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予約</button></nav>
+      </section>
+
+      <!-- SCR-02 店内状況 -->
+      <section data-screen="SCR-02" data-device="mobile" data-name="店内状況（席・出勤）" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>店内状況</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="notice info" id="rcBanner">21:00 の予約（No.0112 A.K.・1名、カウンター F は承認済み）の時刻です。来店したら受け付けてください。</div>
+          <button type="button" class="btn block" id="rcOpen">来店を受け付ける</button>
+          <h2>席（カウンター8席・BOX 2）</h2>
+          <div class="card">
+            <div class="row"><h3>カウンター</h3><span class="muted" id="ctrCount">空き 6 / 8 席</span></div>
+            <div class="chips">
+              <button type="button" class="chip busy" data-chip>A<br>使用中</button>
+              <button type="button" class="chip" data-chip>B<br>空き</button>
+              <button type="button" class="chip busy" data-chip>C<br>使用中</button>
+              <button type="button" class="chip" data-chip>D<br>空き</button>
+              <button type="button" class="chip" data-chip>E<br>空き</button>
+              <button type="button" class="chip" data-chip>F<br>空き</button>
+              <button type="button" class="chip" data-chip>G<br>空き</button>
+              <button type="button" class="chip" data-chip>H<br>空き</button>
+            </div>
+            <p class="muted">席を押すと、空き／使用中が切り替わります。</p>
+          </div>
+          <div class="card seat busy" id="seatA">
+            <div class="row"><h3>BOX-A（1〜5名）</h3><span class="badge warn" data-state>使用中</span></div>
+            <p class="muted" data-detail>代表 No.0123 K.T.（上得意）3名／担当 あおい／20:15 来店</p>
+            <button type="button" class="btn secondary small" data-toggle-seat="seatA">空きにする</button>
+          </div>
+          <div class="card seat free" id="seatB">
+            <div class="row"><h3>BOX-B（10名以上）</h3><span class="badge ok" data-state>空き</span></div>
+            <p class="muted" data-detail>次の予約 22:00（代表 No.0088 T.K. 12名）</p>
+            <button type="button" class="btn secondary small" data-toggle-seat="seatB">使用中にする</button>
+          </div>
+          <p class="hint">席の状態を切り替えられるのは管理者だけです。</p>
+          <h2>キャストの出勤状況</h2>
+          <div class="card">
+            <ul class="castlist">
+              <li><span>あおい</span><span class="badge ok">出勤中（接客中）</span></li>
+              <li><span>みなみ</span><span class="badge ok">出勤中</span></li>
+              <li><span>さくら</span><span class="badge ok">出勤中</span></li>
+              <li><span>ゆい</span><span class="badge">不在</span></li>
+            </ul>
+          </div>
+        </div>
+        <div class="drawer" id="rcDrawer" role="dialog" aria-label="来店の受付">
+          <h2>来店を受け付ける</h2>
+          <div class="field"><label for="rcGuest">お客さん</label>
+            <select id="rcGuest" class="select"><option value="ok">予約 21:00 No.0112 A.K.（1名）</option><option value="pend">予約 21:00 No.0145 M.S.（2名）</option><option value="walk">当日来店（会員番号を入れる）</option></select></div>
+          <div class="field"><label for="rcNum">人数</label><select id="rcNum" class="select"><option selected>1名</option><option>2名</option><option>3名</option><option>4名</option></select></div>
+          <p class="notice info" id="rcSeatInfo">席: カウンター F（承認済み）。受け付けると使用中になります。</p>
+          <p class="hint">席は、案内・割り当ての候補を承認して決めます。受付では人数と来店時刻を記録します。</p>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="rcDrawer">やめる</button>
+            <button type="button" class="btn" id="rcSave">受け付ける</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-03 案内・割り当ての確認 -->
+      <section data-screen="SCR-03" data-device="mobile" data-name="案内・割り当ての確認" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>案内・割り当ての確認</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <p class="hint">席は承認で決まります。承認するまで、キャストには通知されません。</p>
+          <div class="card" id="cand1">
+            <div class="row"><h3>No.0145 M.S.</h3><span class="badge vip">常連</span></div>
+            <p class="muted">予約 21:00／2名</p>
+            <div class="pair">
+              <div><p class="muted">席の候補</p><p><strong id="cand1Seat">カウンター D・E</strong></p></div>
+              <div><p class="muted">キャストの候補</p><p><strong id="cand1Cast">みなみ（担当）</strong></p></div>
+            </div>
+            <p class="notice info">理由: 担当キャスト（みなみ）が出勤中</p>
+            <div class="pair">
+              <button type="button" class="btn" data-approve="cand1">承認する</button>
+              <button type="button" class="btn secondary" data-open-drawer="drawer1">修正する</button>
+            </div>
+            <button type="button" class="btn danger small" data-reject="cand1">却下する</button>
+          </div>
+          <div class="card" id="cand2">
+            <div class="row"><h3>No.0201 Y.H.</h3><span class="badge">新規</span></div>
+            <p class="muted">当日来店 21:00／4名</p>
+            <div class="pair">
+              <div><p class="muted">席の候補</p><p><strong>席未定</strong></p></div>
+              <div><p class="muted">キャストの候補</p><p><strong>さくら（代理）</strong></p></div>
+            </div>
+            <p class="notice info">理由: 担当なし。手の空いているキャストが代理</p>
+            <div class="pair">
+              <button type="button" class="btn" disabled>承認する</button>
+              <button type="button" class="btn secondary" data-open-drawer="drawer1">修正する</button>
+            </div>
+            <p class="hint">人数に合う空き席の候補がありません。「修正する」で席を選ぶと承認できます。</p>
+          </div>
+          <h2>承認済みの割り当て</h2>
+          <div class="card" id="asg1">
+            <div class="row"><h3>No.0112 A.K.</h3><span class="badge ok">承認済み</span></div>
+            <p class="muted">予約 21:00／1名</p>
+            <div class="pair">
+              <div><p class="muted">席</p><p><strong id="asgSeat">カウンター F</strong></p></div>
+              <div><p class="muted">キャスト</p><p><strong id="asgCast">あおい（担当）</strong></p></div>
+            </div>
+            <button type="button" class="btn secondary" data-open-drawer="drawer2">再割り当てする</button>
+          </div>
+        </div>
+        <div class="drawer" id="drawer1" role="dialog" aria-label="候補の修正">
+          <h2>候補を修正する</h2>
+          <div class="field"><label for="d1seat">席</label>
+            <select id="d1seat" class="select"><option>カウンター D・E</option><option>カウンター F・G</option><option>カウンター F・G・H・B</option><option>BOX-B（22:00 の予約まで）</option></select></div>
+          <div class="field"><label for="d1cast">キャスト</label>
+            <select id="d1cast" class="select"><option>みなみ</option><option>さくら</option><option>あおい</option></select></div>
+          <p class="hint">席は複数選べます。担当キャスト以外を選ぶと代理になります。</p>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="drawer1">やめる</button>
+            <button type="button" class="btn" data-save-drawer="drawer1">修正して承認</button>
+          </div>
+        </div>
+        <div class="drawer" id="drawer2" role="dialog" aria-label="再割り当て">
+          <h2>再割り当てする（No.0112 A.K.）</h2>
+          <div class="field"><label for="d2seat">席</label>
+            <select id="d2seat" class="select"><option>カウンター F</option><option selected>カウンター G</option><option>カウンター H</option><option>BOX-A</option></select></div>
+          <div class="field"><label for="d2cast">キャスト</label>
+            <select id="d2cast" class="select"><option value="あおい">あおい（担当）</option><option value="さくら" selected>さくら（代理）</option><option value="みなみ">みなみ（代理）</option></select></div>
+          <p class="hint">キャストを変えると、新しく付くキャストに割り当てを、外れるキャストに外れたことを LINE で知らせます。変更の前後は記録に残ります。</p>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="drawer2">やめる</button>
+            <button type="button" class="btn" id="reSave">再割り当てする</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-04 割り当ての受け取り -->
+      <section data-screen="SCR-04" data-device="mobile" data-name="割り当ての受け取り" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
+          <h1>割り当て</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <p class="hint">管理者が承認した割り当てが届きました。</p>
+          <div class="card">
+            <p class="muted">21:00〜／カウンター D・E</p>
+            <p class="big">No.0145 M.S.</p>
+            <div class="row"><span class="badge vip">常連</span><span class="muted">来店 13回目・2名</span></div>
+          </div>
+          <button type="button" class="btn secondary block" data-go="SCR-05">顧客詳細・前回の会話を見る</button>
+          <button type="button" class="btn block" id="ackBtn">確認しました</button>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー">
+          <button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button>
+          <button type="button" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button>
+          <button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button>
+          <button type="button" data-go="SCR-07"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 8-3 8h18s-3-1-3-8"/></svg>依頼</button>
+        </nav>
+      </section>
+
+      <!-- SCR-05 顧客詳細・会話内容 -->
+      <section data-screen="SCR-05" data-device="mobile" data-name="顧客詳細・会話内容" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-04" aria-label="戻る">‹</button>
+          <h1>顧客詳細</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <div class="card">
+            <div class="row"><p class="big">No.0145 M.S.</p><span class="badge vip">常連</span></div>
+            <p class="muted">来店 13回／前回 10/28／担当 みなみ</p>
+          </div>
+          <p class="notice info">あなたが担当のお客さんです（いま接客中）。</p>
+          <h2>これまでの会話</h2>
+          <div class="card">
+            <ul class="talk" id="talkList">
+              <li><span class="muted">10/28　みなみ</span><span>週末に釣りに行った話。次は秋の旅行の予定を聞く。</span></li>
+              <li><span class="muted">10/14　みなみ</span><span>ウイスキーはハイボールより水割りが好み。</span></li>
+            </ul>
+          </div>
+          <h2>今日の会話を記録</h2>
+          <p class="notice">実名・勤務先・連絡先は書かないでください。</p>
+          <textarea class="textarea" id="talkInput" aria-label="会話内容" placeholder="例: 好きなお酒、話題にしたこと"></textarea>
+          <button type="button" class="btn block" id="talkSave" disabled>登録する</button>
+        </div>
+        <div class="overlay" id="doneTalk" role="dialog" aria-label="登録完了">
+          <div class="dialog">
+            <div class="done-icon">✓</div>
+            <h2>会話内容を登録しました</h2>
+            <p class="muted">No.0145 M.S. の会話内容に追加しました。</p>
+            <div class="actions">
+              <button type="button" class="btn" data-close-overlay="doneTalk">一覧に戻る</button>
+              <button type="button" class="btn secondary" data-close-overlay="doneTalk">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-06 出退勤の登録 -->
+      <section data-screen="SCR-06" data-device="mobile" data-name="出退勤の登録" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-04" aria-label="戻る">‹</button>
+          <h1>出退勤の登録</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <p class="notice info" id="geoState">位置情報を確かめました: 店の近くにいます。</p>
+          <div class="card">
+            <p class="muted">現在時刻</p>
+            <p class="clock" id="clock">19:58</p>
+            <p class="muted">みなみ さん</p>
+          </div>
+          <div class="pair">
+            <button type="button" class="btn" id="inBtn">出勤</button>
+            <button type="button" class="btn secondary" id="outBtn" disabled>退勤</button>
+          </div>
+          <div class="card">
+            <h3>今日の記録</h3>
+            <p class="muted" id="todayLog">まだ登録がありません</p>
+          </div>
+          <p class="hint">位置情報は打刻のときだけ使い、「店の近くで確認済み」かどうかだけを記録します。</p>
+          <button type="button" class="btn secondary block" data-go="SCR-16">店の近くにいない・位置が取れないときは申請する</button>
+        </div>
+      </section>
+
+      <!-- SCR-07 追加出勤依頼への応答 -->
+      <section data-screen="SCR-07" data-device="mobile" data-name="追加出勤依頼への応答" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-04" aria-label="戻る">‹</button>
+          <h1>追加出勤のお願い</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <div class="card">
+            <span class="badge ng">混雑予想</span>
+            <p class="big">今日 22:00〜</p>
+            <p class="muted">ゆい さん、22時台に混雑が予想されています。出勤できるか教えてください。</p>
+            <p class="muted">依頼: 管理者／19:30</p>
+          </div>
+          <button type="button" class="btn block" data-reply="出勤できる">出勤できる</button>
+          <button type="button" class="btn secondary block" data-reply="出勤できない">出勤できない</button>
+          <p class="hint" id="replyState">まだ応答していません</p>
+        </div>
+      </section>
+
+      <!-- SCR-08 空き状況・来店予約 -->
+      <section data-screen="SCR-08" data-device="mobile" data-name="空き状況の確認・来店予約" class="m-screen">
+        <div class="liff-bar">
+          <h1>ご来店のご案内</h1>
+          <span class="badge info role">お客さん</span>
+        </div>
+        <div class="m-body">
+          <div class="vacancy">
+            <p class="muted">ただいまの状況</p>
+            <p class="big">空きあり</p>
+          </div>
+          <div class="card">
+            <div class="row"><h3>担当キャスト</h3><span class="badge ok">出勤中</span></div>
+            <p>あおい</p>
+          </div>
+          <h2>来店予約</h2>
+          <div class="field"><label for="rvDate">日付</label><input id="rvDate" class="input" type="date" value="2026-11-13"></div>
+          <div class="pair">
+            <div class="field"><label for="rvTime">時刻</label>
+              <select id="rvTime" class="select"><option>20:00</option><option selected>21:00</option><option>22:00</option></select></div>
+            <div class="field"><label for="rvNum">人数</label>
+              <select id="rvNum" class="select"><option>1名</option><option selected>2名</option><option>3名</option><option>4名</option><option>5名</option><option>6〜9名</option><option>10名以上</option></select></div>
+          </div>
+          <p class="hint">BOX 席のご予約は、代表の方だけのご登録で受け付けます。</p>
+          <button type="button" class="btn block" id="rvBtn">予約する</button>
+        </div>
+        <div class="overlay" id="doneRv" role="dialog" aria-label="予約完了">
+          <div class="dialog">
+            <div class="done-icon">✓</div>
+            <h2>来店予約を受け付けました</h2>
+            <p class="muted" id="rvMsg">11/13 21:00 に 2名 でお待ちしています。</p>
+            <div class="actions">
+              <button type="button" class="btn" data-close-overlay="doneRv">一覧に戻る</button>
+              <button type="button" class="btn secondary" data-close-overlay="doneRv">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-10 混雑予想・追加出勤依頼 -->
+      <section data-screen="SCR-10" data-device="mobile" data-name="混雑予想・追加出勤依頼" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>混雑予想・補充</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="mkpis">
+            <div class="kpi"><p class="muted">出勤中のキャスト</p><p class="v">3名</p><p class="muted">不在 1名</p></div>
+            <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
+          </div>
+          <h2>混雑予想（1時間ごと）</h2>
+          <div class="card">
+            <ul class="hourlist">
+              <li><span>21時</span><span class="badge">ふつう</span></li>
+              <li><span><strong>22時</strong></span><span class="badge ng">混雑・補充が必要</span></li>
+              <li><span>23時</span><span class="badge warn">やや混雑</span></li>
+              <li><span>0時</span><span class="badge warn">やや混雑</span></li>
+              <li><span>1時</span><span class="badge">ふつう</span></li>
+              <li><span>2時</span><span class="badge">落ち着き</span></li>
+            </ul>
+          </div>
+          <p class="hint">予想の出し方と補充が必要と判断する基準は確認中です（表示は例）。</p>
+          <h2>追加出勤を依頼する</h2>
+          <div class="card">
+            <label class="checkrow"><input type="checkbox" data-ask value="ゆい" checked><span>ゆい</span><span class="badge">不在</span></label>
+            <label class="checkrow"><input type="checkbox" data-ask value="れな"><span>れな</span><span class="badge">休み</span></label>
+            <label class="checkrow"><input type="checkbox" data-ask value="まい"><span>まい</span><span class="badge">休み</span></label>
+          </div>
+          <button type="button" class="btn block" id="askBtn">選んだキャストに LINE で依頼する</button>
+          <p class="hint" id="askState">応答はこの画面に表示されます。</p>
+        </div>
+      </section>
+
+      <!-- SCR-14 業務予定 -->
+      <section data-screen="SCR-14" data-device="mobile" data-name="業務予定（当日の席ごとの予定）" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>業務予定 11/13（金）</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="mkpis">
+            <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
+            <div class="kpi"><p class="muted">案内予定（未承認）</p><p class="v">2件</p><p class="muted">今の空き席 7 / 10</p></div>
+          </div>
+          <div class="field"><label for="tlKind">席の種類</label>
+            <select id="tlKind" class="select"><option value="">すべて</option><option value="ctr">カウンター</option><option value="box">BOX</option></select></div>
+          <div class="legend">
+            <span><i class="sw now"></i>対応中</span>
+            <span><i class="sw"></i>予約</span>
+            <span><i class="sw cand"></i>案内予定</span>
+            <span><i class="sw line"></i>21:05 現在</span>
+          </div>
+          <div class="mtl-wrap" id="tlWrap"><div class="mtl" id="tl"></div></div>
+          <p class="hint">横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。</p>
+          <p class="hint">営業時間（19:00〜翌3:00）は仮です。帯の終わりは目安（2時間）で、滞在時間の決まりは確認中です。</p>
+          <p class="hint">席が決まっていない予約・候補は「席未定」の行に出ます。予約の席は、帯を押して管理者が決めます（仮）。</p>
+          <p class="hint">BOX の予約は代表者だけを登録します。同行者の情報は後日入力できるようにします（入力する項目は確認中）。</p>
+        </div>
+        <div class="overlay" id="tlModal" role="dialog" aria-label="予定の詳細">
+          <div class="dialog">
+            <div class="row" style="display:flex;justify-content:space-between;align-items:center"><h2>予定の詳細</h2><span class="badge" id="tlState">—</span></div>
+            <dl class="kv" id="tlKv"></dl>
+            <div class="field" id="tlSeatWrap" hidden>
+              <button type="button" class="btn secondary block" id="tlSeatBtn" data-go="SCR-03">席を決める・変える（案内・割り当ての確認へ）</button>
+              <p class="hint">席は、案内・割り当ての確認で、承認前は承認・修正、承認後は再割り当てをして決めます。</p></div>
+            <div class="card" id="tlBox" hidden>
+              <div class="row"><h3>同行者の情報</h3><span class="badge">後日入力</span></div>
+              <p class="muted">代表者だけで予約を受けています。同行者の情報は後日入力できます（入力する項目は確認中）。</p>
+            </div>
+            <div class="actions">
+              <button type="button" class="btn secondary" id="tlToDash" data-go="SCR-03" hidden>確認の画面で承認する</button>
+              <button type="button" class="btn" data-close-overlay="tlModal">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-11 勤怠一覧・修正 -->
+      <section data-screen="SCR-11" data-device="mobile" data-name="勤怠一覧・修正" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>勤怠</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="card" id="reqCard">
+            <div class="row"><h3>申請 11/13　ゆい</h3><span class="badge warn">承認待ち</span></div>
+            <div class="kvrow"><span>内容</span><span>出勤 20:00</span></div>
+            <div class="kvrow"><span>理由</span><span>位置情報が取れなかった</span></div>
+            <div class="pair">
+              <button type="button" class="btn" id="reqOk">承認する</button>
+              <button type="button" class="btn danger" id="reqNg">却下する</button>
+            </div>
+          </div>
+          <div class="field"><label for="atRange">期間</label>
+            <select id="atRange" class="select"><option>11/1〜11/13</option><option>10/16〜10/31</option></select></div>
+          <div class="pair">
+            <div class="field"><label for="atCast">キャスト</label>
+              <select id="atCast" class="select"><option value="">すべて</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select></div>
+            <div class="field"><label for="atState">状態</label>
+              <select id="atState" class="select"><option value="">すべて</option><option>退勤未登録</option><option>修正済み</option><option>登録済み</option></select></div>
+          </div>
+          <div id="atList" class="clist"></div>
+          <p class="hint">労働時間は分単位で集計し、丸めません。修正した人・日時・理由・修正前の値は履歴に残ります。キャストは自分の勤怠を修正できません。</p>
+        </div>
+        <div class="drawer" id="atModal" role="dialog" aria-label="勤怠の修正">
+          <h2>勤怠を修正する</h2>
+          <p class="muted" id="atTarget">—</p>
+          <div class="pair">
+            <div class="field"><label for="atIn">出勤</label><input id="atIn" class="input" type="time"></div>
+            <div class="field"><label for="atOut">退勤</label><input id="atOut" class="input" type="time"></div>
+          </div>
+          <div class="field"><label for="atReason">修正の理由（必須）</label><input id="atReason" class="input" placeholder="例: QR の読み取り忘れ"></div>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="atModal">やめる</button>
+            <button type="button" class="btn" id="atSave" disabled>修正を登録</button>
+          </div>
+        </div>
+        <div class="overlay" id="atDone" role="dialog" aria-label="登録完了">
+          <div class="dialog">
+            <div class="done-icon">✓</div>
+            <h2>勤怠の修正を登録しました</h2>
+            <p class="muted" id="atDoneMsg">—</p>
+            <div class="actions">
+              <button type="button" class="btn" data-close-overlay="atDone">一覧に戻る</button>
+              <button type="button" class="btn secondary" data-close-overlay="atDone">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-12 給与試算 -->
+      <section data-screen="SCR-12" data-device="mobile" data-name="給与試算・出力" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>給与試算</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="field"><label for="pyMonth">対象期間</label>
+            <select id="pyMonth" class="select"><option>2026年11月 1日〜15日</option><option>2026年10月 16日〜31日</option></select></div>
+          <button type="button" class="btn block" id="csvBtn">出力して保存・共有する</button>
+          <p class="notice">計算ルール（時給・歩合など）と割増率は確認中のため、試算額は表示していません。労働時間と深夜の時間だけを表示しています。</p>
+          <div class="card"><div class="row"><h3>あおい</h3><span class="muted">8日</span></div>
+            <div class="kvrow"><span>労働時間</span><span>40時間42分</span></div><div class="kvrow"><span>うち深夜</span><span>26時間05分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
+          <div class="card"><div class="row"><h3>みなみ</h3><span class="muted">7日</span></div>
+            <div class="kvrow"><span>労働時間</span><span>35時間17分</span></div><div class="kvrow"><span>うち深夜</span><span>21時間30分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
+          <div class="card"><div class="row"><h3>さくら</h3><span class="muted">6日</span></div>
+            <div class="kvrow"><span>労働時間</span><span>27時間41分</span></div><div class="kvrow"><span>うち深夜</span><span>18時間12分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
+          <div class="card"><div class="row"><h3>ゆい</h3><span class="muted">3日</span></div>
+            <div class="kvrow"><span>労働時間</span><span>12時間20分</span></div><div class="kvrow"><span>うち深夜</span><span>6時間10分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
+          <p class="hint">出力したファイルは、スマートフォンに保存するか、LINE などで共有できます（仮）。形式（CSV など）と項目は確認中です。</p>
+        </div>
+      </section>
+
+      <!-- SCR-13 顧客一覧・登録 -->
+      <section data-screen="SCR-13" data-device="mobile" data-name="顧客一覧・登録" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>顧客</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <button type="button" class="btn block" id="newGuest">新規登録</button>
+          <div class="field"><label for="gq">店内識別番号・イニシャル</label><input id="gq" class="input" placeholder="例: 0145 / M.S."></div>
+          <div class="field"><label for="gs">ステータス</label>
+            <select id="gs" class="select"><option value="">すべて</option><option>新規</option><option>常連</option><option>上得意</option></select></div>
+          <p class="muted" id="gCount">—</p>
+          <div id="gList" class="clist"></div>
+          <p class="hint">実名・勤務先・連絡先は登録しません。LINE からは利用者 ID だけを保存します。</p>
+        </div>
+        <div class="drawer" id="gModal" role="dialog" aria-label="顧客の新規登録">
+          <h2>顧客を登録する</h2>
+          <div class="pair">
+            <div class="field"><label for="gNo">店内識別番号</label><input id="gNo" class="input" value="No.0207" readonly></div>
+            <div class="field"><label for="gIni">イニシャル（必須）</label><input id="gIni" class="input" placeholder="例: A.B."></div>
+          </div>
+          <div class="field"><label for="gCast">担当キャスト</label>
+            <select id="gCast" class="select"><option>なし</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select></div>
+          <p class="notice">実名・勤務先・連絡先は入力しないでください。</p>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="gModal">やめる</button>
+            <button type="button" class="btn" id="gSave" disabled>登録する</button>
+          </div>
+        </div>
+        <div class="overlay" id="gDone" role="dialog" aria-label="登録完了">
+          <div class="dialog">
+            <div class="done-icon">✓</div>
+            <h2>顧客を登録し、招待コードを発行しました</h2>
+            <p class="muted" id="gDoneMsg">—</p>
+            <div class="card"><p class="muted">招待コード</p><p class="big">7K4-QX9-2MB</p><p class="muted">お客さんが LINE で読み取ると、会員として紐付きます。</p></div>
+            <div class="actions">
+              <button type="button" class="btn" data-close-overlay="gDone">一覧に戻る</button>
+              <button type="button" class="btn secondary" data-close-overlay="gDone">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-16 勤怠の申請 -->
+      <section data-screen="SCR-16" data-device="mobile" data-name="勤怠の申請" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-06" aria-label="戻る">‹</button>
+          <h1>勤怠の申請</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <p class="notice">位置情報で店の近くにいることを確かめられませんでした。申請すると、管理者が確認して勤怠に反映します。</p>
+          <div class="pair">
+            <div class="field"><label for="rqKind">種類</label><select id="rqKind" class="select"><option>出勤</option><option>退勤</option></select></div>
+            <div class="field"><label for="rqTime">時刻</label><input id="rqTime" class="input" type="time" value="20:00"></div>
+          </div>
+          <div class="field"><label for="rqDate">日付</label><input id="rqDate" class="input" type="date" value="2026-11-13"></div>
+          <div class="field"><label for="rqReason">理由（必須）</label><input id="rqReason" class="input" placeholder="例: 位置情報が取れなかった"></div>
+          <button type="button" class="btn block" id="rqSave" disabled>申請する</button>
+          <p class="hint">承認されるまで勤怠には反映されません。結果は LINE で届きます。</p>
+        </div>
+        <div class="overlay" id="rqDone" role="dialog" aria-label="登録完了">
+          <div class="dialog">
+            <div class="done-icon">✓</div>
+            <h2>勤怠を申請しました</h2>
+            <p class="muted" id="rqDoneMsg">—</p>
+            <div class="actions">
+              <button type="button" class="btn" data-close-overlay="rqDone">閉じる</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCR-17 一斉送信 -->
+      <section data-screen="SCR-17" data-device="mobile" data-name="一斉送信" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>キャストへ一斉送信</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="field"><label>宛先</label>
+            <div class="roletabs" role="group" aria-label="宛先">
+              <button type="button" data-to="all" aria-pressed="false">全員 4名</button>
+              <button type="button" data-to="on" aria-pressed="true">出勤中 3名</button>
+              <button type="button" data-to="pick" aria-pressed="false">選ぶ</button>
+            </div></div>
+          <div class="field"><label for="bcText">本文</label><textarea id="bcText" class="textarea" placeholder="例: 23時から BOX-B に12名の予約があります。"></textarea></div>
+          <label class="checkrow"><input type="checkbox" id="bcAsk" checked><span>「確認しました」を求める</span></label>
+          <button type="button" class="btn block" id="bcSend" disabled>送信する</button>
+          <div class="card" id="bcResult" hidden>
+            <div class="row"><h3>確認の状況</h3><span class="muted" id="bcCount">確認 1 / 3</span></div>
+            <ul class="who-list">
+              <li><span>あおい</span><span class="badge ok">確認しました 21:07</span></li>
+              <li><span>みなみ</span><span class="badge">まだ</span></li>
+              <li><span>さくら</span><span class="badge">まだ</span></li>
+            </ul>
+          </div>
+          <p class="hint">LINE 公式アカウントは月に送れる通数に上限があります（プランは確認中）。</p>
+        </div>
+      </section>
+
+      <!-- SCR-18 店からの連絡（キャスト） -->
+      <section data-screen="SCR-18" data-device="mobile" data-name="店からの連絡の確認" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
+          <h1>店からの連絡</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <div class="card">
+            <div class="row"><h3>管理者から</h3><span class="muted">11/13 21:06</span></div>
+            <p>23時から BOX-B に12名の予約があります。22時半までに BOX-B の準備をお願いします。</p>
+          </div>
+          <button type="button" class="btn block" id="bcAck">確認しました</button>
+          <p class="hint">「確認しました」を押したことが管理者に伝わります。</p>
+          <h2>これまでの連絡</h2>
+          <div class="card"><div class="row"><h3>管理者から</h3><span class="muted">11/12 18:30</span></div><p class="muted">今週末はイベントのため、20時までに出勤をお願いします。</p><span class="badge ok" style="align-self:flex-start">確認済み</span></div>
+        </div>
+      </section>
+
+      <!-- SCR-19 管理者に届く通知（LINE のトーク） -->
+      <section data-screen="SCR-19" data-device="mobile" data-name="LINE のトーク（管理者）" class="m-screen">
+        <div class="liff-bar line-head">
+          <h1>会員制バー（LINE 公式アカウント）</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body line-bg">
+          <div class="talk">
+            <p class="time">11/13（金）</p>
+            <div class="bubble"><span class="from">案内・割り当ての候補 20:58</span>
+              <p>No.0145 M.S.（2名・21:00 の予約）の案内・割り当ての候補ができました。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-03">候補を確認する</button></div>
+            <div class="bubble"><span class="from">予約の開始 21:00</span>
+              <p>No.0145 M.S.（2名）の予約時刻です。来店したら受け付けてください（席は承認で決まります）。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button></div>
+            <div class="bubble"><span class="from">来店の確認 21:30</span>
+              <p>No.0145 M.S.（2名・21:00 の予約）の来店がまだありません。取り消しますか。</p>
+              <div class="pair"><button type="button" class="btn secondary small" id="nsKeep">まだ待つ</button><button type="button" class="btn danger small" id="nsCancel">取り消す</button></div></div>
+            <div class="bubble"><span class="from">勤怠の申請 20:12</span>
+              <p>ゆい さんから出勤（20:00）の申請があります。理由: 位置情報が取れなかった。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-11">申請を見る</button></div>
+            <div class="bubble"><span class="from">予約の終了 23:00</span>
+              <p>BOX-A（No.0123 K.T.・3名）の予定終了時刻です。退店したら席を空きにしてください。</p>
+              <div class="pair"><button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button><button type="button" class="btn secondary small" id="nsExtend">30分延長</button></div></div>
+          </div>
+          <p class="hint">開始・終了の時刻より前に席を更新していれば、通知は届きません。通知は管理者全員に届きます（仮）。来店を待つ時間（30分）は確認中です。ボタンを押すと、LINE 内でその画面が開きます。</p>
+        </div>
+        <div class="rm-bar">メニュー</div>
+        <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
+      </section>
+
+      <!-- SCR-20 初回の登録（招待コードの読み取り後） -->
+      <section data-screen="SCR-20" data-device="mobile" data-name="初回の登録（招待コードの読み取り後）" class="m-screen">
+        <div class="liff-bar">
+          <h1>はじめての登録</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <p class="notice info">招待コードを読み取りました。この LINE アカウントを「みなみ」さんとして登録します。</p>
+          <div class="card">
+            <h3>扱う情報と利用目的</h3>
+            <ul class="purpose">
+              <li>・LINE の利用者 ID（表示名・画像は保存しません）</li>
+              <li>・出勤・退勤の記録と、打刻のときの位置情報（店の近くにいるかの確認だけに使い、位置は保存しません）</li>
+              <li>・担当・代理のお客さんの情報と会話内容</li>
+              <li>・出勤している日は、お客さんの画面に名前が表示されます</li>
+            </ul>
+            <p class="muted">文面は確認中です（表示は例）。</p>
+          </div>
+          <label class="checkrow"><input type="checkbox" id="cfAgree"><span>内容を確認し、同意します</span></label>
+          <button type="button" class="btn block" id="cfSave" disabled>同意して登録する</button>
+          <p class="hint">QR コードを使うのは、この最初の登録だけです。同じコードはもう使えません。</p>
+        </div>
+      </section>
+
+      <!-- SCR-23 LINE のトーク（キャスト） -->
+      <section data-screen="SCR-23" data-device="mobile" data-name="LINE のトーク（キャスト）" class="m-screen">
+        <div class="liff-bar line-head">
+          <h1>会員制バー（LINE 公式アカウント）</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body line-bg">
+          <div class="talk">
+            <p class="time">11/13（金）</p>
+            <div class="bubble"><span class="from">追加出勤のお願い 19:30</span>
+              <p>みなみ さん、今日 22:00〜 出勤できるか教えてください。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-07">応答する</button></div>
+            <div class="bubble"><span class="from">勤怠の申請の結果 20:15</span>
+              <p>11/12 の退勤（1:00）の申請が承認されました。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-21">ホームを開く</button></div>
+            <div class="bubble"><span class="from">割り当て 21:02</span>
+              <p>21:00〜 カウンター D・E ／ No.0145 M.S.（担当）</p>
+              <button type="button" class="btn secondary small" data-go="SCR-04">割り当てを見る</button></div>
+            <div class="bubble"><span class="from">店からの連絡 21:06</span>
+              <p>23時から BOX-B に12名の予約があります。22時半までに準備をお願いします。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-18">読んで確認する</button></div>
+          </div>
+          <p class="hint">ボタンを押すと、LINE 内でその画面が開きます。画面を閉じると、このトークに戻ります。</p>
+        </div>
+        <div class="rm-bar">メニュー</div>
+        <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+      </section>
+
+      <!-- SCR-24 LINE のトーク（お客さん） -->
+      <section data-screen="SCR-24" data-device="mobile" data-name="LINE のトーク（お客さん）" class="m-screen">
+        <div class="liff-bar line-head">
+          <h1>会員制バー（LINE 公式アカウント）</h1>
+          <span class="badge info role">お客さん</span>
+        </div>
+        <div class="m-body line-bg">
+          <div class="talk">
+            <p class="time">11/12（木）</p>
+            <div class="bubble"><span class="from">ご予約を受け付けました 18:00</span>
+              <p>11/13（金）21:00・2名でお待ちしています。</p>
+              <button type="button" class="btn secondary small" data-go="">予約を確認する</button></div>
+            <p class="time">11/13（金）</p>
+            <div class="bubble"><span class="from">本日のご予約 12:00</span>
+              <p>今日 21:00・2名のご予約があります。変更・取消は「予約を確認する」からできます。</p>
+              <button type="button" class="btn secondary small" data-go="">予約を確認する</button></div>
+          </div>
+          <p class="hint">「予約を確認する」で開く画面（予約の確認・変更・取消）は、今回のモックの対象外です。</p>
+        </div>
+        <div class="rm-bar">メニュー</div>
+        <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(2, 1fr)"><button type="button" data-go="SCR-22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-08"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予約</button></nav>
+      </section>
+
+      <!-- SCR-25 未登録のときの案内 -->
+      <section data-screen="SCR-25" data-device="mobile" data-name="未登録のときの案内" class="m-screen">
+        <div class="liff-bar">
+          <h1>会員制バー</h1>
+        </div>
+        <div class="m-body">
+          <div class="card">
+            <h2>この LINE アカウントは、まだ登録されていません</h2>
+            <p>お使いいただくには、お店で招待コード（QR）を受け取ってください。</p>
+          </div>
+          <div class="card">
+            <h3>使い始めるまで</h3>
+            <ol class="steps">
+              <li><b>1</b><span>お店で招待コード（QR）を受け取る</span></li>
+              <li><b>2</b><span>LINE のカメラで QR を読み取る</span></li>
+              <li><b>3</b><span>表示される利用目的を確認して、同意する</span></li>
+            </ol>
+          </div>
+          <button type="button" class="btn secondary block" id="unregClose">閉じる</button>
+          <p class="hint">登録していない方には、お店やほかの方の情報は表示しません。</p>
+        </div>
+      </section>
+
+      <!-- SCR-15 店内状況（キャスト・見るだけ） -->
+      <section data-screen="SCR-15" data-device="mobile" data-name="店内状況（キャスト・見るだけ）" class="m-screen">
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
+          <h1>店内状況</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <p class="notice info">見るだけの画面です。席の状態は管理者が切り替えます。</p>
+          <div class="card">
+            <div class="row"><h3>あなたの割り当て</h3><span class="badge ok">承認済み</span></div>
+            <p>21:00〜／カウンター D・E</p>
+            <button type="button" class="btn secondary small" data-go="SCR-04">割り当てを見る</button>
+          </div>
+          <h2>席（カウンター8席・BOX 2）</h2>
+          <div class="card">
+            <div class="row"><h3>カウンター</h3><span class="muted">空き 6 / 8 席</span></div>
+            <div class="chips" aria-label="カウンターの席の状態">
+              <span class="chip ro busy">A<br>使用中</span>
+              <span class="chip ro">B<br>空き</span>
+              <span class="chip ro busy">C<br>使用中</span>
+              <span class="chip ro">D<br>空き</span>
+              <span class="chip ro">E<br>空き</span>
+              <span class="chip ro">F<br>空き</span>
+              <span class="chip ro">G<br>空き</span>
+              <span class="chip ro">H<br>空き</span>
+            </div>
+          </div>
+          <div class="card seat busy">
+            <div class="row"><h3>BOX-A（1〜5名）</h3><span class="badge warn">使用中</span></div>
+            <p class="muted">3名／20:15 から</p>
+          </div>
+          <div class="card seat free">
+            <div class="row"><h3>BOX-B（10名以上）</h3><span class="badge ok">空き</span></div>
+            <p class="muted">22:00 から予約あり</p>
+          </div>
+          <p class="hint">お客さんの情報は、担当・代理のお客さんの分だけ見られます。</p>
+          <h2>キャストの出勤状況</h2>
+          <div class="card">
+            <ul class="castlist">
+              <li><span>あおい</span><span class="badge ok">出勤中（接客中）</span></li>
+              <li><span>みなみ（あなた）</span><span class="badge ok">出勤中</span></li>
+              <li><span>さくら</span><span class="badge ok">出勤中</span></li>
+              <li><span>ゆい</span><span class="badge">不在</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  var screens = Array.prototype.slice.call(document.querySelectorAll('[data-screen]'));
+  var dirty = false;
+
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove('show'); }, 2400);
+  }
+
+  /* ---- role pages: the same file is placed in admin/ cast/ guest/ register/; ?role= does the same locally ---- */
+  var ROLES = {
+    admin: { name: '管理者', page: 1, lead: '管理者が LINE の中で使う画面です。下のボタンから、管理者の LINE のトークを開いて始めます。',
+      cards: [['SCR-19', '管理者として見る', '席の案内とキャストの割り当て、予約、勤怠、給与試算、一斉送信']],
+      screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-17'] },
+    cast: { name: 'キャスト', page: 2, lead: 'キャストが LINE の中で使う画面です。下のボタンから、キャストの LINE のトークを開いて始めます。',
+      cards: [['SCR-23', 'キャストとして見る', '出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請']],
+      screens: ['SCR-23', 'SCR-21', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18'] },
+    guest: { name: 'お客さん', page: 3, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
+      cards: [['SCR-24', 'お客さんとして見る', '空き状況と来店予約、今日出勤しているキャスト']],
+      screens: ['SCR-24', 'SCR-22', 'SCR-08'] },
+    register: { name: '登録用', page: 4, lead: '初めて使う人が登録する画面と、登録していない人が開いたときの案内です。登録が終わると、その人の立場のホームに進みます。',
+      cards: [['SCR-20', '初回の登録', '店の招待コードを読み取った後、お客さん・キャスト・管理者として登録する'],
+              ['SCR-25', '未登録のときの案内', '登録していない人がメニューを開いたときの表示']],
+      screens: ['SCR-20', 'SCR-25'] }
+  };
+  var params = new URLSearchParams(location.search);
+  var m = location.pathname.match(/\/(admin|cast|guest|register)\/(index\.html)?$/);
+  var roleKey = params.get('role') || (m && m[1]);
+  var role = ROLES[roleKey] || null;
+  var inFolder = !!(m && ROLES[m[1]]);
+
+  var list = document.getElementById('startList');
+  var listed = role ? role.screens.map(function (id) { return screens.filter(function (s) { return s.dataset.screen === id; })[0]; }) : screens;
+  listed.forEach(function (s) {
+    var li = document.createElement('li'), a = document.createElement('a');
+    a.href = '#' + s.dataset.screen; a.textContent = s.dataset.name;
+    li.appendChild(a); list.appendChild(li);
+  });
+  if (role) {
+    document.title = document.title + '（' + role.name + '）';
+    document.getElementById('startTitle').textContent = '会員制バー 店舗管理 画面モック（' + role.name + '）';
+    document.getElementById('startLead').textContent = role.lead + 'スマホで開くとスマホの配置、タブレットで開くとタブレットの配置になります。';
+    var box = document.getElementById('startRoles');
+    box.innerHTML = '';
+    role.cards.forEach(function (c) {
+      var a = document.createElement('a'), b = document.createElement('b'), sp = document.createElement('span');
+      a.className = 'start-card'; a.href = '#' + c[0]; b.textContent = c[1]; sp.textContent = c[2];
+      a.appendChild(b); a.appendChild(sp); box.appendChild(a);
+    });
+    document.getElementById('rolePages').hidden = true;
+    var p07 = document.getElementById('pdf07');
+    p07.dataset.page = role.page;
+    p07.textContent = '画面遷移フロー（画面イメージつき・' + role.name + 'のページ）';
+    if (roleKey !== 'cast') { document.getElementById('exampleHead').hidden = true; document.getElementById('exampleList').hidden = true; }
+  }
+  /* PDF: published at the site root; from a role folder they are one level up; from the project folder they are in ../docs/ */
+  document.querySelectorAll('[data-pdf]').forEach(function (a) {
+    var base = location.protocol === 'file:' ? '../docs/' : (inFolder ? '../' : '');
+    a.href = base + a.dataset.pdf + (a.dataset.page ? '#page=' + a.dataset.page : '');
+  });
+  /* role page links: on the project folder there are no role folders, so use ?role= */
+  if (location.protocol === 'file:') {
+    document.querySelectorAll('[data-role]').forEach(function (a) { a.href = '?role=' + a.dataset.role; });
+  }
+  var castOffNext = false;
+  document.querySelector('[data-cast-off]').addEventListener('click', function () { castOffNext = true; });
+  function show() {
+    var id = location.hash.replace('#', '');
+    var target = screens.filter(function (s) { return s.dataset.screen === id; })[0];
+    document.getElementById('start').hidden = !!target;
+    document.getElementById('phoneFrame').hidden = !target;
+    document.getElementById('toStart').hidden = !target;
+    screens.forEach(function (s) { s.style.display = s === target ? 'flex' : 'none'; });
+    if (target && target.dataset.screen === 'SCR-21') {
+      document.getElementById('castOff').hidden = !castOffNext;
+      document.getElementById('castToday').hidden = castOffNext;
+    }
+    castOffNext = false;
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', show);
+  /* ?device=mobile|tablet shows the reference size (used for screen images); real devices use their own width */
+  var dev = params.get('device');
+  if (dev === 'mobile' || dev === 'tablet') document.body.classList.add('ref-' + dev);
+
+  /* ---- navigation ---- */
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-go]');
+    if (!b) return;
+    if (b.dataset.go) { location.hash = b.dataset.go; }
+    else { toast('この画面は今回のモックの対象外です'); }
+  });
+
+  /* ---- SCR-21 cast home: clock in/out and day-off example ---- */
+  var homeIn = document.getElementById('homeIn'), homeOut = document.getElementById('homeOut');
+  homeIn.addEventListener('click', function () { homeIn.disabled = true; homeOut.disabled = false; document.getElementById('castState').textContent = '出勤 19:58（店の近くで確認済み）'; toast('出勤を登録しました（19:58）'); });
+  homeOut.addEventListener('click', function () { homeOut.disabled = true; document.getElementById('castState').textContent = '出勤 19:58 ／ 退勤 1:30'; toast('退勤を登録しました'); });
+
+  /* ---- SCR-02 seats ---- */
+  document.querySelectorAll('[data-toggle-seat]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var c = document.getElementById(b.dataset.toggleSeat), st = c.querySelector('[data-state]'), dt = c.querySelector('[data-detail]');
+      var busy = c.classList.contains('busy');
+      c.classList.toggle('busy', !busy); c.classList.toggle('free', busy);
+      st.textContent = busy ? '空き' : '使用中'; st.className = 'badge ' + (busy ? 'ok' : 'warn');
+      dt.textContent = busy ? '—' : '来店を登録してください';
+      b.textContent = busy ? '使用中にする' : '空きにする';
+      toast((c.querySelector('h3').textContent) + 'を「' + st.textContent + '」にしました');
+    });
+  });
+
+  /* ---- SCR-03 approve / reject / drawer ---- */
+  function closeCard(id, msg) { var c = document.getElementById(id); c.style.display = 'none'; toast(msg); }
+  document.querySelectorAll('[data-approve]').forEach(function (b) { b.addEventListener('click', function () { closeCard(b.dataset.approve, 'みなみさんに LINE で通知しました'); }); });
+  document.querySelectorAll('[data-reject]').forEach(function (b) { b.addEventListener('click', function () { closeCard(b.dataset.reject, '候補を却下しました（記録に残ります）'); }); });
+  var drawerCard = 'cand1';
+  document.querySelectorAll('[data-open-drawer]').forEach(function (b) { b.addEventListener('click', function () { drawerCard = b.closest('.card').id; document.getElementById(b.dataset.openDrawer).classList.add('show'); }); });
+  document.querySelectorAll('[data-close-drawer]').forEach(function (b) { b.addEventListener('click', function () { document.getElementById(b.dataset.closeDrawer).classList.remove('show'); }); });
+  document.querySelectorAll('[data-save-drawer]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var cast = document.getElementById('d1cast').value;
+      document.getElementById(b.dataset.saveDrawer).classList.remove('show');
+      closeCard(drawerCard, '修正して承認しました（' + document.getElementById('d1seat').value + '）。' + cast + 'さんに LINE で通知しました');
+    });
+  });
+
+  /* ---- SCR-04 ---- */
+  document.getElementById('ackBtn').addEventListener('click', function () { this.disabled = true; this.textContent = '確認済み'; toast('管理者に「確認しました」を伝えました'); });
+
+  /* ---- SCR-05 talk ---- */
+  var talkInput = document.getElementById('talkInput'), talkSave = document.getElementById('talkSave');
+  talkInput.addEventListener('input', function () { talkSave.disabled = !talkInput.value.trim(); });
+  talkSave.addEventListener('click', function () {
+    var li = document.createElement('li');
+    li.innerHTML = '<span class="muted">11/13　みなみ</span><span></span>';
+    li.lastChild.textContent = talkInput.value.trim();
+    document.getElementById('talkList').insertBefore(li, document.getElementById('talkList').firstChild);
+    talkInput.value = ''; talkSave.disabled = true;
+    document.getElementById('doneTalk').classList.add('show');
+  });
+
+  /* ---- SCR-06 attendance ---- */
+  var inBtn = document.getElementById('inBtn'), outBtn = document.getElementById('outBtn'), log = document.getElementById('todayLog');
+  inBtn.addEventListener('click', function () { inBtn.disabled = true; outBtn.disabled = false; log.textContent = '出勤 19:58'; toast('出勤を登録しました（19:58）'); });
+  outBtn.addEventListener('click', function () { outBtn.disabled = true; log.textContent = '出勤 19:58 ／ 退勤 1:30'; toast('退勤を登録しました'); });
+
+  /* ---- SCR-07 reply ---- */
+  document.querySelectorAll('[data-reply]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.getElementById('replyState').textContent = '「' + b.dataset.reply + '」と応答しました';
+      document.querySelectorAll('[data-reply]').forEach(function (x) { x.disabled = true; });
+      toast('管理者に応答を送りました');
+    });
+  });
+
+  /* ---- SCR-08 reservation ---- */
+  document.getElementById('rvBtn').addEventListener('click', function () {
+    var d = document.getElementById('rvDate').value.split('-');
+    document.getElementById('rvMsg').textContent = Number(d[1]) + '/' + Number(d[2]) + ' ' + document.getElementById('rvTime').value + ' に ' + document.getElementById('rvNum').value + ' でお待ちしています。';
+    document.getElementById('doneRv').classList.add('show');
+  });
+
+  /* ---- overlays ---- */
+  document.querySelectorAll('[data-close-overlay]').forEach(function (b) {
+    b.addEventListener('click', function () { document.getElementById(b.dataset.closeOverlay).classList.remove('show'); dirty = false; });
+  });
+
+  /* ---- SCR-10 additional shift request ---- */
+  var askBoxes = Array.prototype.slice.call(document.querySelectorAll('[data-ask]'));
+  var askBtn = document.getElementById('askBtn');
+  askBoxes.forEach(function (c) { c.addEventListener('change', function () { askBtn.disabled = !askBoxes.some(function (x) { return x.checked; }); }); });
+  askBtn.addEventListener('click', function () {
+    var names = askBoxes.filter(function (x) { return x.checked; }).map(function (x) { return x.value; });
+    askBtn.disabled = true; askBtn.textContent = '依頼しました';
+    document.getElementById('askState').textContent = names.join('・') + ' さん: 応答待ち';
+    toast(names.join('・') + ' さんに LINE で追加出勤を依頼しました');
+  });
+
+  /* ---- SCR-11 attendance grid ---- */
+  var AT = [
+    ['11/13', 'あおい', '19:55', '', '退勤未登録'],
+    ['11/12', 'みなみ', '19:58', '1:30', '登録済み'],
+    ['11/12', 'さくら', '20:30', '0:30', '修正済み'],
+    ['11/12', 'あおい', '19:50', '2:00', '登録済み'],
+    ['11/11', 'ゆい', '21:00', '1:00', '登録済み'],
+    ['11/11', 'みなみ', '20:00', '1:00', '登録済み']
+  ];
+  /* working time in minutes, no rounding; night = 22:00-5:00 */
+  function toMin(t) { var p = t.split(':'); return Number(p[0]) * 60 + Number(p[1]); }
+  function work(r) {
+    if (!r[3]) return null;
+    var s = toMin(r[2]), e = toMin(r[3]);
+    if (s < 12 * 60) s += 1440;
+    if (e <= s) e += 1440;
+    var night = Math.max(0, Math.min(e, 29 * 60) - Math.max(s, 22 * 60));
+    return [e - s, night];
+  }
+  function dur(m) { return Math.floor(m / 60) + '時間' + (m % 60 ? ('0' + m % 60).slice(-2) + '分' : ''); }
+  var BADGE = { '退勤未登録': 'warn', '修正済み': 'info', '登録済み': 'ok' };
+  var atList = document.getElementById('atList'), atCast = document.getElementById('atCast'), atState = document.getElementById('atState');
+  var editing = null;
+  function renderAt() {
+    atList.innerHTML = AT.filter(function (r) {
+      return (!atCast.value || r[1] === atCast.value) && (!atState.value || r[4] === atState.value);
+    }).map(function (r) {
+      var i = AT.indexOf(r), w = work(r);
+      return '<div class="card"><div class="row"><h3>' + r[0] + '　' + r[1] + '</h3><span class="badge ' + BADGE[r[4]] + '">' + r[4] + '</span></div>' +
+        '<div class="kvrow"><span>出勤／退勤</span><span>' + r[2] + ' ／ ' + (r[3] || '—') + '</span></div>' +
+        '<div class="kvrow"><span>労働時間</span><span>' + (w ? dur(w[0]) : '—') + '</span></div>' +
+        '<div class="kvrow"><span>うち深夜（22時〜5時）</span><span>' + (w ? dur(w[1]) : '—') + '</span></div>' +
+        '<button type="button" class="btn secondary small" data-edit="' + i + '">修正する</button></div>';
+    }).join('') || '<p class="muted">該当する勤怠はありません</p>';
+  }
+  atCast.addEventListener('change', renderAt); atState.addEventListener('change', renderAt);
+  renderAt();
+  var atIn = document.getElementById('atIn'), atOut = document.getElementById('atOut'), atReason = document.getElementById('atReason'), atSave = document.getElementById('atSave');
+  atList.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-edit]'); if (!b) return;
+    editing = Number(b.dataset.edit); var r = AT[editing];
+    document.getElementById('atTarget').textContent = r[0] + '　' + r[1];
+    atIn.value = r[2].length === 4 ? '0' + r[2] : r[2]; atOut.value = r[3] ? (r[3].length === 4 ? '0' + r[3] : r[3]) : ''; atReason.value = '';
+    atSave.disabled = true;
+    document.getElementById('atModal').classList.add('show');
+  });
+  [atIn, atOut, atReason].forEach(function (el) { el.addEventListener('input', function () { dirty = true; atSave.disabled = !(atReason.value.trim() && atOut.value); }); });
+  atSave.addEventListener('click', function () {
+    var r = AT[editing];
+    r[2] = atIn.value.replace(/^0/, ''); r[3] = atOut.value.replace(/^0/, ''); r[4] = '修正済み';
+    renderAt();
+    document.getElementById('atModal').classList.remove('show');
+    document.getElementById('atDoneMsg').textContent = r[0] + ' ' + r[1] + ' の勤怠を修正しました（理由: ' + atReason.value.trim() + '）。';
+    document.getElementById('atDone').classList.add('show');
+    dirty = false;
+  });
+
+  /* ---- SCR-12 ---- */
+  document.getElementById('csvBtn').addEventListener('click', function () { toast('ファイルを作って保存・共有の画面を開きます（形式は確認中のため、モックでは出力しません）'); });
+
+  /* ---- SCR-13 customers ---- */
+  var G = [
+    ['No.0123', 'K.T.', '上得意', 41, '11/13', 'あおい', true],
+    ['No.0145', 'M.S.', '常連', 13, '11/13', 'みなみ', true],
+    ['No.0167', 'T.N.', '常連', 9, '11/06', 'さくら', true],
+    ['No.0188', 'R.K.', '新規', 2, '11/02', 'あおい', false],
+    ['No.0201', 'Y.H.', '新規', 1, '11/13', '—', false],
+    ['No.0099', 'S.A.', '上得意', 58, '11/10', 'ゆい', true]
+  ];
+  var STB = { '新規': '', '常連': 'vip', '上得意': 'ok' };
+  var gq = document.getElementById('gq'), gs = document.getElementById('gs'), gList = document.getElementById('gList');
+  function renderG() {
+    var q = gq.value.trim().toLowerCase();
+    var rows = G.filter(function (r) { return (!q || (r[0] + r[1]).toLowerCase().indexOf(q) >= 0) && (!gs.value || r[2] === gs.value); });
+    gList.innerHTML = rows.map(function (r) {
+      return '<div class="card"><div class="row"><h3>' + r[0] + ' ' + r[1] + '</h3><span class="badge ' + STB[r[2]] + '">' + r[2] + '</span></div>' +
+        '<div class="kvrow"><span>来店</span><span>' + r[3] + '回／最終 ' + r[4] + '</span></div>' +
+        '<div class="kvrow"><span>担当キャスト</span><span>' + r[5] + '</span></div>' +
+        '<div class="kvrow"><span>LINE 紐付け</span><span>' + (r[6] ? '<span class="badge ok">紐付け済み</span>' : '<span class="badge warn">未</span>') + '</span></div></div>';
+    }).join('') || '<p class="muted">該当する顧客はいません</p>';
+    document.getElementById('gCount').textContent = rows.length + '件';
+  }
+  gq.addEventListener('input', renderG); gs.addEventListener('change', renderG); renderG();
+  var gIni = document.getElementById('gIni'), gSave = document.getElementById('gSave');
+  document.getElementById('newGuest').addEventListener('click', function () { gIni.value = ''; gSave.disabled = true; document.getElementById('gModal').classList.add('show'); });
+  gIni.addEventListener('input', function () { dirty = true; gSave.disabled = !gIni.value.trim(); });
+  gSave.addEventListener('click', function () {
+    var cast = document.getElementById('gCast').value;
+    G.unshift(['No.0207', gIni.value.trim(), '新規', 0, '—', cast === 'なし' ? '—' : cast, false]); renderG();
+    document.getElementById('gModal').classList.remove('show');
+    document.getElementById('gDoneMsg').textContent = 'No.0207 ' + gIni.value.trim() + ' を登録しました。';
+    document.getElementById('gDone').classList.add('show');
+    dirty = false;
+  });
+
+  /* ---- SCR-02 counter chips ---- */
+  function ctrCount() {
+    var free = document.querySelectorAll('[data-chip]:not(.busy)').length;
+    document.getElementById('ctrCount').textContent = '空き ' + free + ' / 8 席';
+  }
+  document.querySelectorAll('[data-chip]').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var busy = c.classList.toggle('busy');
+      var name = c.textContent.charAt(0);
+      c.innerHTML = name + '<br>' + (busy ? '使用中' : '空き');
+      ctrCount();
+      toast('カウンター ' + name + ' を「' + (busy ? '使用中' : '空き') + '」にしました');
+    });
+  });
+
+  /* ---- SCR-14 business schedule ---- */
+  var SEATS = [
+    ['ctr', 'カウンター A', '1名'], ['ctr', 'カウンター B', '1名'], ['ctr', 'カウンター C', '1名'], ['ctr', 'カウンター D', '1名'],
+    ['ctr', 'カウンター E', '1名'], ['ctr', 'カウンター F', '1名'], ['ctr', 'カウンター G', '1名'], ['ctr', 'カウンター H', '1名'],
+    ['box', 'BOX-A', '1〜5名'], ['box', 'BOX-B', '10名以上'], ['none', '席未定', '管理者が決める']
+  ];
+  /* [seat, start(h after 19:00), end, kind, guest, people, tanto (the guest's own cast), dairi (other cast assigned)] */
+  var BK = [
+    ['カウンター A', 0.5, 2.5, 'now', 'No.0177 S.I.', 1, 'なし', ''],
+    ['カウンター C', 5 / 3, 11 / 3, 'now', 'No.0190 H.M.', 1, 'なし', ''],
+    ['カウンター D', 2, 4, 'cand', 'No.0145 M.S.', 2, 'みなみ', ''],
+    ['カウンター E', 2, 4, 'cand', 'No.0145 M.S.', 2, 'みなみ', ''],
+    ['カウンター F', 3.5, 5.5, 'rsv', 'No.0112 A.K.', 1, 'あおい', ''],
+    ['カウンター G', 4, 6, 'rsv', 'No.0131 T.W.', 1, 'なし', ''],
+    ['カウンター H', 5, 7, 'rsv', 'No.0154 Y.O.', 1, 'なし', ''],
+    ['BOX-A', 1.25, 3.25, 'now', 'No.0123 K.T.', 3, 'あおい', ''],
+    ['BOX-A', 4.5, 6.5, 'rsv', 'No.0160 R.N.', 4, 'なし', ''],
+    ['BOX-B', 3, 5, 'rsv', 'No.0088 T.K.', 12, 'ゆい（依頼中）', ''],
+    ['席未定', 2, 4, 'cand', 'No.0201 Y.H.', 4, 'なし', 'さくら'],
+    ['席未定', 5.5, 7.5, 'rsv', 'No.0215 E.M.', 7, 'なし', '']
+  ];
+  var KIND = { now: ['対応中', 'warn'], rsv: ['予約', 'info'], cand: ['案内予定（未承認）', 'ng'] };
+  var NOW = 2 + 5 / 60;
+  function hm(h) { var t = Math.round((19 + h) * 60) % (24 * 60); return Math.floor(t / 60) + ':' + ('0' + t % 60).slice(-2); }
+  function renderTl() {
+    var f = document.getElementById('tlKind').value;
+    var hours = '';
+    for (var h = 0; h < 8; h++) hours += '<span>' + hm(h) + '</span>';
+    var html = '<div class="hd seathd">席</div><div class="hd hours">' + hours + '</div>';
+    var prevKind = '';
+    SEATS.forEach(function (st) {
+      if (f && st[0] !== f) return;
+      var g = prevKind && prevKind !== st[0] ? ' group' : '';
+      prevKind = st[0];
+      html += '<div class="seatname' + g + '"><strong>' + st[1] + '</strong><span>' + st[2] + '</span></div>';
+      var cells = ''; for (var i = 0; i < 16; i++) cells += '<i></i>';
+      var bars = BK.map(function (b, idx) {
+        if (b[0] !== st[1]) return '';
+        var lead = st[0] === 'box' ? '代表 ' : '';
+        return '<button type="button" class="bk ' + b[3] + '" data-bk="' + idx + '" style="left:' + (b[1] * 80 + 2) + 'px;width:' + ((b[2] - b[1]) * 80 - 4) + 'px">' +
+          '<b>' + hm(b[1]) + ' ' + lead + b[4] + '・' + b[5] + '名</b><span>' + KIND[b[3]][0] + (b[7] ? '／代理 ' + b[7] : '／担当 ' + b[6]) + '</span></button>';
+      }).join('');
+      html += '<div class="track' + g + '">' + cells + bars + '<div class="nowline" style="left:' + (NOW * 80) + 'px"></div></div>';
+    });
+    document.getElementById('tl').innerHTML = html;
+  }
+  function scrollToNow() { document.getElementById('tlWrap').scrollLeft = Math.max(0, NOW * 80 - 120); }
+  document.getElementById('tlKind').addEventListener('change', renderTl);
+  document.getElementById('tl').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-bk]'); if (!b) return;
+    var d = BK[+b.dataset.bk];
+    tlCur = d;
+    var isBox = d[0].indexOf('BOX') === 0;
+    var seat = BK.filter(function (x) { return x[4] === d[4]; }).map(function (x) { return x[0]; }).join('・') + (d[3] === 'cand' && d[0] !== '席未定' ? '（候補）' : '');
+    document.getElementById('tlKv').innerHTML =
+      '<dt>席</dt><dd>' + seat + '</dd>' +
+      '<dt>時間</dt><dd>' + hm(d[1]) + '〜' + hm(d[2]) + '（終わりは目安）</dd>' +
+      '<dt>' + (isBox ? 'お客さん（代表者）' : 'お客さん') + '</dt><dd>' + d[4] + '</dd>' +
+      '<dt>人数</dt><dd>' + d[5] + '名</dd>' +
+      '<dt>担当キャスト</dt><dd>' + d[6] + '</dd>' +
+      (d[7] ? '<dt>代理</dt><dd>' + d[7] + '（候補）</dd>' : '');
+    document.getElementById('tlSeatWrap').hidden = d[3] !== 'rsv';
+    var st = document.getElementById('tlState');
+    st.textContent = KIND[d[3]][0]; st.className = 'badge ' + KIND[d[3]][1];
+    document.getElementById('tlBox').hidden = !isBox;
+    document.getElementById('tlToDash').hidden = d[3] !== 'cand';
+    document.getElementById('tlModal').classList.add('show');
+  });
+  document.getElementById('tlToDash').addEventListener('click', function () { document.getElementById('tlModal').classList.remove('show'); });
+  var tlCur = null;
+  document.getElementById('tlSeatBtn').addEventListener('click', function () { document.getElementById('tlModal').classList.remove('show'); });
+  renderTl();
+  window.addEventListener('hashchange', function () { if (location.hash === '#SCR-14') scrollToNow(); });
+
+
+  /* ---- SCR-02 reception (A-2) ---- */
+  document.getElementById('rcOpen').addEventListener('click', function () { document.getElementById('rcDrawer').classList.add('show'); });
+  var RC = {
+    ok: ['席: カウンター F（承認済み）。受け付けると使用中になります。', '1名'],
+    pend: ['席はまだ承認されていません。受け付けた後、案内・割り当ての確認で承認すると席が決まります。', '2名'],
+    walk: ['受け付けると、案内・割り当ての候補が作られます。承認すると席が決まります。', '1名']
+  };
+  var rcGuest = document.getElementById('rcGuest');
+  rcGuest.addEventListener('change', function () { document.getElementById('rcSeatInfo').textContent = RC[rcGuest.value][0]; document.getElementById('rcNum').value = RC[rcGuest.value][1]; });
+  document.getElementById('rcSave').addEventListener('click', function () {
+    var v = rcGuest.value;
+    document.getElementById('rcDrawer').classList.remove('show');
+    if (v === 'ok') {
+      document.querySelectorAll('[data-chip]').forEach(function (c) { if (c.textContent.charAt(0) === 'F' && !c.classList.contains('busy')) { c.classList.add('busy'); c.innerHTML = 'F<br>使用中'; } });
+      ctrCount();
+      document.getElementById('rcBanner').hidden = true;
+      toast('No.0112 A.K. の来店を受け付けました（21:05）。承認済みのカウンター F を使用中にしました');
+    } else {
+      toast((v === 'pend' ? 'No.0145 M.S.' : '当日来店のお客さん') + ' の来店を受け付けました（21:05）。案内・割り当ての確認で承認すると席が決まります');
+    }
+  });
+
+  /* ---- SCR-03 reassignment of an approved assignment ---- */
+  document.getElementById('reSave').addEventListener('click', function () {
+    var seat = document.getElementById('d2seat').value, cast = document.getElementById('d2cast').value;
+    var before = document.getElementById('asgCast').textContent.replace(/（.*）/, '');
+    document.getElementById('asgSeat').textContent = seat;
+    document.getElementById('asgCast').textContent = cast + (cast === 'あおい' ? '（担当）' : '（代理）');
+    document.getElementById('drawer2').classList.remove('show');
+    toast('再割り当てしました（' + seat + '・' + cast + '）。' + (cast !== before ? cast + 'さんに割り当てを、' + before + 'さんに外れたことを LINE で知らせました' : cast + 'さんに変更を LINE で知らせました'));
+  });
+
+  /* ---- SCR-11 request approval (A-3) ---- */
+  function reqDone(ok) {
+    document.getElementById('reqCard').hidden = true;
+    if (ok) { AT.unshift(['11/13', 'ゆい', '20:00', '', '登録済み']); renderAt(); }
+    toast(ok ? 'ゆいさんの申請を承認し、勤怠に反映しました（記録に残ります）' : 'ゆいさんの申請を却下しました（記録に残ります）');
+  }
+  document.getElementById('reqOk').addEventListener('click', function () { reqDone(true); });
+  document.getElementById('reqNg').addEventListener('click', function () { reqDone(false); });
+
+  /* ---- SCR-16 request (C-2) ---- */
+  var rqReason = document.getElementById('rqReason'), rqSave = document.getElementById('rqSave');
+  rqReason.addEventListener('input', function () { dirty = true; rqSave.disabled = !rqReason.value.trim(); });
+  rqSave.addEventListener('click', function () {
+    document.getElementById('rqDoneMsg').textContent = '11/13 ' + document.getElementById('rqKind').value + ' ' + document.getElementById('rqTime').value + '（理由: ' + rqReason.value.trim() + '）。管理者に通知しました。';
+    document.getElementById('rqDone').classList.add('show'); rqSave.disabled = true; dirty = false;
+  });
+
+  /* ---- SCR-17 broadcast (A-1) ---- */
+  var bcText = document.getElementById('bcText'), bcSend = document.getElementById('bcSend');
+  document.querySelectorAll('[data-to]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('[data-to]').forEach(function (x) { x.setAttribute('aria-pressed', x === b); });
+      if (b.dataset.to === 'pick') toast('キャストを選ぶ画面は今回のモックの対象外です');
+    });
+  });
+  bcText.addEventListener('input', function () { dirty = true; bcSend.disabled = !bcText.value.trim(); });
+  bcSend.addEventListener('click', function () {
+    var to = document.querySelector('[data-to][aria-pressed="true"]').textContent;
+    bcSend.disabled = true; bcSend.textContent = '送信しました'; dirty = false;
+    document.getElementById('bcResult').hidden = !document.getElementById('bcAsk').checked;
+    toast(to + ' に LINE で送信しました');
+  });
+
+  /* ---- SCR-18 ack (C-3) ---- */
+  document.getElementById('bcAck').addEventListener('click', function () { this.disabled = true; this.textContent = '確認済み'; toast('管理者に「確認しました」を伝えました'); });
+
+  /* ---- SCR-19 notifications (A-10) ---- */
+  document.getElementById('nsKeep').addEventListener('click', function () { toast('予約はそのままにしました'); });
+  document.getElementById('nsCancel').addEventListener('click', function () { this.disabled = true; document.getElementById('nsKeep').disabled = true; toast('No.0145 M.S. の予約を取り消しました（業務予定から消えます）'); });
+  document.getElementById('nsExtend').addEventListener('click', function () { this.disabled = true; toast('終了時刻を 23:30 に延ばしました。23:30 にもう一度通知します'); });
+
+  /* ---- SCR-20 first registration (C-1) ---- */
+  var cfAgree = document.getElementById('cfAgree'), cfSave = document.getElementById('cfSave');
+  cfAgree.addEventListener('change', function () { cfSave.disabled = !cfAgree.checked; });
+  cfSave.addEventListener('click', function () { cfSave.disabled = true; cfSave.textContent = '登録しました'; toast('キャストとして登録しました。メニューが使えます'); });
+
+  document.getElementById('unregClose').addEventListener('click', function () { toast('画面を閉じて、LINE のトークに戻ります'); });
+
+  window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+
+  show();
+  if (location.hash === '#SCR-14') scrollToNow();
+})();
+</script>
+</body>
+</html>

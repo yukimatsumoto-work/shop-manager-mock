@@ -82,6 +82,7 @@ a { color: var(--color-link); }
 .start-card span { font-size: var(--fs-12); color: var(--color-slate-700); }
 .start-card:hover { border-color: var(--color-accent-dark); }
 .start-card:active { background: var(--color-slate-100); }
+#rolePages { display: flex; flex-direction: column; gap: var(--space-16); }
 .start-list { display: grid; grid-template-columns: 1fr; gap: var(--space-4); }
 .start-list a { display: flex; align-items: center; min-height: 44px; padding: 0 var(--space-12); background: var(--color-white); border-radius: var(--radius-8); text-decoration: none; }
 .start-list a:hover { background: var(--color-slate-100); }
@@ -486,9 +487,9 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
 <!-- start page: choose whose LINE to begin with (outside the app screens) -->
 <main id="start" class="start" hidden>
-  <h1>会員制バー 店舗管理 画面モック</h1>
-  <p class="lead-text">LINE の中で使う画面です。見たい立場を選ぶと、その人の LINE のトークから始まります。スマホで開くとスマホの配置、タブレットで開くとタブレットの配置になります。</p>
-  <div class="start-roles">
+  <h1 id="startTitle">会員制バー 店舗管理 画面モック</h1>
+  <p class="lead-text" id="startLead">LINE の中で使う画面です。見たい立場を選ぶと、その人の LINE のトークから始まります。スマホで開くとスマホの配置、タブレットで開くとタブレットの配置になります。</p>
+  <div class="start-roles" id="startRoles">
     <a class="start-card" href="#SCR-19"><b>管理者として見る</b><span>席の案内とキャストの割り当て、予約、勤怠、給与試算、一斉送信</span></a>
     <a class="start-card" href="#SCR-23"><b>キャストとして見る</b><span>出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請</span></a>
     <a class="start-card" href="#SCR-24"><b>お客さんとして見る</b><span>空き状況と来店予約、今日出勤しているキャスト</span></a>
@@ -496,12 +497,21 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   <h2>資料（PDF）</h2>
   <ul class="start-list">
     <li><a data-pdf="06_画面遷移フロー.pdf" href="06_画面遷移フロー.pdf" target="_blank" rel="noopener">画面遷移フロー（ロール別・A3 横1枚）</a></li>
-    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener">画面遷移フロー（画面イメージつき・A3 横4ページ）</a></li>
+    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener" id="pdf07">画面遷移フロー（画面イメージつき・A3 横4ページ）</a></li>
   </ul>
+  <div id="rolePages">
+    <h2>立場ごとのページ</h2>
+    <ul class="start-list">
+      <li><a data-role="admin" href="admin/">管理者のページ</a></li>
+      <li><a data-role="cast" href="cast/">キャストのページ</a></li>
+      <li><a data-role="guest" href="guest/">お客さんのページ</a></li>
+      <li><a data-role="register" href="register/">登録用のページ（初回の登録・未登録のとき）</a></li>
+    </ul>
+  </div>
   <h2>画面の一覧</h2>
   <ul class="start-list" id="startList"></ul>
-  <h2>表示の例</h2>
-  <ul class="start-list"><li><a href="#SCR-21" data-cast-off>キャストのホーム（お休みの日）</a></li></ul>
+  <h2 id="exampleHead">表示の例</h2>
+  <ul class="start-list" id="exampleList"><li><a href="#SCR-21" data-cast-off>キャストのホーム（お休みの日）</a></li></ul>
 </main>
 <a class="to-start" id="toStart" href="#" hidden>入口へ</a>
 
@@ -1385,16 +1395,60 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     clearTimeout(t._h); t._h = setTimeout(function () { t.classList.remove('show'); }, 2400);
   }
 
-  /* ---- start page and routing ---- */
+  /* ---- role pages: the same file is placed in admin/ cast/ guest/ register/; ?role= does the same locally ---- */
+  var ROLES = {
+    admin: { name: '管理者', page: 1, lead: '管理者が LINE の中で使う画面です。下のボタンから、管理者の LINE のトークを開いて始めます。',
+      cards: [['SCR-19', '管理者として見る', '席の案内とキャストの割り当て、予約、勤怠、給与試算、一斉送信']],
+      screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-17'] },
+    cast: { name: 'キャスト', page: 2, lead: 'キャストが LINE の中で使う画面です。下のボタンから、キャストの LINE のトークを開いて始めます。',
+      cards: [['SCR-23', 'キャストとして見る', '出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請']],
+      screens: ['SCR-23', 'SCR-21', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18'] },
+    guest: { name: 'お客さん', page: 3, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
+      cards: [['SCR-24', 'お客さんとして見る', '空き状況と来店予約、今日出勤しているキャスト']],
+      screens: ['SCR-24', 'SCR-22', 'SCR-08'] },
+    register: { name: '登録用', page: 4, lead: '初めて使う人が登録する画面と、登録していない人が開いたときの案内です。登録が終わると、その人の立場のホームに進みます。',
+      cards: [['SCR-20', '初回の登録', '店の招待コードを読み取った後、お客さん・キャスト・管理者として登録する'],
+              ['SCR-25', '未登録のときの案内', '登録していない人がメニューを開いたときの表示']],
+      screens: ['SCR-20', 'SCR-25'] }
+  };
+  var params = new URLSearchParams(location.search);
+  var m = location.pathname.match(/\/(admin|cast|guest|register)\/(index\.html)?$/);
+  var roleKey = params.get('role') || (m && m[1]);
+  var role = ROLES[roleKey] || null;
+  var inFolder = !!(m && ROLES[m[1]]);
+
   var list = document.getElementById('startList');
-  screens.forEach(function (s) {
+  var listed = role ? role.screens.map(function (id) { return screens.filter(function (s) { return s.dataset.screen === id; })[0]; }) : screens;
+  listed.forEach(function (s) {
     var li = document.createElement('li'), a = document.createElement('a');
     a.href = '#' + s.dataset.screen; a.textContent = s.dataset.name;
     li.appendChild(a); list.appendChild(li);
   });
-  /* PDF: published next to this page; when opened from the project folder, they are in ../docs/ */
+  if (role) {
+    document.title = document.title + '（' + role.name + '）';
+    document.getElementById('startTitle').textContent = '会員制バー 店舗管理 画面モック（' + role.name + '）';
+    document.getElementById('startLead').textContent = role.lead + 'スマホで開くとスマホの配置、タブレットで開くとタブレットの配置になります。';
+    var box = document.getElementById('startRoles');
+    box.innerHTML = '';
+    role.cards.forEach(function (c) {
+      var a = document.createElement('a'), b = document.createElement('b'), sp = document.createElement('span');
+      a.className = 'start-card'; a.href = '#' + c[0]; b.textContent = c[1]; sp.textContent = c[2];
+      a.appendChild(b); a.appendChild(sp); box.appendChild(a);
+    });
+    document.getElementById('rolePages').hidden = true;
+    var p07 = document.getElementById('pdf07');
+    p07.dataset.page = role.page;
+    p07.textContent = '画面遷移フロー（画面イメージつき・' + role.name + 'のページ）';
+    if (roleKey !== 'cast') { document.getElementById('exampleHead').hidden = true; document.getElementById('exampleList').hidden = true; }
+  }
+  /* PDF: published at the site root; from a role folder they are one level up; from the project folder they are in ../docs/ */
+  document.querySelectorAll('[data-pdf]').forEach(function (a) {
+    var base = location.protocol === 'file:' ? '../docs/' : (inFolder ? '../' : '');
+    a.href = base + a.dataset.pdf + (a.dataset.page ? '#page=' + a.dataset.page : '');
+  });
+  /* role page links: on the project folder there are no role folders, so use ?role= */
   if (location.protocol === 'file:') {
-    document.querySelectorAll('[data-pdf]').forEach(function (a) { a.href = '../docs/' + a.dataset.pdf; });
+    document.querySelectorAll('[data-role]').forEach(function (a) { a.href = '?role=' + a.dataset.role; });
   }
   var castOffNext = false;
   document.querySelector('[data-cast-off]').addEventListener('click', function () { castOffNext = true; });
@@ -1414,7 +1468,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   }
   window.addEventListener('hashchange', show);
   /* ?device=mobile|tablet shows the reference size (used for screen images); real devices use their own width */
-  var dev = new URLSearchParams(location.search).get('device');
+  var dev = params.get('device');
   if (dev === 'mobile' || dev === 'tablet') document.body.classList.add('ref-' + dev);
 
   /* ---- navigation ---- */
