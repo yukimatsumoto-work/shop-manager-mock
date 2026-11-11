@@ -498,7 +498,14 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 .richmenu button:disabled { background: var(--color-slate-100); color: var(--color-slate-500); cursor: not-allowed; }
 .richmenu svg { width: 32px; height: 32px; }
 .line-input { flex: none; display: flex; align-items: center; gap: var(--space-4); padding: var(--space-4) var(--space-8) var(--space-4) 0; background: var(--color-white); border-top: 1px solid var(--color-slate-200); }
-.line-input .li-field { flex: 1; min-height: 36px; display: flex; align-items: center; padding: 0 var(--space-12); border-radius: 18px; background: var(--color-slate-100); color: var(--color-slate-700); font-size: var(--fs-14); }
+.line-input .li-field { flex: 1; min-width: 0; min-height: 40px; padding: 0 var(--space-12); border: 1px solid var(--color-slate-100); border-radius: 20px; background: var(--color-slate-100); color: var(--color-primary); font-size: var(--fs-16); }
+.line-input .li-field::placeholder { color: var(--color-slate-700); }
+.line-input .li-field:hover { border-color: var(--color-slate-400); }
+.line-input .li-field:focus { outline: none; border-color: var(--color-accent); background: var(--color-white); }
+.line-input .li-send { color: var(--color-accent-dark); }
+.line-input .li-send:disabled { color: var(--color-slate-400); cursor: not-allowed; }
+.bubble .auto { font-size: var(--fs-12); color: var(--color-slate-700); }
+.bubble .acts { display: flex; flex-direction: column; gap: var(--space-8); }
 .steps li { display: flex; gap: var(--space-12); align-items: flex-start; font-size: var(--fs-14); padding: var(--space-8) 0; }
 .steps li b { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--color-accent-dark); color: var(--color-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-12); }
 /* ---------- wide screens (tablets): the same screens, laid out in columns ---------- */
@@ -1291,11 +1298,11 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <p>BOX-A（No.0123 K.T.・3名）の予定終了時刻です。退店したら席を空きにしてください。</p>
               <div class="pair"><button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button><button type="button" class="btn secondary small" id="nsExtend">30分延長</button></div></div><span class="stamp">23:00</span></div>
           </div>
-          <p class="hint">開始・終了の時刻より前に席を更新していれば、通知は届きません。通知は管理者全員に届きます（仮）。来店を待つ時間（30分）は確認中です。ボタンを押すと、LINE 内でその画面が開きます。トークの中で完結するボタン（まだ待つ・取り消す・30分延長）を押すと、押した内容がこちらから送ったメッセージとしてトークに残ります（右側の緑の吹き出し）。</p>
+          <p class="hint">開始・終了の時刻より前に席を更新していれば、通知は届きません。通知は管理者全員に届きます（仮）。来店を待つ時間（30分）は確認中です。ボタンを押すと、LINE 内でその画面が開きます。トークの中で完結するボタン（まだ待つ・取り消す・30分延長）を押すと、押した内容がこちらから送ったメッセージとしてトークに残ります（右側の緑の吹き出し）。左下のボタンで入力欄に切り替えて文字を送ると、決まった言葉（予定・承認・勤怠など）に自動で返事をします。</p>
         </div>
         <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
         <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
-        <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><span class="li-field">メッセージを入力（このモックでは送れません）</span></div>
+        <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><input type="text" class="li-field" data-talk-input aria-label="メッセージ" placeholder="メッセージを入力" maxlength="200"><button type="button" class="li-send" data-talk-send aria-label="送信" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12l16-8-6 16-3-7z"/></svg></button></div>
       </section>
 
       <!-- SCR-20 初回の登録（招待コードの読み取り後） -->
@@ -1348,11 +1355,11 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <button type="button" class="btn secondary small" data-go="SCR-18">読んで確認する</button></div><span class="stamp">21:06</span></div>
             <div class="msg me"><div class="bubble"><p>BOX-B の準備が終わりました。</p></div><span class="stamp"><span class="read">既読</span>21:20</span></div>
           </div>
-          <p class="hint">ボタンを押すと、LINE 内でその画面が開きます。画面を閉じると、このトークに戻ります。右側の緑の吹き出しは、キャストがトークに直接送ったメッセージの例です。これをだれがどう読んで返事をするかは確認中です。</p>
+          <p class="hint">ボタンを押すと、LINE 内でその画面が開きます。画面を閉じると、このトークに戻ります。右側の緑の吹き出しは、キャストがトークに直接送ったメッセージの例です。左下のボタンで入力欄に切り替えて文字を送ると、決まった言葉（出勤・遅れ・割り当てなど）に自動で返事をします。店の人には届きません（仮）。</p>
         </div>
         <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
         <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
-        <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><span class="li-field">メッセージを入力（このモックでは送れません）</span></div>
+        <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><input type="text" class="li-field" data-talk-input aria-label="メッセージ" placeholder="メッセージを入力" maxlength="200"><button type="button" class="li-send" data-talk-send aria-label="送信" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12l16-8-6 16-3-7z"/></svg></button></div>
       </section>
 
       <!-- SCR-24 LINE のトーク（お客さん） -->
@@ -1375,11 +1382,11 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <button type="button" class="btn secondary small" data-go="">予約を確認する</button></div><span class="stamp">12:00</span></div>
             <div class="msg me"><div class="bubble"><p>1名増えて3名になっても大丈夫ですか？</p></div><span class="stamp"><span class="read">既読</span>12:05</span></div>
           </div>
-          <p class="hint">「予約を確認する」で開く画面（予約の確認・変更・取消）は、今回のモックの対象外です。右側の緑の吹き出しは、お客さんがトークに直接送ったメッセージの例です。これをだれがどう読んで返事をするかは確認中です。</p>
+          <p class="hint">「予約を確認する」で開く画面（予約の確認・変更・取消）は、今回のモックの対象外です。右側の緑の吹き出しは、お客さんがトークに直接送ったメッセージの例です。左下のボタンで入力欄に切り替えて文字を送ると、決まった言葉（予約・変更・出勤など）に自動で返事をします。店の人には届きません（仮）。</p>
         </div>
         <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
         <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(2, 1fr)"><button type="button" data-go="SCR-22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-08"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予約</button></nav>
-        <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><span class="li-field">メッセージを入力（このモックでは送れません）</span></div>
+        <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><input type="text" class="li-field" data-talk-input aria-label="メッセージ" placeholder="メッセージを入力" maxlength="200"><button type="button" class="li-send" data-talk-send aria-label="送信" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12l16-8-6 16-3-7z"/></svg></button></div>
       </section>
 
       <!-- SCR-25 未登録のときの案内 -->
@@ -1932,10 +1939,68 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   function inputMode(scr, on) {
     scr.querySelector('.rm-bar').hidden = on; scr.querySelector('.line-input').hidden = !on;
     scr.querySelector('.richmenu').hidden = on;
+    if (on) scr.querySelector('[data-talk-input]').focus();
     if (!on) { var t = scr.querySelector('[data-rm-toggle]'); t.setAttribute('aria-expanded', 'true'); t.querySelector('[data-rm-arrow]').textContent = '▼'; }
   }
   document.querySelectorAll('[data-rm-kbd]').forEach(function (b) { b.addEventListener('click', function () { inputMode(b.closest('[data-screen]'), true); }); });
   document.querySelectorAll('[data-rm-back]').forEach(function (b) { b.addEventListener('click', function () { inputMode(b.closest('[data-screen]'), false); }); });
+
+  /* ---- talk: messages typed by the user get an automatic reply by keywords (§11-57, provisional) ---- */
+  var REPLY = {
+    'SCR-19': [
+      [/承認|候補/, '案内・割り当ての候補は、下のボタンから確認できます。', [['案内・割り当てを開く', 'SCR-03']]],
+      [/勤怠|申請/, '勤怠と申請は、下のボタンから確認できます。', [['勤怠を開く', 'SCR-11']]],
+      [/予定|予約/, '今日の予約と席ごとの予定は、下のボタンから確認できます。', [['業務予定を開く', 'SCR-14']]]
+    ],
+    'SCR-23': [
+      [/遅れ|遅く|遅刻|休み|休む/, '遅れ・お休みは、勤怠の申請から管理者に伝えてください。', [['勤怠の申請', 'SCR-16']]],
+      [/出勤|退勤/, '出勤・退勤は、下のボタンから登録してください（店の近くにいるかを確かめます）。', [['出退勤を登録する', 'SCR-06']]],
+      [/割り当て|割当/, '今日の割り当ては、下のボタンから確認できます。', [['割り当てを見る', 'SCR-04']]]
+    ],
+    'SCR-24': [
+      [/変更|取消|取り消|キャンセル/, 'ご予約の確認・変更・取消は、下のボタンからできます。', [['予約を確認する', '']]],
+      [/予約|空き|空い|席/, '今日はご予約を受け付けています（22:00・22:30 は満席です）。下のボタンからご予約ください。', [['予約する', 'SCR-08']]],
+      [/出勤|キャスト/, '今日出勤しているキャスト: あおい（担当）・みなみ・さくら', [['ホームを開く', 'SCR-22']]]
+    ]
+  };
+  var MENU = { 'SCR-19': [['ホーム', 'SCR-01'], ['予定表', 'SCR-14'], ['承認', 'SCR-03'], ['顧客', 'SCR-13']],
+               'SCR-23': [['ホーム', 'SCR-21'], ['割り当て', 'SCR-04'], ['出退勤', 'SCR-06'], ['連絡', 'SCR-18']],
+               'SCR-24': [['ホーム', 'SCR-22'], ['予約', 'SCR-08']] };
+  function hhmm() { var d = new Date(); return d.getHours() + ':' + ('0' + d.getMinutes()).slice(-2); }
+  function addMsg(talk, mine, text, acts) {
+    var row = document.createElement('div'), b = document.createElement('div'), st = document.createElement('span');
+    row.className = mine ? 'msg me' : 'msg'; b.className = 'bubble'; st.className = 'stamp';
+    if (!mine) { var av = document.createElement('span'); av.className = 'avatar'; av.setAttribute('aria-hidden', 'true'); av.textContent = '店'; row.appendChild(av); }
+    var p = document.createElement('p'); p.textContent = text; b.appendChild(p);
+    if (acts) {
+      var box = document.createElement('div'); box.className = 'acts';
+      acts.forEach(function (a) { var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn secondary small'; btn.textContent = a[0]; btn.dataset.go = a[1]; box.appendChild(btn); });
+      b.appendChild(box);
+      var note = document.createElement('p'); note.className = 'auto'; note.textContent = '自動の返事です（店の人には届きません）'; b.appendChild(note);
+    }
+    if (mine) { var r = document.createElement('span'); r.className = 'read'; r.textContent = '既読'; st.appendChild(r); }
+    st.appendChild(document.createTextNode(hhmm()));
+    row.appendChild(b); row.appendChild(st); talk.appendChild(row);
+    var lb = talk.closest('.line-bg'); lb.scrollTop = lb.scrollHeight;
+  }
+  function sendTalk(scr) {
+    var input = scr.querySelector('[data-talk-input]'), text = input.value.trim();
+    if (!text) return;
+    var id = scr.dataset.screen, talk = scr.querySelector('.talk');
+    addMsg(talk, true, text);
+    input.value = ''; scr.querySelector('[data-talk-send]').disabled = true;
+    var hit = REPLY[id].filter(function (r) { return r[0].test(text); })[0];
+    setTimeout(function () {
+      if (hit) addMsg(talk, false, hit[1], hit[2]);
+      else addMsg(talk, false, 'メッセージありがとうございます。ご用件は、下のボタン（メニュー）からお選びください。', MENU[id]);
+    }, 600);
+  }
+  document.querySelectorAll('[data-talk-input]').forEach(function (input) {
+    var scr = input.closest('[data-screen]'), send = scr.querySelector('[data-talk-send]');
+    input.addEventListener('input', function () { send.disabled = !input.value.trim(); });
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); sendTalk(scr); } });
+    send.addEventListener('click', function () { sendTalk(scr); });
+  });
 
   window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
