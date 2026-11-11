@@ -654,7 +654,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <p class="v">ご予約できます</p>
             </div>
             <div class="slots" aria-label="時間ごとの予約の可否">
-              <span>20時<b>○</b></span><span>21時<b>○</b></span><span class="full">22時<b>×</b></span><span>23時<b>○</b></span><span>0時<b>○</b></span><span>1時<b>○</b></span>
+              <span>20:00<b>○</b></span><span>20:30<b>○</b></span><span>21:00<b>○</b></span><span>21:30<b>○</b></span><span class="full">22:00<b>×</b></span><span class="full">22:30<b>×</b></span><span>23:00<b>○</b></span><span>23:30<b>○</b></span><span>0:00<b>○</b></span><span>0:30<b>○</b></span><span>1:00<b>○</b></span><span>1:30<b>○</b></span>
             </div>
             <p class="muted">○ 予約できます　× 満席です</p>
             <button type="button" class="btn block" data-go="SCR-08">予約する</button>
@@ -731,6 +731,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <button type="button" class="btn" id="rcSave">受け付ける</button>
           </div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-03 案内・割り当ての確認 -->
@@ -806,6 +807,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <button type="button" class="btn" id="reSave">再割り当てする</button>
           </div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" aria-current="page" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-04 割り当ての受け取り -->
@@ -826,12 +828,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <button type="button" class="btn secondary block" data-go="SCR-05">顧客詳細・前回の会話を見る</button>
           <button type="button" class="btn block" id="ackBtn">確認しました</button>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー">
-          <button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button>
-          <button type="button" aria-current="page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button>
-          <button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button>
-          <button type="button" data-go="SCR-07"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 8-3 8h18s-3-1-3-8"/></svg>依頼</button>
-        </nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
 
       <!-- SCR-05 顧客詳細・会話内容 -->
@@ -871,6 +868,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </div>
           </div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
 
       <!-- SCR-06 出退勤の登録 -->
@@ -899,6 +897,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <p class="hint">位置情報は打刻のときだけ使い、「店の近くで確認済み」かどうかだけを記録します。</p>
           <button type="button" class="btn secondary block" data-go="SCR-16">店の近くにいない・位置が取れないときは申請する</button>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" aria-current="page" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
 
       <!-- SCR-07 追加出勤依頼への応答 -->
@@ -920,6 +919,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <button type="button" class="btn secondary block" data-reply="出勤できない">出勤できない</button>
           <p class="hint" id="replyState">まだ応答していません</p>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
 
       <!-- SCR-08 空き状況・来店予約 -->
@@ -942,7 +942,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <div class="field"><label for="rvDate">日付</label><input id="rvDate" class="input" type="date" value="2026-11-13"></div>
           <div class="pair">
             <div class="field"><label for="rvTime">時刻</label>
-              <select id="rvTime" class="select"><option>20:00</option><option selected>21:00</option><option>22:00</option></select></div>
+              <select id="rvTime" class="select"><option>19:00</option><option>19:30</option><option>20:00</option><option>20:30</option><option selected>21:00</option><option>21:30</option><option>22:00</option><option>22:30</option><option>23:00</option><option>23:30</option><option>0:00</option><option>0:30</option><option>1:00</option><option>1:30</option><option>2:00</option><option>2:30</option></select></div>
             <div class="field"><label for="rvNum">人数</label>
               <select id="rvNum" class="select"><option>1名</option><option selected>2名</option><option>3名</option><option>4名</option><option>5名</option><option>6〜9名</option><option>10名以上</option></select></div>
           </div>
@@ -960,6 +960,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </div>
           </div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(2, 1fr)"><button type="button" data-go="SCR-22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-08"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予約</button></nav>
       </section>
 
       <!-- SCR-10 混雑予想・追加出勤依頼 -->
@@ -996,6 +997,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <button type="button" class="btn block" id="askBtn">選んだキャストに LINE で依頼する</button>
           <p class="hint" id="askState">応答はこの画面に表示されます。</p>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-14 業務予定 -->
@@ -1042,6 +1044,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </div>
           </div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-11 勤怠一覧・修正 -->
@@ -1097,6 +1100,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </div>
           </div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-12 給与試算 -->
@@ -1122,6 +1126,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <div class="kvrow"><span>労働時間</span><span>12時間20分</span></div><div class="kvrow"><span>うち深夜</span><span>6時間10分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
           <p class="hint">出力したファイルは、スマートフォンに保存するか、LINE などで共有できます（仮）。形式（CSV など）と項目は確認中です。</p>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-13 顧客一覧・登録 -->
@@ -1167,6 +1172,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </div>
           </div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" aria-current="page" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-16 勤怠の申請 -->
@@ -1198,6 +1204,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </div>
           </div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
 
       <!-- SCR-17 一斉送信 -->
@@ -1228,6 +1235,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           </div>
           <p class="hint">LINE 公式アカウントは月に送れる通数に上限があります（プランは確認中）。</p>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-18 店からの連絡（キャスト） -->
@@ -1248,6 +1256,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <h2>これまでの連絡</h2>
           <div class="card"><div class="row"><h3>管理者から</h3><span class="muted">11/12 18:30</span></div><p class="muted">今週末はイベントのため、20時までに出勤をお願いします。</p><span class="badge ok" style="align-self:flex-start">確認済み</span></div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" aria-current="page" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
 
       <!-- SCR-19 管理者に届く通知（LINE のトーク） -->
@@ -1438,6 +1447,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </ul>
           </div>
         </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
     </div>
   </div>
