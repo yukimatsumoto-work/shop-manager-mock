@@ -493,6 +493,11 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     <a class="start-card" href="#SCR-23"><b>キャストとして見る</b><span>出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請</span></a>
     <a class="start-card" href="#SCR-24"><b>お客さんとして見る</b><span>空き状況と来店予約、今日出勤しているキャスト</span></a>
   </div>
+  <h2>資料（PDF）</h2>
+  <ul class="start-list">
+    <li><a data-pdf="06_画面遷移フロー.pdf" href="06_画面遷移フロー.pdf" target="_blank" rel="noopener">画面遷移フロー（ロール別・A3 横1枚）</a></li>
+    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener">画面遷移フロー（画面イメージつき・A3 横4ページ）</a></li>
+  </ul>
   <h2>画面の一覧</h2>
   <ul class="start-list" id="startList"></ul>
   <h2>表示の例</h2>
@@ -1387,6 +1392,10 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     a.href = '#' + s.dataset.screen; a.textContent = s.dataset.name;
     li.appendChild(a); list.appendChild(li);
   });
+  /* PDF: published next to this page; when opened from the project folder, they are in ../docs/ */
+  if (location.protocol === 'file:') {
+    document.querySelectorAll('[data-pdf]').forEach(function (a) { a.href = '../docs/' + a.dataset.pdf; });
+  }
   var castOffNext = false;
   document.querySelector('[data-cast-off]').addEventListener('click', function () { castOffNext = true; });
   function show() {
