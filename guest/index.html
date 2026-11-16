@@ -508,6 +508,49 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 .bubble .acts { display: flex; flex-direction: column; gap: var(--space-8); }
 .steps li { display: flex; gap: var(--space-12); align-items: flex-start; font-size: var(--fs-14); padding: var(--space-8) 0; }
 .steps li b { flex: none; width: 24px; height: 24px; border-radius: 50%; background: var(--color-accent-dark); color: var(--color-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-12); }
+/* ---------- shift calendar (SCR-26, SCR-27) ---------- */
+.cal-head { display: flex; align-items: center; justify-content: space-between; gap: var(--space-8); }
+.cal-head h2 { flex: 1; text-align: center; }
+.cal-nav { width: 44px; height: 44px; border: 1px solid var(--color-slate-200); border-radius: var(--radius-8); background: var(--color-white); color: var(--color-primary); font-size: var(--fs-20); cursor: pointer; }
+.cal-nav:hover { background: var(--color-slate-100); }
+.cal-nav:active { background: var(--color-slate-200); }
+.cal-nav:disabled { color: var(--color-slate-400); cursor: not-allowed; }
+.cal { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; }
+.cal .wd { text-align: center; font-size: var(--fs-12); font-weight: 700; color: var(--color-slate-700); padding: var(--space-4) 0; }
+.cal-d {
+  min-width: 0; min-height: 52px; padding: 2px; border: 1px solid var(--color-slate-200); border-radius: var(--radius-4);
+  background: var(--color-white); color: var(--color-primary); font-size: var(--fs-12); line-height: 1.3; text-align: left;
+  display: flex; flex-direction: column; gap: 2px; cursor: pointer;
+}
+.cal-d .dn { display: flex; justify-content: space-between; align-items: center; font-weight: 700; }
+.cal-d .bd { font-style: normal; font-weight: 700; border-radius: 2px; padding: 0 2px; background: var(--color-warning-bg); color: var(--color-primary); }
+.cal-d .rv { color: var(--color-slate-700); }
+.cal-d:hover { border-color: var(--color-primary); }
+.cal-d:active { background: var(--color-slate-200); }
+.cal-d:disabled { background: var(--color-slate-100); color: var(--color-slate-500); border-color: var(--color-slate-200); cursor: not-allowed; }
+.cal-d.today { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+.cal-d[aria-pressed="true"] { border-color: var(--color-accent-dark); box-shadow: inset 0 0 0 2px var(--color-accent-dark); }
+.sbar { display: flex; height: 8px; border-radius: 2px; overflow: hidden; }
+.sbar i { display: block; }
+.sbar .c { background: var(--color-accent-dark); }
+.sbar .s { background: var(--color-warning-light); }
+.sbar .o { background: var(--color-slate-200); }
+#calCast .cal-d { min-height: 48px; }
+.cal-d.st-c { background: var(--color-accent-dark); border-color: var(--color-accent-dark); color: var(--color-white); }
+.cal-d.st-c:active { background: var(--color-primary); }
+.cal-d.st-s { background: var(--color-warning-light); border-color: var(--color-warning); color: var(--color-primary); }
+.cal-d.st-s:active { background: var(--color-warning-bg); }
+.cal-d.st-o { background: var(--color-slate-200); color: var(--color-slate-700); }
+.cal-d.st-o:active { background: var(--color-slate-100); }
+.legend .sw.c { background: var(--color-accent-dark); border-color: var(--color-accent-dark); }
+.legend .sw.s { background: var(--color-warning-light); border-color: var(--color-warning); }
+.legend .sw.o { background: var(--color-slate-200); border-color: var(--color-slate-400); }
+.legend .sw.n { background: var(--color-white); border-color: var(--color-slate-400); }
+.btn.secondary[aria-pressed="true"] { background: var(--color-accent-light); border-color: var(--color-accent-dark); }
+/* bottle keep (SCR-05, SCR-08, SCR-13) */
+.bottles li { display: flex; justify-content: space-between; align-items: center; gap: var(--space-8); min-height: 44px; border-bottom: 1px solid var(--color-slate-100); font-size: var(--fs-14); }
+.bottles li:last-child { border-bottom: 0; }
+.bottles li small { display: block; color: var(--color-slate-700); font-size: var(--fs-12); }
 /* ---------- wide screens (tablets): the same screens, laid out in columns ---------- */
 @container (min-width: 600px) {
   .m-body { padding: var(--space-24); gap: var(--space-16); }
@@ -517,6 +560,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   .tiles.mtiles { grid-template-columns: repeat(6, 1fr); }
   .chips { grid-template-columns: repeat(8, 1fr); }
   .castgrid { grid-template-columns: repeat(3, 1fr); }
+  .cal-d { min-height: 72px; padding: var(--space-4); }
   .clist { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); }
   .mkpis { grid-template-columns: repeat(4, 1fr); }
   .talk { max-width: 560px; width: 100%; margin: 0 auto; }
@@ -584,9 +628,9 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <div class="card">
               <div class="sec-head"><h2>今日の予約</h2><button type="button" class="link" data-go="SCR-14">予定表 ›</button></div>
               <ul class="rlist">
-                <li><span class="t">21:00</span><span class="g">No.0145 M.S. <small>2名</small></span><span class="badge warn">承認待ち</span></li>
-                <li><span class="t">21:00</span><span class="g">No.0112 A.K. <small>1名</small></span><span class="badge info">カウンター F</span></li>
-                <li><span class="t">22:00</span><span class="g">No.0088 T.K. <small>12名</small></span><span class="badge info">BOX-B</span></li>
+                <li><span class="t">21:00</span><span class="g">No.0145 M.S. <small>2名</small><br><small>ボトルあり</small></span><span class="badge warn">承認待ち</span></li>
+                <li><span class="t">21:00</span><span class="g">No.0112 A.K. <small>1名</small><br><small>ボトルあり</small></span><span class="badge info">カウンター F</span></li>
+                <li><span class="t">22:00</span><span class="g">No.0088 T.K. <small>12名</small><br><small>ボトルあり</small></span><span class="badge info">BOX-B</span></li>
                 <li><span class="t">23:00</span><span class="g">No.0131 T.W. <small>1名</small></span><span class="badge info">カウンター G</span></li>
               </ul>
               <p class="muted">ほか 3件は予定表で見られます。</p>
@@ -603,7 +647,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           </div>
           <h2>メニュー</h2>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-02"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-14"><span>業務予定</span></button><button type="button" class="tile" data-go="SCR-17"><span>一斉送信</span></button><button type="button" class="tile" data-go="SCR-13"><span>顧客</span></button><button type="button" class="tile" data-go="SCR-11"><span>勤怠</span></button><button type="button" class="tile" data-go="SCR-12"><span>給与試算</span></button></div>
-          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-03"><span>案内・割り当て</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予想・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go=""><span>シフト</span></button><button type="button" class="tile" data-go=""><span>予約</span></button><button type="button" class="tile" data-go=""><span>キャスト</span></button><button type="button" class="tile" data-go=""><span>席の設定</span></button><button type="button" class="tile" data-go=""><span>お知らせ</span></button><button type="button" class="tile" data-go=""><span>締め</span></button><button type="button" class="tile" data-go=""><span>ステータス区分</span></button><button type="button" class="tile" data-go=""><span>操作記録</span></button></div></details>
+          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-03"><span>案内・割り当て</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予想・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-26"><span>シフト</span></button><button type="button" class="tile" data-go=""><span>予約</span></button><button type="button" class="tile" data-go=""><span>キャスト</span></button><button type="button" class="tile" data-go=""><span>席の設定</span></button><button type="button" class="tile" data-go=""><span>お知らせ</span></button><button type="button" class="tile" data-go=""><span>締め</span></button><button type="button" class="tile" data-go=""><span>ステータス区分</span></button><button type="button" class="tile" data-go=""><span>操作記録</span></button></div></details>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -633,7 +677,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <p class="when">今日の出勤はありません</p>
             </div>
             <div class="card next">
-              <div class="row"><h3>次の出勤</h3><span class="muted">確定済み</span></div>
+              <div class="sec-head"><h3>次の出勤 <span class="muted">確定済み</span></h3><button type="button" class="link" data-go="SCR-27">シフト ›</button></div>
               <p class="when">11/15（日）20:00〜</p>
               <div class="week" aria-label="今週の出勤日（金・日）">
                 <span>月</span><span>火</span><span>水</span><span>木</span><span class="on today-mark">金</span><span>土</span><span class="on">日</span>
@@ -646,7 +690,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           </div>
           <h2>メニュー</h2>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-04"><span>割り当て</span></button><button type="button" class="tile" data-go="SCR-05"><span>担当のお客さん</span></button><button type="button" class="tile" data-go="SCR-15"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-16"><span>勤怠の申請</span></button><button type="button" class="tile" data-go="SCR-07"><span>追加出勤の依頼</span></button><button type="button" class="tile" data-go="SCR-18"><span>店からの連絡</span></button></div>
-          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go=""><span>シフト</span></button><button type="button" class="tile" data-go=""><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button></div></details>
+          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go=""><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button></div></details>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
@@ -672,8 +716,12 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <div class="card wide">
               <div class="row"><h3>今日出勤しているキャスト</h3><span class="muted">3名</span></div>
               <div class="castgrid">
-                <span>あおい <span class="badge vip">担当</span></span><span>みなみ</span><span>さくら</span>
+                <span>あおい <span class="badge vip">担当</span></span><span>みなみ</span><span>さくら <span class="badge warn">誕生日</span></span>
               </div>
+            </div>
+            <div class="card wide">
+              <div class="row"><h3>今月誕生日のキャスト</h3><span class="muted">11月</span></div>
+              <ul class="castlist"><li><span>さくら</span><span class="badge warn">11/13（今日）</span></li><li><span>ゆい</span><span class="badge">11/24</span></li></ul>
             </div>
           </div>
           <h2>メニュー</h2>
@@ -856,6 +904,11 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <p class="muted">来店 13回／前回 10/28／担当 みなみ</p>
           </div>
           <p class="notice info">あなたが担当のお客さんです（いま接客中）。</p>
+          <div class="card">
+            <div class="row"><h3>ボトルキープ</h3><span class="badge info">ボトルあり 1本</span></div>
+            <ul class="bottles"><li><span>芋焼酎 25度<small>焼酎</small></span></li></ul>
+            <p class="hint">ボトルの登録・変更は管理者が行います。</p>
+          </div>
           <h2>これまでの会話</h2>
           <div class="card">
             <ul class="talk" id="talkList">
@@ -949,6 +1002,11 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <div class="row"><h3>担当キャスト</h3><span class="badge ok">出勤中</span></div>
             <p>あおい</p>
           </div>
+          <div class="card">
+            <div class="row"><h3>あなたのボトルキープ</h3><span class="badge info">ボトルあり 1本</span></div>
+            <ul class="bottles"><li><span>シングルモルト 12年<small>ウイスキー</small></span></li></ul>
+            <p class="muted">ご来店の日に、お店でご用意します。</p>
+          </div>
           <h2>来店予約</h2>
           <div class="field"><label for="rvDate">日付</label><input id="rvDate" class="input" type="date" value="2026-11-13"></div>
           <div class="pair">
@@ -1012,7 +1070,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
       </section>
 
       <!-- SCR-14 業務予定 -->
-      <section data-screen="SCR-14" data-device="mobile" data-name="業務予定（当日の席ごとの予定）" class="m-screen">
+      <section data-screen="SCR-14" data-device="mobile" data-name="業務予定（1日の席ごとの予定）" class="m-screen">
         <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
@@ -1033,7 +1091,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <span><i class="sw line"></i>21:05 現在</span>
           </div>
           <div class="mtl-wrap" id="tlWrap"><div class="mtl" id="tl"></div></div>
-          <p class="hint">横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。</p>
+          <p class="hint">横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。ほかの日は、シフトの月表示で日を選んで開きます。</p>
           <p class="hint">営業時間（19:00〜翌3:00）は仮です。帯の終わりは目安（2時間）で、滞在時間の決まりは確認中です。</p>
           <p class="hint">席が決まっていない予約・候補は「席未定」の行に出ます。予約の席は、帯を押して管理者が決めます（仮）。</p>
           <p class="hint">BOX の予約は代表者だけを登録します。同行者の情報は後日入力できるようにします（入力する項目は確認中）。</p>
@@ -1169,6 +1227,20 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="gModal">やめる</button>
             <button type="button" class="btn" id="gSave" disabled>登録する</button>
+          </div>
+        </div>
+        <div class="drawer" id="btDrawer" role="dialog" aria-label="ボトルキープの登録・変更">
+          <h2 id="btTitle">ボトルキープ</h2>
+          <ul class="bottles" id="btList"></ul>
+          <div class="pair">
+            <div class="field"><label for="btKind">お酒の種類</label>
+              <select id="btKind" class="select"><option>ウイスキー</option><option>焼酎</option><option>ブランデー</option><option>ワイン</option><option>そのほか</option></select></div>
+            <div class="field"><label for="btName">ボトル名（必須）</label><input id="btName" class="input" placeholder="例: 麦焼酎 25度"></div>
+          </div>
+          <p class="hint">お酒の種類の選択肢と、期限・残量を持つかは確認中です。</p>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="btDrawer">閉じる</button>
+            <button type="button" class="btn" id="btAdd" disabled>追加する</button>
           </div>
         </div>
         <div class="overlay" id="gDone" role="dialog" aria-label="登録完了">
@@ -1321,6 +1393,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <li>・出勤・退勤の記録と、打刻のときの位置情報（店の近くにいるかの確認だけに使い、位置は保存しません）</li>
               <li>・担当・代理のお客さんの情報と会話内容</li>
               <li>・出勤している日は、お客さんの画面に名前が表示されます</li>
+              <li>・誕生日（月日だけ）を登録した場合は、お客さんの画面にも表示されます</li>
             </ul>
             <p class="muted">文面は確認中です（表示は例）。</p>
           </div>
@@ -1463,6 +1536,60 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
+
+      <!-- SCR-26 シフト（月表示・管理者） -->
+      <section data-screen="SCR-26" data-device="mobile" data-name="シフト（月表示・管理者）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>シフト</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="cal-head"><button type="button" class="cal-nav" data-cal-month aria-label="前の月">‹</button><h2>2026年11月</h2><button type="button" class="cal-nav" data-cal-month aria-label="次の月">›</button></div>
+          <div class="legend"><span><i class="sw c"></i>確定</span><span><i class="sw s"></i>提出だけ（未確定）</span><span><i class="sw o"></i>休み・欠勤</span></div>
+          <div class="cal" id="calAdmin" aria-label="11月のシフト"></div>
+          <div class="card" id="sdPanel">
+            <div class="row"><h3 id="sdTitle">—</h3><span class="muted" id="sdRv">—</span></div>
+            <p class="muted" id="sdBday" hidden>—</p>
+            <ul class="castlist" id="sdList"></ul>
+            <button type="button" class="btn block" id="sdFix">提出をすべて確定する</button>
+            <button type="button" class="btn secondary block" id="sdDay" data-go="SCR-14">この日の業務予定（1日表示）</button>
+          </div>
+          <p class="hint">帯は、その日のキャストのシフトの内訳です。「予」は予約の件数、「誕」はキャストの誕生日です。</p>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
+      </section>
+
+      <!-- SCR-27 シフト（月表示・キャスト） -->
+      <section data-screen="SCR-27" data-device="mobile" data-name="シフト（月表示・キャスト）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
+          <h1>シフト</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <p class="notice" id="myTodo">まだ提出していない日: —</p>
+          <div class="cal-head"><button type="button" class="cal-nav" data-cal-month aria-label="前の月">‹</button><h2>2026年11月</h2><button type="button" class="cal-nav" data-cal-month aria-label="次の月">›</button></div>
+          <div class="legend"><span><i class="sw c"></i>確定</span><span><i class="sw s"></i>提出だけ（未確定）</span><span><i class="sw o"></i>休み</span><span><i class="sw n"></i>未提出</span></div>
+          <div class="cal" id="calCast" aria-label="11月の自分のシフト"></div>
+          <div class="card" id="myPanel">
+            <div class="row"><h3 id="myTitle">—</h3><span class="badge" id="myState">—</span></div>
+            <div id="myEdit">
+              <div class="pair"><button type="button" class="btn secondary" data-can="1" aria-pressed="false">出勤できる</button><button type="button" class="btn secondary" data-can="0" aria-pressed="false">出勤できない</button></div>
+              <button type="button" class="btn block" id="mySubmit" disabled>提出する</button>
+            </div>
+            <div id="myFixed" hidden>
+              <p class="muted">確定したシフトです。変えるときは、遅刻・欠勤として管理者に連絡します。</p>
+              <button type="button" class="btn secondary block" id="myLate">遅刻・欠勤を連絡する</button>
+            </div>
+            <p class="muted" id="myPast" hidden>過ぎた日です。</p>
+          </div>
+          <p class="hint">見られるのは自分のシフトだけです。提出の締切は確認中です。</p>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+      </section>
     </div>
   </div>
 </div>
@@ -1483,11 +1610,11 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   /* ---- role pages: the same file is placed in admin/ cast/ guest/ register/; ?role= does the same locally ---- */
   var ROLES = {
     admin: { name: '管理者', page: 1, lead: '管理者が LINE の中で使う画面です。下のボタンから、管理者の LINE のトークを開いて始めます。',
-      cards: [['SCR-19', '管理者として見る', '席の案内とキャストの割り当て、予約、勤怠、給与試算、一斉送信']],
-      screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-17'] },
+      cards: [['SCR-19', '管理者として見る', '席の案内とキャストの割り当て、予約、シフト、勤怠、給与試算、一斉送信']],
+      screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-26', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-17'] },
     cast: { name: 'キャスト', page: 2, lead: 'キャストが LINE の中で使う画面です。下のボタンから、キャストの LINE のトークを開いて始めます。',
-      cards: [['SCR-23', 'キャストとして見る', '出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請']],
-      screens: ['SCR-23', 'SCR-21', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18'] },
+      cards: [['SCR-23', 'キャストとして見る', '出勤・退勤、シフト、今日の割り当て、担当のお客さん、勤怠の申請']],
+      screens: ['SCR-23', 'SCR-21', 'SCR-27', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18'] },
     guest: { name: 'お客さん', page: 3, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
       cards: [['SCR-24', 'お客さんとして見る', '空き状況と来店予約、今日出勤しているキャスト']],
       screens: ['SCR-24', 'SCR-22', 'SCR-08'] },
@@ -1712,7 +1839,11 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   document.getElementById('csvBtn').addEventListener('click', function () { toast('ファイルを作って保存・共有の画面を開きます（形式は確認中のため、モックでは出力しません）'); });
 
   /* ---- SCR-13 customers ---- */
+  /* bottle keep per guest (F-M30): 'kind name' */
+  var BOTTLE = { 'No.0112 A.K.': ['ウイスキー シングルモルト 12年'], 'No.0088 T.K.': ['焼酎 麦焼酎 25度', 'ブランデー VSOP'], 'No.0145 M.S.': ['焼酎 芋焼酎 25度'], 'No.0123 K.T.': ['ウイスキー ブレンデッド 17年'] };
   var G = [
+    ['No.0112', 'A.K.', '常連', 15, '10/30', 'あおい', true],
+    ['No.0088', 'T.K.', '上得意', 32, '11/07', 'ゆい', true],
     ['No.0123', 'K.T.', '上得意', 41, '11/13', 'あおい', true],
     ['No.0145', 'M.S.', '常連', 13, '11/13', 'みなみ', true],
     ['No.0167', 'T.N.', '常連', 9, '11/06', 'さくら', true],
@@ -1729,11 +1860,39 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
       return '<div class="card"><div class="row"><h3>' + r[0] + ' ' + r[1] + '</h3><span class="badge ' + STB[r[2]] + '">' + r[2] + '</span></div>' +
         '<div class="kvrow"><span>来店</span><span>' + r[3] + '回／最終 ' + r[4] + '</span></div>' +
         '<div class="kvrow"><span>担当キャスト</span><span>' + r[5] + '</span></div>' +
-        '<div class="kvrow"><span>LINE 紐付け</span><span>' + (r[6] ? '<span class="badge ok">紐付け済み</span>' : '<span class="badge warn">未</span>') + '</span></div></div>';
+        '<div class="kvrow"><span>LINE 紐付け</span><span>' + (r[6] ? '<span class="badge ok">紐付け済み</span>' : '<span class="badge warn">未</span>') + '</span></div>' +
+        '<div class="kvrow"><span>ボトルキープ</span><span>' + (BOTTLE[r[0] + ' ' + r[1]] ? '<span class="badge info">ボトルあり ' + BOTTLE[r[0] + ' ' + r[1]].length + '本</span>' : 'なし') + '</span></div>' +
+        '<button type="button" class="btn secondary small" data-bottle="' + r[0] + ' ' + r[1] + '">ボトルを登録・変更する</button></div>';
     }).join('') || '<p class="muted">該当する顧客はいません</p>';
     document.getElementById('gCount').textContent = rows.length + '件';
   }
   gq.addEventListener('input', renderG); gs.addEventListener('change', renderG); renderG();
+  /* bottle keep: registered by the admin (F-M30) */
+  var btFor = '', btName = document.getElementById('btName'), btAdd = document.getElementById('btAdd');
+  function renderBt() {
+    var list = BOTTLE[btFor] || [];
+    document.getElementById('btTitle').textContent = 'ボトルキープ（' + btFor + '）';
+    document.getElementById('btList').innerHTML = list.map(function (b, i) {
+      var sp = b.indexOf(' ');
+      return '<li><span>' + b.slice(sp + 1) + '<small>' + b.slice(0, sp) + '</small></span><button type="button" class="btn danger small" data-bt-del="' + i + '">削除</button></li>';
+    }).join('') || '<li><span class="muted">ボトルキープはありません</span></li>';
+  }
+  gList.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-bottle]'); if (!b) return;
+    btFor = b.dataset.bottle; btName.value = ''; btAdd.disabled = true; renderBt();
+    document.getElementById('btDrawer').classList.add('show');
+  });
+  document.getElementById('btList').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-bt-del]'); if (!b) return;
+    BOTTLE[btFor].splice(+b.dataset.btDel, 1); if (!BOTTLE[btFor].length) delete BOTTLE[btFor];
+    renderBt(); renderG(); renderTl(); toast('ボトルを削除しました（記録に残ります）');
+  });
+  btName.addEventListener('input', function () { dirty = true; btAdd.disabled = !btName.value.trim(); });
+  btAdd.addEventListener('click', function () {
+    (BOTTLE[btFor] = BOTTLE[btFor] || []).push(document.getElementById('btKind').value + ' ' + btName.value.trim());
+    btName.value = ''; btAdd.disabled = true; dirty = false;
+    renderBt(); renderG(); renderTl(); toast('ボトルを登録しました');
+  });
   var gIni = document.getElementById('gIni'), gSave = document.getElementById('gSave');
   document.getElementById('newGuest').addEventListener('click', function () { gIni.value = ''; gSave.disabled = true; document.getElementById('gModal').classList.add('show'); });
   gIni.addEventListener('input', function () { dirty = true; gSave.disabled = !gIni.value.trim(); });
@@ -1801,7 +1960,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
         if (b[0] !== st[1]) return '';
         var lead = st[0] === 'box' ? '代表 ' : '';
         return '<button type="button" class="bk ' + b[3] + '" data-bk="' + idx + '" style="left:' + (b[1] * 80 + 2) + 'px;width:' + ((b[2] - b[1]) * 80 - 4) + 'px">' +
-          '<b>' + hm(b[1]) + ' ' + lead + b[4] + '・' + b[5] + '名</b><span>' + KIND[b[3]][0] + (b[7] ? '／代理 ' + b[7] : '／担当 ' + b[6]) + '</span></button>';
+          '<b>' + hm(b[1]) + ' ' + lead + b[4] + '・' + b[5] + '名</b><span>' + (BOTTLE[b[4]] ? 'ボトルあり／' : '') + KIND[b[3]][0] + (b[7] ? '／代理 ' + b[7] : '／担当 ' + b[6]) + '</span></button>';
       }).join('');
       html += '<div class="track' + g + '">' + cells + bars + '<div class="nowline" style="left:' + (NOW * 80) + 'px"></div></div>';
     });
@@ -1821,6 +1980,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
       '<dt>' + (isBox ? 'お客さん（代表者）' : 'お客さん') + '</dt><dd>' + d[4] + '</dd>' +
       '<dt>人数</dt><dd>' + d[5] + '名</dd>' +
       '<dt>担当キャスト</dt><dd>' + d[6] + '</dd>' +
+      '<dt>ボトルキープ</dt><dd>' + (BOTTLE[d[4]] ? BOTTLE[d[4]].join('、') : 'なし') + '</dd>' +
       (d[7] ? '<dt>代理</dt><dd>' + d[7] + '（候補）</dd>' : '');
     document.getElementById('tlSeatWrap').hidden = d[3] !== 'rsv';
     var st = document.getElementById('tlState');
@@ -1944,6 +2104,110 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   }
   document.querySelectorAll('[data-rm-kbd]').forEach(function (b) { b.addEventListener('click', function () { inputMode(b.closest('[data-screen]'), true); }); });
   document.querySelectorAll('[data-rm-back]').forEach(function (b) { b.addEventListener('click', function () { inputMode(b.closest('[data-screen]'), false); }); });
+
+
+  /* ---- SCR-26 / SCR-27 shift calendar (F-M29). November 2026; 11/1 is a Sunday, weeks start on Monday ---- */
+  var CASTS = ['あおい', 'みなみ', 'さくら', 'ゆい', 'れな', 'まい'];
+  var PLAN = {
+    'あおい': { c: [1, 3, 5, 6, 7, 13, 14, 16, 18, 20], s: [21, 23, 25, 27, 28, 30], n: [] },
+    'みなみ': { c: [2, 4, 6, 13, 15, 17, 19, 20], s: [22, 24, 26, 27, 29], n: [28, 30] },
+    'さくら': { c: [2, 3, 7, 8, 13, 14, 15, 19, 20], s: [21, 22, 26, 28, 29], n: [] },
+    'ゆい': { c: [1, 5, 6, 12, 14, 16, 17, 18], s: [24, 25, 27, 28], n: [30] },
+    'れな': { c: [3, 4, 8, 10, 11, 15, 18, 19], s: [21, 22, 23, 29], n: [30] },
+    'まい': { c: [1, 2, 7, 9, 10, 12, 16, 17, 20], s: [21, 23, 24, 26, 30], n: [] }
+  };
+  var RSV = [3, 2, 4, 3, 5, 9, 10, 2, 3, 4, 5, 6, 8, 11, 4, 2, 3, 4, 5, 9, 12, 3, 1, 2, 3, 5, 7, 9, 2, 1];
+  var BDAY = { 13: 'さくら', 24: 'ゆい' };
+  var TODAY = 13, WD = ['月', '火', '水', '木', '金', '土', '日'];
+  function stOf(name, d) { var p = PLAN[name]; return p.c.indexOf(d) >= 0 ? 'c' : p.s.indexOf(d) >= 0 ? 's' : p.n.indexOf(d) >= 0 ? 'n' : 'o'; }
+  function setSt(name, d, st) { var p = PLAN[name]; ['c', 's', 'n'].forEach(function (k) { var i = p[k].indexOf(d); if (i >= 0) p[k].splice(i, 1); }); if (st !== 'o') p[st].push(d); }
+  function dayLabel(d) { return '11/' + d + '（' + WD[(d + 5) % 7] + '）'; }
+  var ST = { c: ['確定 20:00〜', 'ok'], s: ['提出だけ', 'warn'], o: ['休み', ''], n: ['未提出', ''] };
+  function calGrid(el, cell) {
+    var html = WD.map(function (w) { return '<span class="wd">' + w + '</span>'; }).join('');
+    for (var i = 0; i < 6; i++) html += '<span></span>';
+    for (var d = 1; d <= 30; d++) html += cell(d);
+    el.innerHTML = html;
+  }
+  var sdDay = TODAY;
+  /* today's reservations whose guest keeps a bottle (from the SCR-14 data) */
+  function todayBottles() { var seen = {}; BK.forEach(function (b) { if (b[3] !== 'now' && BOTTLE[b[4]]) seen[b[4]] = 1; }); return Object.keys(seen).length; }
+  function renderAdminCal() {
+    calGrid(document.getElementById('calAdmin'), function (d) {
+      var n = { c: 0, s: 0, o: 0, n: 0 };
+      CASTS.forEach(function (c) { n[stOf(c, d)]++; });
+      var label = dayLabel(d) + ' 確定' + n.c + '名・提出だけ' + n.s + '名・休み' + n.o + '名・予約' + RSV[d - 1] + '件' + (BDAY[d] ? '・' + BDAY[d] + 'の誕生日' : '');
+      return '<button type="button" class="cal-d' + (d === TODAY ? ' today' : '') + '" data-sd="' + d + '" aria-pressed="' + (d === sdDay) + '" aria-label="' + label + '">' +
+        '<span class="dn">' + d + (BDAY[d] ? '<i class="bd">誕</i>' : '') + '</span>' +
+        '<span class="sbar"><i class="c" style="flex:' + n.c + '"></i><i class="s" style="flex:' + n.s + '"></i><i class="o" style="flex:' + n.o + '"></i></span>' +
+        '<span class="rv">予' + RSV[d - 1] + '</span></button>';
+    });
+    document.getElementById('sdTitle').textContent = dayLabel(sdDay) + (sdDay === TODAY ? ' 今日' : '');
+    document.getElementById('sdRv').textContent = '予約 ' + RSV[sdDay - 1] + '件' + (sdDay === TODAY ? '（ボトルあり ' + todayBottles() + '件）' : '');
+    var bd = document.getElementById('sdBday');
+    bd.hidden = !BDAY[sdDay]; bd.textContent = '誕生日: ' + (BDAY[sdDay] || '');
+    var anyS = false;
+    document.getElementById('sdList').innerHTML = CASTS.map(function (c) {
+      var st = stOf(c, sdDay); if (st === 's') anyS = true;
+      return '<li><span>' + c + '</span><span class="badge ' + ST[st][1] + '">' + ST[st][0] + '</span></li>';
+    }).join('');
+    document.getElementById('sdFix').hidden = !anyS;
+  }
+  document.getElementById('calAdmin').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-sd]'); if (!b) return;
+    sdDay = +b.dataset.sd; renderAdminCal();
+  });
+  document.getElementById('sdFix').addEventListener('click', function () {
+    CASTS.forEach(function (c) { if (stOf(c, sdDay) === 's') setSt(c, sdDay, 'c'); });
+    renderAdminCal(); renderCastCal();
+    toast(dayLabel(sdDay) + ' のシフトを確定し、キャストに LINE で知らせました');
+  });
+  document.getElementById('sdDay').addEventListener('click', function () {
+    if (sdDay !== TODAY) toast('モックでは 11/13 の業務予定を表示します');
+  });
+  document.querySelectorAll('[data-cal-month]').forEach(function (b) { b.addEventListener('click', function () { toast('モックでは 11月だけを表示します'); }); });
+
+  var ME = 'みなみ', myDay = 28, myCan = '';
+  function renderCastCal() {
+    calGrid(document.getElementById('calCast'), function (d) {
+      var st = stOf(ME, d);
+      var txt = st === 'c' ? '20時' : st === 's' ? '提出' : st === 'o' ? '休み' : '';
+      return '<button type="button" class="cal-d' + (st === 'n' ? '' : ' st-' + st) + (d === TODAY ? ' today' : '') + '" data-my="' + d + '" aria-pressed="' + (d === myDay) + '" aria-label="' + dayLabel(d) + ' ' + ST[st][0] + '">' +
+        '<span class="dn">' + d + '</span><span>' + txt + '</span></button>';
+    });
+    var st = stOf(ME, myDay);
+    document.getElementById('myTitle').textContent = dayLabel(myDay) + (myDay === TODAY ? ' 今日' : '');
+    var b = document.getElementById('myState'); b.textContent = ST[st][0]; b.className = 'badge ' + ST[st][1];
+    document.getElementById('myPast').hidden = myDay >= TODAY;
+    document.getElementById('myFixed').hidden = !(myDay >= TODAY && st === 'c');
+    document.getElementById('myEdit').hidden = !(myDay >= TODAY && st !== 'c');
+    var todo = PLAN[ME].n.slice().sort(function (a, b2) { return a - b2; });
+    var t = document.getElementById('myTodo');
+    t.hidden = !todo.length; t.textContent = 'まだ提出していない日: ' + todo.map(dayLabel).join('・');
+  }
+  document.getElementById('calCast').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-my]'); if (!b) return;
+    myDay = +b.dataset.my; myCan = '';
+    document.querySelectorAll('[data-can]').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+    document.getElementById('mySubmit').disabled = true;
+    renderCastCal();
+  });
+  document.querySelectorAll('[data-can]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      myCan = b.dataset.can; dirty = true;
+      document.querySelectorAll('[data-can]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+      document.getElementById('mySubmit').disabled = false;
+    });
+  });
+  document.getElementById('mySubmit').addEventListener('click', function () {
+    setSt(ME, myDay, myCan === '1' ? 's' : 'o'); dirty = false;
+    toast(dayLabel(myDay) + (myCan === '1' ? ' に出勤できると提出しました。確定すると LINE で知らせます' : ' は出勤できないと提出しました'));
+    myCan = ''; document.querySelectorAll('[data-can]').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+    document.getElementById('mySubmit').disabled = true;
+    renderCastCal(); renderAdminCal();
+  });
+  document.getElementById('myLate').addEventListener('click', function () { toast('遅刻・欠勤の連絡は、今回のモックの対象外です'); });
+  renderAdminCal(); renderCastCal();
 
   /* ---- talk: messages typed by the user get an automatic reply by keywords (§11-57, provisional) ---- */
   var REPLY = {
