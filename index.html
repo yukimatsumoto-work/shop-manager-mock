@@ -530,22 +530,45 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 .cal-d:disabled { background: var(--color-slate-100); color: var(--color-slate-500); border-color: var(--color-slate-200); cursor: not-allowed; }
 .cal-d.today { outline: 2px solid var(--color-primary); outline-offset: -2px; }
 .cal-d[aria-pressed="true"] { border-color: var(--color-accent-dark); box-shadow: inset 0 0 0 2px var(--color-accent-dark); }
-.sbar { display: flex; height: 8px; border-radius: 2px; overflow: hidden; }
+.sbar { display: flex; height: 8px; border-radius: 2px; overflow: hidden; border: 1px solid var(--color-slate-400); }
 .sbar i { display: block; }
 .sbar .c { background: var(--color-accent-dark); }
-.sbar .s { background: var(--color-warning-light); }
-.sbar .o { background: var(--color-slate-200); }
+.sbar .s { background: var(--color-accent-light); }
+.sbar .x { background: var(--color-slate-200); }
+.sbar .o { background: var(--color-slate-500); }
+.sbar .n { background: var(--color-white); }
 #calCast .cal-d { min-height: 48px; }
 .cal-d.st-c { background: var(--color-accent-dark); border-color: var(--color-accent-dark); color: var(--color-white); }
 .cal-d.st-c:active { background: var(--color-primary); }
-.cal-d.st-s { background: var(--color-warning-light); border-color: var(--color-warning); color: var(--color-primary); }
-.cal-d.st-s:active { background: var(--color-warning-bg); }
-.cal-d.st-o { background: var(--color-slate-200); color: var(--color-slate-700); }
-.cal-d.st-o:active { background: var(--color-slate-100); }
+.cal-d.st-s { background: var(--color-accent-light); border: 1px dashed var(--color-accent-dark); color: var(--color-primary); }
+.cal-d.st-s:active { background: var(--color-white); }
+.cal-d.st-x { background: var(--color-slate-200); border: 1px dashed var(--color-slate-500); color: var(--color-slate-800); }
+.cal-d.st-x:active { background: var(--color-slate-100); }
+.cal-d.st-o { background: var(--color-slate-500); border-color: var(--color-slate-500); color: var(--color-white); }
+.cal-d.st-o:active { background: var(--color-slate-700); }
 .legend .sw.c { background: var(--color-accent-dark); border-color: var(--color-accent-dark); }
-.legend .sw.s { background: var(--color-warning-light); border-color: var(--color-warning); }
-.legend .sw.o { background: var(--color-slate-200); border-color: var(--color-slate-400); }
+.legend .sw.s { background: var(--color-accent-light); border: 1px dashed var(--color-accent-dark); }
+.legend .sw.x { background: var(--color-slate-200); border: 1px dashed var(--color-slate-500); }
+.legend .sw.o { background: var(--color-slate-500); border-color: var(--color-slate-500); }
 .legend .sw.n { background: var(--color-white); border-color: var(--color-slate-400); }
+/* shift state labels in lists (same colors as the calendar) */
+.stb { display: inline-block; padding: 2px var(--space-8); border-radius: var(--radius-4); font-size: var(--fs-12); font-weight: 700; border: 1px solid var(--color-slate-400); background: var(--color-white); color: var(--color-primary); white-space: nowrap; }
+.stb.c { background: var(--color-accent-dark); border-color: var(--color-accent-dark); color: var(--color-white); }
+.stb.s { background: var(--color-accent-light); border: 1px dashed var(--color-accent-dark); color: var(--color-primary); }
+.stb.x { background: var(--color-slate-200); border: 1px dashed var(--color-slate-500); color: var(--color-slate-800); }
+.stb.o { background: var(--color-slate-500); border-color: var(--color-slate-500); color: var(--color-white); }
+.sdrow { display: flex; align-items: center; gap: var(--space-8); }
+.ovr { display: block; font-size: var(--fs-12); color: var(--color-slate-700); }
+/* store tabs (owner only) and 1 day / month switch */
+.storetabs, .dmtabs { grid-template-columns: repeat(2, 1fr); }
+.roletabs button:active { background: var(--color-white); }
+.roletabs button:disabled { color: var(--color-slate-500); cursor: not-allowed; }
+.roletabs button:focus-visible { outline: 2px solid var(--color-primary); outline-offset: -2px; }
+/* reservations by month (SCR-28) */
+#calRv .cal-d { min-height: 64px; }
+.cal-d .ev { display: block; padding: 0 2px; border-radius: 2px; border-left: 3px solid var(--color-info); background: var(--color-info-bg); color: var(--color-primary); white-space: nowrap; overflow: hidden; }
+.cal-d .ev.cand { border: 1px dashed var(--color-warning); background: var(--color-white); }
+.cal-d .plus { color: var(--color-slate-700); font-weight: 700; }
 .btn.secondary[aria-pressed="true"] { background: var(--color-accent-light); border-color: var(--color-accent-dark); }
 /* bottle keep (SCR-05, SCR-08, SCR-13) */
 .bottles li { display: flex; justify-content: space-between; align-items: center; gap: var(--space-8); min-height: 44px; border-bottom: 1px solid var(--color-slate-100); font-size: var(--fs-14); }
@@ -576,19 +599,20 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   <h1 id="startTitle">会員制バー 店舗管理 画面モック</h1>
   <p class="lead-text" id="startLead">LINE の中で使う画面です。見たい立場を選ぶと、その人の LINE のトークから始まります。スマホで開くとスマホの配置、タブレットで開くとタブレットの配置になります。</p>
   <div class="start-roles" id="startRoles">
-    <a class="start-card" href="#SCR-19"><b>管理者として見る</b><span>席の案内とキャストの割り当て、予約、勤怠、給与試算、一斉送信</span></a>
+    <a class="start-card" href="#SCR-19" data-mode="owner"><b>全体オーナーとして見る</b><span>本店・2号店をタブで切り替えて見る。店長の決定（シフトなど）を上書きする</span></a>
+    <a class="start-card" href="#SCR-19" data-mode="manager"><b>店長として見る</b><span>担当の店舗（本店）だけ。席の案内とキャストの割り当て、予約、シフト、勤怠、給与試算、一斉送信</span></a>
     <a class="start-card" href="#SCR-23"><b>キャストとして見る</b><span>出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請</span></a>
     <a class="start-card" href="#SCR-24"><b>お客さんとして見る</b><span>空き状況と来店予約、今日出勤しているキャスト</span></a>
   </div>
   <h2>資料（PDF）</h2>
   <ul class="start-list">
     <li><a data-pdf="06_画面遷移フロー.pdf" href="06_画面遷移フロー.pdf" target="_blank" rel="noopener">画面遷移フロー（ロール別・A3 横1枚）</a></li>
-    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener" id="pdf07">画面遷移フロー（画面イメージつき・A3 横4ページ）</a></li>
+    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener" id="pdf07">画面遷移フロー（画面イメージつき・A3 横5ページ）</a></li>
   </ul>
   <div id="rolePages">
     <h2>立場ごとのページ</h2>
     <ul class="start-list">
-      <li><a data-role="admin" href="admin/">管理者のページ</a></li>
+      <li><a data-role="admin" href="admin/">管理者（全体オーナー・店長）のページ</a></li>
       <li><a data-role="cast" href="cast/">キャストのページ</a></li>
       <li><a data-role="guest" href="guest/">お客さんのページ</a></li>
       <li><a data-role="register" href="register/">登録用のページ（初回の登録・未登録のとき）</a></li>
@@ -609,31 +633,32 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-01 ホーム（管理者） -->
       <section data-screen="SCR-01" data-device="mobile" data-name="ホーム（管理者）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>会員制バー 店舗管理</h1>
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
+          <div class="roletabs storetabs" role="group" aria-label="店舗" data-storetabs><button type="button" data-store="1" aria-pressed="true">本店</button><button type="button" data-store="2" aria-pressed="false">2号店</button></div>
           <div class="home">
             <div class="alerts">
-              <button type="button" class="alert-btn" data-go="SCR-03">承認待ち <b>2件</b></button>
-              <button type="button" class="alert-btn" data-go="SCR-11">勤怠の申請 <b>1件</b></button>
+              <button type="button" class="alert-btn" data-go="SCR-03">承認待ち <b id="hmAppr">2件</b></button>
+              <button type="button" class="alert-btn" data-go="SCR-11">勤怠の申請 <b id="hmReq">1件</b></button>
             </div>
             <div class="kpi3">
-              <div class="kpi lead"><p class="muted">出勤中</p><p class="v">3<small>/4名</small></p></div>
-              <div class="kpi"><p class="muted">残りの予約</p><p class="v">7<small>件</small></p></div>
-              <div class="kpi"><p class="muted">空き席</p><p class="v">7<small>/10</small></p></div>
+              <div class="kpi lead"><p class="muted">出勤中</p><p class="v" id="hmOn">3<small>/4名</small></p></div>
+              <div class="kpi"><p class="muted">残りの予約</p><p class="v" id="hmRv">7<small>件</small></p></div>
+              <div class="kpi"><p class="muted">空き席</p><p class="v" id="hmSeat">7<small>/10</small></p></div>
             </div>
             <div class="card">
               <div class="sec-head"><h2>今日の予約</h2><button type="button" class="link" data-go="SCR-14">予定表 ›</button></div>
-              <ul class="rlist">
+              <ul class="rlist" id="hmList">
                 <li><span class="t">21:00</span><span class="g">No.0145 M.S. <small>2名</small><br><small>ボトルあり</small></span><span class="badge warn">承認待ち</span></li>
                 <li><span class="t">21:00</span><span class="g">No.0112 A.K. <small>1名</small><br><small>ボトルあり</small></span><span class="badge info">カウンター F</span></li>
                 <li><span class="t">22:00</span><span class="g">No.0088 T.K. <small>12名</small><br><small>ボトルあり</small></span><span class="badge info">BOX-B</span></li>
                 <li><span class="t">23:00</span><span class="g">No.0131 T.W. <small>1名</small></span><span class="badge info">カウンター G</span></li>
               </ul>
-              <p class="muted">ほか 3件は予定表で見られます。</p>
+              <p class="muted" id="hmMore">ほか 3件は予定表で見られます。</p>
             </div>
             <div class="card">
               <div class="sec-head"><h2>混雑予想</h2><button type="button" class="link" data-go="SCR-10">詳しく ›</button></div>
@@ -642,19 +667,20 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               </div>
               <div class="bars-x"><span>21時</span><span><b>22時</b></span><span>23時</span><span>0時</span><span>1時</span><span>2時</span></div>
               <p class="peak-note"><span class="ic">!</span>22時に混雑。あと1名いると安心です</p>
+              <p class="muted" id="hmCrowd2" hidden>2号店の混雑予想は、モックでは本店の例を出しています。</p>
               <button type="button" class="btn block" data-go="SCR-10">追加出勤を依頼する</button>
             </div>
           </div>
           <h2>メニュー</h2>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-02"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-14"><span>業務予定</span></button><button type="button" class="tile" data-go="SCR-17"><span>一斉送信</span></button><button type="button" class="tile" data-go="SCR-13"><span>顧客</span></button><button type="button" class="tile" data-go="SCR-11"><span>勤怠</span></button><button type="button" class="tile" data-go="SCR-12"><span>給与試算</span></button></div>
-          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-03"><span>案内・割り当て</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予想・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-26"><span>シフト</span></button><button type="button" class="tile" data-go=""><span>予約</span></button><button type="button" class="tile" data-go=""><span>キャスト</span></button><button type="button" class="tile" data-go=""><span>席の設定</span></button><button type="button" class="tile" data-go=""><span>お知らせ</span></button><button type="button" class="tile" data-go=""><span>締め</span></button><button type="button" class="tile" data-go=""><span>ステータス区分</span></button><button type="button" class="tile" data-go=""><span>操作記録</span></button></div></details>
+          <details class="more"><summary>設定・その他</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-03"><span>案内・割り当て</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予想・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-26"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-28"><span>予約（月表示）</span></button><button type="button" class="tile" data-go=""><span>キャスト</span></button><button type="button" class="tile" data-go=""><span>席の設定</span></button><button type="button" class="tile" data-go=""><span>お知らせ</span></button><button type="button" class="tile" data-go=""><span>締め</span></button><button type="button" class="tile" data-go=""><span>ステータス区分</span></button><button type="button" class="tile" data-go=""><span>操作記録</span></button></div></details>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-21 ホーム（キャスト） -->
       <section data-screen="SCR-21" data-device="mobile" data-name="ホーム（キャスト）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>会員制バー 店舗管理</h1>
           <span class="badge info role">キャスト</span>
@@ -690,14 +716,14 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           </div>
           <h2>メニュー</h2>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-04"><span>割り当て</span></button><button type="button" class="tile" data-go="SCR-05"><span>担当のお客さん</span></button><button type="button" class="tile" data-go="SCR-15"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-16"><span>勤怠の申請</span></button><button type="button" class="tile" data-go="SCR-07"><span>追加出勤の依頼</span></button><button type="button" class="tile" data-go="SCR-18"><span>店からの連絡</span></button></div>
-          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go=""><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button></div></details>
+          <details class="more"><summary>設定・その他</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go=""><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button></div></details>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
       </section>
 
       <!-- SCR-22 ホーム（お客さん） -->
       <section data-screen="SCR-22" data-device="mobile" data-name="ホーム（お客さん）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>会員制バー 店舗管理</h1>
           <span class="badge info role">お客さん</span>
@@ -726,14 +752,14 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           </div>
           <h2>メニュー</h2>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-08"><span>予約する</span></button><button type="button" class="tile" data-go=""><span>予約の確認・変更</span></button><button type="button" class="tile" data-go=""><span>お知らせの設定</span></button></div>
-          <details class="more"><summary>設定・そのほか</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-24"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-25"><span>未登録のとき（例）</span></button></div></details>
+          <details class="more"><summary>設定・その他</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-24"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-25"><span>未登録のとき（例）</span></button></div></details>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(2, 1fr)"><button type="button" aria-current="page" data-go="SCR-22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-08"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予約</button></nav>
       </section>
 
       <!-- SCR-02 店内状況 -->
       <section data-screen="SCR-02" data-device="mobile" data-name="店内状況（席・出勤）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>店内状況</h1>
@@ -795,7 +821,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-03 案内・割り当ての確認 -->
       <section data-screen="SCR-03" data-device="mobile" data-name="案内・割り当ての確認" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>案内・割り当ての確認</h1>
@@ -871,7 +897,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-04 割り当ての受け取り -->
       <section data-screen="SCR-04" data-device="mobile" data-name="割り当ての受け取り" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
           <h1>割り当て</h1>
@@ -892,7 +918,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-05 顧客詳細・会話内容 -->
       <section data-screen="SCR-05" data-device="mobile" data-name="顧客詳細・会話内容" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-04" aria-label="戻る">‹</button>
           <h1>顧客詳細</h1>
@@ -937,7 +963,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-06 出退勤の登録 -->
       <section data-screen="SCR-06" data-device="mobile" data-name="出退勤の登録" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-04" aria-label="戻る">‹</button>
           <h1>出退勤の登録</h1>
@@ -966,7 +992,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-07 追加出勤依頼への応答 -->
       <section data-screen="SCR-07" data-device="mobile" data-name="追加出勤依頼への応答" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-04" aria-label="戻る">‹</button>
           <h1>追加出勤のお願い</h1>
@@ -988,7 +1014,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-08 空き状況・来店予約 -->
       <section data-screen="SCR-08" data-device="mobile" data-name="空き状況の確認・来店予約" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>ご来店のご案内</h1>
           <span class="badge info role">お客さん</span>
@@ -1034,7 +1060,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-10 混雑予想・追加出勤依頼 -->
       <section data-screen="SCR-10" data-device="mobile" data-name="混雑予想・追加出勤依頼" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>混雑予想・補充</h1>
@@ -1071,13 +1097,17 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-14 業務予定 -->
       <section data-screen="SCR-14" data-device="mobile" data-name="業務予定（1日の席ごとの予定）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>業務予定 11/13（金）</h1>
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
+          <div class="roletabs storetabs" role="group" aria-label="店舗" data-storetabs><button type="button" data-store="1" aria-pressed="true">本店</button><button type="button" data-store="2" aria-pressed="false">2号店</button></div>
+          <div class="roletabs dmtabs" role="group" aria-label="表示の切り替え"><button type="button" aria-pressed="true">1日</button><button type="button" data-go="SCR-28" aria-pressed="false">月</button></div>
+          <p class="notice" id="tlStore2" hidden>2号店の1日の予定は、モックでは省略しています（2号店の席の構成は確認中です）。</p>
+          <div id="tlStore1">
           <div class="mkpis">
             <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
             <div class="kpi"><p class="muted">案内予定（未承認）</p><p class="v">2件</p><p class="muted">今の空き席 7 / 10</p></div>
@@ -1091,10 +1121,11 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <span><i class="sw line"></i>21:05 現在</span>
           </div>
           <div class="mtl-wrap" id="tlWrap"><div class="mtl" id="tl"></div></div>
-          <p class="hint">横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。ほかの日は、シフトの月表示で日を選んで開きます。</p>
+          <p class="hint">横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。ほかの日は、上の「月」で日を選んで開きます。</p>
           <p class="hint">営業時間（19:00〜翌3:00）は仮です。帯の終わりは目安（2時間）で、滞在時間の決まりは確認中です。</p>
           <p class="hint">席が決まっていない予約・候補は「席未定」の行に出ます。予約の席は、帯を押して管理者が決めます（仮）。</p>
           <p class="hint">BOX の予約は代表者だけを登録します。同行者の情報は後日入力できるようにします（入力する項目は確認中）。</p>
+          </div>
         </div>
         <div class="overlay" id="tlModal" role="dialog" aria-label="予定の詳細">
           <div class="dialog">
@@ -1118,7 +1149,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-11 勤怠一覧・修正 -->
       <section data-screen="SCR-11" data-device="mobile" data-name="勤怠一覧・修正" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>勤怠</h1>
@@ -1174,7 +1205,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-12 給与試算 -->
       <section data-screen="SCR-12" data-device="mobile" data-name="給与試算・出力" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>給与試算</h1>
@@ -1200,7 +1231,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-13 顧客一覧・登録 -->
       <section data-screen="SCR-13" data-device="mobile" data-name="顧客一覧・登録" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>顧客</h1>
@@ -1260,7 +1291,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-16 勤怠の申請 -->
       <section data-screen="SCR-16" data-device="mobile" data-name="勤怠の申請" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-06" aria-label="戻る">‹</button>
           <h1>勤怠の申請</h1>
@@ -1292,7 +1323,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-17 一斉送信 -->
       <section data-screen="SCR-17" data-device="mobile" data-name="一斉送信" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>キャストへ一斉送信</h1>
@@ -1323,7 +1354,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-18 店からの連絡（キャスト） -->
       <section data-screen="SCR-18" data-device="mobile" data-name="店からの連絡の確認" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
           <h1>店からの連絡</h1>
@@ -1379,7 +1410,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-20 初回の登録（招待コードの読み取り後） -->
       <section data-screen="SCR-20" data-device="mobile" data-name="初回の登録（招待コードの読み取り後）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <h1>はじめての登録</h1>
           <span class="badge info role">キャスト</span>
@@ -1488,7 +1519,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-15 店内状況（キャスト・見るだけ） -->
       <section data-screen="SCR-15" data-device="mobile" data-name="店内状況（キャスト・見るだけ）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
           <h1>店内状況</h1>
@@ -1539,31 +1570,33 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
       <!-- SCR-26 シフト（月表示・管理者） -->
       <section data-screen="SCR-26" data-device="mobile" data-name="シフト（月表示・管理者）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
           <h1>シフト</h1>
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
+          <div class="roletabs storetabs" role="group" aria-label="店舗" data-storetabs><button type="button" data-store="1" aria-pressed="true">本店</button><button type="button" data-store="2" aria-pressed="false">2号店</button></div>
           <div class="cal-head"><button type="button" class="cal-nav" data-cal-month aria-label="前の月">‹</button><h2>2026年11月</h2><button type="button" class="cal-nav" data-cal-month aria-label="次の月">›</button></div>
-          <div class="legend"><span><i class="sw c"></i>確定</span><span><i class="sw s"></i>提出だけ（未確定）</span><span><i class="sw o"></i>休み・欠勤</span></div>
+          <div class="legend"><span><i class="sw c"></i>確定・出勤</span><span><i class="sw s"></i>提出中・出勤</span><span><i class="sw x"></i>提出中・休み</span><span><i class="sw o"></i>確定・休み</span></div>
           <div class="cal" id="calAdmin" aria-label="11月のシフト"></div>
           <div class="card" id="sdPanel">
             <div class="row"><h3 id="sdTitle">—</h3><span class="muted" id="sdRv">—</span></div>
             <p class="muted" id="sdBday" hidden>—</p>
             <ul class="castlist" id="sdList"></ul>
-            <button type="button" class="btn block" id="sdFix">提出をすべて確定する</button>
+            <button type="button" class="btn block" id="sdFix">提出（出勤・休み）をすべて確定する</button>
+            <p class="hint" id="sdOvrHint" hidden>全体オーナーは、確定したシフトも「上書き」で変えられます。変えると、店長とそのキャストに LINE で知らせます。</p>
             <button type="button" class="btn secondary block" id="sdDay" data-go="SCR-14">この日の業務予定（1日表示）</button>
           </div>
-          <p class="hint">帯は、その日のキャストのシフトの内訳です。「予」は予約の件数、「誕」はキャストの誕生日です。</p>
+          <p class="hint">帯は、その日のキャストのシフトの内訳です（左から確定・出勤、提出中・出勤、提出中・休み、確定・休み）。「予」は予約の件数、「誕」はキャストの誕生日です。休みも、確定するまでは提出中です。</p>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
       <!-- SCR-27 シフト（月表示・キャスト） -->
       <section data-screen="SCR-27" data-device="mobile" data-name="シフト（月表示・キャスト）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">会員制バー</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
           <h1>シフト</h1>
@@ -1572,7 +1605,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
         <div class="m-body">
           <p class="notice" id="myTodo">まだ提出していない日: —</p>
           <div class="cal-head"><button type="button" class="cal-nav" data-cal-month aria-label="前の月">‹</button><h2>2026年11月</h2><button type="button" class="cal-nav" data-cal-month aria-label="次の月">›</button></div>
-          <div class="legend"><span><i class="sw c"></i>確定</span><span><i class="sw s"></i>提出だけ（未確定）</span><span><i class="sw o"></i>休み</span><span><i class="sw n"></i>未提出</span></div>
+          <div class="legend"><span><i class="sw c"></i>確定・出勤</span><span><i class="sw s"></i>提出中・出勤</span><span><i class="sw x"></i>提出中・休み</span><span><i class="sw o"></i>確定・休み</span><span><i class="sw n"></i>未提出</span></div>
           <div class="cal" id="calCast" aria-label="11月の自分のシフト"></div>
           <div class="card" id="myPanel">
             <div class="row"><h3 id="myTitle">—</h3><span class="badge" id="myState">—</span></div>
@@ -1581,14 +1614,38 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <button type="button" class="btn block" id="mySubmit" disabled>提出する</button>
             </div>
             <div id="myFixed" hidden>
-              <p class="muted">確定したシフトです。変えるときは、遅刻・欠勤として管理者に連絡します。</p>
+              <p class="muted" id="myFixedMsg">確定したシフトです。変えるときは、遅刻・欠勤として管理者に連絡します。</p>
               <button type="button" class="btn secondary block" id="myLate">遅刻・欠勤を連絡する</button>
             </div>
             <p class="muted" id="myPast" hidden>過ぎた日です。</p>
           </div>
-          <p class="hint">見られるのは自分のシフトだけです。提出の締切は確認中です。</p>
+          <p class="hint">見られるのは自分のシフトだけです。休みも、管理者が確定するまでは提出中です。提出の締切は確認中です。</p>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+      </section>
+
+      <!-- SCR-28 予約の月表示（管理者） -->
+      <section data-screen="SCR-28" data-device="mobile" data-name="予約の月表示（管理者）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">会員制バー 本店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>予定表（月）</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="roletabs storetabs" role="group" aria-label="店舗" data-storetabs><button type="button" data-store="1" aria-pressed="true">本店</button><button type="button" data-store="2" aria-pressed="false">2号店</button></div>
+          <div class="roletabs dmtabs" role="group" aria-label="表示の切り替え"><button type="button" data-go="SCR-14" aria-pressed="false">1日</button><button type="button" aria-pressed="true">月</button></div>
+          <div class="cal-head"><button type="button" class="cal-nav" data-cal-month aria-label="前の月">‹</button><h2>2026年11月</h2><button type="button" class="cal-nav" data-cal-month aria-label="次の月">›</button></div>
+          <div class="legend"><span><i class="sw"></i>予約</span><span><i class="sw cand"></i>承認待ち・席未定</span></div>
+          <div class="cal" id="calRv" aria-label="11月の予約"></div>
+          <div class="card" id="rvPanel">
+            <div class="row"><h3 id="rvTitle">—</h3><span class="muted" id="rvCount">—</span></div>
+            <ul class="rlist" id="rvList"></ul>
+            <button type="button" class="btn secondary block" id="rvDay" data-go="SCR-14">この日の1日の流れ（横長）</button>
+          </div>
+          <p class="hint">日のマスには、予約を時刻で2件まで出し、残りは「+件数」で出します。日を押すと、その日の予約がすべて出ます。予約の追加・変更は、予約の確認と案内・割り当ての確認で行います。</p>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
     </div>
   </div>
@@ -1609,16 +1666,17 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
   /* ---- role pages: the same file is placed in admin/ cast/ guest/ register/; ?role= does the same locally ---- */
   var ROLES = {
-    admin: { name: '管理者', page: 1, lead: '管理者が LINE の中で使う画面です。下のボタンから、管理者の LINE のトークを開いて始めます。',
-      cards: [['SCR-19', '管理者として見る', '席の案内とキャストの割り当て、予約、シフト、勤怠、給与試算、一斉送信']],
-      screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-26', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-17'] },
-    cast: { name: 'キャスト', page: 2, lead: 'キャストが LINE の中で使う画面です。下のボタンから、キャストの LINE のトークを開いて始めます。',
+    admin: { name: '管理者', page: 2, lead: '管理者（全体オーナー・店長）が LINE の中で使う画面です。下のボタンから、管理者の LINE のトークを開いて始めます。全体オーナーは本店・2号店をタブで切り替え、店長は担当の店舗だけを見ます。',
+      cards: [['SCR-19', '全体オーナーとして見る', '本店・2号店をタブで切り替えて見る。店長の決定（シフトなど）を上書きする', 'owner'],
+              ['SCR-19', '店長として見る', '担当の店舗（本店）だけ。席の案内とキャストの割り当て、予約、シフト、勤怠、給与試算、一斉送信', 'manager']],
+      screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-28', 'SCR-26', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-17'] },
+    cast: { name: 'キャスト', page: 4, lead: 'キャストが LINE の中で使う画面です。下のボタンから、キャストの LINE のトークを開いて始めます。',
       cards: [['SCR-23', 'キャストとして見る', '出勤・退勤、シフト、今日の割り当て、担当のお客さん、勤怠の申請']],
       screens: ['SCR-23', 'SCR-21', 'SCR-27', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18'] },
-    guest: { name: 'お客さん', page: 3, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
+    guest: { name: 'お客さん', page: 5, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
       cards: [['SCR-24', 'お客さんとして見る', '空き状況と来店予約、今日出勤しているキャスト']],
       screens: ['SCR-24', 'SCR-22', 'SCR-08'] },
-    register: { name: '登録用', page: 4, lead: '初めて使う人が登録する画面と、登録していない人が開いたときの案内です。登録が終わると、その人の立場のホームに進みます。',
+    register: { name: '登録用', page: 1, lead: '初めて使う人が登録する画面と、登録していない人が開いたときの案内です。登録が終わると、その人の立場のホームに進みます。',
       cards: [['SCR-20', '初回の登録', '店の招待コードを読み取った後、お客さん・キャスト・管理者として登録する'],
               ['SCR-25', '未登録のときの案内', '登録していない人がメニューを開いたときの表示']],
       screens: ['SCR-20', 'SCR-25'] }
@@ -1645,6 +1703,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     role.cards.forEach(function (c) {
       var a = document.createElement('a'), b = document.createElement('b'), sp = document.createElement('span');
       a.className = 'start-card'; a.href = '#' + c[0]; b.textContent = c[1]; sp.textContent = c[2];
+      if (c[3]) a.dataset.mode = c[3];
       a.appendChild(b); a.appendChild(sp); box.appendChild(a);
     });
     document.getElementById('rolePages').hidden = true;
@@ -1920,6 +1979,10 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     });
   });
 
+  /* ---- stores (F-C11): the owner switches stores with tabs; a store manager sees only the own store ---- */
+  var store = 1, owner = true;
+  var STORE_NAME = { 1: '本店', 2: '2号店' };
+
   /* ---- SCR-14 business schedule ---- */
   var SEATS = [
     ['ctr', 'カウンター A', '1名'], ['ctr', 'カウンター B', '1名'], ['ctr', 'カウンター C', '1名'], ['ctr', 'カウンター D', '1名'],
@@ -1945,6 +2008,8 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   var NOW = 2 + 5 / 60;
   function hm(h) { var t = Math.round((19 + h) * 60) % (24 * 60); return Math.floor(t / 60) + ':' + ('0' + t % 60).slice(-2); }
   function renderTl() {
+    document.getElementById('tlStore1').hidden = store !== 1;
+    document.getElementById('tlStore2').hidden = store === 1;
     var f = document.getElementById('tlKind').value;
     var hours = '';
     for (var h = 0; h < 8; h++) hours += '<span>' + hm(h) + '</span>';
@@ -2107,22 +2172,28 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
 
   /* ---- SCR-26 / SCR-27 shift calendar (F-M29). November 2026; 11/1 is a Sunday, weeks start on Monday ---- */
-  var CASTS = ['あおい', 'みなみ', 'さくら', 'ゆい', 'れな', 'まい'];
+  /* states: c = 確定・出勤, s = 提出中・出勤, x = 提出中・休み, o = 確定・休み (default), n = 未提出 */
+  var CASTS_BY = { 1: ['あおい', 'みなみ', 'さくら', 'ゆい'], 2: ['れな', 'まい', 'ことね', 'ひなた'] };
   var PLAN = {
-    'あおい': { c: [1, 3, 5, 6, 7, 13, 14, 16, 18, 20], s: [21, 23, 25, 27, 28, 30], n: [] },
-    'みなみ': { c: [2, 4, 6, 13, 15, 17, 19, 20], s: [22, 24, 26, 27, 29], n: [28, 30] },
-    'さくら': { c: [2, 3, 7, 8, 13, 14, 15, 19, 20], s: [21, 22, 26, 28, 29], n: [] },
-    'ゆい': { c: [1, 5, 6, 12, 14, 16, 17, 18], s: [24, 25, 27, 28], n: [30] },
-    'れな': { c: [3, 4, 8, 10, 11, 15, 18, 19], s: [21, 22, 23, 29], n: [30] },
-    'まい': { c: [1, 2, 7, 9, 10, 12, 16, 17, 20], s: [21, 23, 24, 26, 30], n: [] }
+    'あおい': { c: [1, 3, 5, 7, 9, 11, 13, 14, 16, 18, 20], s: [21, 23, 25, 27, 28, 30], x: [22, 24], n: [] },
+    'みなみ': { c: [2, 4, 6, 8, 10, 13, 15, 17, 19, 20], s: [22, 24, 26, 27, 29], x: [21, 23], n: [28, 30] },
+    'さくら': { c: [2, 3, 7, 8, 9, 12, 13, 14, 15, 19], s: [21, 22, 26, 28, 29], x: [25, 27], n: [] },
+    'ゆい': { c: [1, 4, 5, 6, 10, 11, 12, 16, 17, 18], s: [24, 25, 27, 28], x: [21, 22, 23], n: [30] },
+    'れな': { c: [3, 4, 8, 10, 11, 13, 15, 18, 19], s: [21, 22, 23, 29], x: [24, 25], n: [30] },
+    'まい': { c: [1, 2, 7, 9, 10, 12, 13, 16, 17, 20], s: [21, 23, 24, 26, 30], x: [22, 28], n: [] },
+    'ことね': { c: [2, 5, 6, 9, 12, 14, 16, 19], s: [22, 26, 27], x: [21, 23], n: [29, 30] },
+    'ひなた': { c: [1, 4, 6, 8, 11, 14, 15, 18, 20], s: [21, 25, 28], x: [26, 27], n: [] }
   };
-  var RSV = [3, 2, 4, 3, 5, 9, 10, 2, 3, 4, 5, 6, 8, 11, 4, 2, 3, 4, 5, 9, 12, 3, 1, 2, 3, 5, 7, 9, 2, 1];
-  var BDAY = { 13: 'さくら', 24: 'ゆい' };
+  var RSV_BY = { 1: [3, 2, 4, 3, 5, 9, 10, 2, 3, 4, 5, 6, 8, 11, 4, 2, 3, 4, 5, 9, 12, 3, 1, 2, 3, 5, 7, 9, 2, 1],
+                 2: [1, 0, 2, 1, 3, 4, 5, 1, 0, 2, 2, 3, 3, 5, 2, 1, 0, 2, 3, 4, 6, 1, 0, 1, 2, 3, 4, 5, 1, 0] };
+  var BDAY_BY = { 1: { 13: 'さくら', 24: 'ゆい' }, 2: { 6: 'まい' } };
+  var CASTS = CASTS_BY[1], RSV = RSV_BY[1], BDAY = BDAY_BY[1];
   var TODAY = 13, WD = ['月', '火', '水', '木', '金', '土', '日'];
-  function stOf(name, d) { var p = PLAN[name]; return p.c.indexOf(d) >= 0 ? 'c' : p.s.indexOf(d) >= 0 ? 's' : p.n.indexOf(d) >= 0 ? 'n' : 'o'; }
-  function setSt(name, d, st) { var p = PLAN[name]; ['c', 's', 'n'].forEach(function (k) { var i = p[k].indexOf(d); if (i >= 0) p[k].splice(i, 1); }); if (st !== 'o') p[st].push(d); }
+  function stOf(name, d) { var p = PLAN[name]; return p.c.indexOf(d) >= 0 ? 'c' : p.s.indexOf(d) >= 0 ? 's' : p.x.indexOf(d) >= 0 ? 'x' : p.n.indexOf(d) >= 0 ? 'n' : 'o'; }
+  function setSt(name, d, st) { var p = PLAN[name]; ['c', 's', 'x', 'n'].forEach(function (k) { var i = p[k].indexOf(d); if (i >= 0) p[k].splice(i, 1); }); if (st !== 'o') p[st].push(d); }
   function dayLabel(d) { return '11/' + d + '（' + WD[(d + 5) % 7] + '）'; }
-  var ST = { c: ['確定 20:00〜', 'ok'], s: ['提出だけ', 'warn'], o: ['休み', ''], n: ['未提出', ''] };
+  var ST = { c: ['確定・出勤 20:00〜'], s: ['提出中・出勤'], x: ['提出中・休み'], o: ['確定・休み'], n: ['未提出'] };
+  var OVR = {};
   function calGrid(el, cell) {
     var html = WD.map(function (w) { return '<span class="wd">' + w + '</span>'; }).join('');
     for (var i = 0; i < 6; i++) html += '<span></span>';
@@ -2134,36 +2205,47 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   function todayBottles() { var seen = {}; BK.forEach(function (b) { if (b[3] !== 'now' && BOTTLE[b[4]]) seen[b[4]] = 1; }); return Object.keys(seen).length; }
   function renderAdminCal() {
     calGrid(document.getElementById('calAdmin'), function (d) {
-      var n = { c: 0, s: 0, o: 0, n: 0 };
+      var n = { c: 0, s: 0, x: 0, o: 0, n: 0 };
       CASTS.forEach(function (c) { n[stOf(c, d)]++; });
-      var label = dayLabel(d) + ' 確定' + n.c + '名・提出だけ' + n.s + '名・休み' + n.o + '名・予約' + RSV[d - 1] + '件' + (BDAY[d] ? '・' + BDAY[d] + 'の誕生日' : '');
+      var label = dayLabel(d) + ' 確定・出勤' + n.c + '名・提出中・出勤' + n.s + '名・提出中・休み' + n.x + '名・確定・休み' + n.o + '名・予約' + RSV[d - 1] + '件' + (BDAY[d] ? '・' + BDAY[d] + 'の誕生日' : '');
       return '<button type="button" class="cal-d' + (d === TODAY ? ' today' : '') + '" data-sd="' + d + '" aria-pressed="' + (d === sdDay) + '" aria-label="' + label + '">' +
         '<span class="dn">' + d + (BDAY[d] ? '<i class="bd">誕</i>' : '') + '</span>' +
-        '<span class="sbar"><i class="c" style="flex:' + n.c + '"></i><i class="s" style="flex:' + n.s + '"></i><i class="o" style="flex:' + n.o + '"></i></span>' +
+        '<span class="sbar"><i class="c" style="flex:' + n.c + '"></i><i class="s" style="flex:' + n.s + '"></i><i class="x" style="flex:' + n.x + '"></i><i class="o" style="flex:' + n.o + '"></i><i class="n" style="flex:' + n.n + '"></i></span>' +
         '<span class="rv">予' + RSV[d - 1] + '</span></button>';
     });
     document.getElementById('sdTitle').textContent = dayLabel(sdDay) + (sdDay === TODAY ? ' 今日' : '');
-    document.getElementById('sdRv').textContent = '予約 ' + RSV[sdDay - 1] + '件' + (sdDay === TODAY ? '（ボトルあり ' + todayBottles() + '件）' : '');
+    document.getElementById('sdRv').textContent = '予約 ' + RSV[sdDay - 1] + '件' + (sdDay === TODAY && store === 1 ? '（ボトルあり ' + todayBottles() + '件）' : '');
     var bd = document.getElementById('sdBday');
     bd.hidden = !BDAY[sdDay]; bd.textContent = '誕生日: ' + (BDAY[sdDay] || '');
-    var anyS = false;
+    var anyS = false, canOvr = owner && sdDay >= TODAY;
     document.getElementById('sdList').innerHTML = CASTS.map(function (c) {
-      var st = stOf(c, sdDay); if (st === 's') anyS = true;
-      return '<li><span>' + c + '</span><span class="badge ' + ST[st][1] + '">' + ST[st][0] + '</span></li>';
+      var st = stOf(c, sdDay); if (st === 's' || st === 'x') anyS = true;
+      var ov = OVR[c + sdDay] ? '<small class="ovr">オーナーが変更</small>' : '';
+      var btn = canOvr && (st === 'c' || st === 'o') ? '<button type="button" class="btn secondary small" data-ovr="' + c + '">上書き</button>' : '';
+      return '<li><span>' + c + ov + '</span><span class="sdrow"><span class="stb ' + st + '">' + ST[st][0] + '</span>' + btn + '</span></li>';
     }).join('');
     document.getElementById('sdFix').hidden = !anyS;
+    document.getElementById('sdOvrHint').hidden = !canOvr;
   }
   document.getElementById('calAdmin').addEventListener('click', function (e) {
     var b = e.target.closest('[data-sd]'); if (!b) return;
     sdDay = +b.dataset.sd; renderAdminCal();
   });
   document.getElementById('sdFix').addEventListener('click', function () {
-    CASTS.forEach(function (c) { if (stOf(c, sdDay) === 's') setSt(c, sdDay, 'c'); });
+    CASTS.forEach(function (c) { var st = stOf(c, sdDay); if (st === 's') setSt(c, sdDay, 'c'); else if (st === 'x') setSt(c, sdDay, 'o'); });
     renderAdminCal(); renderCastCal();
-    toast(dayLabel(sdDay) + ' のシフトを確定し、キャストに LINE で知らせました');
+    toast(dayLabel(sdDay) + ' の提出（出勤・休み）を確定し、キャストに LINE で知らせました');
+  });
+  /* owner override of a confirmed shift (F-C12) */
+  document.getElementById('sdList').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-ovr]'); if (!b) return;
+    var c = b.dataset.ovr, to = stOf(c, sdDay) === 'c' ? 'o' : 'c';
+    setSt(c, sdDay, to); OVR[c + sdDay] = 1;
+    renderAdminCal(); renderCastCal();
+    toast(dayLabel(sdDay) + ' の' + c + 'を「' + ST[to][0] + '」に変えました。' + STORE_NAME[store] + 'の店長と' + c + 'さんに LINE で知らせました（記録に残ります）');
   });
   document.getElementById('sdDay').addEventListener('click', function () {
-    if (sdDay !== TODAY) toast('モックでは 11/13 の業務予定を表示します');
+    if (sdDay !== TODAY && store === 1) toast('モックでは 11/13 の業務予定を表示します');
   });
   document.querySelectorAll('[data-cal-month]').forEach(function (b) { b.addEventListener('click', function () { toast('モックでは 11月だけを表示します'); }); });
 
@@ -2171,16 +2253,19 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   function renderCastCal() {
     calGrid(document.getElementById('calCast'), function (d) {
       var st = stOf(ME, d);
-      var txt = st === 'c' ? '20時' : st === 's' ? '提出' : st === 'o' ? '休み' : '';
+      var txt = { c: '<span>20時</span>', s: '<span>出勤</span><span>提出中</span>', x: '<span>休み</span><span>提出中</span>', o: '<span>休み</span>', n: '' }[st];
       return '<button type="button" class="cal-d' + (st === 'n' ? '' : ' st-' + st) + (d === TODAY ? ' today' : '') + '" data-my="' + d + '" aria-pressed="' + (d === myDay) + '" aria-label="' + dayLabel(d) + ' ' + ST[st][0] + '">' +
-        '<span class="dn">' + d + '</span><span>' + txt + '</span></button>';
+        '<span class="dn">' + d + '</span>' + txt + '</button>';
     });
     var st = stOf(ME, myDay);
     document.getElementById('myTitle').textContent = dayLabel(myDay) + (myDay === TODAY ? ' 今日' : '');
-    var b = document.getElementById('myState'); b.textContent = ST[st][0]; b.className = 'badge ' + ST[st][1];
+    var b = document.getElementById('myState'); b.textContent = ST[st][0]; b.className = 'stb ' + st;
+    var fixed = st === 'c' || st === 'o';
     document.getElementById('myPast').hidden = myDay >= TODAY;
-    document.getElementById('myFixed').hidden = !(myDay >= TODAY && st === 'c');
-    document.getElementById('myEdit').hidden = !(myDay >= TODAY && st !== 'c');
+    document.getElementById('myFixed').hidden = !(myDay >= TODAY && fixed);
+    document.getElementById('myEdit').hidden = !(myDay >= TODAY && !fixed);
+    document.getElementById('myFixedMsg').textContent = st === 'o' ? '確定した休みです。出勤したいときは、管理者に連絡します。' : '確定したシフトです。変えるときは、遅刻・欠勤として管理者に連絡します。';
+    document.getElementById('myLate').hidden = st !== 'c';
     var todo = PLAN[ME].n.slice().sort(function (a, b2) { return a - b2; });
     var t = document.getElementById('myTodo');
     t.hidden = !todo.length; t.textContent = 'まだ提出していない日: ' + todo.map(dayLabel).join('・');
@@ -2200,14 +2285,101 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     });
   });
   document.getElementById('mySubmit').addEventListener('click', function () {
-    setSt(ME, myDay, myCan === '1' ? 's' : 'o'); dirty = false;
-    toast(dayLabel(myDay) + (myCan === '1' ? ' に出勤できると提出しました。確定すると LINE で知らせます' : ' は出勤できないと提出しました'));
+    setSt(ME, myDay, myCan === '1' ? 's' : 'x'); dirty = false;
+    toast(dayLabel(myDay) + (myCan === '1' ? ' に出勤できると提出しました。確定すると LINE で知らせます' : ' を休みとして提出しました。確定すると LINE で知らせます'));
     myCan = ''; document.querySelectorAll('[data-can]').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
     document.getElementById('mySubmit').disabled = true;
     renderCastCal(); renderAdminCal();
   });
   document.getElementById('myLate').addEventListener('click', function () { toast('遅刻・欠勤の連絡は、今回のモックの対象外です'); });
-  renderAdminCal(); renderCastCal();
+  /* ---- SCR-28 reservations by month (F-M31) ---- */
+  var POOL_BY = { 1: ['No.0112 A.K.', 'No.0088 T.K.', 'No.0123 K.T.', 'No.0145 M.S.', 'No.0167 T.N.', 'No.0188 R.K.', 'No.0201 Y.H.', 'No.0099 S.A.', 'No.0131 T.W.', 'No.0154 Y.O.', 'No.0160 R.N.', 'No.0177 S.I.'],
+                  2: ['No.1004 H.S.', 'No.1011 M.T.', 'No.1018 K.Y.', 'No.1023 N.O.', 'No.1030 E.F.', 'No.1036 A.M.'] };
+  BOTTLE['No.1011 M.T.'] = ['ウイスキー バーボン 8年'];
+  var TIMES = ['20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30', '0:00', '0:30'];
+  /* [time, guest, people, label, badge class, cand] */
+  function rvOf(st, d) {
+    if (st === 1 && d === TODAY) {
+      var seen = {}, out = [];
+      BK.forEach(function (b) {
+        if (b[3] === 'now' || seen[b[4]]) return; seen[b[4]] = 1;
+        var cand = b[3] === 'cand';
+        var seats = BK.filter(function (x) { return x[4] === b[4]; }).map(function (x) { return x[0]; }).join('・');
+        out.push([hm(b[1]), b[4], b[5], cand ? '承認待ち' : seats, cand ? 'warn' : 'info', cand || b[0] === '席未定', b[1]]);
+      });
+      return out.sort(function (a, b) { return a[6] - b[6]; });
+    }
+    var pool = POOL_BY[st], n = RSV_BY[st][d - 1], list = [];
+    for (var i = 0; i < n; i++) {
+      var und = d > TODAY && i % 4 === 3;
+      list.push([TIMES[(d + i * 3) % TIMES.length], pool[(d + i) % pool.length], 1 + (d + i) % 3, d < TODAY ? '来店済み' : und ? '席未定' : '予約', d < TODAY ? '' : und ? 'warn' : 'info', und]);
+    }
+    return list.sort(function (a, b) { return TIMES.indexOf(a[0]) - TIMES.indexOf(b[0]); });
+  }
+  var rvDay = TODAY;
+  function renderRvCal() {
+    calGrid(document.getElementById('calRv'), function (d) {
+      var l = rvOf(store, d);
+      var ev = l.slice(0, 2).map(function (r) { return '<span class="ev' + (r[5] ? ' cand' : '') + '">' + r[0] + '</span>'; }).join('');
+      return '<button type="button" class="cal-d' + (d === TODAY ? ' today' : '') + '" data-rv="' + d + '" aria-pressed="' + (d === rvDay) + '" aria-label="' + dayLabel(d) + ' 予約' + l.length + '件">' +
+        '<span class="dn">' + d + '</span>' + ev + (l.length > 2 ? '<span class="plus">+' + (l.length - 2) + '</span>' : '') + '</button>';
+    });
+    var l = rvOf(store, rvDay);
+    document.getElementById('rvTitle').textContent = dayLabel(rvDay) + (rvDay === TODAY ? ' 今日' : '');
+    document.getElementById('rvCount').textContent = '予約 ' + l.length + '件';
+    document.getElementById('rvList').innerHTML = l.map(function (r) {
+      return '<li><span class="t">' + r[0] + '</span><span class="g">' + r[1] + ' <small>' + r[2] + '名</small>' + (BOTTLE[r[1]] ? '<br><small>ボトルあり</small>' : '') + '</span><span class="badge ' + r[4] + '">' + r[3] + '</span></li>';
+    }).join('') || '<li><span class="muted">予約はありません</span></li>';
+  }
+  document.getElementById('calRv').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-rv]'); if (!b) return;
+    rvDay = +b.dataset.rv; renderRvCal();
+  });
+  document.getElementById('rvDay').addEventListener('click', function () {
+    if (rvDay !== TODAY && store === 1) toast('モックでは 11/13 の1日の流れを表示します');
+  });
+
+  /* ---- SCR-01 home per store ---- */
+  var HOME1 = document.getElementById('hmList').innerHTML;
+  function renderHome() {
+    var two = store === 2, l = rvOf(2, TODAY);
+    document.getElementById('hmAppr').textContent = two ? '1件' : '2件';
+    document.getElementById('hmReq').textContent = two ? '0件' : '1件';
+    document.getElementById('hmOn').innerHTML = two ? '2<small>/4名</small>' : '3<small>/4名</small>';
+    document.getElementById('hmRv').innerHTML = two ? l.length + '<small>件</small>' : '7<small>件</small>';
+    document.getElementById('hmSeat').innerHTML = two ? '—<small> 確認中</small>' : '7<small>/10</small>';
+    document.getElementById('hmList').innerHTML = two ? l.map(function (r) {
+      return '<li><span class="t">' + r[0] + '</span><span class="g">' + r[1] + ' <small>' + r[2] + '名</small>' + (BOTTLE[r[1]] ? '<br><small>ボトルあり</small>' : '') + '</span><span class="badge ' + r[4] + '">' + r[3] + '</span></li>';
+    }).join('') : HOME1;
+    document.getElementById('hmMore').textContent = two ? '2号店の席の構成は確認中です。' : 'ほか 3件は予定表で見られます。';
+    document.getElementById('hmCrowd2').hidden = !two;
+  }
+
+  /* ---- store tabs and owner / store manager ---- */
+  var ADMIN_SCREENS = ROLES.admin.screens.slice(1);
+  function setStore(n) {
+    store = n; CASTS = CASTS_BY[n]; RSV = RSV_BY[n]; BDAY = BDAY_BY[n];
+    document.querySelectorAll('[data-store]').forEach(function (b) { b.setAttribute('aria-pressed', String(+b.dataset.store === n)); });
+    /* only the screens with store tabs change; the other admin screens show the own store (本店) in the mock */
+    screens.forEach(function (sc) {
+      if (!sc.querySelector('[data-storetabs]')) return;
+      var t = sc.querySelector('.lh-title'); if (t) t.textContent = '会員制バー ' + STORE_NAME[n];
+    });
+    renderHome(); renderTl(); renderAdminCal(); renderRvCal();
+  }
+  function applyMode() {
+    document.querySelectorAll('[data-storetabs]').forEach(function (t) { t.hidden = !owner; });
+    screens.forEach(function (sc) {
+      if (ADMIN_SCREENS.indexOf(sc.dataset.screen) < 0) return;
+      var r = sc.querySelector('.badge.role'); if (r) r.textContent = owner ? '全体オーナー' : '店長・本店';
+    });
+    setStore(owner ? store : 1);
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-store]'); if (t) { setStore(+t.dataset.store); return; }
+    var m = e.target.closest('[data-mode]'); if (m) { owner = m.dataset.mode === 'owner'; applyMode(); }
+  });
+  renderCastCal(); applyMode();
 
   /* ---- talk: messages typed by the user get an automatic reply by keywords (§11-57, provisional) ---- */
   var REPLY = {
