@@ -599,7 +599,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   <h1 id="startTitle">会員制バー 店舗管理 画面モック</h1>
   <p class="lead-text" id="startLead">LINE の中で使う画面です。見たい立場を選ぶと、その人の LINE のトークから始まります。スマホで開くとスマホの配置、タブレットで開くとタブレットの配置になります。</p>
   <div class="start-roles" id="startRoles">
-    <a class="start-card" href="#SCR-19" data-mode="owner"><b>全体オーナーとして見る</b><span>本店・2号店をタブで切り替えて見る。店長の決定（シフトなど）を上書きする</span></a>
+    <a class="start-card" href="#SCR-19" data-mode="owner"><b>全体オーナーとして見る</b><span>本店・2号店をタブで切り替えて見る。店長の決定（シフトなど）を修正する</span></a>
     <a class="start-card" href="#SCR-19" data-mode="manager"><b>店長として見る</b><span>担当の店舗（本店）だけ。席の案内とキャストの割り当て、予約、シフト、勤怠、給与試算、一斉送信</span></a>
     <a class="start-card" href="#SCR-23"><b>キャストとして見る</b><span>出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請</span></a>
     <a class="start-card" href="#SCR-24"><b>お客さんとして見る</b><span>空き状況と来店予約、今日出勤しているキャスト</span></a>
@@ -1586,7 +1586,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <p class="muted" id="sdBday" hidden>—</p>
             <ul class="castlist" id="sdList"></ul>
             <button type="button" class="btn block" id="sdFix">提出（出勤・休み）をすべて確定する</button>
-            <p class="hint" id="sdOvrHint" hidden>全体オーナーは、確定したシフトも「上書き」で変えられます。変えると、店長とそのキャストに LINE で知らせます。</p>
+            <p class="hint" id="sdOvrHint" hidden>全体オーナーは、確定したシフトも「修正」で変えられます。変えると、店長とそのキャストに LINE で知らせます。</p>
             <button type="button" class="btn secondary block" id="sdDay" data-go="SCR-14">この日の業務予定（1日表示）</button>
           </div>
           <p class="hint">帯は、その日のキャストのシフトの内訳です（左から確定・出勤、提出中・出勤、提出中・休み、確定・休み）。「予」は予約の件数、「誕」はキャストの誕生日です。休みも、確定するまでは提出中です。</p>
@@ -1667,7 +1667,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   /* ---- role pages: the same file is placed in admin/ cast/ guest/ register/; ?role= does the same locally ---- */
   var ROLES = {
     admin: { name: '管理者', page: 2, lead: '管理者（全体オーナー・店長）が LINE の中で使う画面です。下のボタンから、管理者の LINE のトークを開いて始めます。全体オーナーは本店・2号店をタブで切り替え、店長は担当の店舗だけを見ます。',
-      cards: [['SCR-19', '全体オーナーとして見る', '本店・2号店をタブで切り替えて見る。店長の決定（シフトなど）を上書きする', 'owner'],
+      cards: [['SCR-19', '全体オーナーとして見る', '本店・2号店をタブで切り替えて見る。店長の決定（シフトなど）を修正する', 'owner'],
               ['SCR-19', '店長として見る', '担当の店舗（本店）だけ。席の案内とキャストの割り当て、予約、シフト、勤怠、給与試算、一斉送信', 'manager']],
       screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-28', 'SCR-26', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-17'] },
     cast: { name: 'キャスト', page: 4, lead: 'キャストが LINE の中で使う画面です。下のボタンから、キャストの LINE のトークを開いて始めます。',
@@ -2220,8 +2220,8 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     var anyS = false, canOvr = owner && sdDay >= TODAY;
     document.getElementById('sdList').innerHTML = CASTS.map(function (c) {
       var st = stOf(c, sdDay); if (st === 's' || st === 'x') anyS = true;
-      var ov = OVR[c + sdDay] ? '<small class="ovr">オーナーが変更</small>' : '';
-      var btn = canOvr && (st === 'c' || st === 'o') ? '<button type="button" class="btn secondary small" data-ovr="' + c + '">上書き</button>' : '';
+      var ov = OVR[c + sdDay] ? '<small class="ovr">オーナーが修正</small>' : '';
+      var btn = canOvr && (st === 'c' || st === 'o') ? '<button type="button" class="btn secondary small" data-ovr="' + c + '">修正</button>' : '';
       return '<li><span>' + c + ov + '</span><span class="sdrow"><span class="stb ' + st + '">' + ST[st][0] + '</span>' + btn + '</span></li>';
     }).join('');
     document.getElementById('sdFix').hidden = !anyS;
