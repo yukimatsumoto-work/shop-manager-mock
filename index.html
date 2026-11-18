@@ -648,15 +648,15 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <div class="kpi3">
               <div class="kpi lead"><p class="muted">出勤中</p><p class="v" id="hmOn">3<small>/4名</small></p></div>
               <div class="kpi"><p class="muted">残りの予約</p><p class="v" id="hmRv">7<small>件</small></p></div>
-              <div class="kpi"><p class="muted">空き席</p><p class="v" id="hmSeat">7<small>/10</small></p></div>
+              <div class="kpi"><p class="muted">空き席</p><p class="v" id="hmSeat">6<small>/9</small></p></div>
             </div>
             <div class="card">
               <div class="sec-head"><h2>今日の予約</h2><button type="button" class="link" data-go="SCR-14">予定表 ›</button></div>
               <ul class="rlist" id="hmList">
                 <li><span class="t">21:00</span><span class="g">No.0145 M.S. <small>2名</small><br><small>ボトルあり</small></span><span class="badge warn">承認待ち</span></li>
-                <li><span class="t">21:00</span><span class="g">No.0112 A.K. <small>1名</small><br><small>ボトルあり</small></span><span class="badge info">カウンター F</span></li>
-                <li><span class="t">22:00</span><span class="g">No.0088 T.K. <small>12名</small><br><small>ボトルあり</small></span><span class="badge info">BOX-B</span></li>
-                <li><span class="t">23:00</span><span class="g">No.0131 T.W. <small>1名</small></span><span class="badge info">カウンター G</span></li>
+                <li><span class="t">21:00</span><span class="g">No.0112 A.K. <small>1名</small><br><small>ボトルあり</small></span><span class="badge info">カウンター C6</span></li>
+                <li><span class="t">22:00</span><span class="g">No.0088 T.K. <small>12名</small><br><small>ボトルあり</small></span><span class="badge info">VIP席</span></li>
+                <li><span class="t">23:00</span><span class="g">No.0131 T.W. <small>1名</small></span><span class="badge info">カウンター C7</span></li>
               </ul>
               <p class="muted" id="hmMore">ほか 3件は予定表で見られます。</p>
             </div>
@@ -711,7 +711,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             </div>
             <div class="card">
               <div class="sec-head"><h3>今日の割り当て</h3><button type="button" class="link" data-go="SCR-04">見る ›</button></div>
-              <p>21:00〜 カウンター D・E ／ No.0145 M.S.（担当）</p>
+              <p>21:00〜 カウンター C4・C5 ／ No.0145 M.S.（担当）</p>
             </div>
           </div>
           <h2>メニュー</h2>
@@ -766,30 +766,29 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
-          <div class="notice info" id="rcBanner">21:00 の予約（No.0112 A.K.・1名、カウンター F は承認済み）の時刻です。来店したら受け付けてください。</div>
+          <div class="notice info" id="rcBanner">21:00 の予約（No.0112 A.K.・1名、カウンター C6 は承認済み）の時刻です。来店したら受け付けてください。</div>
           <button type="button" class="btn block" id="rcOpen">来店を受け付ける</button>
-          <h2>席（カウンター8席・BOX 2）</h2>
+          <h2>席（カウンター7席・テーブル席・VIP席）</h2>
           <div class="card">
-            <div class="row"><h3>カウンター</h3><span class="muted" id="ctrCount">空き 6 / 8 席</span></div>
+            <div class="row"><h3>カウンター</h3><span class="muted" id="ctrCount">空き 5 / 7 席</span></div>
             <div class="chips">
-              <button type="button" class="chip busy" data-chip>A<br>使用中</button>
-              <button type="button" class="chip" data-chip>B<br>空き</button>
-              <button type="button" class="chip busy" data-chip>C<br>使用中</button>
-              <button type="button" class="chip" data-chip>D<br>空き</button>
-              <button type="button" class="chip" data-chip>E<br>空き</button>
-              <button type="button" class="chip" data-chip>F<br>空き</button>
-              <button type="button" class="chip" data-chip>G<br>空き</button>
-              <button type="button" class="chip" data-chip>H<br>空き</button>
+              <button type="button" class="chip busy" data-chip>C1<br>使用中</button>
+              <button type="button" class="chip" data-chip>C2<br>空き</button>
+              <button type="button" class="chip busy" data-chip>C3<br>使用中</button>
+              <button type="button" class="chip" data-chip>C4<br>空き</button>
+              <button type="button" class="chip" data-chip>C5<br>空き</button>
+              <button type="button" class="chip" data-chip>C6<br>空き</button>
+              <button type="button" class="chip" data-chip>C7<br>空き</button>
             </div>
             <p class="muted">席を押すと、空き／使用中が切り替わります。</p>
           </div>
           <div class="card seat busy" id="seatA">
-            <div class="row"><h3>BOX-A（1〜5名）</h3><span class="badge warn" data-state>使用中</span></div>
+            <div class="row"><h3>テーブル席（1〜5名）</h3><span class="badge warn" data-state>使用中</span></div>
             <p class="muted" data-detail>代表 No.0123 K.T.（上得意）3名／担当 あおい／20:15 来店</p>
             <button type="button" class="btn secondary small" data-toggle-seat="seatA">空きにする</button>
           </div>
           <div class="card seat free" id="seatB">
-            <div class="row"><h3>BOX-B（10名以上）</h3><span class="badge ok" data-state>空き</span></div>
+            <div class="row"><h3>VIP席（10名以上）</h3><span class="badge ok" data-state>空き</span></div>
             <p class="muted" data-detail>次の予約 22:00（代表 No.0088 T.K. 12名）</p>
             <button type="button" class="btn secondary small" data-toggle-seat="seatB">使用中にする</button>
           </div>
@@ -809,7 +808,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <div class="field"><label for="rcGuest">お客さん</label>
             <select id="rcGuest" class="select"><option value="ok">予約 21:00 No.0112 A.K.（1名）</option><option value="pend">予約 21:00 No.0145 M.S.（2名）</option><option value="walk">当日来店（会員番号を入れる）</option></select></div>
           <div class="field"><label for="rcNum">人数</label><select id="rcNum" class="select"><option selected>1名</option><option>2名</option><option>3名</option><option>4名</option></select></div>
-          <p class="notice info" id="rcSeatInfo">席: カウンター F（承認済み）。受け付けると使用中になります。</p>
+          <p class="notice info" id="rcSeatInfo">席: カウンター C6（承認済み）。受け付けると使用中になります。</p>
           <p class="hint">席は、案内・割り当ての候補を承認して決めます。受付では人数と来店時刻を記録します。</p>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="rcDrawer">やめる</button>
@@ -833,7 +832,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <div class="row"><h3>No.0145 M.S.</h3><span class="badge vip">常連</span></div>
             <p class="muted">予約 21:00／2名</p>
             <div class="pair">
-              <div><p class="muted">席の候補</p><p><strong id="cand1Seat">カウンター D・E</strong></p></div>
+              <div><p class="muted">席の候補</p><p><strong id="cand1Seat">カウンター C4・C5</strong></p></div>
               <div><p class="muted">キャストの候補</p><p><strong id="cand1Cast">みなみ（担当）</strong></p></div>
             </div>
             <p class="notice info">理由: 担当キャスト（みなみ）が出勤中</p>
@@ -862,7 +861,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <div class="row"><h3>No.0112 A.K.</h3><span class="badge ok">承認済み</span></div>
             <p class="muted">予約 21:00／1名</p>
             <div class="pair">
-              <div><p class="muted">席</p><p><strong id="asgSeat">カウンター F</strong></p></div>
+              <div><p class="muted">席</p><p><strong id="asgSeat">カウンター C6</strong></p></div>
               <div><p class="muted">キャスト</p><p><strong id="asgCast">あおい（担当）</strong></p></div>
             </div>
             <button type="button" class="btn secondary" data-open-drawer="drawer2">再割り当てする</button>
@@ -871,7 +870,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
         <div class="drawer" id="drawer1" role="dialog" aria-label="候補の修正">
           <h2>候補を修正する</h2>
           <div class="field"><label for="d1seat">席</label>
-            <select id="d1seat" class="select"><option>カウンター D・E</option><option>カウンター F・G</option><option>カウンター F・G・H・B</option><option>BOX-B（22:00 の予約まで）</option></select></div>
+            <select id="d1seat" class="select"><option>カウンター C4・C5</option><option>カウンター C6・C7</option><option>カウンター C4・C5・C6・C7</option><option>VIP席（22:00 の予約まで）</option></select></div>
           <div class="field"><label for="d1cast">キャスト</label>
             <select id="d1cast" class="select"><option>みなみ</option><option>さくら</option><option>あおい</option></select></div>
           <p class="hint">席は複数選べます。担当キャスト以外を選ぶと代理になります。</p>
@@ -883,7 +882,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
         <div class="drawer" id="drawer2" role="dialog" aria-label="再割り当て">
           <h2>再割り当てする（No.0112 A.K.）</h2>
           <div class="field"><label for="d2seat">席</label>
-            <select id="d2seat" class="select"><option>カウンター F</option><option selected>カウンター G</option><option>カウンター H</option><option>BOX-A</option></select></div>
+            <select id="d2seat" class="select"><option>カウンター C6</option><option selected>カウンター C7</option><option>カウンター C2</option><option>テーブル席</option></select></div>
           <div class="field"><label for="d2cast">キャスト</label>
             <select id="d2cast" class="select"><option value="あおい">あおい（担当）</option><option value="さくら" selected>さくら（代理）</option><option value="みなみ">みなみ（代理）</option></select></div>
           <p class="hint">キャストを変えると、新しく付くキャストに割り当てを、外れるキャストに外れたことを LINE で知らせます。変更の前後は記録に残ります。</p>
@@ -906,7 +905,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
         <div class="m-body">
           <p class="hint">管理者が承認した割り当てが届きました。</p>
           <div class="card">
-            <p class="muted">21:00〜／カウンター D・E</p>
+            <p class="muted">21:00〜／カウンター C4・C5</p>
             <p class="big">No.0145 M.S.</p>
             <div class="row"><span class="badge vip">常連</span><span class="muted">来店 13回目・2名</span></div>
           </div>
@@ -1041,7 +1040,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
             <div class="field"><label for="rvNum">人数</label>
               <select id="rvNum" class="select"><option>1名</option><option selected>2名</option><option>3名</option><option>4名</option><option>5名</option><option>6〜9名</option><option>10名以上</option></select></div>
           </div>
-          <p class="hint">BOX 席のご予約は、代表の方だけのご登録で受け付けます。</p>
+          <p class="hint">テーブル席・VIP席のご予約は、代表の方だけのご登録で受け付けます。</p>
           <button type="button" class="btn block" id="rvBtn">予約する</button>
         </div>
         <div class="overlay" id="doneRv" role="dialog" aria-label="予約完了">
@@ -1110,10 +1109,10 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <div id="tlStore1">
           <div class="mkpis">
             <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
-            <div class="kpi"><p class="muted">案内予定（未承認）</p><p class="v">2件</p><p class="muted">今の空き席 7 / 10</p></div>
+            <div class="kpi"><p class="muted">案内予定（未承認）</p><p class="v">2件</p><p class="muted">今の空き席 6 / 9</p></div>
           </div>
           <div class="field"><label for="tlKind">席の種類</label>
-            <select id="tlKind" class="select"><option value="">すべて</option><option value="ctr">カウンター</option><option value="box">BOX</option></select></div>
+            <select id="tlKind" class="select"><option value="">すべて</option><option value="ctr">カウンター</option><option value="box">テーブル席・VIP席</option></select></div>
           <div class="legend">
             <span><i class="sw now"></i>対応中</span>
             <span><i class="sw"></i>予約</span>
@@ -1124,7 +1123,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <p class="hint">横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。ほかの日は、上の「月」で日を選んで開きます。</p>
           <p class="hint">営業時間（19:00〜翌3:00）は仮です。帯の終わりは目安（2時間）で、滞在時間の決まりは確認中です。</p>
           <p class="hint">席が決まっていない予約・候補は「席未定」の行に出ます。予約の席は、帯を押して管理者が決めます（仮）。</p>
-          <p class="hint">BOX の予約は代表者だけを登録します。同行者の情報は後日入力できるようにします（入力する項目は確認中）。</p>
+          <p class="hint">テーブル席・VIP席の予約は代表者だけを登録します。同行者の情報は後日入力できるようにします（入力する項目は確認中）。</p>
           </div>
         </div>
         <div class="overlay" id="tlModal" role="dialog" aria-label="予定の詳細">
@@ -1336,7 +1335,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <button type="button" data-to="on" aria-pressed="true">出勤中 3名</button>
               <button type="button" data-to="pick" aria-pressed="false">選ぶ</button>
             </div></div>
-          <div class="field"><label for="bcText">本文</label><textarea id="bcText" class="textarea" placeholder="例: 23時から BOX-B に12名の予約があります。"></textarea></div>
+          <div class="field"><label for="bcText">本文</label><textarea id="bcText" class="textarea" placeholder="例: 23時から VIP席に12名の予約があります。"></textarea></div>
           <label class="checkrow"><input type="checkbox" id="bcAsk" checked><span>「確認しました」を求める</span></label>
           <button type="button" class="btn block" id="bcSend" disabled>送信する</button>
           <div class="card" id="bcResult" hidden>
@@ -1363,7 +1362,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
         <div class="m-body">
           <div class="card">
             <div class="row"><h3>管理者から</h3><span class="muted">11/13 21:06</span></div>
-            <p>23時から BOX-B に12名の予約があります。22時半までに BOX-B の準備をお願いします。</p>
+            <p>23時から VIP席に12名の予約があります。22時半までに VIP席の準備をお願いします。</p>
           </div>
           <button type="button" class="btn block" id="bcAck">確認しました</button>
           <p class="hint">「確認しました」を押したことが管理者に伝わります。</p>
@@ -1398,7 +1397,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <div class="pair"><button type="button" class="btn secondary small" id="nsKeep">まだ待つ</button><button type="button" class="btn danger small" id="nsCancel">取り消す</button></div></div><span class="stamp">21:30</span></div>
             <div class="msg me"><div class="bubble"><p>まだ待つ</p></div><span class="stamp"><span class="read">既読</span>21:31</span></div>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">予約の終了</span>
-              <p>BOX-A（No.0123 K.T.・3名）の予定終了時刻です。退店したら席を空きにしてください。</p>
+              <p>テーブル席（No.0123 K.T.・3名）の予定終了時刻です。退店したら席を空きにしてください。</p>
               <div class="pair"><button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button><button type="button" class="btn secondary small" id="nsExtend">30分延長</button></div></div><span class="stamp">23:00</span></div>
           </div>
           <p class="hint">開始・終了の時刻より前に席を更新していれば、通知は届きません。通知は管理者全員に届きます（仮）。来店を待つ時間（30分）は確認中です。ボタンを押すと、LINE 内でその画面が開きます。トークの中で完結するボタン（まだ待つ・取り消す・30分延長）を押すと、押した内容がこちらから送ったメッセージとしてトークに残ります（右側の緑の吹き出し）。左下のボタンで入力欄に切り替えて文字を送ると、決まった言葉（予定・承認・勤怠など）に自動で返事をします。</p>
@@ -1452,12 +1451,12 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
               <p>11/12 の退勤（1:00）の申請が承認されました。</p>
               <button type="button" class="btn secondary small" data-go="SCR-21">ホームを開く</button></div><span class="stamp">20:15</span></div>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">割り当て</span>
-              <p>21:00〜 カウンター D・E ／ No.0145 M.S.（担当）</p>
+              <p>21:00〜 カウンター C4・C5 ／ No.0145 M.S.（担当）</p>
               <button type="button" class="btn secondary small" data-go="SCR-04">割り当てを見る</button></div><span class="stamp">21:02</span></div>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">店からの連絡</span>
-              <p>23時から BOX-B に12名の予約があります。22時半までに準備をお願いします。</p>
+              <p>23時から VIP席に12名の予約があります。22時半までに準備をお願いします。</p>
               <button type="button" class="btn secondary small" data-go="SCR-18">読んで確認する</button></div><span class="stamp">21:06</span></div>
-            <div class="msg me"><div class="bubble"><p>BOX-B の準備が終わりました。</p></div><span class="stamp"><span class="read">既読</span>21:20</span></div>
+            <div class="msg me"><div class="bubble"><p>VIP席の準備が終わりました。</p></div><span class="stamp"><span class="read">既読</span>21:20</span></div>
           </div>
           <p class="hint">ボタンを押すと、LINE 内でその画面が開きます。画面を閉じると、このトークに戻ります。右側の緑の吹き出しは、キャストがトークに直接送ったメッセージの例です。左下のボタンで入力欄に切り替えて文字を送ると、決まった言葉（出勤・遅れ・割り当てなど）に自動で返事をします。店の人には届きません（仮）。</p>
         </div>
@@ -1529,29 +1528,28 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
           <p class="notice info">見るだけの画面です。席の状態は管理者が切り替えます。</p>
           <div class="card">
             <div class="row"><h3>あなたの割り当て</h3><span class="badge ok">承認済み</span></div>
-            <p>21:00〜／カウンター D・E</p>
+            <p>21:00〜／カウンター C4・C5</p>
             <button type="button" class="btn secondary small" data-go="SCR-04">割り当てを見る</button>
           </div>
-          <h2>席（カウンター8席・BOX 2）</h2>
+          <h2>席（カウンター7席・テーブル席・VIP席）</h2>
           <div class="card">
-            <div class="row"><h3>カウンター</h3><span class="muted">空き 6 / 8 席</span></div>
+            <div class="row"><h3>カウンター</h3><span class="muted">空き 5 / 7 席</span></div>
             <div class="chips" aria-label="カウンターの席の状態">
-              <span class="chip ro busy">A<br>使用中</span>
-              <span class="chip ro">B<br>空き</span>
-              <span class="chip ro busy">C<br>使用中</span>
-              <span class="chip ro">D<br>空き</span>
-              <span class="chip ro">E<br>空き</span>
-              <span class="chip ro">F<br>空き</span>
-              <span class="chip ro">G<br>空き</span>
-              <span class="chip ro">H<br>空き</span>
+              <span class="chip ro busy">C1<br>使用中</span>
+              <span class="chip ro">C2<br>空き</span>
+              <span class="chip ro busy">C3<br>使用中</span>
+              <span class="chip ro">C4<br>空き</span>
+              <span class="chip ro">C5<br>空き</span>
+              <span class="chip ro">C6<br>空き</span>
+              <span class="chip ro">C7<br>空き</span>
             </div>
           </div>
           <div class="card seat busy">
-            <div class="row"><h3>BOX-A（1〜5名）</h3><span class="badge warn">使用中</span></div>
+            <div class="row"><h3>テーブル席（1〜5名）</h3><span class="badge warn">使用中</span></div>
             <p class="muted">3名／20:15 から</p>
           </div>
           <div class="card seat free">
-            <div class="row"><h3>BOX-B（10名以上）</h3><span class="badge ok">空き</span></div>
+            <div class="row"><h3>VIP席（10名以上）</h3><span class="badge ok">空き</span></div>
             <p class="muted">22:00 から予約あり</p>
           </div>
           <p class="hint">お客さんの情報は、担当・代理のお客さんの分だけ見られます。</p>
@@ -1967,12 +1965,12 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   /* ---- SCR-02 counter chips ---- */
   function ctrCount() {
     var free = document.querySelectorAll('[data-chip]:not(.busy)').length;
-    document.getElementById('ctrCount').textContent = '空き ' + free + ' / 8 席';
+    document.getElementById('ctrCount').textContent = '空き ' + free + ' / 7 席';
   }
   document.querySelectorAll('[data-chip]').forEach(function (c) {
     c.addEventListener('click', function () {
       var busy = c.classList.toggle('busy');
-      var name = c.textContent.charAt(0);
+      var name = c.firstChild.nodeValue;
       c.innerHTML = name + '<br>' + (busy ? '使用中' : '空き');
       ctrCount();
       toast('カウンター ' + name + ' を「' + (busy ? '使用中' : '空き') + '」にしました');
@@ -1985,22 +1983,22 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 
   /* ---- SCR-14 business schedule ---- */
   var SEATS = [
-    ['ctr', 'カウンター A', '1名'], ['ctr', 'カウンター B', '1名'], ['ctr', 'カウンター C', '1名'], ['ctr', 'カウンター D', '1名'],
-    ['ctr', 'カウンター E', '1名'], ['ctr', 'カウンター F', '1名'], ['ctr', 'カウンター G', '1名'], ['ctr', 'カウンター H', '1名'],
-    ['box', 'BOX-A', '1〜5名'], ['box', 'BOX-B', '10名以上'], ['none', '席未定', '管理者が決める']
+    ['ctr', 'カウンター C1', '1名'], ['ctr', 'カウンター C2', '1名'], ['ctr', 'カウンター C3', '1名'], ['ctr', 'カウンター C4', '1名'],
+    ['ctr', 'カウンター C5', '1名'], ['ctr', 'カウンター C6', '1名'], ['ctr', 'カウンター C7', '1名'],
+    ['box', 'テーブル席', '1〜5名'], ['box', 'VIP席', '10名以上'], ['none', '席未定', '管理者が決める']
   ];
   /* [seat, start(h after 19:00), end, kind, guest, people, tanto (the guest's own cast), dairi (other cast assigned)] */
   var BK = [
-    ['カウンター A', 0.5, 2.5, 'now', 'No.0177 S.I.', 1, 'なし', ''],
-    ['カウンター C', 5 / 3, 11 / 3, 'now', 'No.0190 H.M.', 1, 'なし', ''],
-    ['カウンター D', 2, 4, 'cand', 'No.0145 M.S.', 2, 'みなみ', ''],
-    ['カウンター E', 2, 4, 'cand', 'No.0145 M.S.', 2, 'みなみ', ''],
-    ['カウンター F', 3.5, 5.5, 'rsv', 'No.0112 A.K.', 1, 'あおい', ''],
-    ['カウンター G', 4, 6, 'rsv', 'No.0131 T.W.', 1, 'なし', ''],
-    ['カウンター H', 5, 7, 'rsv', 'No.0154 Y.O.', 1, 'なし', ''],
-    ['BOX-A', 1.25, 3.25, 'now', 'No.0123 K.T.', 3, 'あおい', ''],
-    ['BOX-A', 4.5, 6.5, 'rsv', 'No.0160 R.N.', 4, 'なし', ''],
-    ['BOX-B', 3, 5, 'rsv', 'No.0088 T.K.', 12, 'ゆい（依頼中）', ''],
+    ['カウンター C1', 0.5, 2.5, 'now', 'No.0177 S.I.', 1, 'なし', ''],
+    ['カウンター C3', 5 / 3, 11 / 3, 'now', 'No.0190 H.M.', 1, 'なし', ''],
+    ['カウンター C4', 2, 4, 'cand', 'No.0145 M.S.', 2, 'みなみ', ''],
+    ['カウンター C5', 2, 4, 'cand', 'No.0145 M.S.', 2, 'みなみ', ''],
+    ['カウンター C6', 3.5, 5.5, 'rsv', 'No.0112 A.K.', 1, 'あおい', ''],
+    ['カウンター C7', 4, 6, 'rsv', 'No.0131 T.W.', 1, 'なし', ''],
+    ['カウンター C1', 5, 7, 'rsv', 'No.0154 Y.O.', 1, 'なし', ''],
+    ['テーブル席', 1.25, 3.25, 'now', 'No.0123 K.T.', 3, 'あおい', ''],
+    ['テーブル席', 4.5, 6.5, 'rsv', 'No.0160 R.N.', 4, 'なし', ''],
+    ['VIP席', 3, 5, 'rsv', 'No.0088 T.K.', 12, 'ゆい（依頼中）', ''],
     ['席未定', 2, 4, 'cand', 'No.0201 Y.H.', 4, 'なし', 'さくら'],
     ['席未定', 5.5, 7.5, 'rsv', 'No.0215 E.M.', 7, 'なし', '']
   ];
@@ -2037,7 +2035,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     var b = e.target.closest('[data-bk]'); if (!b) return;
     var d = BK[+b.dataset.bk];
     tlCur = d;
-    var isBox = d[0].indexOf('BOX') === 0;
+    var isBox = d[0] === 'テーブル席' || d[0] === 'VIP席';
     var seat = BK.filter(function (x) { return x[4] === d[4]; }).map(function (x) { return x[0]; }).join('・') + (d[3] === 'cand' && d[0] !== '席未定' ? '（候補）' : '');
     document.getElementById('tlKv').innerHTML =
       '<dt>席</dt><dd>' + seat + '</dd>' +
@@ -2064,7 +2062,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
   /* ---- SCR-02 reception (A-2) ---- */
   document.getElementById('rcOpen').addEventListener('click', function () { document.getElementById('rcDrawer').classList.add('show'); });
   var RC = {
-    ok: ['席: カウンター F（承認済み）。受け付けると使用中になります。', '1名'],
+    ok: ['席: カウンター C6（承認済み）。受け付けると使用中になります。', '1名'],
     pend: ['席はまだ承認されていません。受け付けた後、案内・割り当ての確認で承認すると席が決まります。', '2名'],
     walk: ['受け付けると、案内・割り当ての候補が作られます。承認すると席が決まります。', '1名']
   };
@@ -2077,7 +2075,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
       document.querySelectorAll('[data-chip]').forEach(function (c) { if (c.textContent.charAt(0) === 'F' && !c.classList.contains('busy')) { c.classList.add('busy'); c.innerHTML = 'F<br>使用中'; } });
       ctrCount();
       document.getElementById('rcBanner').hidden = true;
-      toast('No.0112 A.K. の来店を受け付けました（21:05）。承認済みのカウンター F を使用中にしました');
+      toast('No.0112 A.K. の来店を受け付けました（21:05）。承認済みのカウンター C6 を使用中にしました');
     } else {
       toast((v === 'pend' ? 'No.0145 M.S.' : '当日来店のお客さん') + ' の来店を受け付けました（21:05）。案内・割り当ての確認で承認すると席が決まります');
     }
@@ -2347,7 +2345,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
     document.getElementById('hmReq').textContent = two ? '0件' : '1件';
     document.getElementById('hmOn').innerHTML = two ? '2<small>/4名</small>' : '3<small>/4名</small>';
     document.getElementById('hmRv').innerHTML = two ? l.length + '<small>件</small>' : '7<small>件</small>';
-    document.getElementById('hmSeat').innerHTML = two ? '—<small> 確認中</small>' : '7<small>/10</small>';
+    document.getElementById('hmSeat').innerHTML = two ? '—<small> 確認中</small>' : '6<small>/9</small>';
     document.getElementById('hmList').innerHTML = two ? l.map(function (r) {
       return '<li><span class="t">' + r[0] + '</span><span class="g">' + r[1] + ' <small>' + r[2] + '名</small>' + (BOTTLE[r[1]] ? '<br><small>ボトルあり</small>' : '') + '</span><span class="badge ' + r[4] + '">' + r[3] + '</span></li>';
     }).join('') : HOME1;
