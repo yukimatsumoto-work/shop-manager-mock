@@ -579,7 +579,7 @@ details.more[aria-disabled="true"] summary { color: var(--color-slate-500); back
 .tl-side small { font-size: var(--fs-12); }
 .tl-side { display: flex; flex-direction: column; align-items: flex-end; gap: var(--space-4); font-size: var(--fs-12); color: var(--color-slate-700); }
 .photo-msg svg { width: 160px; height: 120px; display: block; border-radius: var(--radius-8); }
-.whentabs { grid-template-columns: repeat(3, 1fr); }
+.whentabs { grid-template-columns: repeat(2, 1fr); }
 .wkcast { display: flex; flex-direction: column; }
 .wkcast li { padding: var(--space-8) 0; border-bottom: 1px solid var(--color-slate-100); display: flex; flex-direction: column; gap: var(--space-4); }
 .wkcast li:last-child { border-bottom: 0; }
@@ -875,7 +875,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="card">
             <button type="button" class="btn secondary block" id="mvOpen">席の移動を頼む</button>
             <ul class="mvlist" id="mvList"><li><span>21:00 さくらさん → VIP席<small>すぐ・22:00 の準備</small></span><span class="muted">わかりました</span></li></ul>
-            <p class="hint">キャストさんに LINE で知らせます。5分後・10分後は、その時刻に届きます（届く前なら取り消せます）。</p>
+            <p class="hint">キャストさんに LINE で知らせます。5分後・10分後・時刻を決めたものは、その時刻に届きます（届く前なら取り消せます）。</p>
           </div>
         </div>
         <div class="drawer" id="mvDrawer" role="dialog" aria-label="席の移動を頼む">
@@ -885,7 +885,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="field"><label for="mvSeat">移動先の席</label><select id="mvSeat" class="select"><option>カウンター C1</option><option>カウンター C2</option><option>カウンター C3</option><option>カウンター C4</option><option>カウンター C5</option><option selected>カウンター C6</option><option>カウンター C7</option><option>テーブル席</option><option>VIP席</option></select></div>
           </div>
           <span class="flabel">いつ</span>
-          <div class="roletabs whentabs" role="group" aria-label="いつ" id="mvWhen"><button type="button" aria-pressed="true" data-min="0">すぐ</button><button type="button" aria-pressed="false" data-min="5">5分後</button><button type="button" aria-pressed="false" data-min="10">10分後</button></div>
+          <div class="roletabs whentabs" role="group" aria-label="いつ" id="mvWhen"><button type="button" aria-pressed="true" data-min="0">すぐ</button><button type="button" aria-pressed="false" data-min="5">5分後</button><button type="button" aria-pressed="false" data-min="10">10分後</button><button type="button" aria-pressed="false" data-min="at">時刻を決める</button></div>
+          <div class="field" id="mvAtF" hidden><label for="mvAt">届ける時刻</label><input id="mvAt" class="input" type="time" step="300" value="21:30"></div>
           <div class="field"><label for="mvMemo">ひとこと（任意）</label><input id="mvMemo" class="input" placeholder="例: AK さんの席へ"></div>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="mvDrawer">やめる</button>
@@ -3000,14 +3001,21 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   }
   document.getElementById('mvOpen').addEventListener('click', function () { openMove(); });
   document.getElementById('mvWhen').addEventListener('click', function (e) {
-    var b = e.target.closest('[data-min]'); if (!b) return; mvMin = +b.dataset.min;
+    var b = e.target.closest('[data-min]'); if (!b) return; mvMin = b.dataset.min === 'at' ? 'at' : +b.dataset.min;
+    document.getElementById('mvAtF').hidden = mvMin !== 'at';
     this.querySelectorAll('[data-min]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
   });
   document.getElementById('mvSend').addEventListener('click', function () {
     var cast = document.getElementById('mvCast').value, seat = document.getElementById('mvSeat').value, memo = document.getElementById('mvMemo').value.trim();
-    var at = hm(NOW + mvMin / 60), id = 'mv' + (++mvSeq);
+    var at, id = 'mv' + (++mvSeq), how;
+    if (mvMin === 'at') {
+      var v = document.getElementById('mvAt').value; if (!v) { toast('届ける時刻を入れてください'); return; }
+      var hh = +v.split(':')[0], mm = +v.split(':')[1], h = (hh < 12 ? hh + 24 : hh) - 19 + mm / 60;
+      if (h <= NOW) { toast('いま（' + hm(NOW) + '）より後の時刻を入れてください'); return; }
+      at = hh + ':' + ('0' + mm).slice(-2); how = '時刻を決めた';
+    } else { at = hm(NOW + mvMin / 60); how = mvMin ? mvMin + '分後' : 'すぐ'; }
     var li = document.createElement('li'); li.id = id;
-    li.innerHTML = '<span>' + at + ' ' + cast + 'さん → ' + seat + '<small>' + (mvMin ? mvMin + '分後' : 'すぐ') + (memo ? '・' + memo.replace(/[<>&]/g, '') : '') + '</small></span>' +
+    li.innerHTML = '<span>' + at + ' ' + cast + 'さん → ' + seat + '<small>' + how + (memo ? '・' + memo.replace(/[<>&]/g, '') : '') + '</small></span>' +
       (mvMin ? '<button type="button" class="btn secondary small" data-mv-cancel="' + id + '">取り消す</button>' : '<span class="muted" data-mv-st>届きました</span>');
     var list = document.getElementById('mvList'); list.insertBefore(li, list.firstChild);
     document.getElementById('mvDrawer').classList.remove('show'); document.getElementById('mvMemo').value = '';
