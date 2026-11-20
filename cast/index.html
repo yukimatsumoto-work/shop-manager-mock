@@ -188,7 +188,20 @@ body.ref-mobile .to-start, body.ref-tablet .to-start { display: none; }
   display: none; flex-direction: column; gap: var(--space-12); z-index: 21;
   border-top: 1px solid var(--color-slate-200);
 }
-.drawer.show { display: flex; }
+.drawer.show { display: flex; box-shadow: 0 0 0 100vmax color-mix(in srgb, var(--color-primary) 55%, transparent); }
+/* sheets: grab handle; close by swiping down, tapping outside or Esc (no close buttons) */
+.drawer::before { content: ""; flex: none; align-self: center; width: 40px; height: 4px; border-radius: 2px; background: var(--color-slate-400); margin: calc(-1 * var(--space-8)) 0 0; }
+.drawer { max-height: 88%; overflow-y: auto; }
+/* hit area behind an open sheet: a tap outside closes the sheet and never focuses or opens anything behind it */
+.m-screen:has(> .drawer.show)::after { content: ""; position: absolute; inset: 0; z-index: 20; }
+.drawer .sheet-hint { font-size: var(--fs-12); color: var(--color-slate-700); text-align: center; }
+/* catalog notes: speech-bubble look so that they read as explanations, always shown */
+.cnote, .m-body > .hint { position: relative; margin-top: var(--space-8); padding: var(--space-8) var(--space-12) var(--space-8) var(--space-12); border: 1px solid var(--color-info-light-blue); border-radius: var(--radius-12); background: var(--color-info-bg); color: var(--color-primary); font-size: var(--fs-12); line-height: 1.6; }
+.cnote::before, .m-body > .hint::before { content: ""; position: absolute; left: 20px; top: -7px; width: 12px; height: 12px; background: var(--color-info-bg); border-left: 1px solid var(--color-info-light-blue); border-top: 1px solid var(--color-info-light-blue); transform: rotate(45deg); }
+.cnote b.cn-l { display: inline-block; margin-right: var(--space-8); padding: 0 var(--space-8); border-radius: var(--radius-4); background: var(--color-info); color: var(--color-white); font-size: var(--fs-12); }
+.guide { display: flex; flex-direction: column; gap: var(--space-8); }
+.line-bg .guide .cnote { background: var(--color-white); }
+.line-bg .guide .cnote::before { background: var(--color-white); }
 
 /* ---------- frames ---------- */
 #phoneFrame { display: block; }
@@ -388,6 +401,21 @@ dl.kv dd { margin: 0; }
 .mtl .seatname strong { font-size: var(--fs-12); white-space: nowrap; }
 .mtl .seatname span { font-size: var(--fs-12); color: var(--color-slate-700); white-space: nowrap; }
 .mtl .seatname.group, .mtl .track.group { border-top: 2px solid var(--color-slate-200); }
+.ctl .bk { cursor: default; }
+.ctl .bk:hover { border-color: var(--color-info); box-shadow: none; }
+.ctl .bk.now:hover { border-color: var(--color-accent-dark); }
+.ctl .bk.cand:hover { border-color: var(--color-warning); }
+.bk.free { background: var(--color-slate-50); border: 1px dashed var(--color-slate-400); color: var(--color-slate-700); }
+.ctl .seatname.me { background: var(--color-accent-light); }
+.vtypes { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-4); margin-top: var(--space-8); }
+.vtypes span { border-radius: var(--radius-8); padding: var(--space-8) var(--space-4); background: var(--color-white); border: 1px solid var(--color-success); color: var(--color-accent-dark); font-size: var(--fs-12); font-weight: 700; text-align: center; }
+.vtypes span.full { border-color: var(--color-slate-200); background: var(--color-slate-100); color: var(--color-slate-700); font-weight: 400; }
+.vtypes span b { display: block; font-size: var(--fs-16); }
+.vgrid { display: grid; grid-template-columns: 56px repeat(3, 1fr); gap: 2px; font-size: var(--fs-12); text-align: center; }
+.vgrid > span { padding: var(--space-4) 0; background: var(--color-white); border-radius: var(--radius-4); }
+.vgrid > span.h { background: var(--color-slate-100); font-weight: 700; color: var(--color-slate-700); }
+.vgrid > span.ok { color: var(--color-accent-dark); font-weight: 700; border: 1px solid var(--color-success); }
+.vgrid > span.full { color: var(--color-slate-700); background: var(--color-slate-100); }
 .mtl .track { position: relative; height: 56px; display: grid; grid-template-columns: repeat(16, 40px); border-bottom: 1px solid var(--color-slate-100); background: var(--color-white); }
 .mtl .track i { border-left: 1px solid var(--color-slate-100); }
 .mtl .track i:nth-child(odd) { border-left-color: var(--color-slate-200); }
@@ -409,6 +437,10 @@ dl.kv dd { margin: 0; }
 .line-bg .msg .avatar { width: 32px; height: 32px; font-size: var(--fs-12); }
 .line-bg .bubble { max-width: 280px; }
 .line-bg .hint { background: var(--color-slate-50); border-radius: var(--radius-8); padding: var(--space-8) var(--space-12); }
+.bottom-nav button, .richmenu button { position: relative; }
+.nav-dot { position: absolute; top: 6px; left: calc(50% + 6px); min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: var(--color-danger); color: var(--color-white); font-size: var(--fs-12); font-weight: 700; line-height: 18px; text-align: center; }
+.tile.add { border-style: dashed; color: var(--color-slate-700); }
+.tile.add small { font-size: var(--fs-12); font-weight: 400; }
 /* LINE's own header above the screens opened inside LINE (LIFF) */
 .liff-head { height: 44px; flex: none; display: flex; align-items: center; padding: 0; background: var(--color-white); border-bottom: 1px solid var(--color-slate-200); }
 .liff-head .lh-title { flex: 1; text-align: center; padding-left: 44px; font-size: var(--fs-14); font-weight: 700; }
@@ -459,6 +491,8 @@ dl.kv dd { margin: 0; }
 .peak-note .ic { width: 20px; height: 20px; border-radius: 50%; background: var(--color-danger); color: var(--color-white); display: inline-flex; align-items: center; justify-content: center; font-size: var(--fs-12); }
 .rlist li { display: grid; grid-template-columns: 48px 1fr auto; gap: var(--space-8); align-items: center; min-height: 44px; border-bottom: 1px solid var(--color-slate-100); font-size: var(--fs-14); }
 .rlist li:last-child { border-bottom: 0; }
+.apv-no { text-align: center; font-size: var(--fs-12); font-weight: 700; color: var(--color-slate-700); border-bottom: 1px solid var(--color-slate-100); padding-bottom: var(--space-4); }
+#hmList { max-height: 250px; overflow-y: auto; }
 .rlist li .t { font-weight: 700; }
 .rlist li .g small { color: var(--color-slate-700); font-size: var(--fs-12); }
 .today { border-color: var(--color-accent); border-width: 2px; }
@@ -648,7 +682,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
 @container (min-width: 600px) {
   .m-body { padding: var(--space-24); gap: var(--space-16); }
   .home { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: start; }
-  .home > .alerts, .home > .kpi3, .home > .alert-btn, .home > .avail, .home > .slots, .home > p, .home > .btn { grid-column: 1 / -1; }
+  .home > .alerts, .home > .kpi3, .home > .alert-btn, .home > .avail, .home > .slots, .home > .vgrid, .home > p, .home > .btn { grid-column: 1 / -1; }
   .home > .wide { grid-column: 1 / -1; }
   .tiles.mtiles { grid-template-columns: repeat(6, 1fr); }
   .chips { grid-template-columns: repeat(8, 1fr); }
@@ -669,9 +703,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   <h1 id="startTitle">店舗管理ツール 画面モック</h1>
   <p class="lead-text" id="startLead">LINE の中で使う画面です。見たい立場を選ぶと、その人の LINE のトークから始まります。スマホで開くとスマホの配置、タブレットで開くとタブレットの配置になります。</p>
   <div class="start-roles" id="startRoles">
-    <a class="start-card" href="#SCR-19" data-mode="owner"><b>全体オーナーとして見る</b><span>一号店・二号店をタブで切り替えて見る。店長の決定（シフトなど）を修正する</span></a>
-    <a class="start-card" href="#SCR-19" data-mode="manager"><b>店長として見る</b><span>担当の店舗（一号店）だけ。配席・担当キャストさんの承認、予約、シフト、勤怠、給与試算、一斉送信</span></a>
-    <a class="start-card" href="#SCR-23"><b>キャストとして見る</b><span>出勤・退勤、今日の割り当て、担当のお客さん、勤怠の申請</span></a>
+    <a class="start-card" href="#SCR-19"><b>管理者として見る</b><span>一号店・二号店をタブで切り替えて見る。配席・担当キャストさんの承認、予約、シフト、勤怠、給与試算、一斉送信</span></a>
+    <a class="start-card" href="#SCR-23"><b>キャストとして見る</b><span>出勤・退勤、本日の割り当て、お客さんの情報、勤怠の申請</span></a>
     <a class="start-card" href="#SCR-24"><b>お客さんとして見る</b><span>空き状況と来店予約、今日出勤しているキャスト</span></a>
   </div>
   <h2>資料（PDF）</h2>
@@ -682,7 +715,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   <div id="rolePages">
     <h2>立場ごとのページ</h2>
     <ul class="start-list">
-      <li><a data-role="admin" href="admin/">管理者（全体オーナー・店長）のページ</a></li>
+      <li><a data-role="admin" href="admin/">管理者のページ</a></li>
       <li><a data-role="cast" href="cast/">キャストのページ</a></li>
       <li><a data-role="guest" href="guest/">お客さんのページ</a></li>
       <li><a data-role="register" href="register/">登録用のページ（初回の登録・未登録のとき）</a></li>
@@ -721,29 +754,47 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <div class="kpi"><p class="muted">空き席</p><p class="v" id="hmSeat">6<small>/9</small></p></div>
             </div>
             <div class="card">
-              <div class="sec-head"><h2>今日の予約</h2><button type="button" class="link" data-go="SCR-14">予定表 ›</button></div>
+              <div class="sec-head"><h2>本日の予約</h2><button type="button" class="link" data-go="SCR-14">詳しくは予定表 ›</button></div>
               <ul class="rlist" id="hmList">
                 <li><span class="t">21:00</span><span class="g">No.0145 M.S. <small>2名</small><br><small>ボトルあり</small></span><span class="badge warn">承認待ち</span></li>
                 <li><span class="t">21:00</span><span class="g">No.0112 A.K. <small>1名</small><br><small>ボトルあり</small></span><span class="badge info">カウンター C6</span></li>
                 <li><span class="t">22:00</span><span class="g">No.0088 T.K. <small>12名</small><br><small>ボトルあり</small></span><span class="badge info">VIP席</span></li>
                 <li><span class="t">23:00</span><span class="g">No.0131 T.W. <small>1名</small></span><span class="badge info">カウンター C7</span></li>
+                <li><span class="t">23:30</span><span class="g">No.0160 R.N. <small>4名</small></span><span class="badge info">テーブル席</span></li>
+                <li><span class="t">0:00</span><span class="g">No.0154 Y.O. <small>1名</small></span><span class="badge info">カウンター C1</span></li>
+                <li><span class="t">0:30</span><span class="g">No.0215 E.M. <small>7名</small></span><span class="badge warn">席未定</span></li>
               </ul>
-              <p class="muted" id="hmMore">ほか 3件は予定表で見られます。</p>
+              <p class="muted" id="hmMore">5件より多いときは、枠の中をスクロールして見られます。</p>
             </div>
             <div class="card">
-              <div class="sec-head"><h2>混雑予想</h2><button type="button" class="link" data-go="SCR-10">詳しく ›</button></div>
-              <div class="bars" role="img" aria-label="混雑予想。21時ふつう、22時 混雑・補充が必要、23時やや混雑、0時やや混雑、1時ふつう、2時落ち着き">
+              <div class="sec-head"><h2>混雑予測</h2><button type="button" class="link" data-go="SCR-10">詳しく ›</button></div>
+              <div class="bars" role="img" aria-label="混雑予測。21時ふつう、22時 混雑・補充が必要、23時やや混雑、0時やや混雑、1時ふつう、2時落ち着き">
                 <i style="height:40%" title="21時 ふつう"></i><i class="peak" style="height:100%" title="22時 混雑・補充が必要"></i><i style="height:70%" title="23時 やや混雑"></i><i style="height:65%" title="0時 やや混雑"></i><i style="height:40%" title="1時 ふつう"></i><i style="height:20%" title="2時 落ち着き"></i>
               </div>
               <div class="bars-x"><span>21時</span><span><b>22時</b></span><span>23時</span><span>0時</span><span>1時</span><span>2時</span></div>
-              <p class="peak-note"><span class="ic">!</span>22時に混雑。あと1名いると安心です</p>
-              <p class="muted" id="hmCrowd2" hidden>二号店の混雑予想は、モックでは一号店の例を出しています。</p>
-              <button type="button" class="btn block" data-go="SCR-10">追加出勤を依頼する</button>
+              <p class="peak-note"><span class="ic">!</span>22時に混雑。キャストさん1名追加で安心です</p>
+              <p class="muted" id="hmCrowd2" hidden>二号店の混雑予測は、モックでは一号店の例を出しています。</p>
+              <button type="button" class="btn block" id="hmAsk">追加出勤を依頼する</button>
             </div>
           </div>
-          <h2>メニュー <small class="muted">（必要な機能を選択可能）</small></h2>
+          <h2>メニュー</h2>
+          <p class="cnote">必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-02"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-14"><span>業務予定</span></button><button type="button" class="tile" data-go="SCR-17"><span>一斉送信</span></button><button type="button" class="tile" data-go="SCR-13"><span>顧客</span></button><button type="button" class="tile" data-go="SCR-11"><span>勤怠</span></button><button type="button" class="tile" data-go="SCR-12"><span>給与試算</span></button></div>
-          <details class="more"><summary>設定・その他</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-03"><span>配席・担当の承認</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予想・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-26"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-29"><span>予約（週・月）</span></button><button type="button" class="tile" data-go="SCR-31"><span>キャストさん</span></button><button type="button" class="tile" data-go="SCR-30"><span>席の設定</span></button><button type="button" class="tile" data-go="SCR-35"><span>お知らせ</span></button><button type="button" class="tile" data-go="SCR-36"><span>1日の締め</span></button><button type="button" class="tile" data-go="SCR-32"><span>ステータス区分</span></button><button type="button" class="tile" data-go="SCR-33"><span>操作記録</span></button></div></details>
+          <h2>補助メニュー</h2>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-03"><span>配席・担当の承認</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予測・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-26"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-29"><span>予約（週・月）</span></button><button type="button" class="tile" data-go="SCR-31"><span>キャストさん</span></button><button type="button" class="tile" data-go="SCR-30"><span>席の設定</span></button><button type="button" class="tile" data-go="SCR-35"><span>お知らせ</span></button><button type="button" class="tile" data-go="SCR-36"><span>1日の締め</span></button><button type="button" class="tile" data-go="SCR-32"><span>ステータス区分</span></button><button type="button" class="tile" data-go="SCR-33"><span>操作記録</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
+        </div>
+        <div class="drawer" id="askDrawer" role="dialog" aria-label="追加出勤を依頼する">
+          <h2>追加出勤を依頼する</h2>
+          <p class="muted">22時に混雑の予測です。依頼するキャストさんを選んでください（22:00〜）。</p>
+          <div class="card">
+            <label class="checkrow"><input type="checkbox" data-hask value="ゆい" checked><span>ゆい</span><span class="badge">不在</span></label>
+            <label class="checkrow"><input type="checkbox" data-hask value="れな"><span>れな</span><span class="badge">休み</span></label>
+            <label class="checkrow"><input type="checkbox" data-hask value="まい"><span>まい</span><span class="badge">休み</span></label>
+          </div>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="askDrawer">やめる</button>
+            <button type="button" class="btn" id="hmAskSend">LINE で依頼する</button>
+          </div>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -773,22 +824,26 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <p class="when">今日の出勤はありません</p>
             </div>
             <div class="card next">
-              <div class="sec-head"><h3>次の出勤 <span class="muted">確定済み</span></h3><button type="button" class="link" data-go="SCR-27">シフト ›</button></div>
+              <div class="sec-head"><h3>次の出勤 <span class="muted">確定済み</span></h3><button type="button" class="link" data-go="SCR-27">詳しくはシフト ›</button></div>
               <p class="when">11/15（日）20:00〜</p>
               <div class="week" aria-label="今週の出勤日（金・日）">
                 <span>月</span><span>火</span><span>水</span><span>木</span><span class="on today-mark">金</span><span>土</span><span class="on">日</span>
               </div>
             </div>
             <div class="card">
-              <div class="sec-head"><h3>今日の割り当て</h3><button type="button" class="link" data-go="SCR-04">見る ›</button></div>
-              <p>21:00〜 カウンター C4・C5 ／ No.0145 M.S.（担当）</p>
+              <div class="sec-head"><h3>本日の割り当て</h3><button type="button" class="link" data-go="SCR-04">詳しく ›</button></div>
+              <p>21:00〜 カウンター C4・C5 ／ No.0145 M.S.</p>
+              <p class="muted">キャストさんごとの本日の予定（あなたは「みなみ」の行）。空いている時間は「自由（状況に応じて）」です。</p>
+              <div class="mtl-wrap ctl-wrap" id="ctlWrapMe"><div class="mtl ctl" id="ctlMe"></div></div>
             </div>
           </div>
-          <h2>メニュー <small class="muted">（必要な機能を選択可能）</small></h2>
-          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-04"><span>割り当て</span></button><button type="button" class="tile" data-go="SCR-05"><span>担当のお客さん</span></button><button type="button" class="tile" data-go="SCR-15"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-16"><span>勤怠の申請</span></button><button type="button" class="tile" data-go="SCR-07"><span>追加出勤の依頼</span></button><button type="button" class="tile" data-go="SCR-18"><span>店からの連絡</span></button></div>
-          <details class="more"><summary>設定・その他</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-37"><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button></div></details>
+          <h2>メニュー</h2>
+          <p class="cnote">必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-04"><span>割り当て</span></button><button type="button" class="tile" data-go="SCR-05"><span>お客さん</span></button><button type="button" class="tile" data-go="SCR-15"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-16"><span>勤怠の申請</span></button><button type="button" class="tile" data-go="SCR-07"><span>追加出勤の依頼</span></button><button type="button" class="tile" data-go="SCR-18"><span>店からの連絡</span></button></div>
+          <h2>補助メニュー</h2>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-06"><span>出退勤の記録</span></button><button type="button" class="tile" data-go="SCR-37"><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-39"><span>遅刻・欠勤の連絡</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-22 ホーム（お客さん） -->
@@ -801,13 +856,13 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         <div class="m-body">
           <div class="home">
             <div class="avail">
-              <p class="muted">今日 11/13（金）ただいま</p>
-              <p class="v" id="gvNow">あと —名 空きあり</p>
+              <p class="muted">今日 11/13（金）ただいま（〜22:00）の空き</p>
+              <div class="vtypes" id="gvNow" aria-label="席の種類ごとの空き"></div>
             </div>
-            <div class="field"><label for="gvNum">人数</label>
-              <select id="gvNum" class="select"><option>1名</option><option selected>2名</option><option>3名</option><option>4名</option><option>5名</option><option>6〜9名</option><option>10名以上</option></select></div>
-            <div class="slots" id="gvSlots" aria-label="時間ごとの予約の可否"></div>
-            <p class="muted" id="gvNote">○ 2名で予約できます　× 満席です</p>
+            <p class="muted">時間ごとの空き（1時間ごと・席の種類ごと）</p>
+            <div class="vgrid" id="gvSlots" aria-label="時間ごと・席の種類ごとの空き"></div>
+            <p class="muted" id="gvNote">○ 空きあり　× 空きなし。空いていない席でも、お店にご連絡いただければご案内できることがあります。</p>
+            <button type="button" class="btn secondary block" data-go="SCR-24">お店に LINE で相談する</button>
             <button type="button" class="btn block" data-go="SCR-08">予約する</button>
             <div class="card wide">
               <div class="row"><h3>1週間の出勤</h3><span class="muted">11/13〜11/19</span></div>
@@ -819,9 +874,11 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <ul class="castlist"><li><span>さくら</span><span class="badge warn">11/13（今日）</span></li><li><span>ゆい</span><span class="badge">11/24</span></li></ul>
             </div>
           </div>
-          <h2>メニュー <small class="muted">（必要な機能を選択可能）</small></h2>
+          <h2>メニュー</h2>
+          <p class="cnote">必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-08"><span>予約する</span></button><button type="button" class="tile" data-go="SCR-34"><span>予約の確認・変更</span></button><button type="button" class="tile" data-go="SCR-38"><span>お知らせの設定</span></button></div>
-          <details class="more"><summary>設定・その他</summary><div class="tiles mtiles more-grid"><button type="button" class="tile" data-go="SCR-24"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-25"><span>未登録のとき（例）</span></button></div></details>
+          <h2>補助メニュー</h2>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-24"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-25"><span>未登録のとき（例）</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(2, 1fr)"><button type="button" aria-current="page" data-go="SCR-22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-08"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予約</button></nav>
       </section>
@@ -874,7 +931,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <h2>席の移動のお願い</h2>
           <div class="card">
             <button type="button" class="btn secondary block" id="mvOpen">席の移動を頼む</button>
-            <ul class="mvlist" id="mvList"><li><span>21:00 さくらさん → VIP席<small>すぐ・22:00 の準備</small></span><span class="muted">わかりました</span></li></ul>
+            <ul class="mvlist" id="mvList"><li><span>21:00 さくらさん → VIP席<small>すぐ（21:00）・22:00 の準備</small></span><span class="muted">わかりました</span></li></ul>
             <p class="hint">キャストさんに LINE で知らせます。5分後・10分後・時刻を決めたものは、その時刻に届きます（届く前なら取り消せます）。</p>
           </div>
         </div>
@@ -887,7 +944,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="flabel">いつ</span>
           <div class="roletabs whentabs" role="group" aria-label="いつ" id="mvWhen"><button type="button" aria-pressed="true" data-min="0">すぐ</button><button type="button" aria-pressed="false" data-min="5">5分後</button><button type="button" aria-pressed="false" data-min="10">10分後</button><button type="button" aria-pressed="false" data-min="at">時刻を決める</button></div>
           <div class="field" id="mvAtF" hidden><label for="mvAt">届ける時刻</label><input id="mvAt" class="input" type="time" step="300" value="21:30"></div>
-          <div class="field"><label for="mvMemo">ひとこと（任意）</label><input id="mvMemo" class="input" placeholder="例: AK さんの席へ"></div>
+          <div class="field"><label for="mvPreset">ひとこと（例文から選ぶ）</label><select id="mvPreset" class="select"><option value="">選ばない</option><option>グラスは持ち帰り</option><option>グラスは置いたまま</option><option>次回の約束を取れるといい</option><option>ボトルのお礼を言っておいて</option></select></div>
+          <div class="field"><label for="mvMemo">ひとこと（自由に入力・任意）</label><input id="mvMemo" class="input" placeholder="例: AK さんの席へ"></div>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="mvDrawer">やめる</button>
             <button type="button" class="btn" id="mvSend">送る</button>
@@ -917,78 +975,81 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
-          <p class="hint">席とキャストさんは、それぞれ承認します。候補が合わなければ、その場で選び直してから承認します。承認するまで、キャストさんには通知されません。</p>
+          <p class="hint">配席と担当キャストさんは、それぞれ管理者が承認します。候補が合わなければ、選び直してから承認します。承認するまで、キャストさんには通知されません。担当キャストさんは、その日に最初に付く人です（同伴のときは、キャストさんが自分で判断して付きます）。</p>
           <div id="apvTodo">
           <div class="card" id="cand1">
+            <p class="apv-no" data-apv-no>予約・来店 1/2</p>
             <h3>MS さん（No.0145）</h3>
             <p class="apv-meta">予約　2名　21:00〜23:00</p>
             <p class="apv-meta">ステータス：<span class="badge vip">常連</span></p>
-            <p class="apv-meta">ご要望：個室を希望</p>
+            <p class="apv-meta">ご要望：VIP席（個室）を希望</p>
             <div class="apv" data-part="席">
-              <div class="row"><h4>席</h4><span class="st" data-st>承認待ち</span></div>
+              <div class="row"><h4>配席</h4><span class="st" data-st>承認待ち</span></div>
               <select class="select" aria-label="MS さんの席"><option>カウンター C4・C5</option><option>カウンター C6・C7</option><option>カウンター C2・C3</option></select>
               <div class="rbar"><span>あとから来る予約との重なりの少なさ</span><span class="tr"><i style="width:80%"></i></span></div>
               <p class="muted">23:00 から C6・C7 に予約があるため、端から空いている C4・C5 を候補にしました。</p>
-              <button type="button" class="btn" data-apv>席を承認する</button>
+              <button type="button" class="btn" data-apv>配席を承認</button>
             </div>
             <div class="apv" data-part="キャストさん">
-              <div class="row"><h4>キャストさん</h4><span class="st" data-st>承認待ち</span></div>
-              <select class="select" aria-label="MS さんの担当キャストさん"><option value="みなみ">みなみさん（担当・1番目）</option><option value="さくら">さくらさん（担当・2番目）</option><option value="あおい">あおいさん</option></select>
+              <div class="row"><h4>担当キャストさん</h4><span class="st" data-st>承認待ち</span></div>
+              <select class="select" aria-label="MS さんの担当キャストさん"><option value="みなみ">みなみさん（接客 13回・相性 ○）</option><option value="さくら">さくらさん（接客 6回・相性 △）</option><option value="あおい">あおいさん（接客 1回・相性 —）</option></select>
               <div class="rbar"><span>接客した回数（13回）</span><span class="tr"><i style="width:90%"></i></span></div>
               <div class="rbar"><span>相性</span><span class="tr"><i style="width:70%"></i></span></div>
-              <p class="muted">担当の1番目のみなみさんが出勤中です。</p>
-              <button type="button" class="btn" data-apv>キャストさんを承認する</button>
+              <p class="muted">接客した回数が多く、相性のよいみなみさんが出勤中です。</p>
+              <button type="button" class="btn" data-apv>担当キャストさんを承認</button>
             </div>
             <div class="apv">
               <div class="row"><h4>お客さんへの返信</h4><span class="st">両方を承認すると送ります</span></div>
               <p class="notice info">ご予約を承りました。11/13（金）21:00〜23:00・2名でお待ちしております。</p>
-              <label for="apvMsg" class="flabel">店長・オーナーのコメント（任意）</label>
+              <label for="apvMsg" class="flabel">管理者のコメント（任意）</label>
               <textarea class="textarea" id="apvMsg" placeholder="例: 今回もカウンターをご用意しています。"></textarea>
             </div>
           </div>
           <div class="card" id="cand2">
+            <p class="apv-no" data-apv-no>予約・来店 2/2</p>
             <h3>YH さん（No.0201）</h3>
             <p class="apv-meta">当日来店　4名　21:00〜23:00（目安）</p>
             <p class="apv-meta">ステータス：新規</p>
             <div class="apv" data-part="席">
-              <div class="row"><h4>席</h4><span class="st" data-st>承認待ち</span></div>
+              <div class="row"><h4>配席</h4><span class="st" data-st>承認待ち</span></div>
               <select class="select" aria-label="YH さんの席" data-need><option value="">選んでください</option><option>カウンター C4・C5・C6・C7</option><option>VIP席（22:00 の予約まで）</option></select>
               <p class="muted">人数（4名）に合う空き席がありません。席を選ぶと承認できます。</p>
-              <button type="button" class="btn" data-apv disabled>席を承認する</button>
+              <button type="button" class="btn" data-apv disabled>配席を承認</button>
             </div>
             <div class="apv" data-part="キャストさん">
-              <div class="row"><h4>キャストさん</h4><span class="st" data-st>承認待ち</span></div>
-              <select class="select" aria-label="YH さんの担当キャストさん"><option value="さくら">さくらさん（代理）</option><option value="あおい">あおいさん（代理）</option><option value="みなみ">みなみさん（代理）</option></select>
+              <div class="row"><h4>担当キャストさん</h4><span class="st" data-st>承認待ち</span></div>
+              <select class="select" aria-label="YH さんの担当キャストさん"><option value="さくら">さくらさん（接客 0回・相性 —）</option><option value="あおい">あおいさん（接客 0回・相性 —）</option><option value="みなみ">みなみさん（接客 0回・相性 —）</option></select>
               <div class="rbar"><span>手の空き具合</span><span class="tr"><i style="width:90%"></i></span></div>
-              <p class="muted">担当がいない新規のお客さんのため、手の空いているさくらさんを候補にしました。</p>
-              <button type="button" class="btn" data-apv>キャストさんを承認する</button>
+              <p class="muted">初めてのお客さんのため、手の空いているさくらさんを候補にしました。</p>
+              <button type="button" class="btn" data-apv>担当キャストさんを承認</button>
             </div>
           </div>
           </div>
           <h2>承認済み</h2>
           <div id="apvDone">
           <div class="card" id="asg1">
+            <p class="apv-no">承認済み</p>
             <div class="row"><h3>AK さん（No.0112）</h3><span class="badge ok">承認済み</span></div>
             <p class="apv-meta">予約　1名　21:00〜23:00</p>
             <div class="pair">
-              <div><p class="muted">席</p><p><strong id="asgSeat">カウンター C6</strong></p></div>
-              <div><p class="muted">キャストさん</p><p><strong id="asgCast">あおいさん（担当）</strong></p></div>
+              <div><p class="muted">配席</p><p><strong id="asgSeat">カウンター C6</strong></p></div>
+              <div><p class="muted">担当キャストさん</p><p><strong id="asgCast">あおいさん</strong></p></div>
             </div>
-            <button type="button" class="btn secondary" data-open-drawer="drawer2">席・キャストさんを直す</button>
+            <button type="button" class="btn secondary" data-open-drawer="drawer2">配席・キャストさんを修正</button>
             <button type="button" class="btn secondary" data-move="あおい|カウンター C6">あおいさんに席の移動を頼む</button>
           </div>
           </div>
         </div>
-        <div class="drawer" id="drawer2" role="dialog" aria-label="席・キャストさんを直す">
-          <h2>席・キャストさんを直す（AK さん）</h2>
-          <div class="field"><label for="d2seat">席</label>
+        <div class="drawer" id="drawer2" role="dialog" aria-label="配席・キャストさんを修正">
+          <h2>配席・キャストさんを修正（AK さん）</h2>
+          <div class="field"><label for="d2seat">配席</label>
             <select id="d2seat" class="select"><option>カウンター C6</option><option selected>カウンター C7</option><option>カウンター C2</option><option>テーブル席</option></select></div>
-          <div class="field"><label for="d2cast">キャストさん</label>
-            <select id="d2cast" class="select"><option value="あおい">あおいさん（担当）</option><option value="さくら" selected>さくらさん（代理）</option><option value="みなみ">みなみさん（代理）</option></select></div>
+          <div class="field"><label for="d2cast">担当キャストさん</label>
+            <select id="d2cast" class="select"><option value="あおい">あおいさん（接客 15回・相性 ○）</option><option value="さくら" selected>さくらさん（接客 3回・相性 △）</option><option value="みなみ">みなみさん（接客 4回・相性 ○）</option></select></div>
           <p class="hint">キャストを変えると、新しく付くキャストに割り当てを、外れるキャストに外れたことを LINE で知らせます。変更の前後は記録に残ります。</p>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="drawer2">やめる</button>
-            <button type="button" class="btn" id="reSave">直す</button>
+            <button type="button" class="btn" id="reSave">修正する</button>
           </div>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" aria-current="page" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
@@ -1012,7 +1073,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <button type="button" class="btn secondary block" data-go="SCR-05">顧客詳細・前回の会話を見る</button>
           <button type="button" class="btn block" id="ackBtn">確認しました</button>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-05 顧客詳細・会話内容 -->
@@ -1024,18 +1085,19 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="badge info role">キャスト</span>
         </div>
         <div class="m-body">
+          <div class="field"><label for="cgPick">お客さんを選ぶ</label><select id="cgPick" class="select"></select></div>
           <div class="card">
-            <p class="big">MS さん（No.0145）</p>
-            <div class="kvrow"><span>ステータス</span><span><span class="badge vip">常連</span></span></div>
-            <div class="kvrow"><span>特性</span><span>常連・ボトルあり・少人数</span></div>
-            <div class="kvrow"><span>来店実績</span><span>13回（直近12か月）</span></div>
-            <div class="kvrow"><span>前回の来店</span><span>10月28日（直近）</span></div>
-            <div class="kvrow"><span>担当キャストさん</span><span>1. みなみさん　2. さくらさん</span></div>
+            <p class="big" id="cgName">MS さん（No.0145）</p>
+            <div class="kvrow"><span>ステータス</span><span id="cgSt"><span class="badge vip">常連</span></span></div>
+            <div class="kvrow"><span>特性</span><span id="cgTrait">常連・ボトルあり・少人数</span></div>
+            <div class="kvrow"><span>来店実績</span><span id="cgVisits">13回（直近12か月）</span></div>
+            <div class="kvrow"><span>前回の来店</span><span id="cgLast">10月28日（直近）</span></div>
+            <div class="kvrow"><span>キャストさん相性</span><span id="cgCompat">1番 みなみさん　2番 さくらさん</span></div>
           </div>
-          <p class="notice info">あなたが担当のお客さんです（いま接客中）。</p>
+          <p class="notice info" id="cgNote">いま接客中のお客さんです。</p>
           <div class="card">
             <h3>ボトルキープ</h3>
-            <ul class="bottles"><li><button type="button" class="bt-thumb" data-photo="マサ|焼酎|芋焼酎 25度" aria-label="写真を大きく見る" data-svg="マサ|焼酎"></button><span class="bt-main">ボトルキープ（マサ）<small>ボトル1本（芋焼酎 25度）</small></span></li></ul>
+            <ul class="bottles" id="cgBottles"><li><button type="button" class="bt-thumb" data-photo="マサ|焼酎|芋焼酎 25度" aria-label="写真を大きく見る" data-svg="マサ|焼酎"></button><span class="bt-main">ボトルキープ（マサ）<small>ボトル1本（芋焼酎 25度）</small></span></li></ul>
             <p class="hint">ボトルの登録・変更は管理者が行います。</p>
           </div>
           <h2>これまでの会話</h2>
@@ -1045,10 +1107,13 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <li><span class="muted">10/14　みなみ</span><span>ウイスキーはハイボールより水割りが好み。</span></li>
             </ul>
           </div>
+          <div id="cgRec" class="guide">
           <h2>今日の会話を記録</h2>
           <p class="notice">実名・勤務先・連絡先は書かないでください。</p>
           <textarea class="textarea" id="talkInput" aria-label="会話内容" placeholder="例: 好きなお酒、話題にしたこと"></textarea>
           <button type="button" class="btn block" id="talkSave" disabled>登録する</button>
+          </div>
+          <p class="muted" id="cgRecNo" hidden>会話内容を書けるのは、接客したキャストさんだけです（仮）。</p>
         </div>
         <div class="overlay" id="doneTalk" role="dialog" aria-label="登録完了">
           <div class="dialog">
@@ -1061,7 +1126,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             </div>
           </div>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-06 出退勤の登録 -->
@@ -1090,7 +1155,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <p class="hint">位置情報は打刻のときだけ使い、「店の近くで確認済み」かどうかだけを記録します。</p>
           <button type="button" class="btn secondary block" data-go="SCR-16">店の近くにいない・位置が取れないときは申請する</button>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" aria-current="page" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-07 追加出勤依頼への応答 -->
@@ -1103,16 +1168,16 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <div class="card">
-            <span class="badge ng">混雑予想</span>
+            <span class="badge ng">混雑予測</span>
             <p class="big">今日 22:00〜</p>
-            <p class="muted">ゆい さん、22時台に混雑が予想されています。出勤できるか教えてください。</p>
+            <p class="muted">ゆい さん、22時台に混雑が予測されています。出勤できるか教えてください。</p>
             <p class="muted">依頼: 管理者／19:30</p>
           </div>
           <button type="button" class="btn block" data-reply="出勤できる">出勤できる</button>
           <button type="button" class="btn secondary block" data-reply="出勤できない">出勤できない</button>
           <p class="hint" id="replyState">まだ応答していません</p>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-08 空き状況・来店予約 -->
@@ -1124,8 +1189,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <div class="vacancy">
-            <p class="muted">ただいまの状況</p>
-            <p class="big" id="rvVac">あと —名 空きあり</p>
+            <p class="muted">ただいまの空き</p>
+            <div class="vtypes" id="rvVac" aria-label="席の種類ごとの空き"></div>
           </div>
           <div class="card">
             <h3>あなたのボトルキープ</h3>
@@ -1142,9 +1207,10 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           </div>
           <div class="field"><label for="rvEnd">お帰りの目安</label>
             <select id="rvEnd" class="select"><option>2時間（23:00 ごろ）</option><option>3時間（0:00 ごろ）</option><option>終電まで</option><option>閉店まで</option><option>決めていない</option></select></div>
-          <p class="notice info" id="rvFit">21:00 から 2名で ご予約できます</p>
-          <label class="checkrow"><input type="checkbox" id="rvPriv"><span>個室を希望する</span></label>
-          <p class="hint">テーブル席・VIP席のご予約は、代表の方だけのご登録で受け付けます。お帰りの目安は、席の準備に使います。個室のご希望は、お店が席を決めるときの参考にします（ご希望に沿えないことがあります）。</p>
+          <p class="notice info" id="rvFit">—</p>
+          <div class="field"><label for="rvPref">席のご希望</label>
+            <select id="rvPref" class="select"><option>特に希望なし</option><option>カウンターを希望</option><option>テーブル席（オープン）を希望</option><option>VIP席（個室）を希望</option></select></div>
+          <p class="hint">テーブル席・VIP席のご予約は、代表の方だけのご登録で受け付けます。お帰りの目安は、席の準備に使います。席のご希望は、お店が席を決めるときの参考にします（ご希望に沿えないことがあります）。</p>
           <button type="button" class="btn block" id="rvBtn">予約する</button>
         </div>
         <div class="overlay" id="doneRv" role="dialog" aria-label="予約完了">
@@ -1161,12 +1227,12 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(2, 1fr)"><button type="button" data-go="SCR-22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-08"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予約</button></nav>
       </section>
 
-      <!-- SCR-10 混雑予想・追加出勤依頼 -->
-      <section data-screen="SCR-10" data-device="mobile" data-name="混雑予想・追加出勤依頼" class="m-screen">
+      <!-- SCR-10 混雑予測・追加出勤依頼 -->
+      <section data-screen="SCR-10" data-device="mobile" data-name="混雑予測・追加出勤依頼" class="m-screen">
         <div class="liff-head"><span class="lh-title">店舗管理ツール 一号店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
         <div class="liff-bar">
           <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
-          <h1>混雑予想・補充</h1>
+          <h1>混雑予測・補充</h1>
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
@@ -1174,7 +1240,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="kpi"><p class="muted">出勤中のキャスト</p><p class="v">3名</p><p class="muted">不在 1名</p></div>
             <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
           </div>
-          <h2>混雑予想（1時間ごと）</h2>
+          <h2>混雑予測（1時間ごと）</h2>
           <div class="card">
             <ul class="hourlist">
               <li><span>21時</span><span class="badge">ふつう</span></li>
@@ -1185,7 +1251,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <li><span>2時</span><span class="badge">落ち着き</span></li>
             </ul>
           </div>
-          <p class="hint">予想の出し方と補充が必要と判断する基準は確認中です（表示は例）。</p>
+          <p class="hint">予測の出し方と補充が必要と判断する基準は確認中です（表示は例）。</p>
           <h2>追加出勤を依頼する</h2>
           <div class="card">
             <label class="checkrow"><input type="checkbox" data-ask value="ゆい" checked><span>ゆい</span><span class="badge">不在</span></label>
@@ -1208,7 +1274,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <div class="roletabs storetabs" role="group" aria-label="店舗" data-storetabs><button type="button" data-store="1" aria-pressed="true">一号店</button><button type="button" data-store="2" aria-pressed="false">二号店</button></div>
-          <div class="roletabs dmtabs" role="group" aria-label="表示の切り替え"><button type="button" aria-pressed="true">当日</button><button type="button" data-go="SCR-29" aria-pressed="false">週</button><button type="button" data-go="SCR-28" aria-pressed="false">月</button></div>
+          <div class="roletabs dmtabs" role="group" aria-label="表示の切り替え"><button type="button" aria-pressed="true">本日</button><button type="button" data-go="SCR-29" aria-pressed="false">週</button><button type="button" data-go="SCR-28" aria-pressed="false">月</button></div>
           <p class="notice" id="tlStore2" hidden>二号店の1日の予定は、モックでは省略しています（二号店の席の構成は確認中です）。</p>
           <div id="tlStore1">
           <div class="mkpis">
@@ -1224,14 +1290,17 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <span><i class="sw line"></i>21:05 現在</span>
           </div>
           <div class="mtl-wrap" id="tlWrap"><div class="mtl" id="tl"></div></div>
+          <h2>キャストさんから見た表（本日）</h2>
+          <p class="muted">出勤しているキャストさんが、何時から何時まで、どの席に付くかを示します。空いている時間は「自由（状況に応じて）」です。</p>
+          <div class="mtl-wrap ctl-wrap" id="ctlWrap"><div class="mtl ctl" id="ctl"></div></div>
           <p class="hint">横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。ほかの日は、上の「月」で日を選んで開きます。</p>
           <p class="hint">営業時間（19:00〜翌3:00）は仮です。帯の終わりは目安（2時間）で、滞在時間の決まりは確認中です。</p>
           <p class="hint">席が決まっていない予約・候補は「席未定」の行に出ます。予約の席は、帯を押して管理者が決めます（仮）。</p>
           <p class="hint">テーブル席・VIP席の予約は代表者だけを登録します。同行者の情報は後日入力できるようにします（入力する項目は確認中）。</p>
           </div>
         </div>
-        <div class="overlay" id="tlModal" role="dialog" aria-label="予定の詳細">
-          <div class="dialog">
+        <div class="drawer" id="tlModal" role="dialog" aria-label="予定の詳細">
+          <div>
             <div class="row" style="display:flex;justify-content:space-between;align-items:center"><h2>予定の詳細</h2><span class="badge" id="tlState">—</span></div>
             <dl class="kv" id="tlKv"></dl>
             <div class="field" id="tlSeatWrap" hidden>
@@ -1241,10 +1310,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <div class="row"><h3>同行者の情報</h3><span class="badge">後日入力</span></div>
               <p class="muted">代表者だけで予約を受けています。同行者の情報は後日入力できます（入力する項目は確認中）。</p>
             </div>
-            <div class="actions">
-              <button type="button" class="btn secondary" id="tlToDash" data-go="SCR-03" hidden>承認の画面を開く</button>
-              <button type="button" class="btn" data-close-overlay="tlModal">閉じる</button>
-            </div>
+            <button type="button" class="btn secondary block" id="tlToDash" data-go="SCR-03" hidden>承認の画面を開く</button>
+            <p class="sheet-hint">下にスワイプするか、外側を押すと戻ります</p>
           </div>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
@@ -1355,11 +1422,11 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="field"><label for="gNo">店内識別番号</label><input id="gNo" class="input" value="No.0207" readonly></div>
             <div class="field"><label for="gIni">イニシャル（必須）</label><input id="gIni" class="input" placeholder="例: A.B."></div>
           </div>
-          <fieldset class="field"><legend>担当キャストさん（優先順・3人まで）</legend>
+          <fieldset class="field"><legend>キャストさん相性（よい順・3人まで）</legend>
             <div class="trio"><select id="gCast" class="select" aria-label="1番目"><option>なし</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select><select id="gCast2" class="select" aria-label="2番目"><option>なし</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select><select id="gCast3" class="select" aria-label="3番目"><option>なし</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select></div></fieldset>
           <div class="field"><label for="gGrp">よく来る人数</label>
             <select id="gGrp" class="select"><option>少人数（1〜3名）</option><option>大人数（4名以上）</option></select></div>
-          <p class="hint">担当キャストさんは、配席・担当キャストさんの候補に、この順で使います。ステータス（常連・新規）とボトルの有無は、来店実績と登録から自動で決まります。</p>
+          <p class="hint">キャストさん相性は、配席・担当キャストさんの候補を出すときに使います（相性の決め方は確認中）。ステータス（常連・新規）とボトルの有無は、来店実績と登録から自動で決まります。</p>
           <p class="notice">実名・勤務先・連絡先は入力しないでください。</p>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="gModal">やめる</button>
@@ -1377,10 +1444,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="field"><label for="btTag">タグ名（ボトルの首の札）</label><input id="btTag" class="input" placeholder="例: アキ"></div>
           <div class="field"><span class="flabel">写真</span><button type="button" class="btn secondary small" id="btPhoto">写真を選ぶ</button><span class="muted" id="btPhotoState">未選択</span></div>
           <p class="hint">お酒の種類の選択肢と、期限・残量を持つかは確認中です。写真は一覧の小さな画像を押すと大きく見られます。</p>
-          <div class="pair">
-            <button type="button" class="btn secondary" data-close-drawer="btDrawer">閉じる</button>
-            <button type="button" class="btn" id="btAdd" disabled>追加する</button>
-          </div>
+          <button type="button" class="btn block" id="btAdd" disabled>追加する</button>
+          <p class="sheet-hint">下にスワイプするか、外側を押すと戻ります</p>
         </div>
         <div class="overlay" id="gDone" role="dialog" aria-label="登録完了">
           <div class="dialog">
@@ -1426,7 +1491,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             </div>
           </div>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-17 一斉送信 -->
@@ -1489,7 +1554,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <h2>これまでの連絡</h2>
           <div class="card"><div class="row"><h3>管理者から</h3><span class="muted">11/12 18:30</span></div><p class="muted">今週末はイベントのため、20時までに出勤をお願いします。</p><span class="badge ok" style="align-self:flex-start">確認済み</span></div>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" aria-current="page" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" aria-current="page" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-19 管理者に届く通知（LINE のトーク） -->
@@ -1500,7 +1565,11 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
-          <p class="hint">開始・終了の時刻より前に席を更新していれば、通知は届きません。通知は管理者全員に届きます（仮）。来店を待つ時間（30分）は確認中です。ボタンを押すと、LINE 内でその画面が開きます。トークの中で完結するボタン（まだ待つ・取り消す・30分延長）を押すと、押した内容がこちらから送ったメッセージとしてトークに残ります（右側の緑の吹き出し）。左下のボタンで入力欄に切り替えて文字を送ると、決まった言葉（予定・承認・勤怠など）に自動で返事をします。</p>
+          <div class="guide" aria-label="この画面の説明">
+            <p class="cnote"><b class="cn-l">説明1</b>この画面は<strong>管理者</strong>の画面です。LINE のトーク画面を一例としてイメージしています。お店の LINE 公式アカウントのメニューから店舗管理ツールに入ります（管理者は管理用の画面、キャストさんはシフト、お客さんは予約へ、アカウントに応じて分かれます）。</p>
+            <p class="cnote"><b class="cn-l">説明2</b>管理者は、キャストさんからの勤怠の申請や、お客さんからの席の予約を受け付けて承認します。キャストさん・お客さんがツールから申請すると、このトークにメッセージが届きます。下のボタンでツールの画面が開きます。予約の開始・終了の時刻より前に配席を済ませておくと、その予約のお知らせは届きません。</p>
+            <p class="cnote"><b class="cn-l">説明3</b>下のメッセージとボタンは一例です（例: ゆいさんから 20:00 の出勤の申請が届く）。一部のボタンは、まだ動かない場合があります。下の入力欄から言葉（予定・承認・勤怠など）を送ると、自動で返事をします。</p>
+          </div>
           <div class="talk">
             <p class="time"><span>11/13（金）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">勤怠の申請</span>
@@ -1540,7 +1609,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <ul class="purpose">
               <li>・LINE の利用者 ID（表示名・画像は保存しません）</li>
               <li>・出勤・退勤の記録と、打刻のときの位置情報（店の近くにいるかの確認だけに使い、位置は保存しません）</li>
-              <li>・担当・代理のお客さんの情報と会話内容</li>
+              <li>・お店のお客さんの情報（店内識別番号・イニシャルなど）と会話内容</li>
               <li>・出勤している日は、お客さんの画面に名前が表示されます</li>
               <li>・誕生日（月日だけ）を登録した場合は、お客さんの画面にも表示されます</li>
             </ul>
@@ -1560,7 +1629,11 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
-          <p class="hint">ボタンを押すと、LINE 内でその画面が開きます。画面を閉じると、このトークに戻ります。右側の緑の吹き出しは、キャストがトークに直接送ったメッセージの例です。左下のボタンで入力欄に切り替えて文字を送ると、決まった言葉（出勤・遅れ・割り当てなど）に自動で返事をします。店の人には届きません（仮）。</p>
+          <div class="guide" aria-label="この画面の説明">
+            <p class="cnote"><b class="cn-l">説明1</b>この画面は<strong>キャストさん</strong>の画面です。LINE のトーク画面を一例としてイメージしています。お店の LINE 公式アカウントのメニュー（「シフトはこちら」など）から店舗管理ツールに入ります。</p>
+            <p class="cnote"><b class="cn-l">説明2</b>お店からの割り当て・席の移動のお願い・追加出勤のお願いが、このトークに届きます。下のボタンで画面が開き、出勤・退勤、シフト、勤怠の申請ができます。</p>
+            <p class="cnote"><b class="cn-l">説明3</b>下のメッセージとボタンは一例です。一部のボタンは、まだ動かない場合があります。右側の緑の吹き出しはキャストさんが送ったメッセージの例で、言葉（出勤・遅れなど）に自動で返事をします。店の人には届きません（仮）。</p>
+          </div>
           <div class="talk">
             <p class="time"><span>11/13（金）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">追加出勤のお願い</span>
@@ -1570,19 +1643,19 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <p>11/12 の退勤（1:00）の申請が承認されました。</p>
               <button type="button" class="btn secondary small" data-go="SCR-21">ホームを開く</button></div><span class="stamp">20:15</span></div>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">割り当て</span>
-              <p>21:00〜 カウンター C4・C5 ／ No.0145 M.S.（担当）</p>
+              <p>21:00〜 カウンター C4・C5 ／ No.0145 M.S.</p>
               <button type="button" class="btn secondary small" data-go="SCR-04">割り当てを見る</button></div><span class="stamp">21:02</span></div>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">店からの連絡</span>
               <p>23時から VIP席に12名の予約があります。22時半までに準備をお願いします。</p>
               <button type="button" class="btn secondary small" data-go="SCR-18">読んで確認する</button></div><span class="stamp">21:06</span></div>
             <div class="msg me"><div class="bubble"><p>VIP席の準備が終わりました。</p></div><span class="stamp"><span class="read">既読</span>21:20</span></div>
             <div class="msg" id="mvMsg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">席の移動のお願い</span>
-              <p>21:30 に カウンター C6 へ移動をお願いします（AK さんの席へ）。</p>
+              <p>21:30 に カウンター C6 へ移動をお願いします。ひとこと: グラスは持ち帰り</p>
               <button type="button" class="btn secondary small" id="mvAck">わかりました</button></div><span class="stamp">21:30</span></div>
           </div>
         </div>
         <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
-        <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="richmenu" aria-label="リッチメニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
         <div class="line-input" hidden><button type="button" data-rm-back aria-label="メニューに切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><button type="button" data-line-plus aria-label="写真などを送る"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button><input type="text" class="li-field" data-talk-input aria-label="メッセージ" placeholder="メッセージを入力" maxlength="200"><button type="button" class="li-send" data-talk-send aria-label="送信" disabled><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12l16-8-6 16-3-7z"/></svg></button></div>
       </section>
 
@@ -1594,12 +1667,16 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
-          <p class="hint">「予約を確認する」で予約の確認・変更・取消の画面が開きます。右側の緑の吹き出しは、お客さんがトークに直接送ったメッセージの例です。左下のボタンで入力欄に切り替えて文字を送ると、決まった言葉（予約・変更・出勤など）に自動で返事をします。店の人には届きません（仮）。</p>
+          <div class="guide" aria-label="この画面の説明">
+            <p class="cnote"><b class="cn-l">説明1</b>この画面は<strong>お客さん</strong>の画面です。LINE のトーク画面を一例としてイメージしています。お店の LINE 公式アカウントのメニュー（「予約はこちら」）から店舗管理ツールに入ります。</p>
+            <p class="cnote"><b class="cn-l">説明2</b>ご予約の受付・承認・前日と当日のお知らせが、このトークに届きます。「予約を確認する」で予約の確認・変更・取消の画面が開きます。</p>
+            <p class="cnote"><b class="cn-l">説明3</b>下のメッセージとボタンは一例です。一部のボタンは、まだ動かない場合があります。右側の緑の吹き出しはお客さんが送ったメッセージの例で、言葉（予約・変更など）に自動で返事をします。店の人には届きません（仮）。</p>
+          </div>
           <div class="talk">
             <p class="time"><span>11/12（木）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">ご予約を承りました</span>
               <p>11/13（金）21:00〜23:00・2名でお待ちしております。</p>
-              <p class="muted">店長より: 今回もカウンターをご用意しています。</p>
+              <p class="muted">お店より: 今回もカウンターをご用意しています。</p>
               <button type="button" class="btn secondary small" data-go="SCR-34">予約を確認する</button></div><span class="stamp">18:00</span></div>
             <p class="time"><span>11/13（金）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">本日のご予約</span>
@@ -1673,7 +1750,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="row"><h3>VIP席（10名以上）</h3><span class="badge ok">空き</span></div>
             <p class="muted">22:00 から予約あり</p>
           </div>
-          <p class="hint">お客さんの情報は、担当・代理のお客さんの分だけ見られます。</p>
+          <p class="hint">お客さんの情報は、お店のお客さん全員の分を見られます（仮）。会話内容を書けるのは、接客したキャストさんだけです（仮）。</p>
           <h2>キャストの出勤状況</h2>
           <div class="card">
             <ul class="castlist">
@@ -1684,7 +1761,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             </ul>
           </div>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-26 シフト（月表示・管理者） -->
@@ -1705,7 +1782,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <p class="muted" id="sdBday" hidden>—</p>
             <ul class="castlist" id="sdList"></ul>
             <button type="button" class="btn block" id="sdFix">提出（出勤・休み）をすべて確定する</button>
-            <p class="hint" id="sdOvrHint" hidden>全体オーナーは、確定したシフトも「修正」で変えられます。変えると、店長とそのキャストに LINE で知らせます。</p>
+            <p class="hint" id="sdOvrHint" hidden>管理者は、確定したシフトも「修正」で変えられます。変えると、そのキャストさんに LINE で知らせます。</p>
             <button type="button" class="btn secondary block" id="sdDay" data-go="SCR-14">この日の業務予定（1日表示）</button>
           </div>
           <p class="hint">帯は、その日のキャストのシフトの内訳です（左から確定・出勤、提出中・出勤、提出中・休み、確定・休み）。「予」は予約の件数、「誕」はキャストの誕生日です。休みも、確定するまでは提出中です。</p>
@@ -1740,7 +1817,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           </div>
           <p class="hint">見られるのは自分のシフトだけです。休みも、管理者が確定するまでは提出中です。提出の締切は確認中です。</p>
         </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" aria-current="page" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-28 予約の月表示（管理者） -->
@@ -1753,7 +1830,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <div class="roletabs storetabs" role="group" aria-label="店舗" data-storetabs><button type="button" data-store="1" aria-pressed="true">一号店</button><button type="button" data-store="2" aria-pressed="false">二号店</button></div>
-          <div class="roletabs dmtabs" role="group" aria-label="表示の切り替え"><button type="button" data-go="SCR-14" aria-pressed="false">当日</button><button type="button" data-go="SCR-29" aria-pressed="false">週</button><button type="button" aria-pressed="true">月</button></div>
+          <div class="roletabs dmtabs" role="group" aria-label="表示の切り替え"><button type="button" data-go="SCR-14" aria-pressed="false">本日</button><button type="button" data-go="SCR-29" aria-pressed="false">週</button><button type="button" aria-pressed="true">月</button></div>
           <div class="cal-head"><button type="button" class="cal-nav" data-cal-month aria-label="前の月">‹</button><h2>2026年11月</h2><button type="button" class="cal-nav" data-cal-month aria-label="次の月">›</button></div>
           <div class="legend"><span><i class="sw"></i>予約</span><span><i class="sw cand"></i>承認待ち・席未定</span></div>
           <div class="cal" id="calRv" aria-label="11月の予約"></div>
@@ -1777,7 +1854,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <div class="roletabs storetabs" role="group" aria-label="店舗" data-storetabs><button type="button" data-store="1" aria-pressed="true">一号店</button><button type="button" data-store="2" aria-pressed="false">二号店</button></div>
-          <div class="roletabs dmtabs" role="group" aria-label="表示の切り替え"><button type="button" data-go="SCR-14" aria-pressed="false">当日</button><button type="button" aria-pressed="true">週</button><button type="button" data-go="SCR-28" aria-pressed="false">月</button></div>
+          <div class="roletabs dmtabs" role="group" aria-label="表示の切り替え"><button type="button" data-go="SCR-14" aria-pressed="false">本日</button><button type="button" aria-pressed="true">週</button><button type="button" data-go="SCR-28" aria-pressed="false">月</button></div>
           <div class="cal-head"><button type="button" class="cal-nav" data-cal-week aria-label="前の週">‹</button><h2>11/13（金）〜11/19（木）</h2><button type="button" class="cal-nav" data-cal-week aria-label="次の週">›</button></div>
           <div class="legend"><span><i class="sw"></i>予約</span><span><i class="sw cand"></i>承認待ち・席未定</span></div>
           <div class="wk-list" id="wkList"></div>
@@ -1842,10 +1919,10 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <button type="button" class="btn block" id="castNew">新規登録</button>
           <div class="card">
             <ul class="klist" id="castList">
-              <li><span>あおいさん<small>誕生日 4/2・担当のお客さん 3人</small></span><button type="button" class="btn secondary small" data-cast-edit="あおい">編集</button></li>
-              <li><span>みなみさん<small>誕生日 7/19・担当のお客さん 2人</small></span><button type="button" class="btn secondary small" data-cast-edit="みなみ">編集</button></li>
-              <li><span>さくらさん<small>誕生日 11/13・担当のお客さん 2人</small></span><button type="button" class="btn secondary small" data-cast-edit="さくら">編集</button></li>
-              <li><span>ゆいさん<small>誕生日 11/24・担当のお客さん 2人</small></span><button type="button" class="btn secondary small" data-cast-edit="ゆい">編集</button></li>
+              <li><span>あおいさん<small>誕生日 4/2・相性1番のお客さん 3人</small></span><button type="button" class="btn secondary small" data-cast-edit="あおい">編集</button></li>
+              <li><span>みなみさん<small>誕生日 7/19・相性1番のお客さん 1人</small></span><button type="button" class="btn secondary small" data-cast-edit="みなみ">編集</button></li>
+              <li><span>さくらさん<small>誕生日 11/13・相性1番のお客さん 1人</small></span><button type="button" class="btn secondary small" data-cast-edit="さくら">編集</button></li>
+              <li><span>ゆいさん<small>誕生日 11/24・相性1番のお客さん 2人</small></span><button type="button" class="btn secondary small" data-cast-edit="ゆい">編集</button></li>
             </ul>
           </div>
           <p class="hint">名前は店での呼び名だけを登録します。誕生日は月日だけで、お客さんの画面にも出ます。</p>
@@ -1904,12 +1981,12 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         <div class="m-body">
           <div class="pair">
             <div class="field"><label for="lgDay">期間</label><select id="lgDay" class="select"><option>今日</option><option>直近7日</option><option>今月</option></select></div>
-            <div class="field"><label for="lgWho">操作した人</label><select id="lgWho" class="select"><option value="">すべて</option><option>全体オーナー</option><option>店長</option><option>キャストさん</option></select></div>
+            <div class="field"><label for="lgWho">操作した人</label><select id="lgWho" class="select"><option value="">すべて</option><option>管理者</option><option>キャストさん</option></select></div>
           </div>
           <div class="card">
             <ul class="loglist" id="logList"></ul>
           </div>
-          <p class="hint">登録・変更・削除・承認と、全体オーナーによる修正を記録します。記録は見るだけで、変えられません。保存期間は確認中です。</p>
+          <p class="hint">登録・変更・削除・承認と、確定したシフトの修正を記録します。記録は見るだけで、変えられません。保存期間は確認中です。</p>
         </div>
 <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -1927,8 +2004,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="row"><h3>11/13（金）</h3><span class="badge ok" id="myRvState">承認済み</span></div>
             <div class="kvrow"><span>時刻</span><span id="myRvTime">21:00〜23:00</span></div>
             <div class="kvrow"><span>人数</span><span id="myRvNum">2名</span></div>
-            <div class="kvrow"><span>ご要望</span><span id="myRvPriv">個室を希望</span></div>
-            <p class="muted">店長より: 今回もカウンターをご用意しています。</p>
+            <div class="kvrow"><span>ご要望</span><span id="myRvPriv">VIP席（個室）を希望</span></div>
+            <p class="muted">お店より: 今回もカウンターをご用意しています。</p>
             <div class="pair">
               <button type="button" class="btn secondary" id="myRvEdit">変更する</button>
               <button type="button" class="btn danger" id="myRvCancel">取り消す</button>
@@ -1943,7 +2020,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="field"><label for="mrNum">人数</label><select id="mrNum" class="select"><option>1名</option><option selected>2名</option><option>3名</option><option>4名</option></select></div>
           </div>
           <div class="field"><label for="mrEnd">お帰りの目安</label><select id="mrEnd" class="select"><option>2時間</option><option>3時間</option><option>終電まで</option><option>閉店まで</option><option>決めていない</option></select></div>
-          <label class="checkrow"><input type="checkbox" id="mrPriv" checked><span>個室を希望する</span></label>
+          <div class="field"><label for="mrPref">席のご希望</label><select id="mrPref" class="select"><option>特に希望なし</option><option>カウンターを希望</option><option>テーブル席（オープン）を希望</option><option selected>VIP席（個室）を希望</option></select></div>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="myRvDrawer">やめる</button>
             <button type="button" class="btn" id="mrSave">変更する</button>
@@ -2031,7 +2108,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <p class="hint">見られるのは自分の分だけです。記録に誤りがあるときは、勤怠の申請で管理者に伝えます。</p>
           <button type="button" class="btn secondary block" data-go="SCR-16">勤怠の申請をする</button>
         </div>
-<nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+<nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-38 お知らせの設定 -->
@@ -2069,9 +2146,9 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="field" id="ltArriveF"><label for="ltArrive">着く時刻の目安</label><select id="ltArrive" class="select"><option>20:30</option><option selected>21:00</option><option>21:30</option><option>22:00</option></select></div>
           <div class="field"><label for="ltReason">理由（任意）</label><textarea id="ltReason" class="textarea" placeholder="例: 電車が遅れています"></textarea></div>
           <button type="button" class="btn block" id="ltSend">管理者に連絡する</button>
-          <p class="hint">管理者（その店舗の店長）に LINE で届きます。欠勤はシフトの「確定・休み」に変わるのではなく、管理者が確かめてから直します（仮）。</p>
+          <p class="hint">管理者に LINE で届きます。欠勤はシフトの「確定・休み」に変わるのではなく、管理者が確かめてから直します（仮）。</p>
         </div>
-<nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-06"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>出退勤</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡</button></nav>
+<nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
 
       <!-- SCR-40 LINE のトーク一覧（例） -->
@@ -2108,12 +2185,11 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
 
   /* ---- role pages: the same file is placed in admin/ cast/ guest/ register/; ?role= does the same locally ---- */
   var ROLES = {
-    admin: { name: '管理者', page: 2, lead: '管理者（全体オーナー・店長）が LINE の中で使う画面です。下のボタンから、管理者の LINE のトークを開いて始めます。全体オーナーは一号店・二号店をタブで切り替え、店長は担当の店舗だけを見ます。',
-      cards: [['SCR-19', '全体オーナーとして見る', '一号店・二号店をタブで切り替えて見る。店長の決定（シフトなど）を修正する', 'owner'],
-              ['SCR-19', '店長として見る', '担当の店舗（一号店）だけ。配席・担当キャストさんの承認、予約、シフト、勤怠、給与試算、一斉送信', 'manager']],
+    admin: { name: '管理者', page: 2, lead: '管理者が LINE の中で使う画面です。下のボタンから、管理者の LINE のトークを開いて始めます。一号店・二号店は、タブで切り替えて見ます。',
+      cards: [['SCR-19', '管理者として見る', '一号店・二号店をタブで切り替えて見る。配席・担当キャストさんの承認、予約、シフト、勤怠、給与試算、一斉送信']],
       screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-28', 'SCR-29', 'SCR-26', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-17', 'SCR-30', 'SCR-31', 'SCR-32', 'SCR-33', 'SCR-35', 'SCR-36', 'SCR-40'] },
     cast: { name: 'キャスト', page: 5, lead: 'キャストが LINE の中で使う画面です。下のボタンから、キャストの LINE のトークを開いて始めます。',
-      cards: [['SCR-23', 'キャストとして見る', '出勤・退勤、シフト、今日の割り当て、担当のお客さん、勤怠の申請']],
+      cards: [['SCR-23', 'キャストとして見る', '出勤・退勤、シフト、本日の割り当て、お客さんの情報、勤怠の申請']],
       screens: ['SCR-23', 'SCR-21', 'SCR-27', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18', 'SCR-37', 'SCR-39', 'SCR-40'] },
     guest: { name: 'お客さん', page: 6, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
       cards: [['SCR-24', 'お客さんとして見る', '空き状況と来店予約、今日出勤しているキャスト']],
@@ -2171,15 +2247,16 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     document.getElementById('start').hidden = !!target;
     document.getElementById('phoneFrame').hidden = !target;
     document.getElementById('toStart').hidden = !target;
-    screens.forEach(function (s) { s.style.display = s === target ? 'flex' : 'none'; });
+    screens.forEach(function (s) { s.style.display = s === target ? 'flex' : 'none'; if (s !== target) s.querySelectorAll('.drawer.show').forEach(function (d) { d.classList.remove('show'); d.style.transform = ''; }); });
+    if (target && target.dataset.screen === 'SCR-18') document.querySelectorAll('[data-unread]').forEach(function (x) { x.remove(); });
     if (target && target.dataset.screen === 'SCR-21') {
       document.getElementById('castOff').hidden = !castOffNext;
       document.getElementById('castToday').hidden = castOffNext;
     }
     castOffNext = false;
     window.scrollTo(0, 0);
-    /* LINE talk opens at the latest message, as in LINE */
-    if (target) { var lb = target.querySelector('.line-bg'); if (lb) { lb.scrollTop = lb.scrollHeight; requestAnimationFrame(function () { lb.scrollTop = lb.scrollHeight; }); } }
+    /* LINE talk: in the catalog it opens at the top, where the explanations are */
+    if (target) { var lb = target.querySelector('.line-bg'); if (lb) lb.scrollTop = 0; }
   }
   window.addEventListener('hashchange', show);
   /* ?device=mobile|tablet shows the reference size (used for screen images); real devices use their own width */
@@ -2213,6 +2290,12 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   });
 
   /* ---- SCR-03 approve / reject / drawer ---- */
+  /* cards waiting for approval are numbered "1/N"; an approved card moves down and shows "承認済み" */
+  function renumberApv() {
+    var todo = document.querySelectorAll('#apvTodo .card');
+    todo.forEach(function (c, i) { c.querySelector('[data-apv-no]').textContent = '予約・来店 ' + (i + 1) + '/' + todo.length; });
+    document.querySelectorAll('#apvDone [data-apv-no]').forEach(function (x) { x.textContent = '承認済み'; });
+  }
   document.querySelectorAll('[data-need]').forEach(function (sel) {
     sel.addEventListener('change', function () { sel.closest('.apv').querySelector('[data-apv]').disabled = !sel.value; });
   });
@@ -2224,14 +2307,15 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
       var val = sel.options[sel.selectedIndex].text, fixed = sel.value !== sel.dataset.first;
       sel.disabled = true; b.hidden = true;
       var st = part.querySelector('[data-st]'); st.textContent = (fixed ? '直して承認済み' : '承認済み'); st.classList.add('done');
-      if (part.dataset.part === '席') toast(name + 'の席を' + (fixed ? '直して' : '') + '承認しました（' + val + '）。店内状況に反映します');
-      else toast(name + 'のキャストさんを' + (fixed ? '直して' : '') + '承認しました。' + sel.value + 'さんに LINE で通知しました');
+      if (part.dataset.part === '席') toast(name + 'の配席を' + (fixed ? '直して' : '') + '承認しました（' + val + '）。店内状況に反映します');
+      else toast(name + 'の担当キャストさんを' + (fixed ? '直して' : '') + '承認しました。' + sel.value + 'さんに LINE で通知しました');
       if (!card.querySelector('[data-apv]:not([hidden])')) {
         var done = document.getElementById('apvDone'); done.insertBefore(card, done.firstChild);
         var msg = card.querySelector('textarea');
         if (msg) { msg.disabled = true; toast(name + 'に予約の承認を LINE で送りました' + (msg.value.trim() ? '（コメントつき）' : '')); }
         var n = document.querySelectorAll('#apvTodo .card').length;
         document.getElementById('hmAppr').textContent = n + '件';
+        renumberApv();
       }
     });
   });
@@ -2241,16 +2325,68 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var el = document.getElementById(p[0]); if (!el) return;
     el.addEventListener('change', function () { if (el.value !== p[1]) toast('モックでは「' + p[1] + '」の例だけを表示します'); });
   });
-  /* ---- drawers: open / close (all screens) ---- */
+  /* ---- sheets (drawers): open / close on all screens. The grey behind a sheet comes from .show only.
+     Close: swipe down, tap outside (only the top sheet closes; the tap does not reach the screen behind), Esc,
+     or the cancel button of a form ---- */
+  function closeSheet(d) { d.classList.remove('show'); d.style.transform = ''; dirty = false; }
+  function activeScreen() { return screens.filter(function (x) { return x.style.display === 'flex'; })[0]; }
+  function topSheet(scr) {
+    if (!scr) return null;
+    var p = scr.querySelector('.photo-ov.show'); if (p) return p;
+    var l = scr.querySelectorAll('.drawer.show'); return l.length ? l[l.length - 1] : null;
+  }
+  document.addEventListener('click', function (e) {
+    var d = topSheet(activeScreen()); if (!d || d.contains(e.target)) return;
+    if (e.target.closest('.overlay.show') || e.target.closest('#toast')) return;
+    e.preventDefault(); e.stopPropagation(); closeSheet(d);
+  }, true);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { var d = topSheet(activeScreen()); if (d) closeSheet(d); } });
+  /* swipe down: touch events on phones (the sheet's own scroll is kept unless it is at the top), pointer events for a mouse or pen */
+  var swipe = null;
+  function swipeStart(d, y) { swipe = { d: d, y: y, dy: 0 }; }
+  function swipeMove(y) { var dy = y - swipe.y; swipe.dy = Math.max(0, dy); swipe.d.style.transform = swipe.dy ? 'translateY(' + swipe.dy + 'px)' : ''; return dy; }
+  function swipeEnd() { if (!swipe) return; var w = swipe; swipe = null; if (w.dy > 80) closeSheet(w.d); else w.d.style.transform = ''; }
+  function swipeCancel() { if (!swipe) return; swipe.d.style.transform = ''; swipe = null; }
+  function sheetAt(t) { var d = t.closest('.drawer.show'); return d && !t.closest('input, select, textarea, button, a') && d.scrollTop <= 0 ? d : null; }
+  document.addEventListener('touchstart', function (e) { var d = sheetAt(e.target); if (d && e.touches.length === 1) swipeStart(d, e.touches[0].clientY); }, { passive: true });
+  document.addEventListener('touchmove', function (e) { if (!swipe) return; if (swipeMove(e.touches[0].clientY) > 0 && e.cancelable) e.preventDefault(); }, { passive: false });
+  document.addEventListener('touchend', swipeEnd);
+  document.addEventListener('touchcancel', swipeCancel);
+  document.addEventListener('pointerdown', function (e) { if (e.pointerType === 'touch') return; var d = sheetAt(e.target); if (d) swipeStart(d, e.clientY); });
+  document.addEventListener('pointermove', function (e) { if (e.pointerType !== 'touch' && swipe) swipeMove(e.clientY); });
+  document.addEventListener('pointerup', function (e) { if (e.pointerType !== 'touch') swipeEnd(); });
+  document.addEventListener('pointercancel', function (e) { if (e.pointerType !== 'touch') swipeCancel(); });
   document.addEventListener('click', function (e) {
     var o = e.target.closest('[data-open-drawer]');
     if (o) { document.getElementById(o.dataset.openDrawer).classList.add('show'); return; }
     var c = e.target.closest('[data-close-drawer]');
-    if (c) { document.getElementById(c.dataset.closeDrawer).classList.remove('show'); dirty = false; }
+    if (c) closeSheet(document.getElementById(c.dataset.closeDrawer));
   });
 
   /* ---- SCR-04 ---- */
   document.getElementById('ackBtn').addEventListener('click', function () { this.disabled = true; this.textContent = '確認済み'; toast('管理者に「確認しました」を伝えました'); });
+
+  /* ---- SCR-05: the cast can view every customer of the store (decided 2026-11-20, provisional) ---- */
+  var TALK_MS = document.getElementById('talkList').innerHTML;
+  function renderCg(no) {
+    var r = G.filter(function (x) { return x[0] === no; })[0]; if (!r) return;
+    var key = r[0] + ' ' + r[1], serving = r[0] === 'No.0145';
+    document.getElementById('cgName').textContent = gName(r[0], r[1]);
+    document.getElementById('cgSt').innerHTML = stHtml(r[2]);
+    document.getElementById('cgTrait').textContent = r[2] + '・' + (BOTTLE[key] ? 'ボトルあり' : 'ボトルなし') + '・' + r[7];
+    document.getElementById('cgVisits').textContent = r[3] + '回（直近12か月）';
+    document.getElementById('cgLast').textContent = r[4] + '（直近）';
+    document.getElementById('cgCompat').textContent = compatText(r[5]);
+    document.getElementById('cgNote').textContent = serving ? 'いま接客中のお客さんです。' : '見るだけです（いま接客していないお客さん）。';
+    document.getElementById('cgBottles').innerHTML = (BOTTLE[key] || []).map(function (b, i) {
+      var sp = b.indexOf(' '), tag = (BTAG[key] || [])[i] || '';
+      return '<li><button type="button" class="bt-thumb" data-photo="' + tag + '|' + b.slice(0, sp) + '|' + b.slice(sp + 1) + '" aria-label="写真を大きく見る">' + bottleSvg(tag, b.slice(0, sp)) + '</button><span class="bt-main">ボトルキープ（' + (tag || 'タグなし') + '）<small>ボトル1本（' + b.slice(sp + 1) + '）</small></span></li>';
+    }).join('') || '<li><span class="muted">ボトルキープはありません</span></li>';
+    document.getElementById('talkList').innerHTML = serving ? TALK_MS : '<li><span class="muted">これまでの会話の記録はありません（例）</span></li>';
+    document.getElementById('cgRec').hidden = !serving; document.getElementById('cgRecNo').hidden = serving;
+  }
+  var cgPick = document.getElementById('cgPick');
+  cgPick.addEventListener('change', function () { renderCg(cgPick.value); });
 
   /* ---- SCR-05 talk ---- */
   var talkInput = document.getElementById('talkInput'), talkSave = document.getElementById('talkSave');
@@ -2281,7 +2417,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   /* ---- SCR-08 reservation ---- */
   document.getElementById('rvBtn').addEventListener('click', function () {
     var d = document.getElementById('rvDate').value.split('-');
-    document.getElementById('rvMsg').textContent = Number(d[1]) + '/' + Number(d[2]) + ' ' + document.getElementById('rvTime').value + ' に ' + document.getElementById('rvNum').value + '（お帰りの目安: ' + document.getElementById('rvEnd').value + '）でお待ちしています。お店で承認すると LINE でお知らせします。';
+    document.getElementById('rvMsg').textContent = Number(d[1]) + '/' + Number(d[2]) + ' ' + document.getElementById('rvTime').value + ' に ' + document.getElementById('rvNum').value + '（お帰りの目安: ' + document.getElementById('rvEnd').value + '・' + document.getElementById('rvPref').value + '）でお待ちしています。お店で承認すると LINE でお知らせします。';
     document.getElementById('doneRv').classList.add('show');
   });
 
@@ -2289,6 +2425,17 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   document.querySelectorAll('[data-close-overlay]').forEach(function (b) {
     b.addEventListener('click', function () { document.getElementById(b.dataset.closeOverlay).classList.remove('show'); dirty = false; });
   });
+
+  /* ---- SCR-01: additional shift request from the home (a sheet), 追加メニュー ---- */
+  document.getElementById('hmAsk').addEventListener('click', function () { document.getElementById('askDrawer').classList.add('show'); });
+  document.getElementById('hmAskSend').addEventListener('click', function () {
+    var names = [].filter.call(document.querySelectorAll('[data-hask]'), function (x) { return x.checked; }).map(function (x) { return x.value; });
+    if (!names.length) { toast('依頼するキャストさんを選んでください'); return; }
+    closeSheet(document.getElementById('askDrawer'));
+    var b = document.getElementById('hmAsk'); b.disabled = true; b.textContent = '依頼しました（' + names.join('・') + ' さん・応答待ち）';
+    toast(names.join('・') + ' さんに LINE で追加出勤を依頼しました');
+  });
+  document.addEventListener('click', function (e) { if (e.target.closest('[data-addmenu]')) toast('お店に合わせて機能を足せます（例: イベントの受付、売上のメモ）。モックでは例です'); });
 
   /* ---- SCR-10 additional shift request ---- */
   var askBoxes = Array.prototype.slice.call(document.querySelectorAll('[data-ask]'));
@@ -2376,6 +2523,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     ['No.0201', 'Y.H.', '新規', 1, '11月13日', [], false, '大人数'],
     ['No.0099', 'S.A.', '常連', 58, '11月10日', ['ゆい', 'みなみ', 'あおい'], true, '少人数']
   ];
+  function compatText(l) { return l.length ? l.map(function (c, i) { return (i + 1) + '番 ' + c + 'さん'; }).join('　') : 'まだありません'; }
   function gName(no, ini) { return ini.replace(/\./g, '') + ' さん（' + no + '）'; }
   function stHtml(st) { return st === '常連' ? '<span class="badge vip">常連</span>' : st; }
   function bottleSvg(tag, kind) {
@@ -2398,7 +2546,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         '<div class="kvrow"><span>特性</span><span>' + r[2] + '・' + (BOTTLE[key] ? 'ボトルあり' : 'ボトルなし') + '・' + r[7] + '</span></div>' +
         '<div class="kvrow"><span>来店実績</span><span>' + r[3] + '回（直近12か月）</span></div>' +
         '<div class="kvrow"><span>前回の来店</span><span>' + r[4] + '（直近）</span></div>' +
-        '<div class="kvrow"><span>担当キャストさん</span><span>' + (r[5].length ? r[5].map(function (c, i) { return (i + 1) + '. ' + c + 'さん'; }).join('　') : 'なし') + '</span></div>' +
+        '<div class="kvrow"><span>キャストさん相性</span><span>' + compatText(r[5]) + '</span></div>' +
         '<div class="kvrow"><span>LINE 紐付け</span><span>' + (r[6] ? '紐付け済み' : '<span class="badge warn">紐付けがまだ</span>') + '</span></div>' +
         bottleRows(key) +
         '<button type="button" class="btn secondary small" data-bottle="' + r[0] + ' ' + r[1] + '">ボトルを登録・変更する</button></div>';
@@ -2406,6 +2554,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     document.getElementById('gCount').textContent = rows.length + '件';
   }
   gq.addEventListener('input', renderG); gs.addEventListener('change', renderG); renderG();
+  cgPick.innerHTML = G.map(function (r) { return '<option value="' + r[0] + '"' + (r[0] === 'No.0145' ? ' selected' : '') + '>' + gName(r[0], r[1]) + '</option>'; }).join('');
   /* bottle keep: registered by the admin (F-M30) */
   var btFor = '', btName = document.getElementById('btName'), btAdd = document.getElementById('btAdd');
   function renderBt() {
@@ -2440,12 +2589,10 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var t = e.target.closest('[data-photo]');
     if (t) {
       var p = t.dataset.photo.split('|'), sec = t.closest('.m-screen'), ov = sec.querySelector('.photo-ov');
-      if (!ov) { ov = document.createElement('div'); ov.className = 'overlay photo-ov'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'ボトルの写真'); sec.appendChild(ov); }
-      ov.innerHTML = '<div class="dialog"><div class="photo-big">' + bottleSvg(p[0], p[1]) + '</div><p><strong>' + p[2] + '</strong><br><span class="muted">' + p[1] + (p[0] ? '・タグ名 ' + p[0] : '') + '</span></p><div class="actions"><button type="button" class="btn secondary" data-photo-close>閉じる</button></div></div>';
-      ov.classList.add('show'); return;
+      if (!ov) { ov = document.createElement('div'); ov.className = 'drawer photo-ov'; ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-label', 'ボトルの写真'); sec.appendChild(ov); }
+      ov.innerHTML = '<div class="photo-big">' + bottleSvg(p[0], p[1]) + '</div><p><strong>' + p[2] + '</strong><br><span class="muted">' + p[1] + (p[0] ? '・タグ名 ' + p[0] : '') + '</span></p><p class="sheet-hint">下にスワイプするか、外側を押すと戻ります</p>';
+      ov.classList.add('show');
     }
-    var ov2 = e.target.closest('.photo-ov');
-    if (ov2 && (e.target === ov2 || e.target.closest('[data-photo-close]'))) ov2.classList.remove('show');
   });
   var gIni = document.getElementById('gIni'), gSave = document.getElementById('gSave');
   document.getElementById('newGuest').addEventListener('click', function () { gIni.value = ''; gSave.disabled = true; document.getElementById('gModal').classList.add('show'); });
@@ -2500,9 +2647,9 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     ['席未定', 2, 4, 'cand', 'No.0201 Y.H.', 4, 'なし', 'さくら'],
     ['席未定', 5.5, 7.5, 'rsv', 'No.0215 E.M.', 7, 'なし', '']
   ];
-  var PRIV = { 'No.0145 M.S.': true };
+  var PREF = { 'No.0145 M.S.': 'VIP席（個室）を希望' };
   var KIND = { now: ['対応中', 'warn'], rsv: ['予約', 'info'], cand: ['配席予定（未承認）', 'ng'] };
-  var NOW = 2 + 5 / 60;
+  var NOW = 2 + 5 / 60, ME_CAST = 'みなみ';
   function hm(h) { var t = Math.round((19 + h) * 60) % (24 * 60); return Math.floor(t / 60) + ':' + ('0' + t % 60).slice(-2); }
   function renderTl() {
     document.getElementById('tlStore1').hidden = store !== 1;
@@ -2522,7 +2669,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         if (b[0] !== st[1]) return '';
         var lead = st[0] === 'box' ? '代表 ' : '';
         return '<button type="button" class="bk ' + b[3] + '" data-bk="' + idx + '" style="left:' + (b[1] * 80 + 2) + 'px;width:' + ((b[2] - b[1]) * 80 - 4) + 'px">' +
-          '<b>' + hm(b[1]) + ' ' + lead + b[4] + '・' + b[5] + '名</b><span>' + (BOTTLE[b[4]] ? 'ボトルあり／' : '') + KIND[b[3]][0] + (b[7] ? '／代理 ' + b[7] : '／担当 ' + b[6]) + '</span></button>';
+          '<b>' + hm(b[1]) + ' ' + lead + b[4] + '・' + b[5] + '名</b><span>' + (BOTTLE[b[4]] ? 'ボトルあり／' : '') + KIND[b[3]][0] + '／担当 ' + (b[7] || b[6]) + '</span></button>';
       }).join('');
       html += '<div class="track' + g + '">' + cells + bars + '<div class="nowline" style="left:' + (NOW * 80) + 'px"></div></div>';
     });
@@ -2541,10 +2688,9 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
       '<dt>時間</dt><dd>' + hm(d[1]) + '〜' + hm(d[2]) + '（終わりは目安）</dd>' +
       '<dt>' + (isBox ? 'お客さん（代表者）' : 'お客さん') + '</dt><dd>' + d[4] + '</dd>' +
       '<dt>人数</dt><dd>' + d[5] + '名</dd>' +
-      '<dt>担当キャスト</dt><dd>' + d[6] + '</dd>' +
+      '<dt>担当キャスト</dt><dd>' + (d[7] ? d[7] + '（候補）' : d[6]) + '</dd>' +
       '<dt>ボトルキープ</dt><dd>' + (BOTTLE[d[4]] ? BOTTLE[d[4]].join('、') : 'なし') + '</dd>' +
-      (d[7] ? '<dt>代理</dt><dd>' + d[7] + '（候補）</dd>' : '') +
-      (PRIV[d[4]] ? '<dt>ご要望</dt><dd>個室を希望</dd>' : '');
+      (PREF[d[4]] ? '<dt>ご要望</dt><dd>' + PREF[d[4]] + '</dd>' : '');
     document.getElementById('tlSeatWrap').hidden = d[3] !== 'rsv';
     var st = document.getElementById('tlState');
     st.textContent = KIND[d[3]][0]; st.className = 'badge ' + KIND[d[3]][1];
@@ -2556,7 +2702,42 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   var tlCur = null;
   document.getElementById('tlSeatBtn').addEventListener('click', function () { document.getElementById('tlModal').classList.remove('show'); });
   renderTl();
-  window.addEventListener('hashchange', function () { if (location.hash === '#SCR-14') scrollToNow(); });
+  /* the table seen from the cast (SCR-14 and the cast home): made from the same data (BK) as the seat table */
+  function castOfBk(b) { var c = (b[7] || b[6]).replace(/（.*）/, ''); return c === 'なし' ? '' : c; }
+  function spanOf(t) { var p = t.split('〜').map(function (x) { var a = x.split(':'), h = +a[0]; return (h < 12 ? h + 24 : h) - 19 + (+a[1]) / 60; }); return p; }
+  function castRows() {
+    var names = CASTS_BY[1].filter(function (c) { return stOf(c, TODAY) === 'c'; });
+    BK.forEach(function (b) { var c = castOfBk(b); if (c && names.indexOf(c) < 0) names.push(c); });
+    return names.map(function (c) {
+      var on = stOf(c, TODAY) === 'c', sp = on ? spanOf(SHIFT_T[c]) : null, seen = {};
+      var asg = BK.filter(function (b) { if (castOfBk(b) !== c) return false; var k = b[4] + b[1]; if (seen[k]) { seen[k].seat += '・' + b[0].replace('カウンター ', ''); return false; } seen[k] = { b: b, seat: b[0] }; return true; })
+        .map(function (b) { var k = b[4] + b[1]; return { s: b[1], e: b[2], seat: seen[k].seat, guest: b[4], kind: b[3] }; })
+        .sort(function (x, y) { return x.s - y.s; });
+      var free = [];
+      if (sp) { var t = sp[0]; asg.forEach(function (a) { if (a.s > t) free.push([t, Math.min(a.s, sp[1])]); t = Math.max(t, a.e); }); if (t < sp[1]) free.push([t, sp[1]]); }
+      return { name: c, on: on, shift: on ? SHIFT_T[c] : '追加出勤を依頼中', asg: asg, free: free.filter(function (f) { return f[1] - f[0] >= 0.5; }) };
+    });
+  }
+  function renderCtl(id, me) {
+    var hours = ''; for (var h = 0; h < 8; h++) hours += '<span>' + hm(h) + '</span>';
+    var html = '<div class="hd seathd">キャストさん</div><div class="hd hours">' + hours + '</div>';
+    castRows().forEach(function (r) {
+      html += '<div class="seatname' + (r.name === me ? ' me' : '') + '"><strong>' + r.name + (r.name === me ? '（あなた）' : '') + '</strong><span>' + r.shift + '</span></div>';
+      var cells = ''; for (var i = 0; i < 16; i++) cells += '<i></i>';
+      var bars = r.asg.map(function (a) {
+        return '<span class="bk ' + a.kind + '" data-ctl-asg style="left:' + (a.s * 80 + 2) + 'px;width:' + ((a.e - a.s) * 80 - 4) + 'px"><b>' + hm(a.s) + ' ' + a.seat + '</b><span>' + a.guest + '・' + KIND[a.kind][0] + '</span></span>';
+      }).join('') + r.free.map(function (f) {
+        return '<span class="bk free" data-ctl-free style="left:' + (f[0] * 80 + 2) + 'px;width:' + ((f[1] - f[0]) * 80 - 4) + 'px"><b>自由</b><span>状況に応じて</span></span>';
+      }).join('');
+      html += '<div class="track">' + cells + bars + '<div class="nowline" style="left:' + (NOW * 80) + 'px"></div></div>';
+    });
+    document.getElementById(id).innerHTML = html;
+  }
+  window.addEventListener('hashchange', function () {
+    var x = Math.max(0, NOW * 80 - 120);
+    if (location.hash === '#SCR-14') { scrollToNow(); document.getElementById('ctlWrap').scrollLeft = x; }
+    if (location.hash === '#SCR-21') document.getElementById('ctlWrapMe').scrollLeft = x;
+  });
 
 
   /* ---- SCR-02 reception (A-2) ---- */
@@ -2586,7 +2767,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var seat = document.getElementById('d2seat').value, cast = document.getElementById('d2cast').value;
     var before = document.getElementById('asgCast').textContent.replace(/さん?（.*）/, '');
     document.getElementById('asgSeat').textContent = seat;
-    document.getElementById('asgCast').textContent = cast + 'さん' + (cast === 'あおい' ? '（担当）' : '（代理）');
+    document.getElementById('asgCast').textContent = cast + 'さん';
     document.getElementById('drawer2').classList.remove('show');
     toast('直しました（' + seat + '・' + cast + '）。' + (cast !== before ? cast + 'さんに割り当てを、' + before + 'さんに外れたことを LINE で知らせました' : cast + 'さんに変更を LINE で知らせました'));
   });
@@ -2667,11 +2848,10 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var scr = b.closest('[data-screen]'), dr = scr.querySelector('.plus-sheet');
     if (!dr) {
       dr = document.createElement('div'); dr.className = 'drawer plus-sheet'; dr.setAttribute('role', 'dialog'); dr.setAttribute('aria-label', '写真などを送る');
-      dr.innerHTML = '<h2>送るものを選ぶ</h2><button type="button" class="btn block" data-plus="photo">写真を送る（例の写真）</button><button type="button" class="btn secondary block" data-plus="cam">カメラで撮る</button><button type="button" class="btn secondary block" data-plus="loc">位置情報を送る</button><button type="button" class="btn secondary block" data-plus="close">閉じる</button>';
+      dr.innerHTML = '<h2>送るものを選ぶ</h2><button type="button" class="btn block" data-plus="photo">写真を送る（例の写真）</button><button type="button" class="btn secondary block" data-plus="cam">カメラで撮る</button><button type="button" class="btn secondary block" data-plus="loc">位置情報を送る</button>';
       scr.appendChild(dr);
       dr.addEventListener('click', function (e) {
         var k = e.target.closest('[data-plus]'); if (!k) return; dr.classList.remove('show');
-        if (k.dataset.plus === 'close') return;
         if (k.dataset.plus !== 'photo') { toast('カメラ・位置情報は LINE の機能の例です（モックでは写真だけ送れます）'); return; }
         var talk = scr.querySelector('.talk'), row = document.createElement('div');
         row.className = 'msg me'; row.innerHTML = '<div class="bubble photo-msg"><svg viewBox="0 0 160 120" role="img" aria-label="送った写真（例）"><rect width="160" height="120" fill="#E2E8F0"/><circle cx="40" cy="38" r="14" fill="#F59E0B"/><path d="M0 120 L56 62 L96 100 L120 78 L160 120 Z" fill="#115E59"/></svg></div><span class="stamp"><span class="read">既読</span>' + hhmm() + '</span>';
@@ -2748,7 +2928,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var anyS = false, canOvr = owner && sdDay >= TODAY;
     document.getElementById('sdList').innerHTML = CASTS.map(function (c) {
       var st = stOf(c, sdDay); if (st === 's' || st === 'x') anyS = true;
-      var ov = OVR[c + sdDay] ? '<small class="ovr">オーナーが修正</small>' : '';
+      var ov = OVR[c + sdDay] ? '<small class="ovr">管理者が修正</small>' : '';
       var btn = canOvr && (st === 'c' || st === 'o') ? '<button type="button" class="btn secondary small" data-ovr="' + c + '">修正</button>' : '';
       return '<li><span>' + c + ov + '</span><span class="sdrow"><span class="stb ' + st + '">' + ST[st][0] + '</span>' + btn + '</span></li>';
     }).join('');
@@ -2770,7 +2950,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var c = b.dataset.ovr, to = stOf(c, sdDay) === 'c' ? 'o' : 'c';
     setSt(c, sdDay, to); OVR[c + sdDay] = 1;
     renderAdminCal(); renderCastCal();
-    toast(dayLabel(sdDay) + ' の' + c + 'を「' + ST[to][0] + '」に変えました。' + STORE_NAME[store] + 'の店長と' + c + 'さんに LINE で知らせました（記録に残ります）');
+    toast(dayLabel(sdDay) + ' の' + c + 'を「' + ST[to][0] + '」に変えました。' + c + 'さんに LINE で知らせました（記録に残ります）');
   });
   document.getElementById('sdDay').addEventListener('click', function () {
     if (sdDay !== TODAY && store === 1) toast('モックでは 11/13 の業務予定を表示します');
@@ -2911,7 +3091,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   /* ---- SCR-32 status ---- */
   document.getElementById('stSave').addEventListener('click', function () { toast('ステータス区分を登録しました（常連: 直近12か月に' + document.getElementById('stVisit').value + '以上）'); });
   /* ---- SCR-33 log ---- */
-  var LOG = [['21:31', '店長', '予約の来店を待つ（MS さん（No.0145））'], ['21:06', '全体オーナー', 'シフトを修正（みなみさん 11/15 出勤 → 休み）'], ['21:05', '店長', '配席を承認（MS さん（No.0145）・カウンター C4・C5）'], ['20:58', 'キャストさん', '会話内容を登録（あおいさん・AK さん（No.0112））'], ['20:12', 'キャストさん', '勤怠を申請（ゆいさん・出勤 20:00）'], ['19:40', '店長', 'ボトルキープを登録（TK さん（No.0088）・タグ名 トシ）']];
+  var LOG = [['21:31', '管理者', '予約の来店を待つ（MS さん（No.0145））'], ['21:06', '管理者', 'シフトを修正（みなみさん 11/15 出勤 → 休み）'], ['21:05', '管理者', '配席を承認（MS さん（No.0145）・カウンター C4・C5）'], ['20:58', 'キャストさん', '会話内容を登録（あおいさん・AK さん（No.0112））'], ['20:12', 'キャストさん', '勤怠を申請（ゆいさん・出勤 20:00）'], ['19:40', '管理者', 'ボトルキープを登録（TK さん（No.0088）・タグ名 トシ）']];
   function renderLog() {
     var w = document.getElementById('lgWho').value;
     document.getElementById('logList').innerHTML = LOG.filter(function (r) { return !w || r[1] === w; }).map(function (r) { return '<li><span class="muted">11/13 ' + r[0] + '　' + r[1] + '</span><span>' + r[2] + '</span></li>'; }).join('') || '<li class="muted">記録はありません</li>';
@@ -2960,27 +3140,30 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   }
   function fits(f, n) { return f.ctr >= n || (f.table && n <= 5) || (f.vip && n >= 6); }
   function partyN(v) { return v === '6〜9名' ? 6 : v === '10名以上' ? 10 : parseInt(v, 10); }
-  var SLOT_H = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5];
+  /* the number of free places is not shown (a guest may give up without asking); only whether each kind of seat is free */
+  var VT = [['ctr', 'カウンター'], ['table', 'テーブル席（オープン）'], ['vip', 'VIP席（個室）']];
+  function typesFree(f) { return { ctr: f.ctr > 0, table: f.table, vip: f.vip }; }
+  function vtHtml(f) { var t = typesFree(f); return VT.map(function (v) { return '<span' + (t[v[0]] ? '' : ' class="full"') + '>' + v[1] + '<b>' + (t[v[0]] ? '○' : '×') + '</b></span>'; }).join(''); }
+  var SLOT_H = []; for (var sh = Math.floor(NOW); sh <= 7; sh++) SLOT_H.push(sh);
+  var NOW_SPAN = Math.ceil(NOW) - NOW || 1;
   function renderGuestVac() {
-    var nv = document.getElementById('gvNum').value, n = partyN(nv);
-    var now = freeAt(NOW, 1);
-    document.getElementById('gvNow').textContent = now.total ? 'あと ' + now.total + '名 空きあり' : '満席です';
-    document.getElementById('rvVac').textContent = now.total ? 'あと ' + now.total + '名 空きあり' : '満席です';
-    document.getElementById('gvSlots').innerHTML = SLOT_H.map(function (h) {
-      var ok = fits(freeAt(h), n);
-      return '<span' + (ok ? '' : ' class="full"') + '>' + hm(h) + '<b>' + (ok ? '○' : '×') + '</b></span>';
-    }).join('');
-    document.getElementById('gvNote').textContent = '○ ' + nv + 'で予約できます　× 満席です';
+    var now = freeAt(NOW, NOW_SPAN);
+    document.getElementById('gvNow').innerHTML = vtHtml(now);
+    document.getElementById('rvVac').innerHTML = vtHtml(now);
+    document.getElementById('gvSlots').innerHTML = '<span class="h">時刻</span><span class="h">カウンター</span><span class="h">テーブル</span><span class="h">VIP（個室）</span>' +
+      SLOT_H.map(function (h) { var t = typesFree(freeAt(h, 1)); return '<span class="h">' + hm(h) + '</span>' + VT.map(function (v) { return '<span class="' + (t[v[0]] ? 'ok' : 'full') + '" data-vt="' + v[0] + '">' + (t[v[0]] ? '○' : '×') + '</span>'; }).join(''); }).join('');
   }
+  var PREF_K = { 'カウンターを希望': 'ctr', 'テーブル席（オープン）を希望': 'table', 'VIP席（個室）を希望': 'vip' };
   function renderRvFit() {
-    var t = document.getElementById('rvTime').value, nv = document.getElementById('rvNum').value;
+    var t = document.getElementById('rvTime').value, pref = document.getElementById('rvPref').value;
     var hh = parseInt(t, 10), mm = parseInt(t.split(':')[1], 10); var h = (hh < 19 ? hh + 24 : hh) - 19 + mm / 60;
-    var ok = fits(freeAt(h), partyN(nv)), el = document.getElementById('rvFit');
-    el.textContent = t + ' から ' + nv + 'で ' + (ok ? 'ご予約できます' : 'ご予約が難しい時間です（お店にご相談ください）');
-    el.className = 'notice' + (ok ? ' info' : '');
+    var ty = typesFree(freeAt(h)), el = document.getElementById('rvFit'), k = PREF_K[pref];
+    var line = t + '〜' + hm(h + 2) + ' の空き（2時間の目安）　' + VT.map(function (v) { return v[1] + ' ' + (ty[v[0]] ? '○' : '×'); }).join('・');
+    var ng = k && !ty[k];
+    el.textContent = line + (ng ? '。ご希望の席が空いていない時間です。ご予約は受け付けて、お店からご連絡します（仮）' : '');
+    el.className = 'notice' + (ng ? '' : ' info');
   }
-  document.getElementById('gvNum').addEventListener('change', renderGuestVac);
-  ['rvTime', 'rvNum'].forEach(function (id) { document.getElementById(id).addEventListener('change', renderRvFit); });
+  ['rvTime', 'rvNum', 'rvPref'].forEach(function (id) { document.getElementById(id).addEventListener('change', renderRvFit); });
   /* ---- guest: a week of confirmed shifts (store 1) ---- */
   var SHIFT_T = { 'あおい': '20:00〜1:00', 'みなみ': '20:00〜2:00', 'さくら': '21:00〜3:00', 'ゆい': '19:00〜0:00' };
   function renderGuestWeek() {
@@ -3000,6 +3183,9 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     document.getElementById('mvDrawer').classList.add('show');
   }
   document.getElementById('mvOpen').addEventListener('click', function () { openMove(); });
+  /* the time is always shown with "5分後": the cast reads it later and would count from then */
+  document.querySelectorAll('#mvWhen [data-min]').forEach(function (b) { if (b.dataset.min !== 'at') b.textContent = (+b.dataset.min ? b.dataset.min + '分後' : 'すぐ') + '（' + hm(NOW + b.dataset.min / 60) + '）'; });
+  document.getElementById('mvPreset').addEventListener('change', function () { if (this.value) document.getElementById('mvMemo').value = this.value; });
   document.getElementById('mvWhen').addEventListener('click', function (e) {
     var b = e.target.closest('[data-min]'); if (!b) return; mvMin = b.dataset.min === 'at' ? 'at' : +b.dataset.min;
     document.getElementById('mvAtF').hidden = mvMin !== 'at';
@@ -3013,12 +3199,12 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
       var hh = +v.split(':')[0], mm = +v.split(':')[1], h = (hh < 12 ? hh + 24 : hh) - 19 + mm / 60;
       if (h <= NOW) { toast('いま（' + hm(NOW) + '）より後の時刻を入れてください'); return; }
       at = hh + ':' + ('0' + mm).slice(-2); how = '時刻を決めた';
-    } else { at = hm(NOW + mvMin / 60); how = mvMin ? mvMin + '分後' : 'すぐ'; }
+    } else { at = hm(NOW + mvMin / 60); how = (mvMin ? mvMin + '分後' : 'すぐ') + '（' + at + '）'; }
     var li = document.createElement('li'); li.id = id;
     li.innerHTML = '<span>' + at + ' ' + cast + 'さん → ' + seat + '<small>' + how + (memo ? '・' + memo.replace(/[<>&]/g, '') : '') + '</small></span>' +
       (mvMin ? '<button type="button" class="btn secondary small" data-mv-cancel="' + id + '">取り消す</button>' : '<span class="muted" data-mv-st>届きました</span>');
     var list = document.getElementById('mvList'); list.insertBefore(li, list.firstChild);
-    document.getElementById('mvDrawer').classList.remove('show'); document.getElementById('mvMemo').value = '';
+    document.getElementById('mvDrawer').classList.remove('show'); document.getElementById('mvMemo').value = ''; document.getElementById('mvPreset').value = '';
     toast(mvMin ? cast + 'さんに ' + at + ' に届くよう予約しました' : cast + 'さんに LINE で知らせました');
     if (!mvMin) setTimeout(function () { var st = li.querySelector('[data-mv-st]'); if (st) st.textContent = 'わかりました'; }, 1500);
   });
@@ -3035,8 +3221,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var m = document.createElement('div'); m.className = 'msg me'; m.innerHTML = '<div class="bubble"><p>わかりました</p></div><span class="stamp"><span class="read">既読</span>21:30</span>';
     document.getElementById('mvMsg').after(m); toast('管理者に「わかりました」を伝えました');
   });
-  /* ---- SCR-34: 個室希望 ---- */
-  document.getElementById('mrSave').addEventListener('click', function () { document.getElementById('myRvPriv').textContent = document.getElementById('mrPriv').checked ? '個室を希望' : 'なし'; });
+  /* ---- SCR-34: 席のご希望 ---- */
+  document.getElementById('mrSave').addEventListener('click', function () { document.getElementById('myRvPriv').textContent = document.getElementById('mrPref').value; });
 
   /* ---- SCR-38 notification settings (guest) ---- */
   ['ntEvent', 'ntRemind'].forEach(function (id) { document.getElementById(id).addEventListener('change', function () { document.getElementById('ntSave').disabled = false; }); });
@@ -3090,7 +3276,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     document.getElementById('hmList').innerHTML = two ? l.map(function (r) {
       return '<li><span class="t">' + r[0] + '</span><span class="g">' + r[1] + ' <small>' + r[2] + '名</small>' + (BOTTLE[r[1]] ? '<br><small>ボトルあり</small>' : '') + '</span><span class="badge ' + r[4] + '">' + r[3] + '</span></li>';
     }).join('') : HOME1;
-    document.getElementById('hmMore').textContent = two ? '二号店の席の構成は確認中です。' : 'ほか 3件は予定表で見られます。';
+    document.getElementById('hmMore').textContent = two ? '二号店の席の構成は確認中です。' : '5件より多いときは、枠の中をスクロールして見られます。';
     document.getElementById('hmCrowd2').hidden = !two;
   }
 
@@ -3107,18 +3293,19 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     renderHome(); renderTl(); renderAdminCal(); renderRvCal(); renderWeek(); renderGuestVac(); renderRvFit(); renderGuestWeek();
   }
   function applyMode() {
-    document.querySelectorAll('[data-storetabs]').forEach(function (t) { t.hidden = !owner; });
+    document.querySelectorAll('[data-storetabs]').forEach(function (t) { t.hidden = false; });
     screens.forEach(function (sc) {
       if (ADMIN_SCREENS.indexOf(sc.dataset.screen) < 0) return;
-      var r = sc.querySelector('.badge.role'); if (r) r.textContent = owner ? '全体オーナー' : '店長・一号店';
+      var r = sc.querySelector('.badge.role'); if (r) r.textContent = '管理者';
     });
-    setStore(owner ? store : 1);
+    setStore(store);
   }
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-store]'); if (t) { setStore(+t.dataset.store); return; }
-    var m = e.target.closest('[data-mode]'); if (m) { owner = m.dataset.mode === 'owner'; applyMode(); }
   });
   renderCastCal(); applyMode();
+  renderCtl('ctl', ''); renderCtl('ctlMe', ME_CAST);
+  document.getElementById('ctlWrap').scrollLeft = document.getElementById('ctlWrapMe').scrollLeft = Math.max(0, NOW * 80 - 120);
 
   /* ---- talk: messages typed by the user get an automatic reply by keywords (§11-57, provisional) ---- */
   var REPLY = {
