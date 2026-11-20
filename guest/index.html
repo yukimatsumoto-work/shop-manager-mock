@@ -195,13 +195,18 @@ body.ref-mobile .to-start, body.ref-tablet .to-start { display: none; }
 /* hit area behind an open sheet: a tap outside closes the sheet and never focuses or opens anything behind it */
 .m-screen:has(> .drawer.show)::after { content: ""; position: absolute; inset: 0; z-index: 20; }
 .drawer .sheet-hint { font-size: var(--fs-12); color: var(--color-slate-700); text-align: center; }
-/* catalog notes: speech-bubble look so that they read as explanations, always shown */
-.cnote, .m-body > .hint { position: relative; margin-top: var(--space-8); padding: var(--space-8) var(--space-12) var(--space-8) var(--space-12); border: 1px solid var(--color-info-light-blue); border-radius: var(--radius-12); background: var(--color-info-bg); color: var(--color-primary); font-size: var(--fs-12); line-height: 1.6; }
-.cnote::before, .m-body > .hint::before { content: ""; position: absolute; left: 20px; top: -7px; width: 12px; height: 12px; background: var(--color-info-bg); border-left: 1px solid var(--color-info-light-blue); border-top: 1px solid var(--color-info-light-blue); transform: rotate(45deg); }
+/* catalog notes (not shown in production): a speech bubble placed right next to what it explains.
+   .up = the thing explained is just above (tail at the top), .down = it is just below (tail at the bottom), .r = tail on the right */
+.cnote { position: relative; margin: var(--space-4) 0 0; padding: var(--space-8) var(--space-12); border: 1px solid var(--color-info-light-blue); border-radius: var(--radius-12); background: var(--color-info-bg); color: var(--color-primary); font-size: var(--fs-12); line-height: 1.6; }
+.cnote::before { content: ""; position: absolute; left: 20px; width: 12px; height: 12px; background: inherit; border-left: 1px solid var(--color-info-light-blue); border-top: 1px solid var(--color-info-light-blue); }
+.cnote.up::before { top: -7px; transform: rotate(45deg); }
+.cnote.down { margin: 0 0 var(--space-4); }
+.cnote.down::before { bottom: -7px; transform: rotate(225deg); }
+.cnote.r::before { left: auto; right: 24px; }
 .cnote b.cn-l { display: inline-block; margin-right: var(--space-8); padding: 0 var(--space-8); border-radius: var(--radius-4); background: var(--color-info); color: var(--color-white); font-size: var(--fs-12); }
-.guide { display: flex; flex-direction: column; gap: var(--space-8); }
-.line-bg .guide .cnote { background: var(--color-white); }
-.line-bg .guide .cnote::before { background: var(--color-white); }
+.card .cnote, .drawer .cnote { margin-top: 0; }
+.line-bg .cnote { background: var(--color-white); max-width: 340px; }
+.line-bg .cnote.r { align-self: flex-end; }
 
 /* ---------- frames ---------- */
 #phoneFrame { display: block; }
@@ -753,6 +758,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <div class="kpi"><p class="muted">残りの予約</p><p class="v" id="hmRv">7<small>件</small></p></div>
               <div class="kpi"><p class="muted">空き席</p><p class="v" id="hmSeat">6<small>/9</small></p></div>
             </div>
+            <p class="cnote up r" id="hmSeat2" hidden><b class="cn-l">説明</b>上の空き席: 二号店は席の構成が確認中のため「—」にしています。</p>
             <div class="card">
               <div class="sec-head"><h2>本日の予約</h2><button type="button" class="link" data-go="SCR-14">詳しくは予定表 ›</button></div>
               <ul class="rlist" id="hmList">
@@ -773,12 +779,12 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               </div>
               <div class="bars-x"><span>21時</span><span><b>22時</b></span><span>23時</span><span>0時</span><span>1時</span><span>2時</span></div>
               <p class="peak-note"><span class="ic">!</span>22時に混雑。キャストさん1名追加で安心です</p>
-              <p class="muted" id="hmCrowd2" hidden>二号店の混雑予測は、モックでは一号店の例を出しています。</p>
+              <p class="cnote up" id="hmCrowd2" hidden><b class="cn-l">説明</b>このグラフ: 二号店の混雑予測は、モックでは一号店の例を出しています。</p>
               <button type="button" class="btn block" id="hmAsk">追加出勤を依頼する</button>
             </div>
           </div>
           <h2>メニュー</h2>
-          <p class="cnote">必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上の「メニュー」: 必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-02"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-14"><span>業務予定</span></button><button type="button" class="tile" data-go="SCR-17"><span>一斉送信</span></button><button type="button" class="tile" data-go="SCR-13"><span>顧客</span></button><button type="button" class="tile" data-go="SCR-11"><span>勤怠</span></button><button type="button" class="tile" data-go="SCR-12"><span>給与試算</span></button></div>
           <h2>補助メニュー</h2>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-03"><span>配席・担当の承認</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予測・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-26"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-29"><span>予約（週・月）</span></button><button type="button" class="tile" data-go="SCR-31"><span>キャストさん</span></button><button type="button" class="tile" data-go="SCR-30"><span>席の設定</span></button><button type="button" class="tile" data-go="SCR-35"><span>お知らせ</span></button><button type="button" class="tile" data-go="SCR-36"><span>1日の締め</span></button><button type="button" class="tile" data-go="SCR-32"><span>ステータス区分</span></button><button type="button" class="tile" data-go="SCR-33"><span>操作記録</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
@@ -838,7 +844,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             </div>
           </div>
           <h2>メニュー</h2>
-          <p class="cnote">必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上の「メニュー」: 必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-04"><span>割り当て</span></button><button type="button" class="tile" data-go="SCR-05"><span>お客さん</span></button><button type="button" class="tile" data-go="SCR-15"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-16"><span>勤怠の申請</span></button><button type="button" class="tile" data-go="SCR-07"><span>追加出勤の依頼</span></button><button type="button" class="tile" data-go="SCR-18"><span>店からの連絡</span></button></div>
           <h2>補助メニュー</h2>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-06"><span>出退勤の記録</span></button><button type="button" class="tile" data-go="SCR-37"><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-39"><span>遅刻・欠勤の連絡</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
@@ -875,7 +881,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             </div>
           </div>
           <h2>メニュー</h2>
-          <p class="cnote">必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上の「メニュー」: 必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-08"><span>予約する</span></button><button type="button" class="tile" data-go="SCR-34"><span>予約の確認・変更</span></button><button type="button" class="tile" data-go="SCR-38"><span>お知らせの設定</span></button></div>
           <h2>補助メニュー</h2>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-24"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-25"><span>未登録のとき（例）</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
@@ -918,7 +924,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <p class="muted" data-detail>次の予約 22:00（代表 No.0088 T.K. 12名）</p>
             <button type="button" class="btn secondary small" data-toggle-seat="seatB">使用中にする</button>
           </div>
-          <p class="hint">席の状態を切り替えられるのは管理者だけです。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上の席: 押して空き／使用中を切り替えられるのは管理者だけです（キャストさんの画面は見るだけ）。</p>
           <h2>キャストの出勤状況</h2>
           <div class="card">
             <ul class="castlist">
@@ -957,7 +963,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <select id="rcGuest" class="select"><option value="ok">予約 21:00 No.0112 A.K.（1名）</option><option value="pend">予約 21:00 No.0145 M.S.（2名）</option><option value="walk">当日来店（会員番号を入れる）</option></select></div>
           <div class="field"><label for="rcNum">人数</label><select id="rcNum" class="select"><option selected>1名</option><option>2名</option><option>3名</option><option>4名</option></select></div>
           <p class="notice info" id="rcSeatInfo">席: カウンター C6（承認済み）。受け付けると使用中になります。</p>
-          <p class="hint">席は、配席・担当キャストさんの候補を承認して決めます。受付では人数と来店時刻を記録します。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上の席: 席は、配席・担当キャストさんの候補を承認して決めます。受付では人数と来店時刻を記録します。</p>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="rcDrawer">やめる</button>
             <button type="button" class="btn" id="rcSave">受け付ける</button>
@@ -975,7 +981,6 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
-          <p class="hint">配席と担当キャストさんは、それぞれ管理者が承認します。候補が合わなければ、選び直してから承認します。承認するまで、キャストさんには通知されません。担当キャストさんは、その日に最初に付く人です（同伴のときは、キャストさんが自分で判断して付きます）。</p>
           <div id="apvTodo">
           <div class="card" id="cand1">
             <p class="apv-no" data-apv-no>予約・来店 1/2</p>
@@ -987,12 +992,15 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <div class="row"><h4>配席</h4><span class="st" data-st>承認待ち</span></div>
               <select class="select" aria-label="MS さんの席"><option>カウンター C4・C5</option><option>カウンター C6・C7</option><option>カウンター C2・C3</option></select>
               <div class="rbar"><span>あとから来る予約との重なりの少なさ</span><span class="tr"><i style="width:80%"></i></span></div>
+              <p class="cnote up"><b class="cn-l">説明</b>このバー: 候補の理由を長さで示します（長さは例。出し方は確認中）。</p>
               <p class="muted">23:00 から C6・C7 に予約があるため、端から空いている C4・C5 を候補にしました。</p>
               <button type="button" class="btn" data-apv>配席を承認</button>
+              <p class="cnote up"><b class="cn-l">説明</b>このボタン: 配席と担当キャストさんは、それぞれ管理者が承認します。候補が合わなければ、プルダウンで選び直してから承認します。</p>
             </div>
             <div class="apv" data-part="キャストさん">
               <div class="row"><h4>担当キャストさん</h4><span class="st" data-st>承認待ち</span></div>
               <select class="select" aria-label="MS さんの担当キャストさん"><option value="みなみ">みなみさん（接客 13回・相性 ○）</option><option value="さくら">さくらさん（接客 6回・相性 △）</option><option value="あおい">あおいさん（接客 1回・相性 —）</option></select>
+              <p class="cnote up"><b class="cn-l">説明</b>担当キャストさん: その日に最初に付く人です（同伴のときは、キャストさんが自分で判断して付きます）。選択肢には、このお客さんを接客した回数と相性を出します。承認するまで、キャストさんには通知されません。</p>
               <div class="rbar"><span>接客した回数（13回）</span><span class="tr"><i style="width:90%"></i></span></div>
               <div class="rbar"><span>相性</span><span class="tr"><i style="width:70%"></i></span></div>
               <p class="muted">接客した回数が多く、相性のよいみなみさんが出勤中です。</p>
@@ -1086,6 +1094,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <div class="field"><label for="cgPick">お客さんを選ぶ</label><select id="cgPick" class="select"></select></div>
+          <p class="cnote up"><b class="cn-l">説明</b>お客さんを選ぶ: キャストさんは、お店のお客さん全員の情報を見られます（仮）。会話を書けるのは、接客中のお客さんだけです。</p>
           <div class="card">
             <p class="big" id="cgName">MS さん（No.0145）</p>
             <div class="kvrow"><span>ステータス</span><span id="cgSt"><span class="badge vip">常連</span></span></div>
@@ -1113,7 +1122,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <textarea class="textarea" id="talkInput" aria-label="会話内容" placeholder="例: 好きなお酒、話題にしたこと"></textarea>
           <button type="button" class="btn block" id="talkSave" disabled>登録する</button>
           </div>
-          <p class="muted" id="cgRecNo" hidden>会話内容を書けるのは、接客したキャストさんだけです（仮）。</p>
+          <p class="muted" id="cgRecNo" hidden>会話内容を書けるのは、接客したキャストさんだけです。</p>
         </div>
         <div class="overlay" id="doneTalk" role="dialog" aria-label="登録完了">
           <div class="dialog">
@@ -1251,7 +1260,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <li><span>2時</span><span class="badge">落ち着き</span></li>
             </ul>
           </div>
-          <p class="hint">予測の出し方と補充が必要と判断する基準は確認中です（表示は例）。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>この予測: 予測の出し方と、補充が必要と判断する基準は確認中です（表示は例）。</p>
           <h2>追加出勤を依頼する</h2>
           <div class="card">
             <label class="checkrow"><input type="checkbox" data-ask value="ゆい" checked><span>ゆい</span><span class="badge">不在</span></label>
@@ -1274,8 +1283,9 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <div class="roletabs storetabs" role="group" aria-label="店舗" data-storetabs><button type="button" data-store="1" aria-pressed="true">一号店</button><button type="button" data-store="2" aria-pressed="false">二号店</button></div>
+          <p class="cnote up" id="tlStore2" hidden><b class="cn-l">説明</b>上の「一号店｜二号店」: 二号店の1日の予定は、モックでは省略しています（二号店の席の構成は確認中です）。</p>
           <div class="roletabs dmtabs" role="group" aria-label="表示の切り替え"><button type="button" aria-pressed="true">本日</button><button type="button" data-go="SCR-29" aria-pressed="false">週</button><button type="button" data-go="SCR-28" aria-pressed="false">月</button></div>
-          <p class="notice" id="tlStore2" hidden>二号店の1日の予定は、モックでは省略しています（二号店の席の構成は確認中です）。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>この切り替え: ほかの日は「月」で日を選んで開きます。「週」で今日から1週間を見られます。</p>
           <div id="tlStore1">
           <div class="mkpis">
             <div class="kpi"><p class="muted">本日の予約</p><p class="v">8件</p><p class="muted">残り 7件</p></div>
@@ -1289,14 +1299,12 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <span><i class="sw cand"></i>配席予定</span>
             <span><i class="sw line"></i>21:05 現在</span>
           </div>
+          <p class="cnote down"><b class="cn-l">説明</b>下の表の時間: 営業時間（19:00〜翌3:00）は仮です。帯の終わりは目安（2時間）で、滞在時間の決まりは確認中です。</p>
           <div class="mtl-wrap" id="tlWrap"><div class="mtl" id="tl"></div></div>
+          <p class="cnote up"><b class="cn-l">説明</b>この表: 横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。いちばん下の「席未定」の行には、席が決まっていない予約・候補が出ます（予約の席は、詳細から承認の画面へ進んで管理者が決めます。仮）。</p>
           <h2>キャストさんから見た表（本日）</h2>
-          <p class="muted">出勤しているキャストさんが、何時から何時まで、どの席に付くかを示します。空いている時間は「自由（状況に応じて）」です。</p>
+          <p class="cnote down"><b class="cn-l">説明</b>下の表: 出勤しているキャストさんが、何時から何時まで、どの席に付くかを示します。空いている時間は「自由（状況に応じて）」です。席の表と同じ予定から作ります。</p>
           <div class="mtl-wrap ctl-wrap" id="ctlWrap"><div class="mtl ctl" id="ctl"></div></div>
-          <p class="hint">横にスクロールすると、翌3:00 までの予定を見られます。帯を押すと詳細が開きます。ほかの日は、上の「月」で日を選んで開きます。</p>
-          <p class="hint">営業時間（19:00〜翌3:00）は仮です。帯の終わりは目安（2時間）で、滞在時間の決まりは確認中です。</p>
-          <p class="hint">席が決まっていない予約・候補は「席未定」の行に出ます。予約の席は、帯を押して管理者が決めます（仮）。</p>
-          <p class="hint">テーブル席・VIP席の予約は代表者だけを登録します。同行者の情報は後日入力できるようにします（入力する項目は確認中）。</p>
           </div>
         </div>
         <div class="drawer" id="tlModal" role="dialog" aria-label="予定の詳細">
@@ -1305,11 +1313,12 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <dl class="kv" id="tlKv"></dl>
             <div class="field" id="tlSeatWrap" hidden>
               <button type="button" class="btn secondary block" id="tlSeatBtn" data-go="SCR-03">席を決める・変える（配席・担当キャストさんの承認へ）</button>
-              <p class="hint">席は、配席・担当キャストさんの承認で決めます（承認前は席を承認するか選び直し、承認後は「席・キャストさんを直す」）。</p></div>
+              <p class="cnote up"><b class="cn-l">説明</b>このボタン: 席は、配席・担当キャストさんの承認で決めます（承認前は配席を承認するか選び直し、承認後は「配席・キャストさんを修正」）。</p></div>
             <div class="card" id="tlBox" hidden>
               <div class="row"><h3>同行者の情報</h3><span class="badge">後日入力</span></div>
-              <p class="muted">代表者だけで予約を受けています。同行者の情報は後日入力できます（入力する項目は確認中）。</p>
+              <p class="muted">代表者だけで予約を受けています。同行者の情報は後日入力できます。</p>
             </div>
+            <p class="cnote up"><b class="cn-l">説明</b>この枠: テーブル席・VIP席の予約は代表者だけを登録します。同行者の情報の入力する項目・人・時期は確認中です。</p>
             <button type="button" class="btn secondary block" id="tlToDash" data-go="SCR-03" hidden>承認の画面を開く</button>
             <p class="sheet-hint">下にスワイプするか、外側を押すと戻ります</p>
           </div>
@@ -1344,7 +1353,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <select id="atState" class="select"><option value="">すべて</option><option>退勤未登録</option><option>修正済み</option><option>登録済み</option></select></div>
           </div>
           <div id="atList" class="clist"></div>
-          <p class="hint">労働時間は分単位で集計し、丸めません。修正した人・日時・理由・修正前の値は履歴に残ります。キャストは自分の勤怠を修正できません。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>この一覧: 労働時間は分単位で集計し、丸めません。修正した人・日時・理由・修正前の値は履歴に残ります。キャストは自分の勤怠を修正できません。</p>
         </div>
         <div class="drawer" id="atModal" role="dialog" aria-label="勤怠の修正">
           <h2>勤怠を修正する</h2>
@@ -1385,7 +1394,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="field"><label for="pyMonth">対象期間</label>
             <select id="pyMonth" class="select"><option>2026年11月 1日〜15日</option><option>2026年10月 16日〜31日</option></select></div>
           <button type="button" class="btn block" id="csvBtn">出力して保存・共有する</button>
-          <p class="notice">計算ルール（時給・歩合など）と割増率は確認中のため、試算額は表示していません。労働時間と深夜の時間だけを表示しています。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>このボタン: 出力の形式（CSV など）と項目は確認中です。保存・共有の仕方は仮です。</p>
+          <p class="cnote down"><b class="cn-l">説明</b>下のカード: 計算ルール（時給・歩合など）と割増率が確認中のため、試算額は出さず、労働時間と深夜の時間だけを出しています。</p>
           <div class="card"><div class="row"><h3>あおい</h3><span class="muted">8日</span></div>
             <div class="kvrow"><span>労働時間</span><span>40時間42分</span></div><div class="kvrow"><span>うち深夜</span><span>26時間05分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
           <div class="card"><div class="row"><h3>みなみ</h3><span class="muted">7日</span></div>
@@ -1394,7 +1404,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="kvrow"><span>労働時間</span><span>27時間41分</span></div><div class="kvrow"><span>うち深夜</span><span>18時間12分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
           <div class="card"><div class="row"><h3>ゆい</h3><span class="muted">3日</span></div>
             <div class="kvrow"><span>労働時間</span><span>12時間20分</span></div><div class="kvrow"><span>うち深夜</span><span>6時間10分</span></div><div class="kvrow"><span>時給</span><span>未設定</span></div></div>
-          <p class="hint">出力したファイルは、スマートフォンに保存するか、LINE などで共有できます（仮）。形式（CSV など）と項目は確認中です。</p>
+          <p class="hint">出力したファイルは、スマートフォンに保存するか、LINE などで共有できます。</p>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -1424,9 +1434,9 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           </div>
           <fieldset class="field"><legend>キャストさん相性（よい順・3人まで）</legend>
             <div class="trio"><select id="gCast" class="select" aria-label="1番目"><option>なし</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select><select id="gCast2" class="select" aria-label="2番目"><option>なし</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select><select id="gCast3" class="select" aria-label="3番目"><option>なし</option><option>あおい</option><option>みなみ</option><option>さくら</option><option>ゆい</option></select></div></fieldset>
+          <p class="cnote up"><b class="cn-l">説明</b>キャストさん相性: 配席・担当キャストさんの候補を出すときに、この順で使います（相性の決め方は確認中）。ステータス（常連・新規）とボトルの有無は、来店実績と登録から自動で決まります。</p>
           <div class="field"><label for="gGrp">よく来る人数</label>
             <select id="gGrp" class="select"><option>少人数（1〜3名）</option><option>大人数（4名以上）</option></select></div>
-          <p class="hint">キャストさん相性は、配席・担当キャストさんの候補を出すときに使います（相性の決め方は確認中）。ステータス（常連・新規）とボトルの有無は、来店実績と登録から自動で決まります。</p>
           <p class="notice">実名・勤務先・連絡先は入力しないでください。</p>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="gModal">やめる</button>
@@ -1441,9 +1451,10 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <select id="btKind" class="select"><option>ウイスキー</option><option>焼酎</option><option>ブランデー</option><option>ワイン</option><option>そのほか</option></select></div>
             <div class="field"><label for="btName">銘柄（必須）</label><input id="btName" class="input" placeholder="例: 麦焼酎 25度"></div>
           </div>
+          <p class="cnote up"><b class="cn-l">説明</b>お酒の種類: 選択肢は例です。期限・残量を持つかは確認中です。</p>
           <div class="field"><label for="btTag">タグ名（ボトルの首の札）</label><input id="btTag" class="input" placeholder="例: アキ"></div>
           <div class="field"><span class="flabel">写真</span><button type="button" class="btn secondary small" id="btPhoto">写真を選ぶ</button><span class="muted" id="btPhotoState">未選択</span></div>
-          <p class="hint">お酒の種類の選択肢と、期限・残量を持つかは確認中です。写真は一覧の小さな画像を押すと大きく見られます。</p>
+          <p class="hint">写真は一覧の小さな画像を押すと大きく見られます。</p>
           <button type="button" class="btn block" id="btAdd" disabled>追加する</button>
           <p class="sheet-hint">下にスワイプするか、外側を押すと戻ります</p>
         </div>
@@ -1512,6 +1523,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="field"><label for="bcText">本文</label><textarea id="bcText" class="textarea" placeholder="例: 23時から VIP席に12名の予約があります。"></textarea></div>
           <label class="checkrow"><input type="checkbox" id="bcAsk" checked><span>「確認しました」を求める</span></label>
           <button type="button" class="btn block" id="bcSend" disabled>送信する</button>
+          <p class="cnote up"><b class="cn-l">説明</b>このボタン: LINE 公式アカウントは、月に送れる通数に上限があります（プランは確認中）。</p>
           <div class="card" id="bcResult" hidden>
             <div class="row"><h3>確認の状況</h3><span class="muted" id="bcCount">確認 1 / 3</span></div>
             <ul class="who-list">
@@ -1520,7 +1532,6 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <li><span>さくら</span><span class="badge">まだ</span></li>
             </ul>
           </div>
-          <p class="hint">LINE 公式アカウントは月に送れる通数に上限があります（プランは確認中）。</p>
         </div>
         <div class="drawer" id="bcPick" role="dialog" aria-label="送るキャストさんを選ぶ">
           <h2>送るキャストさんを選ぶ</h2>
@@ -1565,16 +1576,13 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
-          <div class="guide" aria-label="この画面の説明">
-            <p class="cnote"><b class="cn-l">説明1</b>この画面は<strong>管理者</strong>の画面です。LINE のトーク画面を一例としてイメージしています。お店の LINE 公式アカウントのメニューから店舗管理ツールに入ります（管理者は管理用の画面、キャストさんはシフト、お客さんは予約へ、アカウントに応じて分かれます）。</p>
-            <p class="cnote"><b class="cn-l">説明2</b>管理者は、キャストさんからの勤怠の申請や、お客さんからの席の予約を受け付けて承認します。キャストさん・お客さんがツールから申請すると、このトークにメッセージが届きます。下のボタンでツールの画面が開きます。予約の開始・終了の時刻より前に配席を済ませておくと、その予約のお知らせは届きません。</p>
-            <p class="cnote"><b class="cn-l">説明3</b>下のメッセージとボタンは一例です（例: ゆいさんから 20:00 の出勤の申請が届く）。一部のボタンは、まだ動かない場合があります。下の入力欄から言葉（予定・承認・勤怠など）を送ると、自動で返事をします。</p>
-          </div>
+          <p class="cnote up"><b class="cn-l">説明</b>この画面は<strong>管理者</strong>の LINE のトーク画面（一例）です。お店の LINE 公式アカウントのメニューから店舗管理ツールに入ります（管理者は管理用の画面、キャストさんはシフト、お客さんは予約へ、アカウントに応じて分かれます）。</p>
           <div class="talk">
             <p class="time"><span>11/13（金）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">勤怠の申請</span>
               <p>ゆい さんから出勤（20:00）の申請があります。理由: 位置情報が取れなかった。</p>
               <button type="button" class="btn secondary small" data-go="SCR-11">申請を見る</button></div><span class="stamp">20:12</span></div>
+            <p class="cnote up" style="margin-left:40px"><b class="cn-l">説明</b>上のメッセージ: キャストさん・お客さんがツールから申請すると、このようにメッセージが届きます（例: ゆいさんから 20:00 の出勤の申請が届く）。ボタンでツールの画面が開き、管理者が承認します。予約の開始・終了の時刻より前に配席を済ませておくと、その予約のお知らせは届きません。メッセージとボタンは一例で、一部はまだ動かない場合があります。</p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">配席・担当キャストさんの候補</span>
               <p>No.0145 M.S.（2名・21:00 の予約）の配席・担当キャストさんの候補ができました。</p>
               <button type="button" class="btn secondary small" data-go="SCR-03">候補を承認する</button></div><span class="stamp">20:58</span></div>
@@ -1585,6 +1593,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <p>No.0145 M.S.（2名・21:00 の予約）の来店がまだありません。取り消しますか。</p>
               <div class="pair"><button type="button" class="btn secondary small" id="nsKeep">まだ待つ</button><button type="button" class="btn danger small" id="nsCancel">取り消す</button></div></div><span class="stamp">21:30</span></div>
             <div class="msg me"><div class="bubble"><p>まだ待つ</p></div><span class="stamp"><span class="read">既読</span>21:31</span></div>
+            <p class="cnote up r"><b class="cn-l">説明</b>右の緑の吹き出し: こちらから送ったメッセージです（上の「まだ待つ」を押した記録）。下の入力欄から言葉（予定・承認・勤怠など）を送ると、自動で返事をします。</p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">予約の終了</span>
               <p>テーブル席（No.0123 K.T.・3名）の予定終了時刻です。退店したら席を空きにしてください。</p>
               <div class="pair"><button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button><button type="button" class="btn secondary small" id="nsExtend">30分延長</button></div></div><span class="stamp">23:00</span></div>
@@ -1613,8 +1622,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <li>・出勤している日は、お客さんの画面に名前が表示されます</li>
               <li>・誕生日（月日だけ）を登録した場合は、お客さんの画面にも表示されます</li>
             </ul>
-            <p class="muted">文面は確認中です（表示は例）。</p>
           </div>
+          <p class="cnote up"><b class="cn-l">説明</b>上の文面: 扱う情報と利用目的の文面は確認中です（表示は例）。</p>
           <label class="checkrow"><input type="checkbox" id="cfAgree"><span>内容を確認し、同意します</span></label>
           <button type="button" class="btn block" id="cfSave" disabled>同意して登録する</button>
           <p class="hint">QR コードを使うのは、この最初の登録だけです。同じコードはもう使えません。</p>
@@ -1629,16 +1638,13 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
-          <div class="guide" aria-label="この画面の説明">
-            <p class="cnote"><b class="cn-l">説明1</b>この画面は<strong>キャストさん</strong>の画面です。LINE のトーク画面を一例としてイメージしています。お店の LINE 公式アカウントのメニュー（「シフトはこちら」など）から店舗管理ツールに入ります。</p>
-            <p class="cnote"><b class="cn-l">説明2</b>お店からの割り当て・席の移動のお願い・追加出勤のお願いが、このトークに届きます。下のボタンで画面が開き、出勤・退勤、シフト、勤怠の申請ができます。</p>
-            <p class="cnote"><b class="cn-l">説明3</b>下のメッセージとボタンは一例です。一部のボタンは、まだ動かない場合があります。右側の緑の吹き出しはキャストさんが送ったメッセージの例で、言葉（出勤・遅れなど）に自動で返事をします。店の人には届きません（仮）。</p>
-          </div>
+          <p class="cnote up"><b class="cn-l">説明</b>この画面は<strong>キャストさん</strong>の LINE のトーク画面（一例）です。お店の LINE 公式アカウントのメニュー（「シフトはこちら」など）から店舗管理ツールに入ります。</p>
           <div class="talk">
             <p class="time"><span>11/13（金）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">追加出勤のお願い</span>
               <p>みなみ さん、今日 22:00〜 出勤できるか教えてください。</p>
               <button type="button" class="btn secondary small" data-go="SCR-07">応答する</button></div><span class="stamp">19:30</span></div>
+            <p class="cnote up" style="margin-left:40px"><b class="cn-l">説明</b>上のメッセージ: お店からの割り当て・席の移動のお願い・追加出勤のお願いが、このように届きます。ボタンで画面が開きます。メッセージとボタンは一例で、一部はまだ動かない場合があります。</p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">勤怠の申請の結果</span>
               <p>11/12 の退勤（1:00）の申請が承認されました。</p>
               <button type="button" class="btn secondary small" data-go="SCR-21">ホームを開く</button></div><span class="stamp">20:15</span></div>
@@ -1649,6 +1655,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <p>23時から VIP席に12名の予約があります。22時半までに準備をお願いします。</p>
               <button type="button" class="btn secondary small" data-go="SCR-18">読んで確認する</button></div><span class="stamp">21:06</span></div>
             <div class="msg me"><div class="bubble"><p>VIP席の準備が終わりました。</p></div><span class="stamp"><span class="read">既読</span>21:20</span></div>
+            <p class="cnote up r"><b class="cn-l">説明</b>右の緑の吹き出し: キャストさんが送ったメッセージの例です。言葉（出勤・遅れなど）に自動で返事をします。店の人には届きません（仮）。</p>
             <div class="msg" id="mvMsg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">席の移動のお願い</span>
               <p>21:30 に カウンター C6 へ移動をお願いします。ひとこと: グラスは持ち帰り</p>
               <button type="button" class="btn secondary small" id="mvAck">わかりました</button></div><span class="stamp">21:30</span></div>
@@ -1667,22 +1674,20 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
-          <div class="guide" aria-label="この画面の説明">
-            <p class="cnote"><b class="cn-l">説明1</b>この画面は<strong>お客さん</strong>の画面です。LINE のトーク画面を一例としてイメージしています。お店の LINE 公式アカウントのメニュー（「予約はこちら」）から店舗管理ツールに入ります。</p>
-            <p class="cnote"><b class="cn-l">説明2</b>ご予約の受付・承認・前日と当日のお知らせが、このトークに届きます。「予約を確認する」で予約の確認・変更・取消の画面が開きます。</p>
-            <p class="cnote"><b class="cn-l">説明3</b>下のメッセージとボタンは一例です。一部のボタンは、まだ動かない場合があります。右側の緑の吹き出しはお客さんが送ったメッセージの例で、言葉（予約・変更など）に自動で返事をします。店の人には届きません（仮）。</p>
-          </div>
+          <p class="cnote up"><b class="cn-l">説明</b>この画面は<strong>お客さん</strong>の LINE のトーク画面（一例）です。お店の LINE 公式アカウントのメニュー（「予約はこちら」）から店舗管理ツールに入ります。</p>
           <div class="talk">
             <p class="time"><span>11/12（木）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">ご予約を承りました</span>
               <p>11/13（金）21:00〜23:00・2名でお待ちしております。</p>
               <p class="muted">お店より: 今回もカウンターをご用意しています。</p>
               <button type="button" class="btn secondary small" data-go="SCR-34">予約を確認する</button></div><span class="stamp">18:00</span></div>
+            <p class="cnote up" style="margin-left:40px"><b class="cn-l">説明</b>上のメッセージ: ご予約の受付・承認・前日と当日のお知らせが、このように届きます。「予約を確認する」で予約の確認・変更・取消の画面が開きます。メッセージとボタンは一例で、一部はまだ動かない場合があります。</p>
             <p class="time"><span>11/13（金）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">本日のご予約</span>
               <p>今日 21:00・2名のご予約があります。変更・取消は「予約を確認する」からできます。</p>
               <button type="button" class="btn secondary small" data-go="SCR-34">予約を確認する</button></div><span class="stamp">12:00</span></div>
             <div class="msg me"><div class="bubble"><p>1名増えて3名になっても大丈夫ですか？</p></div><span class="stamp"><span class="read">既読</span>12:05</span></div>
+            <p class="cnote up r"><b class="cn-l">説明</b>右の緑の吹き出し: お客さんが送ったメッセージの例です。言葉（予約・変更など）に自動で返事をします。店の人には届きません（仮）。</p>
           </div>
         </div>
         <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
@@ -1750,7 +1755,6 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="row"><h3>VIP席（10名以上）</h3><span class="badge ok">空き</span></div>
             <p class="muted">22:00 から予約あり</p>
           </div>
-          <p class="hint">お客さんの情報は、お店のお客さん全員の分を見られます（仮）。会話内容を書けるのは、接客したキャストさんだけです（仮）。</p>
           <h2>キャストの出勤状況</h2>
           <div class="card">
             <ul class="castlist">
@@ -1777,15 +1781,15 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="cal-head"><button type="button" class="cal-nav" data-cal-month aria-label="前の月">‹</button><h2>2026年11月</h2><button type="button" class="cal-nav" data-cal-month aria-label="次の月">›</button></div>
           <div class="legend"><span><i class="sw c"></i>確定・出勤</span><span><i class="sw s"></i>提出中・出勤</span><span><i class="sw x"></i>提出中・休み</span><span><i class="sw o"></i>確定・休み</span></div>
           <div class="cal" id="calAdmin" aria-label="11月のシフト"></div>
+          <p class="cnote up"><b class="cn-l">説明</b>このカレンダー: 帯は、その日のキャストのシフトの内訳です（左から確定・出勤、提出中・出勤、提出中・休み、確定・休み）。「予」は予約の件数、「誕」はキャストの誕生日です。休みも、確定するまでは提出中です。</p>
           <div class="card" id="sdPanel">
             <div class="row"><h3 id="sdTitle">—</h3><span class="muted" id="sdRv">—</span></div>
             <p class="muted" id="sdBday" hidden>—</p>
             <ul class="castlist" id="sdList"></ul>
             <button type="button" class="btn block" id="sdFix">提出（出勤・休み）をすべて確定する</button>
-            <p class="hint" id="sdOvrHint" hidden>管理者は、確定したシフトも「修正」で変えられます。変えると、そのキャストさんに LINE で知らせます。</p>
+            <p class="cnote up" id="sdOvrHint" hidden><b class="cn-l">説明</b>上の「修正」: 管理者は、確定したシフトも変えられます。変えると、そのキャストさんに LINE で知らせ、記録に残します。</p>
             <button type="button" class="btn secondary block" id="sdDay" data-go="SCR-14">この日の業務予定（1日表示）</button>
           </div>
-          <p class="hint">帯は、その日のキャストのシフトの内訳です（左から確定・出勤、提出中・出勤、提出中・休み、確定・休み）。「予」は予約の件数、「誕」はキャストの誕生日です。休みも、確定するまでは提出中です。</p>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -1800,6 +1804,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <p class="notice" id="myTodo">まだ提出していない日: —</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上の案内: 提出の締切と単位は確認中です。</p>
           <div class="cal-head"><button type="button" class="cal-nav" data-cal-month aria-label="前の月">‹</button><h2>2026年11月</h2><button type="button" class="cal-nav" data-cal-month aria-label="次の月">›</button></div>
           <div class="legend"><span><i class="sw c"></i>確定・出勤</span><span><i class="sw s"></i>提出中・出勤</span><span><i class="sw x"></i>提出中・休み</span><span><i class="sw o"></i>確定・休み</span><span><i class="sw n"></i>未提出</span></div>
           <div class="cal" id="calCast" aria-label="11月の自分のシフト"></div>
@@ -1815,7 +1820,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             </div>
             <p class="muted" id="myPast" hidden>過ぎた日です。</p>
           </div>
-          <p class="hint">見られるのは自分のシフトだけです。休みも、管理者が確定するまでは提出中です。提出の締切は確認中です。</p>
+          <p class="hint">見られるのは自分のシフトだけです。休みも、管理者が確定するまでは提出中です。</p>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" aria-current="page" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
@@ -1834,12 +1839,12 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="cal-head"><button type="button" class="cal-nav" data-cal-month aria-label="前の月">‹</button><h2>2026年11月</h2><button type="button" class="cal-nav" data-cal-month aria-label="次の月">›</button></div>
           <div class="legend"><span><i class="sw"></i>予約</span><span><i class="sw cand"></i>承認待ち・席未定</span></div>
           <div class="cal" id="calRv" aria-label="11月の予約"></div>
+          <p class="cnote up"><b class="cn-l">説明</b>このカレンダー: 日のマスには、予約を時刻で2件まで出し、残りは「+件数」で出します。日を押すと、その日の予約がすべて出ます。予約の追加・変更は、予約の確認と配席・担当キャストさんの承認で行います。</p>
           <div class="card" id="rvPanel">
             <div class="row"><h3 id="rvTitle">—</h3><span class="muted" id="rvCount">—</span></div>
             <ul class="rlist" id="rvList"></ul>
             <button type="button" class="btn secondary block" id="rvDay" data-go="SCR-14">この日の1日の流れ（横長）</button>
           </div>
-          <p class="hint">日のマスには、予約を時刻で2件まで出し、残りは「+件数」で出します。日を押すと、その日の予約がすべて出ます。予約の追加・変更は、予約の確認と配席・担当キャストさんの承認で行います。</p>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -1858,7 +1863,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="cal-head"><button type="button" class="cal-nav" data-cal-week aria-label="前の週">‹</button><h2>11/13（金）〜11/19（木）</h2><button type="button" class="cal-nav" data-cal-week aria-label="次の週">›</button></div>
           <div class="legend"><span><i class="sw"></i>予約</span><span><i class="sw cand"></i>承認待ち・席未定</span></div>
           <div class="wk-list" id="wkList"></div>
-          <p class="hint">今日から1週間の予約を、日ごとに時刻とお客さんで出します（1日に4件まで。残りは「ほか件数」）。今日を押すと1日の流れ（横長）、ほかの日を押すと月表示でその日の予約の一覧が開きます。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>この一覧: 今日から1週間の予約を、日ごとに時刻とお客さんで出します（1日に4件まで。残りは「ほか件数」）。今日を押すと1日の流れ（横長）、ほかの日を押すと月表示でその日の予約の一覧が開きます。</p>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" aria-current="page" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -1878,6 +1883,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <h3>カウンター</h3>
             <div class="stepper"><button type="button" class="btn secondary" data-step="-1" aria-label="1席減らす">−</button><output id="ctrN">7席</output><button type="button" class="btn secondary" data-step="1" aria-label="1席増やす">＋</button></div>
             <p class="muted" id="ctrNames">C1・C2・C3・C4・C5・C6・C7</p>
+            <p class="cnote up"><b class="cn-l">説明</b>席の名前: 付け方（C1〜 など）は店ごとに決められます（例）。二号店の席の構成は確認中です。</p>
           </div>
           <div class="card">
             <h3>テーブル席・VIP席</h3>
@@ -1885,7 +1891,6 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <button type="button" class="btn secondary block" id="seatAdd">席を追加する</button>
           </div>
           <button type="button" class="btn block" id="seatSave">登録する</button>
-          <p class="hint">二号店の席の構成は確認中です。席の名前の付け方（C1〜 など）は店ごとに決められます（例）。</p>
         </div>
 <div class="drawer" id="seatDrawer" role="dialog" aria-label="席を変える・追加する">
           <h2 id="seatTitle">席を追加する</h2>
@@ -1949,7 +1954,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="badge info role">管理者</span>
         </div>
         <div class="m-body">
-          <p class="notice">ステータスの分け方は、店ごとに呼び方が違うため確認中です。この画面は例です。</p>
+          <p class="cnote down"><b class="cn-l">説明</b>下の設定: ステータスの分け方は、店ごとに呼び方が違うため確認中です。この画面は例です。</p>
           <div class="card">
             <h3>常連と新規</h3>
             <div class="field"><label for="stVisit">直近12か月の来店が何回以上で「常連」にするか</label>
@@ -1986,7 +1991,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="card">
             <ul class="loglist" id="logList"></ul>
           </div>
-          <p class="hint">登録・変更・削除・承認と、確定したシフトの修正を記録します。記録は見るだけで、変えられません。保存期間は確認中です。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>この記録: 保存期間は確認中です。</p>
+          <p class="hint">登録・変更・削除・承認と、確定したシフトの修正を記録します。記録は見るだけで、変えられません。</p>
         </div>
 <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -2011,7 +2017,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <button type="button" class="btn danger" id="myRvCancel">取り消す</button>
             </div>
           </div>
-          <p class="hint">変更・取消は、ご予約の時刻までできます（締切は確認中）。変更すると、お店でもう一度承認します。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上のボタン: 変更・取消の締切は確認中です。</p>
+          <p class="hint">変更・取消は、ご予約の時刻までできます。変更すると、お店でもう一度承認します。</p>
         </div>
         <div class="drawer" id="myRvDrawer" role="dialog" aria-label="予約の変更">
           <h2>予約を変更する</h2>
@@ -2056,8 +2063,9 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="kvrow"><span>今回送る通数</span><span id="anCount">120通</span></div>
             <div class="kvrow"><span>今月送った通数</span><span>860通／5,000通</span></div>
           </div>
+          <p class="cnote up"><b class="cn-l">説明</b>この通数: 数値は例です。自動の通知も通数に含むかは確認中です。</p>
           <button type="button" class="btn block" id="anSend" disabled>配信する</button>
-          <p class="hint">LINE 公式アカウントは、店から送った通数を月ごとに数えます（キャストさん・お客さんから届く分は数えません）。自動の通知も含むかは確認中です。上の通数は例です。</p>
+          <p class="hint">LINE 公式アカウントは、店から送った通数を月ごとに数えます（キャストさん・お客さんから届く分は数えません）。</p>
         </div>
 <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -2076,12 +2084,12 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="card">
             <ul class="klist">
               <li><span>確定していない勤怠<small>ゆいさんの出勤の申請</small></span><button type="button" class="btn secondary small" data-go="SCR-11">1件を見る</button></li>
-              <li><span>会話内容が未記入<small>担当のキャストさんに記入を頼みます</small></span><button type="button" class="btn secondary small" id="clAsk">2件を頼む</button></li>
+              <li><span>会話内容が未記入<small>接客したキャストさんに記入を頼みます</small></span><button type="button" class="btn secondary small" id="clAsk">2件を頼む</button></li>
               <li><span>来店数<small>予約 8件・当日来店 3件</small></span><strong>11組・25名</strong></li>
             </ul>
           </div>
           <button type="button" class="btn block" id="clDone">締める</button>
-          <p class="hint">残っている作業があっても締められます。残りは翌日のホームに出ます（仮）。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>このボタン: 残っている作業があっても締められます。残りは翌日のホームに出ます（仮）。</p>
         </div>
 <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
@@ -2100,7 +2108,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="card"><div class="row"><h3>みなみさん</h3><span class="muted">7日</span></div>
             <div class="kvrow"><span>労働時間</span><span>35時間17分</span></div><div class="kvrow"><span>うち深夜（22時〜5時）</span><span>21時間30分</span></div>
             <div class="kvrow"><span>時給</span><span>未設定</span></div><div class="kvrow"><span>試算額</span><span>—</span></div></div>
-          <p class="notice">計算ルール（時給・歩合など）と割増率は確認中のため、試算額は表示していません。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上のカード: 計算ルール（時給・歩合など）と割増率が確認中のため、試算額は出していません。</p>
           <div class="card"><h3>日ごとの記録</h3>
             <ul class="klist"><li><span>11/13（金）<small>出勤 19:58 ／ 退勤 —</small></span><span class="muted">出勤中</span></li>
               <li><span>11/10（火）<small>出勤 20:01 ／ 退勤 2:05</small></span><span>6時間04分</span></li>
@@ -2143,10 +2151,11 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="card"><p class="muted">連絡する日</p><p class="big" id="ltDay">11/17（火）20:00〜</p><p class="muted">確定・出勤の日</p></div>
           <span class="flabel">連絡の種類</span>
           <div class="roletabs storetabs" role="group" aria-label="連絡の種類" id="ltKind"><button type="button" aria-pressed="true" data-lt="late">遅刻</button><button type="button" aria-pressed="false" data-lt="absent">欠勤</button></div>
+          <p class="cnote up"><b class="cn-l">説明</b>「欠勤」: シフトがすぐ「確定・休み」に変わるのではなく、管理者が確かめてから直します（仮）。</p>
           <div class="field" id="ltArriveF"><label for="ltArrive">着く時刻の目安</label><select id="ltArrive" class="select"><option>20:30</option><option selected>21:00</option><option>21:30</option><option>22:00</option></select></div>
           <div class="field"><label for="ltReason">理由（任意）</label><textarea id="ltReason" class="textarea" placeholder="例: 電車が遅れています"></textarea></div>
           <button type="button" class="btn block" id="ltSend">管理者に連絡する</button>
-          <p class="hint">管理者に LINE で届きます。欠勤はシフトの「確定・休み」に変わるのではなく、管理者が確かめてから直します（仮）。</p>
+          <p class="hint">管理者に LINE で届きます。</p>
         </div>
 <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
@@ -2163,7 +2172,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <li><button type="button" class="tl-row" data-toast="ほかのトークは例です"><span class="avatar muted-av" aria-hidden="true">A</span><span class="tl-main"><b>友だち（例）</b><small>メッセージの例</small></span><span class="tl-side"><small>20:12</small></span></button></li>
             <li><button type="button" class="tl-row" data-toast="ほかのトークは例です"><span class="avatar muted-av" aria-hidden="true">G</span><span class="tl-main"><b>グループ（例）</b><small>メッセージの例</small></span><span class="tl-side"><small>昨日</small></span></button></li>
           </ul>
-          <p class="hint">LINE アプリのトーク一覧の例です（LINE 側の画面のため、作るのは店舗管理ツールのトークだけ）。店舗管理ツールの行を押すと、トークに戻ります。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>この一覧: LINE アプリのトーク一覧の例です（LINE 側の画面のため、作るのは店舗管理ツールのトークだけ）。店舗管理ツールの行を押すと、トークに戻ります。</p>
         </div>
       </section>
     </div>
@@ -3276,7 +3285,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     document.getElementById('hmList').innerHTML = two ? l.map(function (r) {
       return '<li><span class="t">' + r[0] + '</span><span class="g">' + r[1] + ' <small>' + r[2] + '名</small>' + (BOTTLE[r[1]] ? '<br><small>ボトルあり</small>' : '') + '</span><span class="badge ' + r[4] + '">' + r[3] + '</span></li>';
     }).join('') : HOME1;
-    document.getElementById('hmMore').textContent = two ? '二号店の席の構成は確認中です。' : '5件より多いときは、枠の中をスクロールして見られます。';
+    document.getElementById('hmMore').hidden = two;
+    document.getElementById('hmSeat2').hidden = !two;
     document.getElementById('hmCrowd2').hidden = !two;
   }
 
