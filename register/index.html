@@ -689,6 +689,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   .home { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-16); align-items: start; }
   .home > .alerts, .home > .kpi3, .home > .alert-btn, .home > .avail, .home > .slots, .home > .vgrid, .home > p, .home > .btn { grid-column: 1 / -1; }
   .home > .wide { grid-column: 1 / -1; }
+  .home > * { min-width: 0; }
   .tiles.mtiles { grid-template-columns: repeat(6, 1fr); }
   .chips { grid-template-columns: repeat(8, 1fr); }
   .castgrid { grid-template-columns: repeat(3, 1fr); }
@@ -699,6 +700,19 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   .drawer { left: 50%; right: auto; width: 560px; transform: translateX(-50%); }
   .bigbtns .btn { min-height: 72px; }
 }
+.inbox li { display: grid; grid-template-columns: 1fr auto; gap: var(--space-8); align-items: center; min-height: 48px; border-bottom: 1px solid var(--color-slate-100); font-size: var(--fs-14); }
+.inbox li:last-child { border-bottom: 0; }
+.inbox li small { display: block; color: var(--color-slate-700); font-size: var(--fs-12); }
+.lock { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-16); border-radius: var(--radius-12); background: var(--color-slate-800); }
+.lock .lk-time { color: var(--color-white); font-size: var(--fs-24); font-weight: 700; text-align: center; }
+.lock .lk-date { color: var(--color-slate-200); font-size: var(--fs-12); text-align: center; }
+.wp { display: block; width: 100%; min-height: 48px; padding: var(--space-12); border: 0; border-radius: var(--radius-12); background: var(--color-white); color: var(--color-primary); font: inherit; text-align: left; cursor: pointer; }
+.wp:hover { background: var(--color-slate-50); }
+.wp:active { background: var(--color-slate-100); }
+.wp:disabled { color: var(--color-slate-500); cursor: not-allowed; }
+.wp b { display: block; font-size: var(--fs-14); }
+.wp small { display: block; color: var(--color-slate-700); font-size: var(--fs-12); }
+.wp .wp-app { display: block; color: var(--color-slate-700); font-size: var(--fs-12); }
 </style>
 </head>
 <body>
@@ -715,7 +729,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   <h2>資料（PDF）</h2>
   <ul class="start-list">
     <li><a data-pdf="06_画面遷移フロー.pdf" href="06_画面遷移フロー.pdf" target="_blank" rel="noopener">画面遷移フロー（ロール別・A3 横1枚）</a></li>
-    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener" id="pdf07">画面遷移フロー（画面イメージつき・A3 横6ページ）</a></li>
+    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener" id="pdf07">画面遷移フロー（画面イメージつき・A3 横7ページ）</a></li>
   </ul>
   <div id="rolePages">
     <h2>立場ごとのページ</h2>
@@ -759,6 +773,14 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <div class="kpi"><p class="muted">空き席</p><p class="v" id="hmSeat">6<small>/9</small></p></div>
             </div>
             <p class="cnote up r" id="hmSeat2" hidden><b class="cn-l">説明</b>上の空き席: 二号店は席の構成が確認中のため「—」にしています。</p>
+            <div class="card wide" id="hmInbox">
+              <div class="sec-head"><h2>お知らせ <span class="badge ng" id="hmInboxN">2件</span></h2></div>
+              <ul class="inbox">
+                <li><span>予約の時刻です: AK さん（No.0112）<small>21:00・1名。来店したら受け付けてください</small></span><button type="button" class="btn secondary small" data-go="SCR-02">店内状況</button></li>
+                <li><span>お客さんからの相談: 1件<small>YO さん（No.0154）20:52</small></span><button type="button" class="btn secondary small" data-go="SCR-44">相談を見る</button></li>
+              </ul>
+            </div>
+            <p class="cnote up"><b class="cn-l">説明</b>上の「お知らせ」: 管理者へのお知らせ（予約の時刻・来店がない・相談・席の移動の「わかりました」など）は、LINE のトークに送らず、店のタブレットで開いておくこの画面に件数と一緒に出します（承認待ち・勤怠の申請は上の件数のボタン、補充は混雑予測に出します）。LINE で届くのは、キャストさんからの遅刻・欠勤の連絡だけです（LINE の通数を減らすため。確認中）。</p>
             <div class="card">
               <div class="sec-head"><h2>本日の予約</h2><button type="button" class="link" data-go="SCR-14">詳しくは予定表 ›</button></div>
               <ul class="rlist" id="hmList">
@@ -787,7 +809,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <p class="cnote up"><b class="cn-l">説明</b>上の「メニュー」: 必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-02"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-14"><span>業務予定</span></button><button type="button" class="tile" data-go="SCR-17"><span>一斉送信</span></button><button type="button" class="tile" data-go="SCR-13"><span>顧客</span></button><button type="button" class="tile" data-go="SCR-11"><span>勤怠</span></button><button type="button" class="tile" data-go="SCR-12"><span>給与試算</span></button></div>
           <h2>補助メニュー</h2>
-          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-03"><span>配席・担当の承認</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予測・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-26"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-29"><span>予約（週・月）</span></button><button type="button" class="tile" data-go="SCR-31"><span>キャストさん</span></button><button type="button" class="tile" data-go="SCR-30"><span>席の設定</span></button><button type="button" class="tile" data-go="SCR-35"><span>お知らせ</span></button><button type="button" class="tile" data-go="SCR-36"><span>1日の締め</span></button><button type="button" class="tile" data-go="SCR-32"><span>ステータス区分</span></button><button type="button" class="tile" data-go="SCR-33"><span>操作記録</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-03"><span>配席・担当の承認</span></button><button type="button" class="tile" data-go="SCR-10"><span>混雑予測・補充</span></button><button type="button" class="tile" data-go="SCR-19"><span>LINE のトーク（例）</span></button><button type="button" class="tile" data-go="SCR-26"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-29"><span>予約（週・月）</span></button><button type="button" class="tile" data-go="SCR-31"><span>キャストさん</span></button><button type="button" class="tile" data-go="SCR-30"><span>席の設定</span></button><button type="button" class="tile" data-go="SCR-35"><span>お知らせ</span></button><button type="button" class="tile" data-go="SCR-44"><span>お客さんの相談</span></button><button type="button" class="tile" data-go="SCR-36"><span>1日の締め</span></button><button type="button" class="tile" data-go="SCR-32"><span>ステータス区分</span></button><button type="button" class="tile" data-go="SCR-33"><span>操作記録</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
         </div>
         <div class="drawer" id="askDrawer" role="dialog" aria-label="追加出勤を依頼する">
           <h2>追加出勤を依頼する</h2>
@@ -799,7 +821,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           </div>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="askDrawer">やめる</button>
-            <button type="button" class="btn" id="hmAskSend">LINE で依頼する</button>
+            <button type="button" class="btn" id="hmAskSend">依頼する</button>
           </div>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
@@ -829,6 +851,15 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <div class="row"><h2>今日 11/13（金）</h2><span class="badge">お休み</span></div>
               <p class="when">今日の出勤はありません</p>
             </div>
+            <div class="notice info wide" id="wpNote"><p>スマホの通知がまだ設定されていません。設定すると、急ぐお知らせがすぐ届きます。</p><button type="button" class="btn secondary small" data-go="SCR-42">通知を設定する</button></div>
+            <div class="card wide">
+              <div class="sec-head"><h3>お知らせ <span class="badge ng">2件</span></h3></div>
+              <ul class="inbox">
+                <li><span>勤怠の申請が承認されました<small>11/12 の退勤（1:00）</small></span><span class="badge ng">未読</span></li>
+                <li><span>相性1番のお客さんのご予約<small>MS さん（No.0145）今日 21:00・2名</small></span><span class="badge ng">未読</span></li>
+              </ul>
+            </div>
+            <p class="cnote up"><b class="cn-l">説明</b>上の「お知らせ」: 急がないお知らせ（申請の結果・確定したシフトの修正・確認を求めない連絡・相性1番のお客さんのご予約）は、通知を送らず、ここに未読の印で出します（LINE の通数を減らすため。確認中）。</p>
             <div class="card next">
               <div class="sec-head"><h3>次の出勤 <span class="muted">確定済み</span></h3><button type="button" class="link" data-go="SCR-27">詳しくはシフト ›</button></div>
               <p class="when">11/15（日）20:00〜</p>
@@ -847,7 +878,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <p class="cnote up"><b class="cn-l">説明</b>上の「メニュー」: 必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-04"><span>割り当て</span></button><button type="button" class="tile" data-go="SCR-05"><span>お客さん</span></button><button type="button" class="tile" data-go="SCR-15"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-16"><span>勤怠の申請</span></button><button type="button" class="tile" data-go="SCR-07"><span>追加出勤の依頼</span></button><button type="button" class="tile" data-go="SCR-18"><span>店からの連絡</span></button></div>
           <h2>補助メニュー</h2>
-          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-06"><span>出退勤の記録</span></button><button type="button" class="tile" data-go="SCR-37"><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-39"><span>遅刻・欠勤の連絡</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-06"><span>出退勤の記録</span></button><button type="button" class="tile" data-go="SCR-37"><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-39"><span>遅刻・欠勤の連絡</span></button><button type="button" class="tile" data-go="SCR-42"><span>通知の設定</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
@@ -861,6 +892,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <div class="home">
+            <div class="notice info wide"><b>お店からのお知らせ</b><br>11/28（土）はイベントのため 18:00 から営業します。</div>
             <div class="avail">
               <p class="muted">今日 11/13（金）ただいま（〜22:00）の空き</p>
               <div class="vtypes" id="gvNow" aria-label="席の種類ごとの空き"></div>
@@ -869,6 +901,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <div class="vgrid" id="gvSlots" aria-label="時間ごと・席の種類ごとの空き"></div>
             <p class="muted" id="gvNote">○ 空きあり　× 空きなし。空いていない席でも、お店にご連絡いただければご案内できることがあります。</p>
             <button type="button" class="btn secondary block" data-go="SCR-24">お店に LINE で相談する</button>
+            <p class="cnote up"><b class="cn-l">説明</b>このボタンと上のお知らせ: ご相談は、受け付けたことを自動でお返しし、お店からお返事します。お店からのお知らせは、この画面と LINE VOOM の投稿に出し、トークにはお知らせを送る相手を絞って送ります（確認中）。</p>
             <button type="button" class="btn block" data-go="SCR-08">予約する</button>
             <div class="card wide">
               <div class="row"><h3>1週間の出勤</h3><span class="muted">11/13〜11/19</span></div>
@@ -900,6 +933,17 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         <div class="m-body">
           <div class="notice info" id="rcBanner">21:00 の予約（No.0112 A.K.・1名、カウンター C6 は承認済み）の時刻です。来店したら受け付けてください。</div>
           <button type="button" class="btn block" id="rcOpen">来店を受け付ける</button>
+          <div class="card" id="nsCard">
+            <div class="row"><h3>来店がありません</h3><span class="badge warn">21:30</span></div>
+            <p class="muted">MS さん（No.0145）21:00・2名のご予約です。取り消しますか。</p>
+            <div class="pair"><button type="button" class="btn secondary small" id="nsKeep">まだ待つ</button><button type="button" class="btn danger small" id="nsCancel">取り消す</button></div>
+          </div>
+          <div class="card">
+            <div class="row"><h3>予約の終了の時刻です</h3><span class="badge warn">23:00</span></div>
+            <p class="muted">テーブル席（KT さん（No.0123）・3名）。退店したら席を空きにしてください。</p>
+            <button type="button" class="btn secondary small" id="nsExtend">30分延長</button>
+          </div>
+          <p class="cnote up"><b class="cn-l">説明</b>上の2つ: 予約の開始・終了の時刻と、来店がないときの確認は、LINE のトークに送らず、この画面の上に出します（例として、21:30 と 23:00 に出るものを並べています）。</p>
           <h2>席（カウンター7席・テーブル席・VIP席）</h2>
           <div class="card">
             <div class="row"><h3>カウンター</h3><span class="muted" id="ctrCount">空き 5 / 7 席</span></div>
@@ -938,7 +982,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="card">
             <button type="button" class="btn secondary block" id="mvOpen">席の移動を頼む</button>
             <ul class="mvlist" id="mvList"><li><span>21:00 さくらさん → VIP席<small>すぐ（21:00）・22:00 の準備</small></span><span class="muted">わかりました</span></li></ul>
-            <p class="hint">キャストさんに LINE で知らせます。5分後・10分後・時刻を決めたものは、その時刻に届きます（届く前なら取り消せます）。</p>
+            <p class="hint">キャストさんに通知で知らせます。5分後・10分後・時刻を決めたものは、その時刻に届きます（届く前なら取り消せます）。</p>
           </div>
         </div>
         <div class="drawer" id="mvDrawer" role="dialog" aria-label="席の移動を頼む">
@@ -1054,7 +1098,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <select id="d2seat" class="select"><option>カウンター C6</option><option selected>カウンター C7</option><option>カウンター C2</option><option>テーブル席</option></select></div>
           <div class="field"><label for="d2cast">担当キャストさん</label>
             <select id="d2cast" class="select"><option value="あおい">あおいさん（接客 15回・相性 ○）</option><option value="さくら" selected>さくらさん（接客 3回・相性 △）</option><option value="みなみ">みなみさん（接客 4回・相性 ○）</option></select></div>
-          <p class="hint">キャストを変えると、新しく付くキャストに割り当てを、外れるキャストに外れたことを LINE で知らせます。変更の前後は記録に残ります。</p>
+          <p class="hint">キャストを変えると、新しく付くキャストに割り当てを、外れるキャストに外れたことを通知で知らせます（同じ席・同じお客さんのままなら知らせません）。変更の前後は記録に残ります。</p>
           <div class="pair">
             <button type="button" class="btn secondary" data-close-drawer="drawer2">やめる</button>
             <button type="button" class="btn" id="reSave">修正する</button>
@@ -1072,7 +1116,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="badge info role">キャスト</span>
         </div>
         <div class="m-body">
-          <p class="hint">管理者が承認した割り当てが届きました。</p>
+          <p class="hint">管理者が承認した割り当てが届きました（その日の対応予定は開店前に1通にまとめて届き、そのあとは席やお客さんが変わるときだけ届きます）。</p>
           <div class="card">
             <p class="muted">21:00〜／カウンター C4・C5</p>
             <p class="big">No.0145 M.S.</p>
@@ -1220,6 +1264,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="field"><label for="rvPref">席のご希望</label>
             <select id="rvPref" class="select"><option>特に希望なし</option><option>カウンターを希望</option><option>テーブル席（オープン）を希望</option><option>VIP席（個室）を希望</option></select></div>
           <p class="hint">テーブル席・VIP席のご予約は、代表の方だけのご登録で受け付けます。お帰りの目安は、席の準備に使います。席のご希望は、お店が席を決めるときの参考にします（ご希望に沿えないことがあります）。</p>
+          <label class="checkrow"><input type="checkbox" id="rvRemind"><span>前日にお知らせを受け取る（LINE）</span></label>
+          <p class="cnote up"><b class="cn-l">説明</b>このチェック: 初めてのご予約ではチェックなしで始まり、2回目からは前回の選び方を引き継ぎます。お知らせの設定でリマインドを止めている方は、チェックなしになります（確認中）。</p>
           <button type="button" class="btn block" id="rvBtn">予約する</button>
         </div>
         <div class="overlay" id="doneRv" role="dialog" aria-label="予約完了">
@@ -1267,7 +1313,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <label class="checkrow"><input type="checkbox" data-ask value="れな"><span>れな</span><span class="badge">休み</span></label>
             <label class="checkrow"><input type="checkbox" data-ask value="まい"><span>まい</span><span class="badge">休み</span></label>
           </div>
-          <button type="button" class="btn block" id="askBtn">選んだキャストに LINE で依頼する</button>
+          <button type="button" class="btn block" id="askBtn">選んだキャストさんに依頼する</button>
           <p class="hint" id="askState">応答はこの画面に表示されます。</p>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
@@ -1473,6 +1519,54 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" aria-current="page" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
       </section>
 
+      <!-- SCR-41 顧客詳細・会話内容（管理者） -->
+      <section data-screen="SCR-41" data-device="mobile" data-name="顧客詳細・会話内容（管理者）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">店舗管理ツール 一号店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-13" aria-label="戻る">‹</button>
+          <h1>顧客詳細・会話内容</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="field"><label for="acPick">お客さんを選ぶ</label><select id="acPick" class="select"></select></div>
+          <p class="cnote up"><b class="cn-l">説明</b>お客さんを選ぶ: 管理者は、お店のお客さん全員の会話内容を見て、書けます。顧客の一覧の「会話内容を見る」や、1日の締めの「会話を見る」から、そのお客さんを開きます。</p>
+          <div class="card">
+            <p class="big" id="acName">KT さん（No.0123）</p>
+            <div class="kvrow"><span>ステータス</span><span id="acSt"><span class="badge vip">常連</span></span></div>
+            <div class="kvrow"><span>特性</span><span id="acTrait">常連・ボトルあり・少人数</span></div>
+            <div class="kvrow"><span>来店実績</span><span id="acVisits">41回（直近12か月）</span></div>
+            <div class="kvrow"><span>前回の来店</span><span id="acLast">11月13日（直近）</span></div>
+            <div class="kvrow"><span>キャストさん相性</span><span id="acCompat">1番 あおいさん</span></div>
+          </div>
+          <p class="notice" id="acTodo">今日（11/13）の会話内容がまだ記入されていません（接客: あおいさん）。</p>
+          <div class="card">
+            <h3>ボトルキープ</h3>
+            <ul class="bottles" id="acBottles"></ul>
+            <p class="hint">ボトルの登録・変更は、顧客の一覧の「ボトルを登録・変更する」から行います。</p>
+          </div>
+          <h2>これまでの会話</h2>
+          <div class="card">
+            <ul class="talk" id="acTalk"></ul>
+          </div>
+          <h2>会話を記録</h2>
+          <p class="notice">実名・勤務先・連絡先は書かないでください。</p>
+          <textarea class="textarea" id="acInput" aria-label="会話内容" placeholder="例: 好きなお酒、話題にしたこと"></textarea>
+          <button type="button" class="btn block" id="acSave" disabled>登録する</button>
+        </div>
+        <div class="overlay" id="doneTalkA" role="dialog" aria-label="登録完了">
+          <div class="dialog">
+            <div class="done-icon">✓</div>
+            <h2>会話内容を登録しました</h2>
+            <p class="muted" id="doneTalkAMsg">会話内容に追加しました。</p>
+            <div class="actions">
+              <button type="button" class="btn" data-close-overlay="doneTalkA" data-go="SCR-13">一覧に戻る</button>
+              <button type="button" class="btn secondary" data-close-overlay="doneTalkA">閉じる</button>
+            </div>
+          </div>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" aria-current="page" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
+      </section>
+
       <!-- SCR-16 勤怠の申請 -->
       <section data-screen="SCR-16" data-device="mobile" data-name="勤怠の申請" class="m-screen">
         <div class="liff-head"><span class="lh-title">店舗管理ツール 一号店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
@@ -1490,7 +1584,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="field"><label for="rqDate">日付</label><input id="rqDate" class="input" type="date" value="2026-11-13"></div>
           <div class="field"><label for="rqReason">理由（必須）</label><input id="rqReason" class="input" placeholder="例: 位置情報が取れなかった"></div>
           <button type="button" class="btn block" id="rqSave" disabled>申請する</button>
-          <p class="hint">承認されるまで勤怠には反映されません。結果は LINE で届きます。</p>
+          <p class="hint">承認されるまで勤怠には反映されません。結果は、ホームに未読の印でお知らせします。</p>
         </div>
         <div class="overlay" id="rqDone" role="dialog" aria-label="登録完了">
           <div class="dialog">
@@ -1522,8 +1616,9 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             </div></div>
           <div class="field"><label for="bcText">本文</label><textarea id="bcText" class="textarea" placeholder="例: 23時から VIP席に12名の予約があります。"></textarea></div>
           <label class="checkrow"><input type="checkbox" id="bcAsk" checked><span>「確認しました」を求める</span></label>
+          <p class="hint">「確認しました」を求める連絡は、キャストさんに通知で届きます。求めない連絡は通知を送らず、キャストさんの「連絡」に未読の印で出します。</p>
           <button type="button" class="btn block" id="bcSend" disabled>送信する</button>
-          <p class="cnote up"><b class="cn-l">説明</b>このボタン: LINE 公式アカウントは、月に送れる通数に上限があります（プランは確認中）。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>このボタン: 通知は、通知の設定をしたキャストさんにはスマホの通知（Web Push）で、していない人には LINE で届きます。LINE 公式アカウントは、月に送れる通数に上限があります（プランは確認中）。</p>
           <div class="card" id="bcResult" hidden>
             <div class="row"><h3>確認の状況</h3><span class="muted" id="bcCount">確認 1 / 3</span></div>
             <ul class="who-list">
@@ -1563,6 +1658,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <button type="button" class="btn block" id="bcAck">確認しました</button>
           <p class="hint">「確認しました」を押したことが管理者に伝わります。</p>
           <h2>これまでの連絡</h2>
+          <div class="card"><div class="row"><h3>管理者から</h3><span class="muted">11/12 22:10</span></div><p class="muted">本日もお疲れさまでした。明日は 19:30 から店内の清掃をします。</p><span class="badge" style="align-self:flex-start">確認は不要</span></div>
+          <p class="cnote up"><b class="cn-l">説明</b>上のカード: 「確認しました」を求めない連絡は、通知を送らず、下のメニューの「連絡」に未読の印で出します。求める連絡（いちばん上）は、通知でも届きます。</p>
           <div class="card"><div class="row"><h3>管理者から</h3><span class="muted">11/12 18:30</span></div><p class="muted">今週末はイベントのため、20時までに出勤をお願いします。</p><span class="badge ok" style="align-self:flex-start">確認済み</span></div>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" aria-current="page" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
@@ -1579,24 +1676,14 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <p class="cnote up"><b class="cn-l">説明</b>この画面は<strong>管理者</strong>の LINE のトーク画面（一例）です。お店の LINE 公式アカウントのメニューから店舗管理ツールに入ります（管理者は管理用の画面、キャストさんはシフト、お客さんは予約へ、アカウントに応じて分かれます）。</p>
           <div class="talk">
             <p class="time"><span>11/13（金）</span></p>
-            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">勤怠の申請</span>
-              <p>ゆい さんから出勤（20:00）の申請があります。理由: 位置情報が取れなかった。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-11">申請を見る</button></div><span class="stamp">20:12</span></div>
-            <p class="cnote up" style="margin-left:40px"><b class="cn-l">説明</b>上のメッセージ: キャストさん・お客さんがツールから申請すると、このようにメッセージが届きます（例: ゆいさんから 20:00 の出勤の申請が届く）。ボタンでツールの画面が開き、管理者が承認します。予約の開始・終了の時刻より前に配席を済ませておくと、その予約のお知らせは届きません。メッセージとボタンは一例で、一部はまだ動かない場合があります。</p>
-            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">配席・担当キャストさんの候補</span>
-              <p>No.0145 M.S.（2名・21:00 の予約）の配席・担当キャストさんの候補ができました。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-03">候補を承認する</button></div><span class="stamp">20:58</span></div>
-            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">予約の開始</span>
-              <p>No.0145 M.S.（2名）の予約時刻です。来店したら受け付けてください（席は承認で決まります）。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button></div><span class="stamp">21:00</span></div>
-            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">来店の確認</span>
-              <p>No.0145 M.S.（2名・21:00 の予約）の来店がまだありません。取り消しますか。</p>
-              <div class="pair"><button type="button" class="btn secondary small" id="nsKeep">まだ待つ</button><button type="button" class="btn danger small" id="nsCancel">取り消す</button></div></div><span class="stamp">21:30</span></div>
-            <div class="msg me"><div class="bubble"><p>まだ待つ</p></div><span class="stamp"><span class="read">既読</span>21:31</span></div>
-            <p class="cnote up r"><b class="cn-l">説明</b>右の緑の吹き出し: こちらから送ったメッセージです（上の「まだ待つ」を押した記録）。下の入力欄から言葉（予定・承認・勤怠など）を送ると、自動で返事をします。</p>
-            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">予約の終了</span>
-              <p>テーブル席（No.0123 K.T.・3名）の予定終了時刻です。退店したら席を空きにしてください。</p>
-              <div class="pair"><button type="button" class="btn secondary small" data-go="SCR-02">店内状況を開く</button><button type="button" class="btn secondary small" id="nsExtend">30分延長</button></div></div><span class="stamp">23:00</span></div>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">遅刻の連絡</span>
+              <p>れな さんから遅刻の連絡があります。21:00 ごろ着く予定（出勤 20:00）。理由: 電車が遅れています。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-26">シフトを開く</button></div><span class="stamp">19:40</span></div>
+            <p class="cnote up" style="margin-left:40px"><b class="cn-l">説明</b>上のメッセージ: 管理者の LINE に届くのは、キャストさんからの遅刻・欠勤の連絡だけです（開店前の手配に関わるため）。ほかのお知らせ（候補・予約の時刻・来店がない・勤怠の申請・相談など）は、管理者のホームと店内状況の画面に出します（LINE の通数を減らすため。確認中）。メッセージとボタンは一例で、一部はまだ動かない場合があります。</p>
+            <div class="msg me"><div class="bubble"><p>予定表</p></div><span class="stamp"><span class="read">既読</span>20:05</span></div>
+            <p class="cnote up r"><b class="cn-l">説明</b>右の緑の吹き出し: こちらから送ったメッセージの例です。下の入力欄から言葉（予定・承認・勤怠など）を送ると、自動で返事をします。</p>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><p>予定表はこちらから開けます。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-14">予定表を開く</button><p class="muted">自動の返事です（店の人には届きません）</p></div><span class="stamp">20:05</span></div>
           </div>
         </div>
         <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
@@ -1638,20 +1725,20 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
-          <p class="cnote up"><b class="cn-l">説明</b>この画面は<strong>キャストさん</strong>の LINE のトーク画面（一例）です。お店の LINE 公式アカウントのメニュー（「シフトはこちら」など）から店舗管理ツールに入ります。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>この画面は<strong>キャストさん</strong>の LINE のトーク画面（一例）です。お店の LINE 公式アカウントのメニュー（「シフトはこちら」など）から店舗管理ツールに入ります。下のお知らせは、スマホの通知（Web Push）を設定していないとき、または通知が届かなかったときに LINE で届くものです。設定していれば、スマホの通知で届きます（通知の例は「通知の設定」から見られます）。</p>
           <div class="talk">
             <p class="time"><span>11/13（金）</span></p>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">本日の対応予定</span>
+              <p>みなみ さん、今日の予定です。21:00〜 カウンター C4・C5 ／ No.0145 M.S.</p>
+              <button type="button" class="btn secondary small" data-go="SCR-21">予定を見る</button></div><span class="stamp">19:00</span></div>
+            <p class="cnote up" style="margin-left:40px"><b class="cn-l">説明</b>上のメッセージ: 急ぐお知らせ（その日の対応予定・割り当ての変更・席の移動のお願い・追加出勤のお願い・「確認しました」を求める連絡）だけが、このように届きます。申請の結果や確定したシフトの修正などは届かず、ホームに未読の印で出ます。ボタンで画面が開きます。メッセージとボタンは一例で、一部はまだ動かない場合があります。</p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">追加出勤のお願い</span>
               <p>みなみ さん、今日 22:00〜 出勤できるか教えてください。</p>
               <button type="button" class="btn secondary small" data-go="SCR-07">応答する</button></div><span class="stamp">19:30</span></div>
-            <p class="cnote up" style="margin-left:40px"><b class="cn-l">説明</b>上のメッセージ: お店からの割り当て・席の移動のお願い・追加出勤のお願いが、このように届きます。ボタンで画面が開きます。メッセージとボタンは一例で、一部はまだ動かない場合があります。</p>
-            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">勤怠の申請の結果</span>
-              <p>11/12 の退勤（1:00）の申請が承認されました。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-21">ホームを開く</button></div><span class="stamp">20:15</span></div>
-            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">割り当て</span>
-              <p>21:00〜 カウンター C4・C5 ／ No.0145 M.S.</p>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">割り当ての変更</span>
+              <p>21:00〜 の席が カウンター C4・C5 に決まりました ／ No.0145 M.S.</p>
               <button type="button" class="btn secondary small" data-go="SCR-04">割り当てを見る</button></div><span class="stamp">21:02</span></div>
-            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">店からの連絡</span>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">店からの連絡（確認をお願いします）</span>
               <p>23時から VIP席に12名の予約があります。22時半までに準備をお願いします。</p>
               <button type="button" class="btn secondary small" data-go="SCR-18">読んで確認する</button></div><span class="stamp">21:06</span></div>
             <div class="msg me"><div class="bubble"><p>VIP席の準備が終わりました。</p></div><span class="stamp"><span class="read">既読</span>21:20</span></div>
@@ -1676,18 +1763,24 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         <div class="m-body line-bg">
           <p class="cnote up"><b class="cn-l">説明</b>この画面は<strong>お客さん</strong>の LINE のトーク画面（一例）です。お店の LINE 公式アカウントのメニュー（「予約はこちら」）から店舗管理ツールに入ります。</p>
           <div class="talk">
-            <p class="time"><span>11/12（木）</span></p>
+            <p class="time"><span>11/10（火）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">ご予約を承りました</span>
               <p>11/13（金）21:00〜23:00・2名でお待ちしております。</p>
               <p class="muted">お店より: 今回もカウンターをご用意しています。</p>
               <button type="button" class="btn secondary small" data-go="SCR-34">予約を確認する</button></div><span class="stamp">18:00</span></div>
-            <p class="cnote up" style="margin-left:40px"><b class="cn-l">説明</b>上のメッセージ: ご予約の受付・承認・前日と当日のお知らせが、このように届きます。「予約を確認する」で予約の確認・変更・取消の画面が開きます。メッセージとボタンは一例で、一部はまだ動かない場合があります。</p>
+            <p class="cnote up" style="margin-left:40px"><b class="cn-l">説明</b>上のメッセージ: お店がご予約を承認したお知らせです。ご予約の受付・変更・取消はトークに送らず、予約の画面でご確認いただきます。前日のお知らせは、予約のときに選んだ方だけに届きます（来店が近いご予約は、承認のお知らせが前日のお知らせを兼ねます）。メッセージとボタンは一例で、一部はまだ動かない場合があります。</p>
+            <p class="time"><span>11/12（木）</span></p>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">明日のご予約</span>
+              <p>明日 11/13（金）21:00・2名のご予約があります。変更・取消は「予約を確認する」からできます。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-34">予約を確認する</button></div><span class="stamp">18:00</span></div>
             <p class="time"><span>11/13（金）</span></p>
-            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">本日のご予約</span>
-              <p>今日 21:00・2名のご予約があります。変更・取消は「予約を確認する」からできます。</p>
-              <button type="button" class="btn secondary small" data-go="SCR-34">予約を確認する</button></div><span class="stamp">12:00</span></div>
-            <div class="msg me"><div class="bubble"><p>1名増えて3名になっても大丈夫ですか？</p></div><span class="stamp"><span class="read">既読</span>12:05</span></div>
-            <p class="cnote up r"><b class="cn-l">説明</b>右の緑の吹き出し: お客さんが送ったメッセージの例です。言葉（予約・変更など）に自動で返事をします。店の人には届きません（仮）。</p>
+            <div class="msg me"><div class="bubble"><p>【相談】カウンターは空いていませんが、3名で入れますか？</p></div><span class="stamp"><span class="read">既読</span>20:52</span></div>
+            <p class="cnote up r"><b class="cn-l">説明</b>右の緑の吹き出し: お客さんが送ったメッセージの例です。ホームの「お店に LINE で相談する」から送ったご相談は、受け付けたことを自動でお返しし（LINE の通数に入りません）、お店の人の画面に届きます。ほかの言葉（予約・変更など）には自動で返事をし、店の人には届きません（仮）。</p>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><p>ご相談を受け付けました。お店からお返事します。</p><p class="muted">自動の返事です</p></div><span class="stamp">20:52</span></div>
+            <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">お店からのお返事</span>
+              <p>21:30 からならテーブル席（オープン）にご案内できます。ご予約をお待ちしています。</p>
+              <button type="button" class="btn secondary small" data-go="SCR-08">予約する</button></div><span class="stamp">21:05</span></div>
+            <div class="msg me"><div class="bubble"><p>ありがとうございます</p></div><span class="stamp"><span class="read">既読</span>21:06</span></div>
           </div>
         </div>
         <div class="rm-bar"><button type="button" data-rm-kbd aria-label="文字の入力に切り替える"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h1M10 10h1M14 10h1M17 10h1M7 14h10"/></svg></button><button type="button" class="rm-toggle" data-rm-toggle aria-expanded="true">メニュー <span data-rm-arrow>▼</span></button></div>
@@ -1787,7 +1880,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             <p class="muted" id="sdBday" hidden>—</p>
             <ul class="castlist" id="sdList"></ul>
             <button type="button" class="btn block" id="sdFix">提出（出勤・休み）をすべて確定する</button>
-            <p class="cnote up" id="sdOvrHint" hidden><b class="cn-l">説明</b>上の「修正」: 管理者は、確定したシフトも変えられます。変えると、そのキャストさんに LINE で知らせ、記録に残します。</p>
+            <p class="cnote up" id="sdOvrHint" hidden><b class="cn-l">説明</b>上の「修正」: 管理者は、確定したシフトも変えられます。変えると、そのキャストさんのホームに未読の印で知らせ、記録に残します。</p>
             <button type="button" class="btn secondary block" id="sdDay" data-go="SCR-14">この日の業務予定（1日表示）</button>
           </div>
         </div>
@@ -1924,13 +2017,14 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <button type="button" class="btn block" id="castNew">新規登録</button>
           <div class="card">
             <ul class="klist" id="castList">
-              <li><span>あおいさん<small>誕生日 4/2・相性1番のお客さん 3人</small></span><button type="button" class="btn secondary small" data-cast-edit="あおい">編集</button></li>
-              <li><span>みなみさん<small>誕生日 7/19・相性1番のお客さん 1人</small></span><button type="button" class="btn secondary small" data-cast-edit="みなみ">編集</button></li>
-              <li><span>さくらさん<small>誕生日 11/13・相性1番のお客さん 1人</small></span><button type="button" class="btn secondary small" data-cast-edit="さくら">編集</button></li>
-              <li><span>ゆいさん<small>誕生日 11/24・相性1番のお客さん 2人</small></span><button type="button" class="btn secondary small" data-cast-edit="ゆい">編集</button></li>
+              <li><span>あおいさん<small>誕生日 4/2・相性1番のお客さん 3人・通知: 設定済み</small></span><button type="button" class="btn secondary small" data-cast-edit="あおい">編集</button></li>
+              <li><span>みなみさん<small>誕生日 7/19・相性1番のお客さん 1人・通知: まだ（LINE で届く）</small></span><button type="button" class="btn secondary small" data-cast-edit="みなみ">編集</button></li>
+              <li><span>さくらさん<small>誕生日 11/13・相性1番のお客さん 1人・通知: 設定済み</small></span><button type="button" class="btn secondary small" data-cast-edit="さくら">編集</button></li>
+              <li><span>ゆいさん<small>誕生日 11/24・相性1番のお客さん 2人・通知: 設定済み</small></span><button type="button" class="btn secondary small" data-cast-edit="ゆい">編集</button></li>
             </ul>
           </div>
           <p class="hint">名前は店での呼び名だけを登録します。誕生日は月日だけで、お客さんの画面にも出ます。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上の一覧の「通知」: スマホの通知（Web Push）を設定したかどうかです。「まだ」の人には、急ぐお知らせが LINE で届きます（LINE の通数に入ります）。表示のしかたは確認中です。</p>
         </div>
         <div class="drawer" id="castDrawer" role="dialog" aria-label="キャストさんの登録・編集">
           <h2 id="castTitle">キャストさんを登録する</h2>
@@ -2018,7 +2112,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             </div>
           </div>
           <p class="cnote up"><b class="cn-l">説明</b>上のボタン: 変更・取消の締切は確認中です。</p>
-          <p class="hint">変更・取消は、ご予約の時刻までできます。変更すると、お店でもう一度承認します。</p>
+          <p class="hint">変更・取消は、ご予約の時刻までできます。変更すると、お店でもう一度承認します。受付・変更・取消のお知らせはトークには届きませんので、この画面でご確認ください。</p>
         </div>
         <div class="drawer" id="myRvDrawer" role="dialog" aria-label="予約の変更">
           <h2>予約を変更する</h2>
@@ -2056,14 +2150,19 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
         <div class="m-body">
           <div class="roletabs storetabs" role="group" aria-label="店舗" data-storetabs><button type="button" data-store="1" aria-pressed="true">一号店</button><button type="button" data-store="2" aria-pressed="false">二号店</button></div>
-          <div class="field"><label for="anTo">宛先</label>
-            <select id="anTo" class="select"><option>お知らせを受け取るお客さん全員（120人）</option><option>常連のお客さん（64人）</option><option>ボトルキープのあるお客さん（38人）</option></select></div>
+          <p class="hint">お知らせは、お客さんのホームの画面と LINE VOOM の投稿に出します。トークに送るのは、下で選んだ相手だけです（受け取らない設定の方は除きます）。</p>
+          <span class="flabel">トークに送る相手（組み合わせられます）</span>
+          <div class="card">
+            <label class="checkrow"><input type="checkbox" data-an value="18" checked><span>その日に予約がある方（18人）</span></label>
+            <label class="checkrow"><input type="checkbox" data-an value="22"><span>最近来店した方（90日以内・例。22人）</span></label>
+            <label class="checkrow"><input type="checkbox" data-an value="9"><span>ボトルキープのある方・常連（9人）</span></label>
+          </div>
           <div class="field"><label for="anText">本文</label><textarea id="anText" class="textarea" placeholder="例: 11/28（土）はイベントのため 18:00 から営業します。"></textarea></div>
           <div class="card">
-            <div class="kvrow"><span>今回送る通数</span><span id="anCount">120通</span></div>
-            <div class="kvrow"><span>今月送った通数</span><span>860通／5,000通</span></div>
+            <div class="kvrow"><span>トークに送る人数（＝通数）</span><span id="anCount">18通</span></div>
+            <div class="kvrow"><span>今月の残りの通数</span><span>4,140通（5,000通のうち）</span></div>
           </div>
-          <p class="cnote up"><b class="cn-l">説明</b>この通数: 数値は例です。自動の通知も通数に含むかは確認中です。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>この通数: 数値は例です。人数は、選んだ条件の人数を足した例です（本番では、重なる方は1人として数えます）。条件と期間は確認中です。</p>
           <button type="button" class="btn block" id="anSend" disabled>配信する</button>
           <p class="hint">LINE 公式アカウントは、店から送った通数を月ごとに数えます（キャストさん・お客さんから届く分は数えません）。</p>
         </div>
@@ -2084,7 +2183,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <div class="card">
             <ul class="klist">
               <li><span>確定していない勤怠<small>ゆいさんの出勤の申請</small></span><button type="button" class="btn secondary small" data-go="SCR-11">1件を見る</button></li>
-              <li><span>会話内容が未記入<small>接客したキャストさんに記入を頼みます</small></span><button type="button" class="btn secondary small" id="clAsk">2件を頼む</button></li>
+              <li><span>会話内容が未記入<small>KT さん・AK さん。接客したキャストさんに記入を頼みます</small></span><button type="button" class="btn secondary small" id="clAsk">2件を頼む</button></li>
+              <li><span>未記入のお客さんの会話<small>管理者も見て、書けます</small></span><button type="button" class="btn secondary small" data-go="SCR-41" data-acg="No.0123">会話を見る</button></li>
               <li><span>来店数<small>予約 8件・当日来店 3件</small></span><strong>11組・25名</strong></li>
             </ul>
           </div>
@@ -2131,9 +2231,10 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <p class="hint">お店から LINE で届くお知らせのうち、受け取るものを選べます。</p>
           <div class="card">
             <label class="checkrow"><input type="checkbox" id="ntEvent" checked><span>イベント・休業日などのお知らせ</span></label>
-            <label class="checkrow"><input type="checkbox" id="ntRemind" checked><span>ご予約のリマインド（前日・当日）</span></label>
+            <label class="checkrow"><input type="checkbox" id="ntRemind" checked><span>ご予約の前日のお知らせ</span></label>
           </div>
-          <p class="muted">ご予約の受付・承認・変更・取消のお知らせは、受け取らない設定にできません（仮）。</p>
+          <p class="muted">ご予約の承認のお知らせは、受け取らない設定にできません（仮）。受付・変更・取消は、トークには届かず、予約の画面でご確認いただけます。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>上の「前日のお知らせ」: 受け取らないにすると、来店予約の「前日にお知らせを受け取る」も、チェックなしで始まります（確認中）。</p>
           <button type="button" class="btn block" id="ntSave" disabled>登録する</button>
         </div>
 <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(2, 1fr)"><button type="button" data-go="SCR-22"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-08"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予約</button></nav>
@@ -2175,6 +2276,92 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <p class="cnote up"><b class="cn-l">説明</b>この一覧: LINE アプリのトーク一覧の例です（LINE 側の画面のため、作るのは店舗管理ツールのトークだけ）。店舗管理ツールの行を押すと、トークに戻ります。</p>
         </div>
       </section>
+
+      <!-- SCR-42 通知の設定（キャスト） -->
+      <section data-screen="SCR-42" data-device="mobile" data-name="通知の設定（キャスト）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">店舗管理ツール 一号店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
+          <h1>通知の設定</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <div class="card">
+            <div class="row"><h3>スマホの通知</h3><span class="badge warn" id="wpState">まだ設定していません</span></div>
+            <p class="muted">設定すると、急ぐお知らせ（その日の対応予定・割り当ての変更・席の移動のお願い・追加出勤のお願い・確認を求める連絡）が、スマホの通知ですぐ届きます。</p>
+          </div>
+          <h2>設定の手順</h2>
+          <div class="card">
+            <ul class="klist">
+              <li><span>1. ブラウザで開く<small>Safari（iPhone）か Chrome（Android）で、このツールを開きます</small></span><span class="badge" id="wpS1">まだ</span></li>
+              <li><span>2. ホーム画面に追加する<small>共有メニューの「ホーム画面に追加」を押します</small></span><span class="badge" id="wpS2">まだ</span></li>
+              <li><span>3. 通知を許可する<small>ホーム画面のアイコンから開き、下のボタンを押して「許可」を選びます</small></span><span class="badge" id="wpS3">まだ</span></li>
+            </ul>
+          </div>
+          <p class="cnote up"><b class="cn-l">説明</b>上の手順: iPhone は iOS 16.4 以上が必要です。LINE の中で開いた画面では、通知を受け取れない見込みです。手順・本人の確かめ方・機種を変えたときのやり直しは確認中です。</p>
+          <button type="button" class="btn block" id="wpAllow">通知を許可する</button>
+          <button type="button" class="btn secondary block" id="wpTest" disabled>試しに通知を送る</button>
+          <p class="hint">設定しないときや、通知が届かなかったときは、これまでどおり LINE で届きます。</p>
+          <button type="button" class="btn secondary block" data-go="SCR-43">通知の例を見る</button>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
+      </section>
+
+      <!-- SCR-43 スマホの通知の例（キャスト） -->
+      <section data-screen="SCR-43" data-device="mobile" data-name="スマホの通知の例（キャスト）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">店舗管理ツール 一号店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-42" aria-label="戻る">‹</button>
+          <h1>スマホの通知の例</h1>
+          <span class="badge info role">キャスト</span>
+        </div>
+        <div class="m-body">
+          <p class="cnote down"><b class="cn-l">説明</b>下の画面: スマホのロック画面に届く通知の例です（一例。見た目は機種で変わります）。押すと、その画面が開きます。</p>
+          <div class="lock">
+            <p class="lk-time">21:30</p>
+            <p class="lk-date">11月13日（金）</p>
+            <button type="button" class="wp" data-toast="開くと、移動の内容と「わかりました」のボタンが出ます（この画面は確認中のため、モックにはありません）"><span class="wp-app">店舗管理ツール・21:30</span><b>席の移動のお願い</b><small>21:30 に カウンター C6 へ。ひとこと: グラスは持ち帰り</small></button>
+            <button type="button" class="wp" data-go="SCR-04"><span class="wp-app">店舗管理ツール・21:02</span><b>割り当ての変更</b><small>21:00〜 カウンター C4・C5 ／ No.0145 M.S.</small></button>
+            <button type="button" class="wp" data-go="SCR-21"><span class="wp-app">店舗管理ツール・19:00</span><b>本日の対応予定</b><small>みなみ さん、今日の予定です。21:00〜 カウンター C4・C5</small></button>
+          </div>
+          <p class="hint">通知に「わかりました」などを返すときは、開いた画面のボタンで返します。</p>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
+      </section>
+
+      <!-- SCR-44 お客さんからの相談（管理者） -->
+      <section data-screen="SCR-44" data-device="mobile" data-name="お客さんからの相談（管理者）" class="m-screen">
+        <div class="liff-head"><span class="lh-title">店舗管理ツール 一号店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
+        <div class="liff-bar">
+          <button type="button" class="back" data-go="SCR-01" aria-label="戻る">‹</button>
+          <h1>お客さんの相談</h1>
+          <span class="badge info role">管理者</span>
+        </div>
+        <div class="m-body">
+          <div class="card">
+            <ul class="inbox" id="cqList">
+              <li><span>YO さん（No.0154）20:52<small>カウンターは空いていませんが、3名で入れますか？</small></span><button type="button" class="btn small" id="cqOpen">返事をする</button></li>
+              <li><span>TW さん（No.0131）11/12 19:10<small>来週の土曜は何時から営業していますか？</small></span><span class="badge ok">返事済み</span></li>
+            </ul>
+          </div>
+          <p class="cnote up"><b class="cn-l">説明</b>上の一覧: お客さんがホームの「お店に LINE で相談する」から送った相談です。受け付けたことは自動で返しています（LINE の通数に入りません）。どの画面に出すか、ほかのメッセージとの見分け方は確認中です。</p>
+          <div class="card">
+            <div class="kvrow"><span>返事でかかる通数</span><span>1回で1通</span></div>
+            <div class="kvrow"><span>今月の残りの通数</span><span>4,140通（5,000通のうち）</span></div>
+          </div>
+        </div>
+        <div class="drawer" id="cqDrawer" role="dialog" aria-label="相談に返事をする">
+          <h2>YO さんに返事をする</h2>
+          <p class="muted">「カウンターは空いていませんが、3名で入れますか？」</p>
+          <div class="field"><label for="cqText">返事</label><textarea id="cqText" class="textarea" placeholder="例: 21:30 からならテーブル席にご案内できます。"></textarea></div>
+          <p class="hint">返事は、お客さんの LINE のトークに届きます（1回で1通）。</p>
+          <div class="pair">
+            <button type="button" class="btn secondary" data-close-drawer="cqDrawer">やめる</button>
+            <button type="button" class="btn" id="cqSend" disabled>返事を送る</button>
+          </div>
+        </div>
+        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-14"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>予定表</button><button type="button" data-go="SCR-03"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4 10-10"/></svg>承認</button><button type="button" data-go="SCR-13"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 5-6 8-6s7 2 8 6"/></svg>顧客</button></nav>
+      </section>
     </div>
   </div>
 </div>
@@ -2196,11 +2383,11 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   var ROLES = {
     admin: { name: '管理者', page: 2, lead: '管理者が LINE の中で使う画面です。下のボタンから、管理者の LINE のトークを開いて始めます。一号店・二号店は、タブで切り替えて見ます。',
       cards: [['SCR-19', '管理者として見る', '一号店・二号店をタブで切り替えて見る。配席・担当キャストさんの承認、予約、シフト、勤怠、給与試算、一斉送信']],
-      screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-28', 'SCR-29', 'SCR-26', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-17', 'SCR-30', 'SCR-31', 'SCR-32', 'SCR-33', 'SCR-35', 'SCR-36', 'SCR-40'] },
+      screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-28', 'SCR-29', 'SCR-26', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-41', 'SCR-17', 'SCR-30', 'SCR-31', 'SCR-32', 'SCR-33', 'SCR-35', 'SCR-44', 'SCR-36', 'SCR-40'] },
     cast: { name: 'キャスト', page: 5, lead: 'キャストが LINE の中で使う画面です。下のボタンから、キャストの LINE のトークを開いて始めます。',
       cards: [['SCR-23', 'キャストとして見る', '出勤・退勤、シフト、本日の割り当て、お客さんの情報、勤怠の申請']],
-      screens: ['SCR-23', 'SCR-21', 'SCR-27', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18', 'SCR-37', 'SCR-39', 'SCR-40'] },
-    guest: { name: 'お客さん', page: 6, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
+      screens: ['SCR-23', 'SCR-21', 'SCR-27', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18', 'SCR-37', 'SCR-39', 'SCR-42', 'SCR-43', 'SCR-40'] },
+    guest: { name: 'お客さん', page: 7, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
       cards: [['SCR-24', 'お客さんとして見る', '空き状況と来店予約、今日出勤しているキャスト']],
       screens: ['SCR-24', 'SCR-22', 'SCR-08', 'SCR-34', 'SCR-38', 'SCR-40'] },
     register: { name: '登録用', page: 1, lead: '初めて使う人が登録する画面と、登録していない人が開いたときの案内です。登録が終わると、その人の立場のホームに進みます。',
@@ -2317,7 +2504,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
       sel.disabled = true; b.hidden = true;
       var st = part.querySelector('[data-st]'); st.textContent = (fixed ? '直して承認済み' : '承認済み'); st.classList.add('done');
       if (part.dataset.part === '席') toast(name + 'の配席を' + (fixed ? '直して' : '') + '承認しました（' + val + '）。店内状況に反映します');
-      else toast(name + 'の担当キャストさんを' + (fixed ? '直して' : '') + '承認しました。' + sel.value + 'さんに LINE で通知しました');
+      else toast(name + 'の担当キャストさんを' + (fixed ? '直して' : '') + '承認しました。' + sel.value + 'さんに通知しました（席や相手が変わるときだけ届きます）');
       if (!card.querySelector('[data-apv]:not([hidden])')) {
         var done = document.getElementById('apvDone'); done.insertBefore(card, done.firstChild);
         var msg = card.querySelector('textarea');
@@ -2426,7 +2613,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   /* ---- SCR-08 reservation ---- */
   document.getElementById('rvBtn').addEventListener('click', function () {
     var d = document.getElementById('rvDate').value.split('-');
-    document.getElementById('rvMsg').textContent = Number(d[1]) + '/' + Number(d[2]) + ' ' + document.getElementById('rvTime').value + ' に ' + document.getElementById('rvNum').value + '（お帰りの目安: ' + document.getElementById('rvEnd').value + '・' + document.getElementById('rvPref').value + '）でお待ちしています。お店で承認すると LINE でお知らせします。';
+    document.getElementById('rvMsg').textContent = Number(d[1]) + '/' + Number(d[2]) + ' ' + document.getElementById('rvTime').value + ' に ' + document.getElementById('rvNum').value + '（お帰りの目安: ' + document.getElementById('rvEnd').value + '・' + document.getElementById('rvPref').value + '）でお待ちしています。お店で承認すると LINE でお知らせします。' + (document.getElementById('rvRemind').checked ? (document.getElementById('rvDate').value === '2026-11-13' ? '今日のご予約のため、前日のお知らせはありません。' : '前日にもお知らせします。') : '') + 'ご予約の内容は「予約の確認」で見られます（受付のお知らせはトークには届きません）。';
     document.getElementById('doneRv').classList.add('show');
   });
 
@@ -2442,7 +2629,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     if (!names.length) { toast('依頼するキャストさんを選んでください'); return; }
     closeSheet(document.getElementById('askDrawer'));
     var b = document.getElementById('hmAsk'); b.disabled = true; b.textContent = '依頼しました（' + names.join('・') + ' さん・応答待ち）';
-    toast(names.join('・') + ' さんに LINE で追加出勤を依頼しました');
+    toast(names.join('・') + ' さんに追加出勤を依頼しました（通知で届きます）');
   });
   document.addEventListener('click', function (e) { if (e.target.closest('[data-addmenu]')) toast('お店に合わせて機能を足せます（例: イベントの受付、売上のメモ）。モックでは例です'); });
 
@@ -2454,7 +2641,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var names = askBoxes.filter(function (x) { return x.checked; }).map(function (x) { return x.value; });
     askBtn.disabled = true; askBtn.textContent = '依頼しました';
     document.getElementById('askState').textContent = names.join('・') + ' さん: 応答待ち';
-    toast(names.join('・') + ' さんに LINE で追加出勤を依頼しました');
+    toast(names.join('・') + ' さんに追加出勤を依頼しました（通知で届きます）');
   });
 
   /* ---- SCR-11 attendance grid ---- */
@@ -2558,12 +2745,53 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         '<div class="kvrow"><span>キャストさん相性</span><span>' + compatText(r[5]) + '</span></div>' +
         '<div class="kvrow"><span>LINE 紐付け</span><span>' + (r[6] ? '紐付け済み' : '<span class="badge warn">紐付けがまだ</span>') + '</span></div>' +
         bottleRows(key) +
-        '<button type="button" class="btn secondary small" data-bottle="' + r[0] + ' ' + r[1] + '">ボトルを登録・変更する</button></div>';
+        '<button type="button" class="btn secondary small" data-bottle="' + r[0] + ' ' + r[1] + '">ボトルを登録・変更する</button>' +
+        '<button type="button" class="btn secondary small" data-go="SCR-41" data-acg="' + r[0] + '">会話内容を見る</button></div>';
     }).join('') || '<p class="muted">該当する顧客はいません</p>';
     document.getElementById('gCount').textContent = rows.length + '件';
   }
   gq.addEventListener('input', renderG); gs.addEventListener('change', renderG); renderG();
   cgPick.innerHTML = G.map(function (r) { return '<option value="' + r[0] + '"' + (r[0] === 'No.0145' ? ' selected' : '') + '>' + gName(r[0], r[1]) + '</option>'; }).join('');
+  /* ---- SCR-41: the admin reads and writes the conversation of every customer (F-M07, SC-M10) ---- */
+  var AC_TALK = {
+    'No.0145': [['10/28', 'みなみ', '週末に釣りに行った話。次は秋の旅行の予定を聞く。'], ['10/14', 'みなみ', 'ウイスキーはハイボールより水割りが好み。']],
+    'No.0123': [['11/6', 'あおい', '同僚4人で来店。来月の送別会の相談を受けた。'], ['10/23', 'あおい', '焼酎はお湯割り。仕事の話より旅行の話が好き。']],
+    'No.0112': [['10/30', 'さくら', '仕事の繁忙期が終わったと話していた。次はゴルフの話を聞く。']],
+    'No.0088': [['11/7', 'ゆい', '12名で来店。年末にもう一度大人数で来る予定。']]
+  };
+  var AC_TODO = { 'No.0123': 'あおい', 'No.0112': 'さくら' };
+  var acPick = document.getElementById('acPick'), acInput = document.getElementById('acInput'), acSave = document.getElementById('acSave');
+  acPick.innerHTML = G.map(function (r) { return '<option value="' + r[0] + '"' + (r[0] === 'No.0123' ? ' selected' : '') + '>' + gName(r[0], r[1]) + '</option>'; }).join('');
+  function renderAc(no) {
+    var r = G.filter(function (x) { return x[0] === no; })[0]; if (!r) return;
+    var key = r[0] + ' ' + r[1];
+    document.getElementById('acName').textContent = gName(r[0], r[1]);
+    document.getElementById('acSt').innerHTML = stHtml(r[2]);
+    document.getElementById('acTrait').textContent = r[2] + '・' + (BOTTLE[key] ? 'ボトルあり' : 'ボトルなし') + '・' + r[7];
+    document.getElementById('acVisits').textContent = r[3] + '回（直近12か月）';
+    document.getElementById('acLast').textContent = r[4] + '（直近）';
+    document.getElementById('acCompat').textContent = compatText(r[5]);
+    var todo = document.getElementById('acTodo');
+    todo.hidden = !AC_TODO[no]; todo.textContent = '今日（11/13）の会話内容がまだ記入されていません（接客: ' + (AC_TODO[no] || '') + 'さん）。';
+    document.getElementById('acBottles').innerHTML = (BOTTLE[key] || []).map(function (b, i) {
+      var sp = b.indexOf(' '), tag = (BTAG[key] || [])[i] || '';
+      return '<li><button type="button" class="bt-thumb" data-photo="' + tag + '|' + b.slice(0, sp) + '|' + b.slice(sp + 1) + '" aria-label="写真を大きく見る">' + bottleSvg(tag, b.slice(0, sp)) + '</button><span class="bt-main">ボトルキープ（' + (tag || 'タグなし') + '）<small>ボトル1本（' + b.slice(sp + 1) + '）</small></span></li>';
+    }).join('') || '<li><span class="muted">ボトルキープはありません</span></li>';
+    var tl = document.getElementById('acTalk'); tl.innerHTML = '';
+    (AC_TALK[no] || []).forEach(function (t) { var li = document.createElement('li'); li.innerHTML = '<span class="muted"></span><span></span>'; li.firstChild.textContent = t[0] + '　' + t[1]; li.lastChild.textContent = t[2]; tl.appendChild(li); });
+    if (!tl.firstChild) tl.innerHTML = '<li><span class="muted">これまでの会話の記録はありません（例）</span></li>';
+    acInput.value = ''; acSave.disabled = true;
+  }
+  acPick.addEventListener('change', function () { renderAc(acPick.value); });
+  document.addEventListener('click', function (e) { var b = e.target.closest('[data-acg]'); if (b) { acPick.value = b.dataset.acg; renderAc(b.dataset.acg); } });
+  acInput.addEventListener('input', function () { acSave.disabled = !acInput.value.trim(); });
+  acSave.addEventListener('click', function () {
+    var no = acPick.value; (AC_TALK[no] = AC_TALK[no] || []).unshift(['11/13', '管理者', acInput.value.trim()]); delete AC_TODO[no];
+    renderAc(no);
+    document.getElementById('doneTalkAMsg').textContent = document.getElementById('acName').textContent + 'の会話内容に追加しました。';
+    document.getElementById('doneTalkA').classList.add('show');
+  });
+  renderAc('No.0123');
   /* bottle keep: registered by the admin (F-M30) */
   var btFor = '', btName = document.getElementById('btName'), btAdd = document.getElementById('btAdd');
   function renderBt() {
@@ -2778,7 +3006,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     document.getElementById('asgSeat').textContent = seat;
     document.getElementById('asgCast').textContent = cast + 'さん';
     document.getElementById('drawer2').classList.remove('show');
-    toast('直しました（' + seat + '・' + cast + '）。' + (cast !== before ? cast + 'さんに割り当てを、' + before + 'さんに外れたことを LINE で知らせました' : cast + 'さんに変更を LINE で知らせました'));
+    toast('直しました（' + seat + '・' + cast + '）。' + (cast !== before ? cast + 'さんに割り当てを、' + before + 'さんに外れたことを通知しました' : cast + 'さんに変更を通知しました'));
   });
 
   /* ---- SCR-11 request approval (A-3) ---- */
@@ -2817,7 +3045,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var to = document.querySelector('[data-to][aria-pressed="true"]').textContent;
     bcSend.disabled = true; bcSend.textContent = '送信しました'; dirty = false;
     document.getElementById('bcResult').hidden = !document.getElementById('bcAsk').checked;
-    toast(to + ' に LINE で送信しました');
+    toast(to + (document.getElementById('bcAsk').checked ? ' に送信しました（通知で届きます）' : ' に送信しました（通知は送らず、連絡に未読の印で出します）'));
   });
 
   /* ---- SCR-18 ack (C-3) ---- */
@@ -2826,7 +3054,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   /* ---- SCR-19 notifications (A-10) ---- */
   document.getElementById('nsKeep').addEventListener('click', function () { toast('予約はそのままにしました'); });
   document.getElementById('nsCancel').addEventListener('click', function () { this.disabled = true; document.getElementById('nsKeep').disabled = true; toast('No.0145 M.S. の予約を取り消しました（業務予定から消えます）'); });
-  document.getElementById('nsExtend').addEventListener('click', function () { this.disabled = true; toast('終了時刻を 23:30 に延ばしました。23:30 にもう一度通知します'); });
+  document.getElementById('nsExtend').addEventListener('click', function () { this.disabled = true; toast('終了時刻を 23:30 に延ばしました。23:30 にもう一度この画面に出します'); });
 
   /* ---- SCR-20 first registration (C-1) ---- */
   var cfAgree = document.getElementById('cfAgree'), cfSave = document.getElementById('cfSave');
@@ -2847,7 +3075,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     });
   });
   var lastTalk = 'SCR-19';
-  var TALK_LAST = { 'SCR-19': '予約の終了: テーブル席（No.0123 K.T.・3名）の予定終了…', 'SCR-23': '席の移動のお願い: 21:30 に カウンター C6 へ…', 'SCR-24': '本日のご予約: 今日 21:00・2名のご予約が…' };
+  var TALK_LAST = { 'SCR-19': '予定表はこちらから開けます。', 'SCR-23': '席の移動のお願い: 21:30 に カウンター C6 へ…', 'SCR-24': 'ありがとうございます' };
   document.querySelectorAll('[data-line-back]').forEach(function (b) { b.addEventListener('click', function () {
     lastTalk = b.closest('[data-screen]').dataset.screen; document.getElementById('tlLast').textContent = TALK_LAST[lastTalk]; location.hash = 'SCR-40';
   }); });
@@ -2951,7 +3179,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   document.getElementById('sdFix').addEventListener('click', function () {
     CASTS.forEach(function (c) { var st = stOf(c, sdDay); if (st === 's') setSt(c, sdDay, 'c'); else if (st === 'x') setSt(c, sdDay, 'o'); });
     renderAdminCal(); renderCastCal();
-    toast(dayLabel(sdDay) + ' の提出（出勤・休み）を確定し、キャストに LINE で知らせました');
+    toast(dayLabel(sdDay) + ' の提出（出勤・休み）を確定し、キャストさんに知らせました');
   });
   /* owner override of a confirmed shift (F-C12) */
   document.getElementById('sdList').addEventListener('click', function (e) {
@@ -2959,7 +3187,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var c = b.dataset.ovr, to = stOf(c, sdDay) === 'c' ? 'o' : 'c';
     setSt(c, sdDay, to); OVR[c + sdDay] = 1;
     renderAdminCal(); renderCastCal();
-    toast(dayLabel(sdDay) + ' の' + c + 'を「' + ST[to][0] + '」に変えました。' + c + 'さんに LINE で知らせました（記録に残ります）');
+    toast(dayLabel(sdDay) + ' の' + c + 'を「' + ST[to][0] + '」に変えました。' + c + 'さんのホームに未読の印で知らせました（記録に残ります）');
   });
   document.getElementById('sdDay').addEventListener('click', function () {
     if (sdDay !== TODAY && store === 1) toast('モックでは 11/13 の業務予定を表示します');
@@ -3003,7 +3231,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   });
   document.getElementById('mySubmit').addEventListener('click', function () {
     setSt(ME, myDay, myCan === '1' ? 's' : 'x'); dirty = false;
-    toast(dayLabel(myDay) + (myCan === '1' ? ' に出勤できると提出しました。確定すると LINE で知らせます' : ' を休みとして提出しました。確定すると LINE で知らせます'));
+    toast(dayLabel(myDay) + (myCan === '1' ? ' に出勤できると提出しました。確定するとお知らせします' : ' を休みとして提出しました。確定するとお知らせします'));
     myCan = ''; document.querySelectorAll('[data-can]').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
     document.getElementById('mySubmit').disabled = true;
     renderCastCal(); renderAdminCal();
@@ -3125,10 +3353,10 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   /* ---- SCR-35 announcement ---- */
   var anText = document.getElementById('anText');
   anText.addEventListener('input', function () { document.getElementById('anSend').disabled = !anText.value.trim(); });
-  document.getElementById('anTo').addEventListener('change', function () { document.getElementById('anCount').textContent = this.value.match(/（(\d+)人）/)[1] + '通'; });
-  document.getElementById('anSend').addEventListener('click', function () { this.disabled = true; toast('お知らせを配信しました（' + document.getElementById('anCount').textContent + '）'); });
+  document.querySelectorAll('[data-an]').forEach(function (x) { x.addEventListener('change', function () { var n = [].reduce.call(document.querySelectorAll('[data-an]'), function (a, y) { return a + (y.checked ? Number(y.value) : 0); }, 0); document.getElementById('anCount').textContent = n + '通'; }); });
+  document.getElementById('anSend').addEventListener('click', function () { this.disabled = true; toast('お知らせを画面と LINE VOOM に出し、トークに送りました（' + document.getElementById('anCount').textContent + '）'); });
   /* ---- SCR-36 closing the day ---- */
-  document.getElementById('clAsk').addEventListener('click', function () { this.disabled = true; this.textContent = '頼みました'; toast('あおいさん・みなみさんに会話内容の記入を LINE で頼みました'); });
+  document.getElementById('clAsk').addEventListener('click', function () { this.disabled = true; this.textContent = '頼みました'; toast('あおいさん・みなみさんに会話内容の記入を頼みました'); });
   document.getElementById('clDone').addEventListener('click', function () { this.disabled = true; this.textContent = '締めました'; toast('11/13 の営業を締めました'); });
   /* thumbnails drawn on load */
   document.querySelectorAll('[data-svg]').forEach(function (b) { var p = b.dataset.svg.split('|'); b.innerHTML = bottleSvg(p[0], p[1]); });
@@ -3214,7 +3442,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
       (mvMin ? '<button type="button" class="btn secondary small" data-mv-cancel="' + id + '">取り消す</button>' : '<span class="muted" data-mv-st>届きました</span>');
     var list = document.getElementById('mvList'); list.insertBefore(li, list.firstChild);
     document.getElementById('mvDrawer').classList.remove('show'); document.getElementById('mvMemo').value = ''; document.getElementById('mvPreset').value = '';
-    toast(mvMin ? cast + 'さんに ' + at + ' に届くよう予約しました' : cast + 'さんに LINE で知らせました');
+    toast(mvMin ? cast + 'さんに ' + at + ' に届くよう予約しました' : cast + 'さんに通知しました');
     if (!mvMin) setTimeout(function () { var st = li.querySelector('[data-mv-st]'); if (st) st.textContent = 'わかりました'; }, 1500);
   });
   document.getElementById('mvList').addEventListener('click', function (e) {
@@ -3229,6 +3457,24 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     this.disabled = true; this.textContent = 'わかりました（返しました）';
     var m = document.createElement('div'); m.className = 'msg me'; m.innerHTML = '<div class="bubble"><p>わかりました</p></div><span class="stamp"><span class="read">既読</span>21:30</span>';
     document.getElementById('mvMsg').after(m); toast('管理者に「わかりました」を伝えました');
+  });
+  /* ---- SCR-42 / SCR-44: Web Push settings, customer consultations ---- */
+  document.getElementById('wpAllow').addEventListener('click', function () {
+    this.disabled = true; this.textContent = '許可しました';
+    ['wpS1', 'wpS2', 'wpS3'].forEach(function (id) { var x = document.getElementById(id); x.className = 'badge ok'; x.textContent = '済み'; });
+    var st = document.getElementById('wpState'); st.className = 'badge ok'; st.textContent = '設定済み';
+    document.getElementById('wpTest').disabled = false;
+    var n = document.getElementById('wpNote'); if (n) n.hidden = true;
+    toast('通知を許可しました（モックでは例です）');
+  });
+  document.getElementById('wpTest').addEventListener('click', function () { toast('試しの通知を送りました（スマホの通知で届きます）'); });
+  document.getElementById('cqOpen').addEventListener('click', function () { document.getElementById('cqDrawer').classList.add('show'); });
+  var cqText = document.getElementById('cqText');
+  cqText.addEventListener('input', function () { dirty = true; document.getElementById('cqSend').disabled = !cqText.value.trim(); });
+  document.getElementById('cqSend').addEventListener('click', function () {
+    closeSheet(document.getElementById('cqDrawer'));
+    var b = document.getElementById('cqOpen'); b.replaceWith(Object.assign(document.createElement('span'), { className: 'badge ok', textContent: '返事済み' }));
+    toast('YO さんに返事を送りました（LINE で1通）');
   });
   /* ---- SCR-34: 席のご希望 ---- */
   document.getElementById('mrSave').addEventListener('click', function () { document.getElementById('myRvPriv').textContent = document.getElementById('mrPref').value; });
