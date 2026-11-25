@@ -703,16 +703,6 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
 .inbox li { display: grid; grid-template-columns: 1fr auto; gap: var(--space-8); align-items: center; min-height: 48px; border-bottom: 1px solid var(--color-slate-100); font-size: var(--fs-14); }
 .inbox li:last-child { border-bottom: 0; }
 .inbox li small { display: block; color: var(--color-slate-700); font-size: var(--fs-12); }
-.lock { display: flex; flex-direction: column; gap: var(--space-8); padding: var(--space-16); border-radius: var(--radius-12); background: var(--color-slate-800); }
-.lock .lk-time { color: var(--color-white); font-size: var(--fs-24); font-weight: 700; text-align: center; }
-.lock .lk-date { color: var(--color-slate-200); font-size: var(--fs-12); text-align: center; }
-.wp { display: block; width: 100%; min-height: 48px; padding: var(--space-12); border: 0; border-radius: var(--radius-12); background: var(--color-white); color: var(--color-primary); font: inherit; text-align: left; cursor: pointer; }
-.wp:hover { background: var(--color-slate-50); }
-.wp:active { background: var(--color-slate-100); }
-.wp:disabled { color: var(--color-slate-500); cursor: not-allowed; }
-.wp b { display: block; font-size: var(--fs-14); }
-.wp small { display: block; color: var(--color-slate-700); font-size: var(--fs-12); }
-.wp .wp-app { display: block; color: var(--color-slate-700); font-size: var(--fs-12); }
 </style>
 </head>
 <body>
@@ -729,7 +719,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
   <h2>資料（PDF）</h2>
   <ul class="start-list">
     <li><a data-pdf="06_画面遷移フロー.pdf" href="06_画面遷移フロー.pdf" target="_blank" rel="noopener">画面遷移フロー（ロール別・A3 横1枚）</a></li>
-    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener" id="pdf07">画面遷移フロー（画面イメージつき・A3 横7ページ）</a></li>
+    <li><a data-pdf="07_画面遷移フロー_画面イメージつき.pdf" href="07_画面遷移フロー_画面イメージつき.pdf" target="_blank" rel="noopener" id="pdf07">画面遷移フロー（画面イメージつき・A3 横6ページ）</a></li>
   </ul>
   <div id="rolePages">
     <h2>立場ごとのページ</h2>
@@ -851,7 +841,6 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
               <div class="row"><h2>今日 11/13（金）</h2><span class="badge">お休み</span></div>
               <p class="when">今日の出勤はありません</p>
             </div>
-            <div class="notice info wide" id="wpNote"><p>スマホの通知がまだ設定されていません。設定すると、急ぐお知らせがすぐ届きます。</p><button type="button" class="btn secondary small" data-go="SCR-42">通知を設定する</button></div>
             <div class="card wide">
               <div class="sec-head"><h3>お知らせ <span class="badge ng">2件</span></h3></div>
               <ul class="inbox">
@@ -878,7 +867,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <p class="cnote up"><b class="cn-l">説明</b>上の「メニュー」: 必要な機能を選んで使えます。お店に合わせて、表示する機能を選べます。</p>
           <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-04"><span>割り当て</span></button><button type="button" class="tile" data-go="SCR-05"><span>お客さん</span></button><button type="button" class="tile" data-go="SCR-15"><span>店内状況</span></button><button type="button" class="tile" data-go="SCR-16"><span>勤怠の申請</span></button><button type="button" class="tile" data-go="SCR-07"><span>追加出勤の依頼</span></button><button type="button" class="tile" data-go="SCR-18"><span>店からの連絡</span></button></div>
           <h2>補助メニュー</h2>
-          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-06"><span>出退勤の記録</span></button><button type="button" class="tile" data-go="SCR-37"><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-39"><span>遅刻・欠勤の連絡</span></button><button type="button" class="tile" data-go="SCR-42"><span>通知の設定</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
+          <div class="tiles mtiles"><button type="button" class="tile" data-go="SCR-27"><span>シフト</span></button><button type="button" class="tile" data-go="SCR-06"><span>出退勤の記録</span></button><button type="button" class="tile" data-go="SCR-37"><span>自分の給与試算</span></button><button type="button" class="tile" data-go="SCR-39"><span>遅刻・欠勤の連絡</span></button><button type="button" class="tile" data-go="SCR-20"><span>初回の登録（例）</span></button><button type="button" class="tile" data-go="SCR-23"><span>LINE のトーク（例）</span></button><button type="button" class="tile add" data-addmenu><span>追加メニュー<br><small>機能を足せます</small></span></button></div>
         </div>
         <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" aria-current="page" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
       </section>
@@ -1616,9 +1605,9 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
             </div></div>
           <div class="field"><label for="bcText">本文</label><textarea id="bcText" class="textarea" placeholder="例: 23時から VIP席に12名の予約があります。"></textarea></div>
           <label class="checkrow"><input type="checkbox" id="bcAsk" checked><span>「確認しました」を求める</span></label>
-          <p class="hint">「確認しました」を求める連絡は、キャストさんに通知で届きます。求めない連絡は通知を送らず、キャストさんの「連絡」に未読の印で出します。</p>
+          <p class="hint">「確認しました」を求める連絡は、キャストさんの LINE に届きます。求めない連絡は LINE に送らず、キャストさんの「連絡」に未読の印で出します。</p>
           <button type="button" class="btn block" id="bcSend" disabled>送信する</button>
-          <p class="cnote up"><b class="cn-l">説明</b>このボタン: 通知は、通知の設定をしたキャストさんにはスマホの通知（Web Push）で、していない人には LINE で届きます。LINE 公式アカウントは、月に送れる通数に上限があります（プランは確認中）。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>このボタン: LINE 公式アカウントは、月に送れる通数に上限があります（ライトプラン: 月5,000通）。</p>
           <div class="card" id="bcResult" hidden>
             <div class="row"><h3>確認の状況</h3><span class="muted" id="bcCount">確認 1 / 3</span></div>
             <ul class="who-list">
@@ -1725,7 +1714,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <span class="lh-icons"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span>
         </div>
         <div class="m-body line-bg">
-          <p class="cnote up"><b class="cn-l">説明</b>この画面は<strong>キャストさん</strong>の LINE のトーク画面（一例）です。お店の LINE 公式アカウントのメニュー（「シフトはこちら」など）から店舗管理ツールに入ります。下のお知らせは、スマホの通知（Web Push）を設定していないとき、または通知が届かなかったときに LINE で届くものです。設定していれば、スマホの通知で届きます（通知の例は「通知の設定」から見られます）。</p>
+          <p class="cnote up"><b class="cn-l">説明</b>この画面は<strong>キャストさん</strong>の LINE のトーク画面（一例）です。お店の LINE 公式アカウントのメニュー（「シフトはこちら」など）から店舗管理ツールに入ります。</p>
           <div class="talk">
             <p class="time"><span>11/13（金）</span></p>
             <div class="msg"><span class="avatar" aria-hidden="true">店</span><div class="bubble"><span class="from">本日の対応予定</span>
@@ -2017,14 +2006,13 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
           <button type="button" class="btn block" id="castNew">新規登録</button>
           <div class="card">
             <ul class="klist" id="castList">
-              <li><span>あおいさん<small>誕生日 4/2・相性1番のお客さん 3人・通知: 設定済み</small></span><button type="button" class="btn secondary small" data-cast-edit="あおい">編集</button></li>
-              <li><span>みなみさん<small>誕生日 7/19・相性1番のお客さん 1人・通知: まだ（LINE で届く）</small></span><button type="button" class="btn secondary small" data-cast-edit="みなみ">編集</button></li>
-              <li><span>さくらさん<small>誕生日 11/13・相性1番のお客さん 1人・通知: 設定済み</small></span><button type="button" class="btn secondary small" data-cast-edit="さくら">編集</button></li>
-              <li><span>ゆいさん<small>誕生日 11/24・相性1番のお客さん 2人・通知: 設定済み</small></span><button type="button" class="btn secondary small" data-cast-edit="ゆい">編集</button></li>
+              <li><span>あおいさん<small>誕生日 4/2・相性1番のお客さん 3人</small></span><button type="button" class="btn secondary small" data-cast-edit="あおい">編集</button></li>
+              <li><span>みなみさん<small>誕生日 7/19・相性1番のお客さん 1人</small></span><button type="button" class="btn secondary small" data-cast-edit="みなみ">編集</button></li>
+              <li><span>さくらさん<small>誕生日 11/13・相性1番のお客さん 1人</small></span><button type="button" class="btn secondary small" data-cast-edit="さくら">編集</button></li>
+              <li><span>ゆいさん<small>誕生日 11/24・相性1番のお客さん 2人</small></span><button type="button" class="btn secondary small" data-cast-edit="ゆい">編集</button></li>
             </ul>
           </div>
           <p class="hint">名前は店での呼び名だけを登録します。誕生日は月日だけで、お客さんの画面にも出ます。</p>
-          <p class="cnote up"><b class="cn-l">説明</b>上の一覧の「通知」: スマホの通知（Web Push）を設定したかどうかです。「まだ」の人には、急ぐお知らせが LINE で届きます（LINE の通数に入ります）。表示のしかたは確認中です。</p>
         </div>
         <div class="drawer" id="castDrawer" role="dialog" aria-label="キャストさんの登録・編集">
           <h2 id="castTitle">キャストさんを登録する</h2>
@@ -2277,58 +2265,6 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
         </div>
       </section>
 
-      <!-- SCR-42 通知の設定（キャスト） -->
-      <section data-screen="SCR-42" data-device="mobile" data-name="通知の設定（キャスト）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">店舗管理ツール 一号店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
-        <div class="liff-bar">
-          <button type="button" class="back" data-go="SCR-21" aria-label="戻る">‹</button>
-          <h1>通知の設定</h1>
-          <span class="badge info role">キャスト</span>
-        </div>
-        <div class="m-body">
-          <div class="card">
-            <div class="row"><h3>スマホの通知</h3><span class="badge warn" id="wpState">まだ設定していません</span></div>
-            <p class="muted">設定すると、急ぐお知らせ（その日の対応予定・割り当ての変更・席の移動のお願い・追加出勤のお願い・確認を求める連絡）が、スマホの通知ですぐ届きます。</p>
-          </div>
-          <h2>設定の手順</h2>
-          <div class="card">
-            <ul class="klist">
-              <li><span>1. ブラウザで開く<small>Safari（iPhone）か Chrome（Android）で、このツールを開きます</small></span><span class="badge" id="wpS1">まだ</span></li>
-              <li><span>2. ホーム画面に追加する<small>共有メニューの「ホーム画面に追加」を押します</small></span><span class="badge" id="wpS2">まだ</span></li>
-              <li><span>3. 通知を許可する<small>ホーム画面のアイコンから開き、下のボタンを押して「許可」を選びます</small></span><span class="badge" id="wpS3">まだ</span></li>
-            </ul>
-          </div>
-          <p class="cnote up"><b class="cn-l">説明</b>上の手順: iPhone は iOS 16.4 以上が必要です。LINE の中で開いた画面では、通知を受け取れない見込みです。手順・本人の確かめ方・機種を変えたときのやり直しは確認中です。</p>
-          <button type="button" class="btn block" id="wpAllow">通知を許可する</button>
-          <button type="button" class="btn secondary block" id="wpTest" disabled>試しに通知を送る</button>
-          <p class="hint">設定しないときや、通知が届かなかったときは、これまでどおり LINE で届きます。</p>
-          <button type="button" class="btn secondary block" data-go="SCR-43">通知の例を見る</button>
-        </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
-      </section>
-
-      <!-- SCR-43 スマホの通知の例（キャスト） -->
-      <section data-screen="SCR-43" data-device="mobile" data-name="スマホの通知の例（キャスト）" class="m-screen">
-        <div class="liff-head"><span class="lh-title">店舗管理ツール 一号店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
-        <div class="liff-bar">
-          <button type="button" class="back" data-go="SCR-42" aria-label="戻る">‹</button>
-          <h1>スマホの通知の例</h1>
-          <span class="badge info role">キャスト</span>
-        </div>
-        <div class="m-body">
-          <p class="cnote down"><b class="cn-l">説明</b>下の画面: スマホのロック画面に届く通知の例です（一例。見た目は機種で変わります）。押すと、その画面が開きます。</p>
-          <div class="lock">
-            <p class="lk-time">21:30</p>
-            <p class="lk-date">11月13日（金）</p>
-            <button type="button" class="wp" data-toast="開くと、移動の内容と「わかりました」のボタンが出ます（この画面は確認中のため、モックにはありません）"><span class="wp-app">店舗管理ツール・21:30</span><b>席の移動のお願い</b><small>21:30 に カウンター C6 へ。ひとこと: グラスは持ち帰り</small></button>
-            <button type="button" class="wp" data-go="SCR-04"><span class="wp-app">店舗管理ツール・21:02</span><b>割り当ての変更</b><small>21:00〜 カウンター C4・C5 ／ No.0145 M.S.</small></button>
-            <button type="button" class="wp" data-go="SCR-21"><span class="wp-app">店舗管理ツール・19:00</span><b>本日の対応予定</b><small>みなみ さん、今日の予定です。21:00〜 カウンター C4・C5</small></button>
-          </div>
-          <p class="hint">通知に「わかりました」などを返すときは、開いた画面のボタンで返します。</p>
-        </div>
-        <nav class="bottom-nav" aria-label="メニュー" style="grid-template-columns: repeat(4, 1fr)"><button type="button" data-go="SCR-21"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9H3z"/></svg>ホーム</button><button type="button" data-go="SCR-04"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>割り当て</button><button type="button" data-go="SCR-27"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>シフト調整</button><button type="button" data-go="SCR-18"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 16V11a6 6 0 0112 0v5l2 2H4z"/><path d="M10 20a2 2 0 004 0"/></svg>連絡<span class="nav-dot" data-unread aria-label="新しい連絡 1件">1</span></button></nav>
-      </section>
-
       <!-- SCR-44 お客さんからの相談（管理者） -->
       <section data-screen="SCR-44" data-device="mobile" data-name="お客さんからの相談（管理者）" class="m-screen">
         <div class="liff-head"><span class="lh-title">店舗管理ツール 一号店</span><button type="button" class="lh-close" data-liff-close aria-label="閉じて LINE のトークに戻る">×</button></div>
@@ -2386,8 +2322,8 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
       screens: ['SCR-19', 'SCR-01', 'SCR-02', 'SCR-03', 'SCR-14', 'SCR-28', 'SCR-29', 'SCR-26', 'SCR-10', 'SCR-11', 'SCR-12', 'SCR-13', 'SCR-41', 'SCR-17', 'SCR-30', 'SCR-31', 'SCR-32', 'SCR-33', 'SCR-35', 'SCR-44', 'SCR-36', 'SCR-40'] },
     cast: { name: 'キャスト', page: 5, lead: 'キャストが LINE の中で使う画面です。下のボタンから、キャストの LINE のトークを開いて始めます。',
       cards: [['SCR-23', 'キャストとして見る', '出勤・退勤、シフト、本日の割り当て、お客さんの情報、勤怠の申請']],
-      screens: ['SCR-23', 'SCR-21', 'SCR-27', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18', 'SCR-37', 'SCR-39', 'SCR-42', 'SCR-43', 'SCR-40'] },
-    guest: { name: 'お客さん', page: 7, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
+      screens: ['SCR-23', 'SCR-21', 'SCR-27', 'SCR-04', 'SCR-05', 'SCR-15', 'SCR-06', 'SCR-16', 'SCR-07', 'SCR-18', 'SCR-37', 'SCR-39', 'SCR-40'] },
+    guest: { name: 'お客さん', page: 6, lead: 'お客さんが LINE の中で使う画面です。下のボタンから、お客さんの LINE のトークを開いて始めます。',
       cards: [['SCR-24', 'お客さんとして見る', '空き状況と来店予約、今日出勤しているキャスト']],
       screens: ['SCR-24', 'SCR-22', 'SCR-08', 'SCR-34', 'SCR-38', 'SCR-40'] },
     register: { name: '登録用', page: 1, lead: '初めて使う人が登録する画面と、登録していない人が開いたときの案内です。登録が終わると、その人の立場のホームに進みます。',
@@ -2629,7 +2565,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     if (!names.length) { toast('依頼するキャストさんを選んでください'); return; }
     closeSheet(document.getElementById('askDrawer'));
     var b = document.getElementById('hmAsk'); b.disabled = true; b.textContent = '依頼しました（' + names.join('・') + ' さん・応答待ち）';
-    toast(names.join('・') + ' さんに追加出勤を依頼しました（通知で届きます）');
+    toast(names.join('・') + ' さんに追加出勤を依頼しました（LINE で届きます）');
   });
   document.addEventListener('click', function (e) { if (e.target.closest('[data-addmenu]')) toast('お店に合わせて機能を足せます（例: イベントの受付、売上のメモ）。モックでは例です'); });
 
@@ -2641,7 +2577,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var names = askBoxes.filter(function (x) { return x.checked; }).map(function (x) { return x.value; });
     askBtn.disabled = true; askBtn.textContent = '依頼しました';
     document.getElementById('askState').textContent = names.join('・') + ' さん: 応答待ち';
-    toast(names.join('・') + ' さんに追加出勤を依頼しました（通知で届きます）');
+    toast(names.join('・') + ' さんに追加出勤を依頼しました（LINE で届きます）');
   });
 
   /* ---- SCR-11 attendance grid ---- */
@@ -3045,7 +2981,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var to = document.querySelector('[data-to][aria-pressed="true"]').textContent;
     bcSend.disabled = true; bcSend.textContent = '送信しました'; dirty = false;
     document.getElementById('bcResult').hidden = !document.getElementById('bcAsk').checked;
-    toast(to + (document.getElementById('bcAsk').checked ? ' に送信しました（通知で届きます）' : ' に送信しました（通知は送らず、連絡に未読の印で出します）'));
+    toast(to + (document.getElementById('bcAsk').checked ? ' に送信しました（LINE で届きます）' : ' に送信しました（通知は送らず、連絡に未読の印で出します）'));
   });
 
   /* ---- SCR-18 ack (C-3) ---- */
@@ -3458,16 +3394,7 @@ fieldset.field legend, .flabel { font-size: var(--fs-14); font-weight: 700; colo
     var m = document.createElement('div'); m.className = 'msg me'; m.innerHTML = '<div class="bubble"><p>わかりました</p></div><span class="stamp"><span class="read">既読</span>21:30</span>';
     document.getElementById('mvMsg').after(m); toast('管理者に「わかりました」を伝えました');
   });
-  /* ---- SCR-42 / SCR-44: Web Push settings, customer consultations ---- */
-  document.getElementById('wpAllow').addEventListener('click', function () {
-    this.disabled = true; this.textContent = '許可しました';
-    ['wpS1', 'wpS2', 'wpS3'].forEach(function (id) { var x = document.getElementById(id); x.className = 'badge ok'; x.textContent = '済み'; });
-    var st = document.getElementById('wpState'); st.className = 'badge ok'; st.textContent = '設定済み';
-    document.getElementById('wpTest').disabled = false;
-    var n = document.getElementById('wpNote'); if (n) n.hidden = true;
-    toast('通知を許可しました（モックでは例です）');
-  });
-  document.getElementById('wpTest').addEventListener('click', function () { toast('試しの通知を送りました（スマホの通知で届きます）'); });
+  /* ---- SCR-44: customer consultations ---- */
   document.getElementById('cqOpen').addEventListener('click', function () { document.getElementById('cqDrawer').classList.add('show'); });
   var cqText = document.getElementById('cqText');
   cqText.addEventListener('input', function () { dirty = true; document.getElementById('cqSend').disabled = !cqText.value.trim(); });
